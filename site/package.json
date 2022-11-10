@@ -1,0 +1,12 @@
+{
+  "name": "site",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "oss":"..\\tools\\ossutil64\\ossutil64.exe sync ./ oss://site-wcex/ --delete -u -f && ..\\tools\\ossutil64\\ossutil64.exe set-meta oss://site-wcex/go Content-Type:text/html -u -f"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
