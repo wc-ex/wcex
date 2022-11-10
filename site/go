@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>WCEX</title>
+    <meta name="viewport" content="initial-scale=1.0,width=device-width" />
+    <style>
+      html,
+      body,
+      #frame {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        border: none;
+        padding: 0;
+        margin: 0;
+      }
+    </style>
+  </head>
+
+  <!-- referrerpolicy="same-origin"
+  sandbox="allow-forms allow-same-origin allow-storage-access-by-user-activation allow-scripts allow-top-navigation allow-top-navigation-by-user-activation allow-popups " -->
+
+  <body>
+    <iframe
+      id="frame"
+      title="wcex"
+    ></iframe>
+  </body>
+
+  <script>
+    var npm = "https://cdn.jsdelivr.net/";
+    var url =
+      npm +
+      (location.search.endsWith(".html")
+        ? location.search
+        : location.search + "/index.html"
+      ).slice(1);
+    document.title = location.search.slice(1);
+
+    console.log("url:", url);
+    // document.getElementById("frame").src = url;
+
+    fetch(url)
+      .then((v) => v.text())
+      .then((v) => {
+        console.log("html:", v);
+        document.getElementById("frame").srcdoc =v
+        //   "data:text/html;base64," + btoa(v);
+        //   document.getElementById("frame").src = data;
+      });
+    // var data =
+    //   "data:text/html;<h1></h1>ata:text/html,%3Ch1%3EHello1%2C%20World!%3C%2Fh1%3E";
+  </script>
+</html>
