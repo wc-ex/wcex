@@ -2,6 +2,9 @@
 <meta name="scope" counter.int="999" />
 
   <style>
+    :host{
+        display: block;
+    }
     img {
       width: 128px;
       height: 128px;
@@ -9,7 +12,8 @@
   </style>
   <h1>Main</h1>
   <img $src="$path('./assets/logo.png')" />
-  <ui-icon size="4" $color="$color.sec" src="@/@material-design-icons/svg/filled/person.svg" @click="counter*=100" ></ui-icon> 
-
-  <h3 :>点击图标增加计数器: ${counter}</h3>
+  <div style="display: flex; ">
+    <ui-icon size="4" $color="$color.sec" src="@/@material-design-icons/svg/filled/person.svg" @click="counter*=100" active ></ui-icon> 
+    <h3 :>点击图标增加计数器: ${counter}</h3>  
+  </div>
 </template>
