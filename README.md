@@ -177,9 +177,14 @@ The following are main features:
 
      > 使用任何一个http服务器挂载主目录，如: _http-server_ (npm install -g http-server), 打开浏览器即可看到效果。
 - Online(在线)
+  - You can direct run from NPM or Github.
+  - 你可直接通过发布的NPM仓库包或者github运行
+  npm: [](https://wc-ex.com/go?npm/@wcex/example-basic/index.html)
+  github: [](https://wc-ex.com/go?gh/wc-ex/wcex@main/example-basic/index.html)
 
-  在线测试: (https://wc-ex.com/go?@wcex/example-basic/index.html)
+  - These using  https://cdn.jsdelivr.net as CDN, you can replace URL to load your project.
+  - 上述地址使用 https://cdn.jsdelivr.net 作为CDN，你可替换对应URL加载自己的项目。
 
 ### Documents
-
+  npm: [](https://wc-ex.com/go?npm/@wcex/doc/index.html)
 ### Update
