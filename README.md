@@ -168,9 +168,9 @@ The following are main features:
 
 
         > - _`border: ":${conter%10}px solid red";`_
-        > You can see that data binding can be used directly in the style, and the format requires the use of**"** or**'** Include, the first character in quotation marks indicates whether to use \$ or \: quotation, the format is the same as above.
+        > You can see that data binding can be used directly in the style, and the format requires the use of " or ' Include, the first character in quotation marks indicates whether to use \$ or \: quotation, the format is the same as above.
 
-        > 可以看到,数据绑定可直接使用在 style 中, 格式要求使用 **"** 或者 **'**包括, 引号内第一个字符代表使用 \$ 还是 \:引用, 格式同上.
+        > 可以看到,数据绑定可直接使用在 style 中, 格式要求使用 " 或者 ' , 引号内第一个字符代表使用 \$ 还是 \:引用, 格式同上.
 
     - Run(运行):
      > Mount the home directory using any HTTP server, such as _http-server_ (npm install -g http-server), open the browser to see the effect.
