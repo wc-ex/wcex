@@ -1,13 +1,16 @@
 <template @timer="counter++">
-<meta name="scope" counter.int="999" />
+<meta name="scope" counter.int="999" large.bool="0"/>
 
   <style>
     :host{
-        display: block;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
     img {
-      width: 128px;
-      height: 128px;
+      width: ":${large?128:256}px";
+      height: ":${large?128:256}px";
+      transition: all 0.5s cubic-bezier(.28,-0.46,.59,1.41);
     }
   </style>
   <h1>Main</h1>
@@ -15,5 +18,10 @@
   <div style="display: flex; ">
     <ui-icon size="4" $color="$color.sec" src="@/@material-design-icons/svg/filled/person.svg" @click="counter+=100" active="1" ></ui-icon> 
     <h3 :>点击图标增加计数器: ${counter}</h3>  
+  </div>
+
+  <div style="display: flex; ">
+    <ui-icon size="4" $color="$color.ok" src="@/@material-design-icons/svg/filled/bedroom_baby.svg" @click="large=!large" active="1" ></ui-icon> 
+    <h3 :>点击图标看动画: ${counter}</h3>  
   </div>
 </template>
