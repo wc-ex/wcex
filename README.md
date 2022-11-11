@@ -184,7 +184,7 @@ The following are main features:
   - 你可直接通过发布的NPM仓库包或者github运行
   > npm: (https://wc-ex.com/go?npm/@wcex/example-basic/index.html)
 
-  > github: (https://wc-ex.com/go?gh/wc-ex/wcex@main/example-basic/index.html)
+  > github: (https://wc-ex.com/go?gh/wc-ex/wcex@main/example/basic/index.html)
 
   - These using  https://cdn.jsdelivr.net as CDN, you can replace URL to load your project.
   - 上述地址使用 https://cdn.jsdelivr.net 作为CDN，你可替换对应URL加载自己的项目。
