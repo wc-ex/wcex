@@ -35,16 +35,20 @@
         ? location.search
         : location.search + "/index.html"
       ).slice(1);
+    var path =url.replace(/^(.*)\/.+?\.html$/,'$1');
     document.title = location.search.slice(1);
-
+    console.log("path:", path);
     console.log("url:", url);
-    // document.getElementById("frame").src = url;
 
     fetch(url)
       .then((v) => v.text())
       .then((v) => {
         console.log("html:", v);
-        // 自动处理标签
+        // 自动处理root或者添加root标签
+        let m = v.match(/<meta\s+name="root".+?>/g);
+        if(m){
+          v.replace(/<meta\s+name="root".+?>/g,``)
+        }
         document.getElementById("frame").srcdoc =v
         //   "data:text/html;base64," + btoa(v);
         //   document.getElementById("frame").src = data;
