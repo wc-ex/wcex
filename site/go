@@ -44,6 +44,7 @@
       .then((v) => v.text())
       .then((v) => {
         console.log("html:", v);
+        // 自动处理标签
         document.getElementById("frame").srcdoc =v
         //   "data:text/html;base64," + btoa(v);
         //   document.getElementById("frame").src = data;
