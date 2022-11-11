@@ -182,7 +182,7 @@ The following are main features:
 - Online(在线)
   - You can direct run from NPM or Github.
   - 你可直接通过发布的NPM仓库包或者github运行
-  > npm: (https://wc-ex.com/go?npm/@wcex/example-basic/index.html)
+  > npm: (https://wc-ex.com/go?npm/@wcex/example-basic@1.0.8/index.html)
 
   > github: (https://wc-ex.com/go?gh/wc-ex/wcex@18ff028/example/basic/index.html)
 
