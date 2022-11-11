@@ -46,8 +46,11 @@
         console.log("html:", v);
         // 自动处理root或者添加root标签
         let m = v.match(/<meta\s+name="root".+?>/g);
+        var newRoot = `<meta name="root" content="${path}" >`
         if(m){
-          v.replace(/<meta\s+name="root".+?>/g,``)
+          v = v.replace(/<meta\s+name="root".+?>/,newRoot)
+        }else{
+          v = v.replace(/<script /,newRoot+"\n<script ")
         }
         document.getElementById("frame").srcdoc =v
         //   "data:text/html;base64," + btoa(v);
