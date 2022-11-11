@@ -1,5 +1,5 @@
 <template @timer="counter++">
-<meta name="scope" counter.int="999" large.bool="0"/>
+<meta name="scope" counter.int="999" small.bool="0"/>
 
   <style>
     :host{
@@ -8,8 +8,8 @@
         align-items: center;
     }
     img {
-      width: ":${large?128:256}px";
-      height: ":${large?128:256}px";
+      width: ":${small?128:256}px";
+      height: ":${small?128:256}px";
       transition: all 0.5s cubic-bezier(.28,-0.46,.59,1.41);
     }
   </style>
@@ -21,7 +21,7 @@
   </div>
 
   <div style="display: flex; ">
-    <ui-icon size="4" $color="$color.ok" src="@/@material-design-icons/svg/filled/bedroom_baby.svg" @click="large=!large" active="1" ></ui-icon> 
+    <ui-icon size="4" $color="$color.ok" src="@/@material-design-icons/svg/filled/bedroom_baby.svg" @click="small=!small" active="1" ></ui-icon> 
     <h3 :>点击图标看动画: ${counter}</h3>  
   </div>
 </template>
