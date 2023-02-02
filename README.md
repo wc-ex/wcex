@@ -5,6 +5,7 @@
 > Dynamic Native WebComponent MVVM Library, Free and MIT license. This repos includes Usage, Doc, Ui, Not include Sources, opensource will be later.
 
 > 动态原生WEB组件数据绑定库，免费使用（MIT）。这个仓库包括：使用说明，文档，样例，UI库，但不包含源码，开源将在晚些时候。
+> 示例DEMO: https://wc-ex.com/go?gh/wc-ex/wcex@main/example/basic/index.html
 
 ### Introduction(简介)
 
