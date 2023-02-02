@@ -1,0 +1,52 @@
+<!-- 
+  全局弹出窗口，窗口弹出在
+  弹出框，动态弹出区域
+  dir: l|r|t|b 弹出的方向，上下左右，[输出]
+  width: 菜单宽度（最小宽度 8em ）,0 为和父窗口一致
+  open: 输入/输出 支持双向绑定，判断当前状态
+  round: 圆角,设定为"" 
+  vert: // 是否垂直方向弹出, 水平方向自动探测
+ -->
+<template
+  open.bool="false"
+  $color="$color.pri.l2_"
+  dir="t"
+  vert.bool="0"
+  x.int="0"
+  y.int="0"
+  @pop.stop="open=true;"
+  @close.stop="open=false;"
+>
+  <style>
+    /* 主元素用于元素定位，并进行裁剪 */
+    :host {
+      /* 裁剪区域，用于实现滑动效果 */
+      display: block;
+      position: absolute;
+      visibility: "$open?'visible':'hidden'";
+      z-index: 999;
+      left: ":${x}px";
+      top: ":${y}px";
+      overflow: hidden;
+    }
+    slot {
+      display: block;
+      background-color: "$color.l2.a1_";
+      position: relative;
+      left: "$popPos.left";
+      top: "$popPos.top";
+      transition: all 0.35s ease-out;
+      border-radius: inherit;
+    }
+  </style>
+  <!-- 动画区域层 -->
+  <slot
+    @animationstart="$emit('ani',1)"
+    @animationend="$emit('ani',0)"
+    @animationcancel="$emit('ani',0)"
+    @transitionstart="$emit('ani',1)"
+    @transitionend="$emit('ani',0)"
+    @transitioncancel="$emit('ani',0)"
+  ></slot>
+  <script scope="." src="."></script>
+</template>

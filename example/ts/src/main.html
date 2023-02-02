@@ -1,0 +1,32 @@
+<template @timer="counter++">
+<meta name="scope" counter.int="999" small.bool="1"/>
+
+  <!-- 引用了外部的lodash包 -->
+  <meta name="module" pkg="lodash" content="lodash.min.js">
+
+  <style>
+    :host{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    img {
+      width: ":${small?128:256}px";
+      height: ":${small?128:256}px";
+      transition: all 0.5s cubic-bezier(.28,-0.46,.59,1.41);
+    }
+  </style>
+  <h1>Main</h1>
+  <img $src="$path('./assets/logo.png')" />
+  <div style="display: flex; ">
+    <ui-icon size="4" $color="$color.sec" src="@/@material-design-icons/svg/filled/person.svg" @click="counter+=100" active="1" ></ui-icon> 
+    <h3 :>点击图标增加计数器: ${counter}</h3>  
+  </div>
+
+  <div style="display: flex; ">
+    <ui-icon size="4" $color="$color.ok" src="@/@material-design-icons/svg/filled/bedroom_baby.svg" @click="small=!small" active="1" ></ui-icon> 
+    <h3 :>点击图标看动画: ${counter*5}</h3>  
+  </div>
+  
+</template>
+

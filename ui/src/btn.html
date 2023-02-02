@@ -1,0 +1,58 @@
+<!-- 
+    通用按钮
+    组合图标, 提示, 弹出菜单等
+-->
+
+<template
+  tabindex="0"
+  vert.bool="0"
+  icon=""
+  icon-size.float="1.5"
+  $color="$color.pri"
+  $icon-color="color"
+  tips=""
+  tips-marked=""
+  pop.bool="0"
+  round.bool="1"
+  border.bool="0"
+  flat.bool="0"
+>
+  <meta name="scope" />
+  <style>
+    :host {
+      display: flex;
+      position: relative;
+      flex-direction: "$vert?'column':'row'";
+      align-items: center;
+      border-radius: "$round?'5px':'0'";
+      background-color: "$flat?'none':color";
+      border: "$border?'2px solid '+color.l2_:'none'";
+      padding: 0.2em;
+      color: "$color.l8_";
+      transition: all 0.5s;
+      outline: 0px solid transparent;
+    }
+    :host(:hover) {
+      background-color: "$flat?'unset':$color.l1";
+      /* border: 1.5px solid chartreuse; */
+      outline: 1.5px solid "$color.a5_";
+    }
+    :host(:focus),
+    :host(:focus-within) {
+      outline: 1.5px solid "$color.l2_.a3_";
+    }
+    :host(:active) {
+      background-color: "$color.l3";
+    }
+    slot[name] {
+      color: blue;
+    }
+  </style>
+  <icon- $src="$rootScope.icon" $size="iconSize" $color="$rootScope.iconColor"></icon->
+  <!-- 缺省文本 -->
+  <slot></slot>
+  <tips- $if="tipsMarked || tips">
+    <pre $if="tips" $>tips</pre>
+    <marked- $if="tipsMarked" $>tipsMarked</marked->
+  </tips->
+</template>

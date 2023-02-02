@@ -1,0 +1,62 @@
+<!-- wcex ui -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="hot" />
+    <meta name="npm" content="https://dev.magicmind.cn/npm/" />
+    <meta name="colors" mode="1" />
+
+    <!-- <script src="http://127.0.0.1:9999/index.js"></script> -->
+    <script src="https://dev.magicmind.cn/npm/wcex@1.6.51/index.js"></script>
+
+    <style>
+      html,
+      body,
+      app- {
+        width: 100%;
+        height: 100%;
+        padding: 0;
+        margin: 0;
+      }
+    </style>
+
+    <!-- 布局节点，由编辑器生成 -->
+    <style name="layout">
+      body {
+        overflow: hidden;
+        font-size: 14px;
+        display: grid;
+        grid-template-columns: auto 1fr;
+        grid-template-rows: 4em 1fr 2em;
+        transition: all 1s;
+        letter-spacing: 0.1em;
+      }
+
+      layout-main {
+        grid-column: 2/-1;
+        grid-row: 2/-1;
+      }
+
+      layout-left {
+        grid-column: 1/2;
+        grid-row: 2/-1;
+      }
+
+      layout-title {
+        grid-column: 1/-1;
+        grid-row: 1/1;
+      }
+
+      layout-footer {
+        grid-column: 2/-1;
+        grid-row: 3;
+      }
+    </style>
+  </head>
+
+  <body>
+    <wcex-ui.btn></wcex-ui.btn>
+    <btn->ABCD</btn->
+    <template id="wc-templates"></template>
+  </body>
+</html>

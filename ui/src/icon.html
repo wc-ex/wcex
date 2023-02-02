@@ -1,0 +1,48 @@
+<!-- 
+    通用图标组件,支持SVG图标
+-->
+<template
+  size.float="1.5"
+  src=""
+  margin.float="0"
+  active.bool="0"
+  $color="active?$color.pri:$color.textr.l1"
+  radius.int="5"
+>
+  <meta name="scope" />
+  <style>
+    :host {
+      display: block;
+      position: relative;
+      height: ":${size}em";
+      width: ":${size}em";
+      margin: ":${margin}em";
+      text-orientation: initial;
+      writing-mode: initial;
+      border-radius: ":${radius}px";
+    }
+
+    :host(:focus),
+    :host(:focus-visible),
+    :host(:focus-within) {
+      background-color: "$color.a8_";
+    }
+
+    .icon:hover {
+      fill: '$active?color.l3_:""';
+    }
+
+    .icon:active {
+      fill: '$active?color.l1:""';
+    }
+
+    .icon {
+      width: ":${size}em";
+      height: ":${size}em";
+      fill: "$color";
+      transition: all 0.3s;
+    }
+  </style>
+  <svg class="icon" $src="$rootScope.src" @click="$emit('hello')"></svg>
+  <slot></slot>
+</template>

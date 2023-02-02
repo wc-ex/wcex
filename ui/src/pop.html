@@ -1,0 +1,71 @@
+<!-- 
+  弹出面板, 使用
+  dir: l|r|t|b 弹出的方向，上下左右，[输出]
+  width: 菜单宽度（最小宽度 8em ）,0 为和父窗口一致
+  open: 输入/输出 支持双向绑定，判断当前状态
+  round: 圆角,设定为"" 
+  vert: // 是否垂直方向弹出, 水平方向自动探测
+ -->
+<template
+  open.bool="false"
+  $color="$color.pri.l2_"
+  dir="t"
+  border-radius="0"
+  border="unset"
+  padding="0.3"
+  vert.bool="0"
+  focus.bool="0"
+  hover.bool="0"
+  target-elem.object="null"
+  target-pos.bool="0"
+  contextmenu.bool="0"
+  width.int="10"
+>
+  <style>
+    /* 主元素用于元素定位，并进行裁剪 */
+    :host {
+      /* 裁剪区域，用于实现滑动效果 */
+      display: block;
+      position: absolute;
+      visibility: "$open?'visible':'hidden'";
+      width: 0;
+      height: 0;
+      left: ":${host.x}px";
+      top: ":${host.y}px";
+    }
+    #mask {
+      position: absolute;
+      overflow: hidden;
+      max-width: ":${width}em";
+      width: max-content;
+      min-width: 4em;
+    }
+    #pop {
+      position: relative;
+      z-index: 999;
+      display: block;
+      background-color: "$usedColor().l2.a1_";
+      padding: ":${padding}em";
+      left: "$popPos.left";
+      top: "$popPos.top";
+      border-radius: "$borderRadius";
+      border: "$border";
+      transition: all 0.3s ease-out;
+    }
+    slot[name="noclip"] {
+      display: block;
+      position: absolute;
+      z-index: 999;
+    }
+  </style>
+
+  <!-- 动画区域层 -->
+  <div id="mask">
+    <div id="pop">
+      <slot></slot>
+    </div>
+  </div>
+  <slot name="noclip"></slot>
+
+  <script scope="." src="."></script>
+</template>

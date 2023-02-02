@@ -1,0 +1,12 @@
+{
+  "name": "@wcex/doc-cn",
+  "version": "1.7.0",
+  "description": "",
+  "main": "index.html",
+  "scripts": {
+    "pub": "cp ../../README.md ./home.md && npm --registry \"https://registry.npmjs.org/\" publish --access public"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

@@ -1,0 +1,19 @@
+<template>
+  <meta name="module" pkg="marked" content="marked.min.js" />
+  <style name="layout">
+    :host {
+      display: block;
+      text-align: start;
+    }
+
+    slot {
+      display: none;
+    }
+  </style>
+  <div>
+    <slot id="slot" @slotchange="updateMarked()"></slot>
+  </div>
+  <div id="mark"></div>
+
+  <script scope="." src="."></script>
+</template>
