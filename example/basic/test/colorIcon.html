@@ -1,0 +1,22 @@
+<template>
+  <style>
+    :host {
+      display: block;
+    }
+    svg {
+      width: 4em;
+      height: 4em;
+    }
+    svg>path:first-child{
+        fill: "$$color.sec";
+    }
+    svg>path:nth-child(2){
+        fill: "$$color.pria";
+    }
+    svg>path:nth-child(3){
+        fill: "$$color.seca";
+    }
+  </style>
+  <div>双彩色SVG图标</div>
+  <svg src="@/@material-design-icons/svg/two-tone/dining.svg"></svg>
+</template>
