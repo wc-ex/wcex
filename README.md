@@ -51,7 +51,7 @@ The following are main features:
 
   > 全动态和依赖加载可支持 _组件_,_第三方库_,JS,CSS; 每个组件均可定义自身依赖项，当页面使用到此组件时自动加载相关依赖，并能避免重复多次加载。
 
-- _MVVM view and data dependency changes_ ( _动态加载和依赖加载_):
+- _MVVM view and data dependency changes_ ( _响应式和依赖变更_):
   > Simplified data view model, similar to VUE
 
   > 简化的数据视图模型，类似 VUE
