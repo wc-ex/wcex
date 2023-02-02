@@ -6,7 +6,8 @@
 
 > 动态原生WEB组件数据绑定库，免费使用（MIT）。这个仓库包括：使用说明，文档，样例，UI库，但不包含源码，开源将在晚些时候。
 - 示例DEMO:
-> https://wc-ex.com/go?gh/wc-ex/wcex@main/example/basic/index.html
+> (Github) https://wc-ex.com/go?gh/wc-ex/wcex@main/example/basic/index.html
+> (NPM-国内) https://wc-ex.com/go?npm/@wcex/example-basic/index.html
 
 ### Introduction(简介)
 
