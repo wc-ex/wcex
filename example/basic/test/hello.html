@@ -1,5 +1,20 @@
-<template>
-    <meta name="scope" man="雷锋">
-    <h1 :>双向绑定-HELLO: ${man}</h1>
+<template @ready="calc()">
+    <meta name="scope" man="雷锋" chars.int="0" >
+    <h1 :>双向绑定-HELLO: ${man}, 字符数: ${chars} </h1>
     <input $$value="man">
+
+    <script scope=".">
+        return class{
+            onReady(){
+                this.$watch(()=>this.man,()=>{
+                    setTimeout(()=>{
+                        this.calc()
+                    })
+                })
+            }
+            calc(){
+                this.chars=this.man.length;
+            }
+        }
+    </script>
 </template>
