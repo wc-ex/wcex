@@ -1,12 +1,24 @@
 {
   "name": "@wcex/ui",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "version": "1.0.2",
+  "description": "wcex ui library",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "wcex -p 8102",
+    "pub": "cd dist && npm --registry \"https://registry.npmjs.org/\" publish --access public"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "keywords": [
+    "webcomponents",
+    "web",
+    "component",
+    "cli",
+    "wcex",
+    "wc",
+    "vue"
+  ],
+  "author": "zhfjyq@gmail.com",
+  "license": "MIT",
+  "dependencies": {
+    "@types/marked": "^4.0.7",
+    "wcex": "1.7.29"
+  }
 }

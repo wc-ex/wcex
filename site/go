@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
   <head>
     <title>WCEX</title>
     <meta name="viewport" content="initial-scale=1.0,width=device-width" />
@@ -16,9 +16,6 @@
       }
     </style>
   </head>
-
-  <!-- referrerpolicy="same-origin"
-  sandbox="allow-forms allow-same-origin allow-storage-access-by-user-activation allow-scripts allow-top-navigation allow-top-navigation-by-user-activation allow-popups " -->
 
   <body>
     <iframe
@@ -53,10 +50,6 @@
           v = v.replace(/<script /,newRoot+"\n<script ")
         }
         document.getElementById("frame").srcdoc =v
-        //   "data:text/html;base64," + btoa(v);
-        //   document.getElementById("frame").src = data;
       });
-    // var data =
-    //   "data:text/html;<h1></h1>ata:text/html,%3Ch1%3EHello1%2C%20World!%3C%2Fh1%3E";
   </script>
 </html>

@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "oss":"..\\tools\\ossutil64\\ossutil64.exe sync ./ oss://site-wcex/ --delete -u -f && ..\\tools\\ossutil64\\ossutil64.exe set-meta oss://site-wcex/go Content-Type:text/html -u -f"
+    "oss":"../../site-oss-tools/oss"
   },
   "keywords": [],
   "author": "",

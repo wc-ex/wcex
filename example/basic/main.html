@@ -1,27 +1,99 @@
 <template @timer="counter++">
-<meta name="scope" counter.int="999" small.bool="1"/>
+  <meta name="scope" counter.int="999" small.bool="1" />
 
   <style>
-    :host{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+    :host {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
     img {
       width: ":${small?128:256}px";
       height: ":${small?128:256}px";
-      transition: all 0.5s cubic-bezier(.28,-0.46,.59,1.41);
+      transition: all 0.5s cubic-bezier(0.28, -0.46, 0.59, 1.41);
     }
   </style>
   <h1>Main</h1>
+  <test-hello></test-hello>
   <img $src="$path('./assets/logo.png')" />
-  <div style="display: flex; ">
-    <ui-icon size="4" $color="$color.sec" src="@/@material-design-icons/svg/filled/person.svg" @click="counter+=100" active="1" ></ui-icon> 
-    <h3 :>点击图标增加计数器: ${counter}</h3>  
+  <div style="display: flex">
+    <ui-icon
+      size="4"
+      $color="$color.pri"
+      src="@/@material-design-icons/svg/filled/person.svg"
+      @click="counter+=100"
+      active="1"
+    ></ui-icon>
+    <h3 :>点击图标增加计数器: ${counter}</h3>
   </div>
 
-  <div style="display: flex; ">
-    <ui-icon size="4" $color="$color.ok" src="@/@material-design-icons/svg/filled/bedroom_baby.svg" @click="small=!small" active="1" ></ui-icon> 
-    <h3 :>点击图标看动画: ${counter*5}</h3>  
+  <div style="display: flex">
+    <ui-icon
+      size="4"
+      $color="$color.pria"
+      src="@/@material-design-icons/svg/filled/bedroom_baby.svg"
+      @click="small=!small"
+      active="1"
+    ></ui-icon>
+    <h3 :>点击图标看动画: ${counter*5}</h3>
+  </div>
+
+  <div style="display: flex">
+    <ui-icon
+      size="4"
+      $color="$color.sec"
+      src="@/@material-design-icons/svg/filled/blur_on.svg"
+      @click="$Colors.mode=!$Colors.mode;$Colors.load()"
+      active="1"
+    ></ui-icon>
+    <h3 :>点击图标切换色彩模式</h3>
+  </div>
+
+  <h3 :>点击切换配色</h3>
+  <div style="display: flex">
+    <div style="display: flex; flex-direction: column; align-items: center">
+      <ui-icon
+        size="4"
+        $color="$color.pri"
+        src="@/@material-design-icons/svg/filled/person.svg"
+        @click="counter+=100"
+      ></ui-icon>
+      <div>主色</div>
+    </div>
+    <div style="display: flex; flex-direction: column; align-items: center">
+      <ui-icon
+        size="4"
+        $color="$color.pria"
+        src="@/@material-design-icons/svg/filled/person.svg"
+        @click="counter+=100"
+      ></ui-icon>
+      <div>主变色</div>
+    </div>
+    <div style="display: flex; flex-direction: column; align-items: center">
+      <ui-icon
+        size="4"
+        $color="$color.sec"
+        src="@/@material-design-icons/svg/filled/person.svg"
+        @click="counter+=100"
+      ></ui-icon>
+      <div>辅色1</div>
+    </div>
+    <div style="display: flex; flex-direction: column; align-items: center">
+      <ui-icon
+        size="4"
+        $color="$color.seca"
+        src="@/@material-design-icons/svg/filled/person.svg"
+        @click="counter+=100"
+      ></ui-icon>
+      <div>辅变色</div>
+    </div>
+  </div>
+
+  <div style="display: flex">
+    <div
+      :style="width: 64px;height: 64px;background-color:hsl(${18*index},70%,50%)"
+      $for="20"
+      @click="$Colors.set('pri',`hsl(${index*18},70,50)`);$Colors.load()"
+    ></div>
   </div>
 </template>
