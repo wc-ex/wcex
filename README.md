@@ -1,4 +1,5 @@
-<img src="logo.png" width="128" height="128" >
+<p align="center"><img src="logo.png" width="128" height="128" ></p>
+
 
 ### WCEX - Web Components Extensions (原生Web组件扩展库)
 
