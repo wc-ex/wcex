@@ -1,6 +1,6 @@
 <img src="./site/images/logo.png" width="200" height="200" >
 
-### WCEX - Web Component Extension (原生Web组件扩展库)
+### WCEX - Web Component Extensions (原生Web组件扩展库)
 
 > Dynamic Native WebComponent MVVM Library, Free and MIT license. This repos includes Usage, Doc, Ui, Not include Sources, opensource will be later.
 
