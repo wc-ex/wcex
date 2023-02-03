@@ -1,4 +1,4 @@
-<img src="./site/images/logo.png" width="200" height="200" >
+<img src="logo.png" width="200" height="200" >
 
 ### WCEX - Web Component Extensions (原生Web组件扩展库)
 
