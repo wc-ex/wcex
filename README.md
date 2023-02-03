@@ -1,5 +1,9 @@
 <p align="center"><img src="logo.png" width="128" height="128" ></p>
-
+<p align="center">
+  <a href="https://npmcharts.com/compare/wcex?minimal=true"><img src="https://img.shields.io/npm/dm/wcex.svg?sanitize=true" alt="Downloads"></a>
+  <a href="https://www.npmjs.com/package/wcex"><img src="https://img.shields.io/npm/v/wcex.svg?sanitize=true" alt="Version"></a>
+  <a href="https://www.npmjs.com/package/wcex"><img src="https://img.shields.io/npm/l/wcex.svg?sanitize=true" alt="License"></a>
+</p>
 
 ### WCEX - Web Components Extensions (原生Web组件扩展库)
 
