@@ -197,10 +197,13 @@ The following are main features:
 ### @wcex/cli (开发客户端)
   - Develop a client toolkit that includes hot updates, builds, releases, and more, simply and quickly
   - 开发客户端工具包，包含热更新、构建、发布等功能, 简单和快速
-  - Features: Local hot update support, only update the changed components each time, without affecting the overall data and current status of the current page.
-  - 特性：局部热更新支撑，每次仅更新变更的组件，不影响当前页面整体数据和当前状态。
+  - Features:Typescript support, Local hot update support, only update the changed components each time, without affecting the overall data and current status of the current page.
+  - 特性：TypeScript支持, 局部热更新支撑，每次仅更新变更的组件，不影响当前页面整体数据和当前状态。
   - install: ( 安装 )
     > pnpm install @wcex/cli 
+  - Usage: (使用)
+    > in project dir, run: "wcex"  
+    > 在项目目录下执行: "wcex", 即启动开发模式
 
 ### Documents
   document(NPM): (https://wc-ex.com/go?npm/@wcex/doc/index.html)
