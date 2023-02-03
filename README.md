@@ -69,9 +69,9 @@ The following are main features:
 
 ### Links
  - [wcex library](https://www.npmjs.com/package/wcex) npm library      
- - [wcex cli](https://www.npmjs.com/package/wcex) dev tools for WCEX  [Readme](./cli/CLI.md)
- - [wcex ui](https://www.npmjs.com/package/wcex) ui library for WCEX [Readme](./ui/UI.md)
- - [wcex document](https://www.npmjs.com/package/wcex) document for WCEX [Readme](./doc/DOC.md)
+ - [wcex cli](https://www.npmjs.com/package/wcex) dev tools for WCEX  [Readme](./cli/README.md)
+ - [wcex ui](https://www.npmjs.com/package/wcex) ui library for WCEX [Readme](./ui/README.md)
+ - [wcex document](https://www.npmjs.com/package/wcex) document for WCEX [Readme](./doc/README.md)
 
 ### Usage (使用):
 
@@ -193,6 +193,14 @@ The following are main features:
 
   - These using  https://cdn.jsdelivr.net as CDN, you can replace URL to load your project.
   - 上述地址使用 https://cdn.jsdelivr.net 作为CDN，你可替换对应URL加载自己的项目。
+
+### @wcex/cli (开发客户端)
+  - Develop a client toolkit that includes hot updates, builds, releases, and more, simply and quickly
+  - 开发客户端工具包，包含热更新、构建、发布等功能, 简单和快速
+  - Features: Local hot update support, only update the changed components each time, without affecting the overall data and current status of the current page.
+  - 特性：局部热更新支撑，每次仅更新变更的组件，不影响当前页面整体数据和当前状态。
+  - install: ( 安装 )
+    > pnpm install @wcex/cli 
 
 ### Documents
   document(NPM): (https://wc-ex.com/go?npm/@wcex/doc/index.html)
