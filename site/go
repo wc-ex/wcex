@@ -38,7 +38,7 @@
     console.log("path:", path);
     console.log("url:", url);
 
-    fetch(url)
+    fetch(url,{mode:"cors"})
       .then((v) => v.text())
       .then((v) => {
         console.log("html:", v);
