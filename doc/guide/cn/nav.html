@@ -1,0 +1,12 @@
+<template>
+    <style>
+        :host{
+            width: 8em;
+            background-color: "$$color.bg.l2";
+        }
+    </style>
+    <h3 $for="data" $>index</h3>
+    <h1 $>data</h1>
+    <h3>OK</h3>
+    <script scope="data" src="./nav.json"></script>
+</template>

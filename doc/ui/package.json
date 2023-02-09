@@ -1,0 +1,13 @@
+{
+    "name": "@wcex/doc-ui",
+    "version": "1.0.11",
+    "description": "documents for wcex",
+    "main": "index.html",
+    "scripts": {
+      "pub": "npm --registry \"https://registry.npmjs.org/\" publish --access public"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC"
+  }
+  

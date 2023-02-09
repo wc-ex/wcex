@@ -1,0 +1,171 @@
+html,
+div,
+pre,
+p,
+input {
+  font-size: 16px;
+  font-family: Roboto, sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0.5em 0.5em;
+  letter-spacing: 0.16em;
+}
+template{
+  display: none;
+}
+
+.icon {
+  height: 1.5em;
+  fill: "$$color.pri";
+  margin: 0.5em;
+}
+
+.grow {
+  --gcolor1: var(--color-text-a5);
+  --gcolor2: var(--color-pri--2);
+  --gw: 0px;
+  box-shadow:  0px 0px var(--gw) calc(var(--gw) / 4) var(--gcolor2), -1px 1px 2px var(--gcolor1);
+}
+
+/* 块阴影 */
+.shadow {
+  --sx: 0;
+  --sy: -1;
+  --scolor: var(--color-text-a5);
+  box-shadow: calc(var(--sx) * 1px) calc(var(--sy) * -1px) calc(var(--sy) * -2px + var(--sx) * -2px) var(--scolor),
+    calc(var(--sx) * 0.5px) calc(var(--sy) * -0.5px) calc(var(--sy) * -1px + var(--sx) * -1px) var(--scolor),
+    calc(var(--sx) * 0.3px) calc(var(--sy) * -0.3px) 1px var(--scolor);
+}
+/* 文本阴影 */
+.text-shadow {
+  --sx: 0;
+  --sy: -1;
+
+  text-shadow: calc(var(--sx) * 1px) calc(var(--sy) * -1px) 2px var(--color-text-a4),
+    calc(var(--sx) * 0.5px) calc(var(--sy) * -0.5px) 3px var(--color-text-a4),
+    calc(var(--sx) * 0.3px) calc(var(--sy) * -0.3px) 5px var(--color-text-a5);
+}
+
+/* 圆形 */
+.circle {
+  border-radius: 50%;
+}
+
+.light {
+  --gw: 0;
+}
+.light:hover {
+  --gw: 3px;
+}
+.light:active,
+.light:focus,
+.light:focus-visible {
+  --gw: 1px;
+}
+.active {
+  transform: translate(calc(var(--sx) * -1px), calc(var(--sy) * 1px));
+}
+/* 活动状态 */
+.active:hover {
+  --sx: -2;
+  --sy: -3;
+}
+.active:active,
+.active:focus,
+.active:focus-visible {
+  --sx: -1;
+  --sy: -2;
+}
+
+/* 动画 */
+.transition-overback,
+.overback {
+  transition: all 0.4s cubic-bezier(0.39, 1.01, 0.88, 1.43);
+}
+.trans,
+.transition {
+  transition: all 0.3s;
+}
+
+.center {
+  align-items: center;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  /* align-items: center; */
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+}
+.flex {
+  flex: 1;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.fade-enter-to,
+.fade-leave-from {
+  opacity: 1;
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.6s ease;
+}
+/*
+  用于涟漪效果
+*/
+.ripple {
+  background-color: var(--color-textr);
+  pointer-events: none;
+  border-radius: 50%;
+  position: absolute;
+  opacity: 0.5;
+  transition: all 0.5s ease-out;
+  transform: scale(0);
+}
+
+.hover:hover {
+  box-shadow: inset 0 -2px 10px 0px rgba(255, 255, 255, 0.5);
+}
+
+.ani-enter-from {
+  opacity: 0;
+  /* transform: scaleY(0); */
+  max-height: 0px;
+}
+.ani-enter-active {
+  transition: all 0.5s;
+}
+.ani-enter-to {
+  opacity: 100;
+  /* transform: scaleY(1); */
+  max-height: 4em;
+}
+
+.ani-leave-from {
+  opacity: 100;
+  transform: scaleY(1);
+}
+.ani-leave-active {
+  transition: all 0.4s;
+}
+.ani-leave-to {
+  opacity: 0;
+  transform: scaleY(0);
+}

@@ -1,0 +1,115 @@
+/* 设置默认组件为block */
+:host{
+    display: block;
+}
+
+/* 字体设置 */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-block-start: 0em;
+  margin-block-end: 0em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+}
+h1 {
+  font-weight: 400;
+  font-size: 3rem;
+  line-height: 3.125rem;
+  letter-spacing: normal;
+}
+h2 {
+  font-weight: 400;
+  font-size: 2.125rem;
+  line-height: 3.125rem;
+  letter-spacing: 0.015625em;
+}
+h3 {
+  font-weight: 400;
+  font-size: 1.75rem;
+  line-height: 2.25rem;
+  letter-spacing: normal;
+}
+h4 {
+  font-weight: 500;
+  font-size: 1.25rem;
+  line-height: 1.375rem;
+  letter-spacing: 0.0071em;
+}
+h5 {
+  font-weight: 500;
+  font-size: 1.15rem;
+  line-height: 1.25rem;
+  letter-spacing: 0.0071em;
+}
+h6 {
+    font-weight: 400;
+    font-size: 1.05rem;
+    line-height: 1.15rem;
+    letter-spacing: 0.0071em;
+  }
+.text-subtitle-1 {
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  letter-spacing: 0.0071em;
+}
+.text-subtitle-2 {
+  font-weight: 500;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  letter-spacing: 0.0071em;
+}
+div,
+.text-body-1 {
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  letter-spacing: 0.312em;
+}
+div1{display: block;}
+div1,.text-body-2 {
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  letter-spacing: 0.17857em;
+}
+.text-button {
+  font-weight: 500;
+  font-size: 0.875rem;
+  line-height: 2.25rem;
+  letter-spacing: 0.893em;
+}
+caption,.text-caption {
+  font-weight: 400;
+  font-size: 0.75rem;
+  line-height: 1.25rem;
+  letter-spacing: 0.333em;
+}
+overline,.text-overline {
+  font-weight: 500;
+  font-size: 0.75rem;
+  line-height: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 1.667em;
+}
+
+.trans {
+  /* transition: all 0.3s cubic-bezier(0.075, 0.82, 0.165, 1); */
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.row{
+    display: flex;
+    align-items: center;
+}
+.column{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
