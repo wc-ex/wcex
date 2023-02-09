@@ -16,7 +16,6 @@
       }
     </style>
   </head>
-
   <body>
     <iframe
       id="frame"
@@ -26,18 +25,21 @@
 
   <script>
     var npm = "https://cdn.jsdelivr.net/";
-    var url =
-      npm +
-      (location.search.endsWith(".html")
-        ? location.search
-        : location.search + "/index.html"
-      ).slice(1);
+
+    var url =location.search.slice(1);
+    if(!(url.startsWith('http://') || url.startsWith('https://'))){
+      url = npm +url
+    }
+    if(!location.search.endsWith(".html")){
+      url = url+"/index.html"
+    }
     var path =url.replace(/^(.*)\/.+?\.html$/,'$1');
-    document.title = location.search.slice(1);
+    document.title = url;
     console.log("path:", path);
     console.log("url:", url);
 
-    fetch(url)
+    // fetch(url,{mode:"no-cors", referrerPolicy:"no-referrer"})
+    fetch(url,{mode:"cors"})
       .then((v) => v.text())
       .then((v) => {
         console.log("html:", v);

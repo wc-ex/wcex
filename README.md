@@ -15,7 +15,7 @@
 > - (Github)
 > https://wc-ex.com/go?gh/wc-ex/wcex@main/example/basic/index.html
 > - (NPM-国内)
-> https://wc-ex.com/go?npm/@wcex/example-basic/index.html
+> https://wc-ex.com/go?npm/@wcex/example-basic@1.0.12/index.html
 
 ### Introduction(简介)
 
