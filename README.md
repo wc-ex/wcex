@@ -38,7 +38,7 @@
 
 ### Features(特性)
 The following are main features:
-以下为以实现的部分特性:
+以下为已实现的部分特性:
 
 - **REAL DOM** (原生真实DOM)
   > Modern browser performance and optimizations are nearly powerful, we tested actual DOM performance, and when properly designed, it can fully meet the needs of the project, and can provide better performance and operability. Therefore, we decided to abandon VDOM and implement it entirely with native DOM, and combined with technologies such as template preloading, merge update, and dynamic change dependencies to finally implement the entire framework.
