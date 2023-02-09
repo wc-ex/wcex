@@ -38,8 +38,7 @@
     console.log("path:", path);
     console.log("url:", url);
 
-    // fetch(url,{mode:"no-cors", referrerPolicy:"no-referrer"})
-    fetch(url,{mode:"cors"})
+    fetch(url)
       .then((v) => v.text())
       .then((v) => {
         console.log("html:", v);
