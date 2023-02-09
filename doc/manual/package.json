@@ -1,5 +1,5 @@
 {
-    "name": "@wcex/doc",
+    "name": "@wcex/doc-manual",
     "version": "1.0.11",
     "description": "documents for wcex",
     "main": "index.html",

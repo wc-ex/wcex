@@ -11,20 +11,25 @@
       display: block;
     }
   </style>
-  <div $as="component"></div>
+  <div id="route" $as="component"></div>
   <script scope=".">
     return class {
       routeChange = () => {
         // 检查登录权限
         let tag = this.$router.tag(this.level, this.view) || this.home;
         this.component = tag.indexOf(".") < 0 ? this.$router.buildTag(this.pkg, tag) : tag;
-      };
+      }
+      onCreate(doc,aa){
+        let tag = this.$router.tag(this.level, this.view) || this.home;
+        this.$wc.registerTag(tag)
+        doc.getElementById('route').replaceWith(document.createElement(tag));        
+      }
       onReady() {
         this.routeChange();
-        window.addEventListener("route-change", () => {});
+        window.addEventListener("route-change", this.routeChange);
       }
       onDestroy() {
-        window.removeOnChanged("route-change", () => {});
+        window.removeOnChanged("route-change", this.routeChange);
       }
     };
   </script>

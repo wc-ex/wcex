@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <meta name="npm" content="https://cdn.jsdelivr.net/npm/">
     <meta name="viewport" content="initial-scale=1.0,width=device-width">
+
+    <meta name="colors" pri="hsl(200,50%,100%)">
+
     <script src="https://cdn.jsdelivr.net/npm/wcex@1.7.48/index.js"></script>
     <!-- <script src="http://localhost:9999/index.js"></script> -->
     <style>
@@ -15,6 +18,19 @@
         }
     </style>
 </head>
+<!-- 
+    标签名规则：
+    标签标准形式: [包名].[组件目录]-[组件文件名] 
+    包名可省略，默认为相对于HTML主文件相对路径下
+    helloWorld.html -> 标签名为: <hello_world>
+    如果标签名不含"-",则需在最后附加 "-"
+    例子:
+        组件: 包-> "@wcexui", 文件->/btn.html -> 标签名: <wcexui.btn->
+        组件: 包-> "@wcex/ui", 文件/btn.html -> 标签名: <wcex-ui.btn>
+        组件: 包-> "@wcexui", 文件/flat/btn.html -> 标签名: <wcexui.flat-btn>
+        组件: 包-> "@wcexui", 文件/flat/helloWorld.html -> 标签名: <wcexui.flat-hello_world>
+        组件: 包-> "@wcexui", 文件/中国/测试.html -> 标签名: <wcexui.中国-测试>
+-->
 
 <body>
     <h1>WCEX BASIC Example</h1>

@@ -9,6 +9,13 @@
     slot {
       display: none;
     }
+    :host():hover{
+
+    }
+
+    ::slotted(div):hover{
+
+    }
   </style>
   <div>
     <slot id="slot" @slotchange="updateMarked()"></slot>
