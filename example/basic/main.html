@@ -44,7 +44,7 @@
       size="4"
       $color="$color.sec"
       src="@/@material-design-icons/svg/filled/blur_on.svg"
-      @click="localStorage.COLOR_MODE=(localStorage.COLOR_MODE == '0'?'1':'0');$Colors.load()"
+      @click="$Colors.switchMode()"
       active="1"
     ></ui-icon>
     <h3 :>点击图标切换色彩模式</h3>
@@ -94,7 +94,7 @@
     <div
       :style="width: 64px;height: 64px;background-color:hsl(${18*index},70%,50%)"
       $for="20"
-      @click="$Colors.set('pri',`hsl(${index*18},70,50)`);$Colors.load()"
+      @click="$Colors.set('pri',`hsl(${index*18},70,50)`)"
     ></div>
   </div>
 
