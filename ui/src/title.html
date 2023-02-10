@@ -1,25 +1,38 @@
 <!-- app-bar 组件 -->
 <!-- CSS 全局绑定, 用于给每个组件都添加attr，直接修改引入css绑定变量 -->
 
-<template flat.bool="0"  drawer.bool="1" $color="flat?$color.bgr:$color.pri" $shadow.int="flat?0:4">
-    <link rel="stylesheet" href="./css/shadow.css">
-    <style>
-        :host{
-            display: flex;
-            background-color: "$color";
-            color: "$$color.textr";
-            padding: 0.2em 1em;
-            align-items: center;
-        }
-        #drawer{
-            transform: rotatez( "$drawer?'90deg':'0'");
-        }
-    </style>
-    <icon- class="trans" id="drawer" src="@/@material-design-icons/svg/filled/menu.svg" size="2.5" @click.stop="drawer=!drawer"></icon->
-
-    <h2 style="margin-left: 1em;"><slot></slot></h2>
+<template flat.bool="0" drawer.bool="1" $color="$color.pri" nav-align="center" drawer-icon="menu">
+  <style>
+    :host {
+      display: flex;
+      /* background-color: "$flat?'none':color.l3"; */
+      background-color: "$color";
+      color: "$flat?$color.text:$color.textr";
+      padding: 0.2em 0.5em;
+      align-items: center;
+    }
+    #drawer {
+      transform: rotatez("$drawer?'0':'90deg'");
+    }
+  </style>
+    <div id="drawer" class="trans" @click.stop="drawer=!drawer">
+      <slot name="drawer">
+        <icon- icon="menu" size="2" active $color="$rootScope.color.l5_"></icon->
+      </slot>
+    </div>
+    <div style="margin: 0 0.5em;">
+        <slot name="logo"></slot>
+    </div>
+    <h2 class="nowrap" style="margin: 0 0.5em"><slot></slot></h2>
+    <!-- 小标题和导航条 -->
+    <div class="column" style="align-items: baseline;align-self: flex-end;">
+      <slot name="subtitle">子标题</slot>
+      <!-- 底部导航条 -->
+      <div :style="display: flex; justify-content: ${navAlign} ">
+        <slot name="nav"></slot>
+      </div>
+    </div>
     <!-- 填充空间 -->
-    <div style="flex: 1;"></div>
+    <div style="flex: 1"></div>
     <div><slot name="tools"></slot></div>
-    
 </template>

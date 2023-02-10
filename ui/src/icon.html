@@ -2,37 +2,45 @@
     通用图标组件,支持SVG图标
     参考:
 
-    https://marella.me/material-design-icons/demo/svg/
+    MDI:https://marella.me/material-design-icons/demo/svg/
+    FA: https://fontawesome.com/search?o=r&m=free&f=classic%2Cbrands
+    @fortawesome/fontawesome-free
 
 -->
 <template
   size.float="1.5"
-  src=""
-  margin.float="0"
+  pkg="mdi"
+  icon="circle"
+  url=""
+  $type="pkg=='mdi'?'filled':'solid'"
   active.bool="0"
-  $color="active?$color.pri:$color.textr.l1"
+  $color="$color.pri"
   radius.int="5"
+  $tabindex.int="active?0:-1"
 >
-  <meta name="scope" />
+  <meta name="scope"/>
   <style>
     :host {
       display: block;
       position: relative;
       height: ":${size}em";
       width: ":${size}em";
-      margin: ":${margin}em";
-      text-orientation: initial;
-      writing-mode: initial;
+      text-orientation: unset;
+      writing-mode: unset;
       border-radius: ":${radius}px";
       user-select: none;
+      padding: 0.2em;
     }
 
     :host(:focus),
     :host(:focus-visible),
     :host(:focus-within) {
-      background-color: "$color.a8_";
+      outline: 2px solid '$color.l5_' ;
     }
 
+    /* :host(:hover) {
+      box-shadow: 0px 0px 2px 0px '$color.l5_';
+    } */
     .icon:hover {
       fill: '$active?color.l3_:""';
     }
@@ -48,6 +56,12 @@
       transition: all 0.3s;
     }
   </style>
-  <svg class="icon" $src="$rootScope.src" @click="$emit('hello')"></svg>
-  <slot></slot>
+  <svg class="icon" $src="srcPath()"></svg>
+  <script scope=".">
+    return class{
+      srcPath(){
+        return '@/'+({fa:'@fortawesome/fontawesome-free/svgs',mdi:'@material-design-icons/svg'}[this.pkg]||this.pkg)+'/'+this.type+'/'+this.icon+".svg";
+      }
+    }
+  </script>
 </template>
