@@ -1,0 +1,28 @@
+<template>
+  <meta name="module" pkg="toolcool-color-picker" content="dist/toolcool-color-picker.min.js" />
+  <meta name="scope" mod.int="0" />
+  <style>
+    :host {
+      display: flex;
+      align-items: center;
+    }
+  </style>
+  <wcex-ui.icon $icon="mod?'wb_sunny':'mode_night' " @click="$Colors.switchMode();mod=$Colors.mode" $color="$color.sec" active></wcex-ui.icon>
+  <toolcool-color-picker
+    button-width="2rem"
+    id="picker"
+    @change="$Colors.set('pri',$ev.detail.hsl)"
+  ></toolcool-color-picker>
+  <script scope="picker" src="toolcool-color-picker"></script>
+  <script scope=".">
+    return class {
+      onReady() {
+        this.$id.picker.color = `${this.$color.pri}`;
+        // this.mode = this.$Colors.mode
+        var el = this.$id.picker.shadowRoot.querySelector("div[data-popup-box]");
+        el.style.position = "absolute";
+        el.style.left = "-200px";
+      }
+    };
+  </script>
+</template>
