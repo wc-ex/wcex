@@ -1,11 +1,16 @@
 <template>
     <style>
         :host{
-            width: 8em;
+            display: flex;
+            flex-direction: column;
         }
     </style>
-    <h4 $for="data" $>index</h4>
-    <div1 $>data</div1>
+    <h4 $for(v1,k1)="data">
+        <div $>k1</div>
+        <div $for="v1" >v1</div>
+        <!-- <h5 $for="v1">aaspan</h5> -->
+    </h4>
+    <!-- <div1 $>data</div1> -->
     <h3>OK</h3>
     <script scope="data" src="./nav.json"></script>
 </template>
