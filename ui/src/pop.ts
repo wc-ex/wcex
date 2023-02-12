@@ -1,4 +1,4 @@
-import { Scope, UsePlugins, Logger } from 'wcex';
+import { Scope, usePlugins, Logger } from 'wcex';
 
 export default class extends Scope {
   dir = '' as 'b' | 't' | 'l' | 'r'; // 弹出方向

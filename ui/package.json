@@ -19,6 +19,6 @@
   "license": "MIT",
   "dependencies": {
     "@types/marked": "^4.0.7",
-    "wcex": "1.7.29"
+    "wcex": "1.7.79"
   }
 }

@@ -3,14 +3,31 @@
         :host{
             display: flex;
             flex-direction: column;
+            margin: 1em 1em;
+        }
+        .hello{
+            background-color: red;
         }
     </style>
-    <h4 $for(v1,k1)="data">
-        <div $>k1</div>
-        <div $for="v1" >v1</div>
-        <!-- <h5 $for="v1">aaspan</h5> -->
-    </h4>
-    <!-- <div1 $>data</div1> -->
-    <h3>OK</h3>
-    <script scope="data" src="./nav.json"></script>
+    <meta name="scope" hello="hello">
+            <wcex-ui.panel >123</wcex-ui.panel>
+
+            <div  class="hello" $abc="abcde" > HELLO:${abc} ----
+
+                <span class="cls2" :abc="111112222"  $for="9"> SPAN</span>
+
+            </div>
+
+    <!-- <h4 $for(v1,k1)="data">
+        <wcex-ui.panel $>k1</wcex-ui.panel>
+        <div $for(v2,k2)="v1.items" style="margin-left: 0.5em;" $>v2.name</div>
+    </h4> -->
+    <script scope="data" src="./guide/cn/nav.json"></script>
+    <script scope=".">
+
+        return class {
+            abcde=true
+            cls2=""
+        }
+    </script>
 </template>

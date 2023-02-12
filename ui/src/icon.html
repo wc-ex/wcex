@@ -5,20 +5,22 @@
     MDI:https://marella.me/material-design-icons/demo/svg/
     FA: https://fontawesome.com/search?o=r&m=free&f=classic%2Cbrands
     @fortawesome/fontawesome-free
-
+    SI
+    @svg-icons/octicons
+    
 -->
 <template
   size.float="1.5"
   pkg="mdi"
   icon="circle"
+  $type="{mdi:'filled',fa:'solid',si:'octicons'}[pkg]"
   url=""
-  $type="pkg=='mdi'?'filled':'solid'"
   active.bool="0"
   $color="$color.pri"
   radius.int="5"
   $tabindex.int="active?0:-1"
 >
-  <meta name="scope"/>
+  <meta name="scope" />
   <style>
     :host {
       display: block;
@@ -35,7 +37,7 @@
     :host(:focus),
     :host(:focus-visible),
     :host(:focus-within) {
-      outline: 2px solid '$color.l5_' ;
+      outline: 2px solid "$color.l5_";
     }
 
     /* :host(:hover) {
@@ -58,10 +60,19 @@
   </style>
   <svg class="icon" $src="srcPath()"></svg>
   <script scope=".">
-    return class{
-      srcPath(){
-        return '@/'+({fa:'@fortawesome/fontawesome-free/svgs',mdi:'@material-design-icons/svg'}[this.pkg]||this.pkg)+'/'+this.type+'/'+this.icon+".svg";
+    return class {
+
+      srcPath() {
+        return (
+          "@/" +
+          ({ fa: "@fortawesome/fontawesome-free/svgs", mdi: "@material-design-icons/svg" ,si:'@svg-icons/'}[this.pkg] || this.pkg) +
+          "/" +
+          this.type +
+          "/" +
+          this.icon +
+          ".svg"
+        );
       }
-    }
+    };
   </script>
 </template>

@@ -1,4 +1,4 @@
-import { Logger, Scope, UsePlugins } from "wcex";
+import { Logger, Scope, usePlugins } from "wcex";
 
 const log = Logger('pop');
 // 初始化创建 pop 弹出窗全局容器
@@ -87,7 +87,7 @@ function _pop(target: HTMLElement | string, ev?: Event) {
   if (el.parentElement != popOptions.globalEl) {
     popOptions.globalEl.appendChild(el);
   }
-  el.popData.stat = 'pop';
+  el.popData.stat = 'pop';  
   // 下个周期发送pop事件
   setTimeout(() => {
     el.dispatchEvent(new CustomEvent('pop', { detail: { ev } }));
@@ -95,7 +95,7 @@ function _pop(target: HTMLElement | string, ev?: Event) {
 
 }
 
-UsePlugins({
+usePlugins({
   name: '$pop',
   priority: 0,
   scope: {

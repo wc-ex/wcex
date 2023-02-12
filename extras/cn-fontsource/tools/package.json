@@ -1,0 +1,25 @@
+{
+  "name": "@msc/cn-webfont-tools",
+  "version": "2.0.1",
+  "description": "split CN font TTF(OTF) file, compress to woff2 and splitted, direct publish to npm",
+  "main": "index.js",
+  "scripts": {},
+  "bin": {
+    "cn_font_tools": "src/build.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/download": "^8.0.2",
+    "@types/fontkit": "^2.0.1",
+    "@types/lodash.kebabcase": "^4.1.7",
+    "@types/node": "^18.13.0",
+    "@types/subset-font": "^1.4.0",
+    "commander": "^10.0.0",
+    "download": "^8.0.0",
+    "fontkit": "^1.9.0",
+    "lodash.kebabcase": "^4.1.1",
+    "subset-font": "^1.4.0"
+  }
+}

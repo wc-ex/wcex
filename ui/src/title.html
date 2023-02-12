@@ -8,7 +8,7 @@
       /* background-color: "$flat?'none':color.l3"; */
       background-color: "$color";
       color: "$flat?$color.text:$color.textr";
-      padding: 0.2em 0.5em;
+      padding: 0.5em 0.3em;
       align-items: center;
     }
     #drawer {
@@ -23,7 +23,8 @@
     <div style="margin: 0 0.5em;">
         <slot name="logo"></slot>
     </div>
-    <h2 class="nowrap" style="margin: 0 0.5em"><slot></slot></h2>
+    <!-- 大标题 -->
+    <div class="nowrap" style="margin: 0 0.5em"><slot></slot></div>
     <!-- 小标题和导航条 -->
     <div class="column" style="align-items: baseline;align-self: flex-end;">
       <slot name="subtitle">子标题</slot>
