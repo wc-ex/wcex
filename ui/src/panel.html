@@ -1,0 +1,19 @@
+<!-- 实现可折叠的面板,通过value可绑定是否打开或者关闭 -->
+<!-- 为整个 panel 设置阴影 -->
+<template closeabl.bool="true" flat.bool="false" round.float="0.5" $color="$color.pri">
+  <style>
+    :host {
+      display: flex;
+      flex-direction: column;
+      border-radius: ":${round}em";
+      border: 1px solid red;
+      overflow: hidden;
+    }
+    
+  </style>
+  <!-- 标题栏 -->
+  <!-- 当插槽成功填充后显示，否则不显示 -->
+  <div class="shadow trans" $color><slot name="title"></slot></div>
+  <!-- 可折叠面板 -->
+  <div><slot></slot></div>
+</template>
