@@ -47,8 +47,8 @@ export default class extends Scope {
     }).bind(this);
 
     calcMouse() {
-        let w = this.$root.offsetWidth;
-        let h = this.$root.offsetHeight;
+        let w = this.$rootElem.offsetWidth;
+        let h = this.$rootElem.offsetHeight;
         let isTop = (this.mouse.y < window.innerHeight / 2);
         let isLeft = (this.mouse.x < window.innerWidth / 2);
         this.x = isLeft ? this.mouse.x + 16 : this.mouse.x - w - 4;
@@ -84,14 +84,14 @@ export default class extends Scope {
             if (this.state == 1) {
                 this.calcMouse();
                 setTimeout(() => {
-                    this.$root.style.visibility = "visible";
+                    this.$rootElem.style.visibility = "visible";
                     this.state = 2;
                 }, 50);
             }
         }, 50);
     }
     hide() {
-        this.$root.style.visibility = 'hidden';
+        this.$rootElem.style.visibility = 'hidden';
         this.state = 0;
     }
 }

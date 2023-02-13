@@ -158,16 +158,16 @@
 
   <span class="label" $>label</span>
   <svg class="icon" $if="icon" $src="icon"></svg>
-  <div class="input-area" $type="$rootScope.type">
+  <div class="input-area" $type="$root.type">
     <input
-      $type="$rootScope.type"
-      $$="$rootScope.value"
-      $disabled="$rootScope.disabled"
-      $accept="$rootScope.accept"
-      $autofocus="$rootScope.autofocus"
-      $checked="$rootScope.checked"
+      $type="$root.type"
+      $$="$root.value"
+      $disabled="$root.disabled"
+      $accept="$root.accept"
+      $autofocus="$root.autofocus"
+      $checked="$root.checked"
     />
-    <div class="line transition" $type="$rootScope.type"></div>
+    <div class="line transition" $type="$root.type"></div>
     <div class="placeholder" $>placeholder</div>
   </div>
 </template>

@@ -84,11 +84,11 @@
     $$open="isPop"
     $$dir="popDir"
     $border-radius="popDir=='b'?'0 0 5px 5px':'5px 5px 0 0'"
-    $color="$rootScope.color"
+    $color="$root.color"
     focus
     vert
   >
-    <div class="item" $for(v,k)="items" $filter="k!=value" @click.stop="value=k;$root.blur();$emit('change',k);">
+    <div class="item" $for(v,k)="items" $filter="k!=value" @click.stop="value=k;$rootElem.blur();$emit('change',k);">
       <slot :name="item${k}"></slot>
     </div>
   </pop->
@@ -101,7 +101,7 @@
     <!-- 下拉按钮,处理图标方向 -->
     <div class="icon">
       <icon-
-        $color="isPop?$rootScope.color.l5_:$rootScope.color"
+        $color="isPop?$root.color.l5_:$root.color"
         src="@/@material-design-icons/svg/filled/arrow_drop_down.svg"
       ></icon->
     </div>

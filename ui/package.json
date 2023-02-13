@@ -1,6 +1,6 @@
 {
   "name": "@wcex/ui",
-  "version": "1.0.2",
+  "version": "1.0.10",
   "description": "wcex ui library",
   "scripts": {
     "dev": "wcex -p 8102",
@@ -19,6 +19,7 @@
   "license": "MIT",
   "dependencies": {
     "@types/marked": "^4.0.7",
-    "wcex": "1.7.79"
+    "@types/ws": "^8.5.4",
+    "wcex": "1.7.85"
   }
 }

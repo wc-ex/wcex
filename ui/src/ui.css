@@ -107,10 +107,10 @@ overline,.text-overline {
     display: flex;
     align-items: center;
 }
+.col,
 .column{
     display: flex;
     flex-direction: column;
-    align-items: center;
 }
 
 .nowrap{
@@ -133,3 +133,7 @@ overline,.text-overline {
   transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
+/* 初始化隐身 */
+.cloak{
+  visibility: hidden;
+}

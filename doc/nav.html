@@ -1,33 +1,39 @@
 <template>
-    <style>
-        :host{
-            display: flex;
-            flex-direction: column;
-            margin: 1em 1em;
-        }
-        .hello{
-            background-color: red;
-        }
-    </style>
-    <meta name="scope" hello="hello">
-            <wcex-ui.panel >123</wcex-ui.panel>
+  <style>
+    :host {
+      display: flex;
+      flex-direction: column;
+    }
+    .hello {
+      background-color: red;
+    }
+  </style>
+  <meta name="scope" hello="hello" />
+  <!-- <wcex-ui.panel ></wcex-ui.panel> -->
 
-            <div  class="hello" $abc="abcde" > HELLO:${abc} ----
+  <wcex-ui.panel>
+    <wcex-ui.title slot="title">
+      <wcex-ui.icon slot="icon" $color="$color.pri.l5_" icon="menu"></wcex-ui.icon>
+      <h3>HEO</h3>
+      <wcex-ui.icon active slot="end" $color="$color.sec.l5_" icon="menu"></wcex-ui.icon>
+    </wcex-ui.title>
+    <div>PKPK panel content</div>
+  </wcex-ui.panel>
 
-                <span class="cls2" :abc="111112222"  $for="9"> SPAN</span>
+  <div class="hello" $abc="abcde">
+    HELLO:${abc} ----
+    <span class="cls2" :abc="111112222" $for="9"> SPAN</span>
+  </div>
 
-            </div>
-
-    <!-- <h4 $for(v1,k1)="data">
+  <!-- <h4 $for(v1,k1)="data">
         <wcex-ui.panel $>k1</wcex-ui.panel>
         <div $for(v2,k2)="v1.items" style="margin-left: 0.5em;" $>v2.name</div>
     </h4> -->
-    <script scope="data" src="./guide/cn/nav.json"></script>
-    <script scope=".">
-
-        return class {
-            abcde=true
-            cls2=""
-        }
-    </script>
+  <script scope="data" src="./guide/cn/nav.json"></script>
+  <script scope=".">
+    return class {
+      abcde = true;
+      cls2 = "";
+    };
+  </script>
 </template>

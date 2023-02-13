@@ -1,0 +1,26 @@
+<template>
+  <style>
+    :host{
+      display:flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .main{
+      width: 20em;
+      height: 10em;
+    }
+  </style>
+    <h2>Content----, 中文</h2>
+
+    
+  <wcex-ui.panel class="main" $color="$color.sec">
+    <wcex-ui.title slot="title" $color="$parent.color">
+      <wcex-ui.icon slot="icon" $color="$color.pri.l5_" icon="menu"></wcex-ui.icon>
+      <h3>HEO</h3>
+      <wcex-ui.icon active slot="end" $color="$color.sec.l5_" icon="menu"></wcex-ui.icon>
+    </wcex-ui.title>
+    <div>PKPK panel content</div>
+  </wcex-ui.panel>
+
+
+</template>

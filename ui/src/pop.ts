@@ -61,7 +61,7 @@ export default class extends Scope {
     // 处理hover事件
     switch (ev.type) {
       case 'mouseenter':
-        if (ev.target == this.$root) {
+        if (ev.target == this.$rootElem) {
           this.$log("hoverModeListener self enter", ev.type);
           // 自身
           this.selfEnter = true;
@@ -75,7 +75,7 @@ export default class extends Scope {
         }
         break;
       case 'mouseleave':
-        if (ev.target == this.$root) {
+        if (ev.target == this.$rootElem) {
           this.$log("hoverModeListener self leave", ev.type);
 
           // 自身
@@ -108,7 +108,7 @@ export default class extends Scope {
 
   onReady(): void {
     // if (this.$parent.tagName.match(/SUBMENU/)) debugger;
-    this.$log("--!!! targetElem", this.targetElem, this.$parent.tagName, this.$root);
+    this.$log("--!!! targetElem", this.targetElem, this.$parent.tagName, this.$rootElem);
     if (!this.targetElem) this.targetElem = this.$parent;
 
 
@@ -120,8 +120,8 @@ export default class extends Scope {
     } else if (this.hover) {
       this.targetElem.addEventListener('mouseenter', this.hoverModeListener);
       this.targetElem.addEventListener('mouseleave', this.hoverModeListener);
-      this.$root.addEventListener('mouseenter', this.hoverModeListener);
-      this.$root.addEventListener('mouseleave', this.hoverModeListener);
+      this.$rootElem.addEventListener('mouseenter', this.hoverModeListener);
+      this.$rootElem.addEventListener('mouseleave', this.hoverModeListener);
     }
 
     this.calcDir();
@@ -138,8 +138,8 @@ export default class extends Scope {
     } else if (this.hover) {
       this.targetElem.removeEventListener('mouseenter', this.hoverModeListener);
       this.targetElem.removeEventListener('mouseleave', this.hoverModeListener);
-      this.$root.removeEventListener('mouseenter', this.hoverModeListener);
-      this.$root.removeEventListener('mouseleave', this.hoverModeListener);
+      this.$rootElem.removeEventListener('mouseenter', this.hoverModeListener);
+      this.$rootElem.removeEventListener('mouseleave', this.hoverModeListener);
     }
   }
   calcDir() {
@@ -168,7 +168,7 @@ export default class extends Scope {
         break;
       case 't':
         this.host.x = 0;
-        this.host.y = 1 - this.$root.offsetHeight;
+        this.host.y = 1 - this.$rootElem.offsetHeight;
         break;
       case 'r':
         this.host.x = this.targetElem.offsetWidth;
@@ -183,7 +183,7 @@ export default class extends Scope {
     switch (this.dir) {
       case 'b':
         this.popPos.left = '0';
-        this.popPos.top = this.open ? '0' : `${-this.$root.offsetHeight}px`;
+        this.popPos.top = this.open ? '0' : `${-this.$rootElem.offsetHeight}px`;
         break;
       case 't':
         this.popPos.left = '0';

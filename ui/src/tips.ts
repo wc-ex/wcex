@@ -12,12 +12,12 @@ export default class extends Scope {
       setTimeout(() => {
         if (this.hoverFlag == 0) {
           this.hoverFlag = 1;
-          window.dispatchEvent(new CustomEvent(TIPS_EVENT, { detail: { isShow: true, el: this.$root } }));
+          window.dispatchEvent(new CustomEvent(TIPS_EVENT, { detail: { isShow: true, el: this.$rootElem } }));
         }
       }, TIMEOUT);
     } else if (ev.type == 'mouseleave') {
       // if (this.hoverFlag == 1) {
-      window.dispatchEvent(new CustomEvent(TIPS_EVENT, { detail: { isShow: false, el: this.$root } }));
+      window.dispatchEvent(new CustomEvent(TIPS_EVENT, { detail: { isShow: false, el: this.$rootElem } }));
       // }
       this.hoverFlag = -1;
     }
@@ -27,7 +27,7 @@ export default class extends Scope {
       if (ev instanceof MouseEvent) {
         if (!(ev.x > rt.left && ev.x < rt.right && ev.y > rt.top && ev.y < rt.bottom)) {
           if (this.hoverFlag == 1) {
-            window.dispatchEvent(new CustomEvent(TIPS_EVENT, { detail: { isShow: false, el: this.$root } }));
+            window.dispatchEvent(new CustomEvent(TIPS_EVENT, { detail: { isShow: false, el: this.$rootElem } }));
           }
           this.hoverFlag = -1;
         }

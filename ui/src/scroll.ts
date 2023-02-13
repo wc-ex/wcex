@@ -55,7 +55,7 @@ export default class extends Scope {
   enterDrag(ev: Event, dir: boolean, x: boolean, y: boolean) {
     if (this.hTracker.scale < 0 && this.vTracker.scale < 0) return;
     if (!this.drag) {
-      if (!(ev.target == this.$root || ev.target == this.$id.vtracker || ev.target == this.$id.htracker)) return;
+      if (!(ev.target == this.$rootElem || ev.target == this.$id.vtracker || ev.target == this.$id.htracker)) return;
     }
 
     // console.log('---enterDrag:', this.vTracker.scale);
@@ -112,7 +112,7 @@ export default class extends Scope {
       w: Math.round(r.scrollWidth),
       h: Math.round(r.scrollHeight),
     };
-    let rtRoot = this.$root.getBoundingClientRect();
+    let rtRoot = this.$rootElem.getBoundingClientRect();
     this.rootArea = {
       x: Math.round(rtRoot.x),
       y: Math.round(rtRoot.y),

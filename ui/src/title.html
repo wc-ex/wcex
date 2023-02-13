@@ -15,25 +15,26 @@
       transform: rotatez("$drawer?'0':'90deg'");
     }
   </style>
-    <div id="drawer" class="trans" @click.stop="drawer=!drawer">
-      <slot name="drawer">
-        <icon- icon="menu" size="2" active $color="$rootScope.color.l5_"></icon->
-      </slot>
-    </div>
-    <div style="margin: 0 0.5em;">
-        <slot name="logo"></slot>
-    </div>
-    <!-- 大标题 -->
+
+  <!-- 图标 -->
+  <div>
+    <slot name="icon"></slot>
+  </div>
+  <!-- 大标题 -->
+  <div class="column">
     <div class="nowrap" style="margin: 0 0.5em"><slot></slot></div>
-    <!-- 小标题和导航条 -->
-    <div class="column" style="align-items: baseline;align-self: flex-end;">
-      <slot name="subtitle">子标题</slot>
-      <!-- 底部导航条 -->
-      <div :style="display: flex; justify-content: ${navAlign} ">
-        <slot name="nav"></slot>
-      </div>
+    <div class="row nowrap" >
+      <slot name="subtitle"></slot>
     </div>
-    <!-- 填充空间 -->
-    <div style="flex: 1"></div>
-    <div><slot name="tools"></slot></div>
+  </div>
+  <!-- 小标题和导航条 -->
+  <!-- 填充空间 -->
+  <div></div>
+  <!-- 导航和信息区条 -->
+  <div :style="display: flex; justify-content: ${navAlign}; flex:1 ">
+    <slot name="center"></slot>
+  </div>
+
+  <!-- 右部信息区 -->
+  <div><slot name="end"></slot></div>
 </template>

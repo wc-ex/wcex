@@ -18,8 +18,8 @@
     "@types/subset-font": "^1.4.0",
     "commander": "^10.0.0",
     "download": "^8.0.0",
-    "fontkit": "^1.9.0",
+    "fontkit": "^2.0.2",
     "lodash.kebabcase": "^4.1.1",
-    "subset-font": "^1.4.0"
+    "subset-font": "^2.0.0"
   }
 }

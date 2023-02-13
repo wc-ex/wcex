@@ -137,7 +137,7 @@ export default class extends Scope {
 
   }
   calcDir() {
-    let rt = this.$root.getBoundingClientRect();
+    let rt = this.$rootElem.getBoundingClientRect();
     // 计算弹出方向
     if (this.vert) {
       this.dir = rt.top < (window.innerHeight / 2) ? 'b' : 't';
@@ -151,7 +151,7 @@ export default class extends Scope {
   // 计算弹出窗口位置
   calcPop() {
     // 计算移动位置
-    let selfRt = this.$root.getBoundingClientRect();
+    let selfRt = this.$rootElem.getBoundingClientRect();
     // 计算Host位置
 
     switch (this.dir) {
@@ -161,7 +161,7 @@ export default class extends Scope {
         break;
       case 't':
         this.host.x = 0;
-        this.host.y = 1 - this.$root.offsetHeight;
+        this.host.y = 1 - this.$rootElem.offsetHeight;
         break;
       case 'r':
         this.host.x = this.$parent.offsetWidth;
@@ -177,7 +177,7 @@ export default class extends Scope {
     switch (this.dir) {
       case 'b':
         this.popPos.left = '0';
-        this.popPos.top = this.open ? '0' : `${-this.$root.offsetHeight}px`;
+        this.popPos.top = this.open ? '0' : `${-this.$rootElem.offsetHeight}px`;
         break;
       case 't':
         this.popPos.left = '0';
