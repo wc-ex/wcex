@@ -29,7 +29,7 @@
   </style>
 
   <!-- 标题栏 -->
-  <wcex-ui.title class="shadow trans" style="--shadow: var(--shadow-5); z-index: 999" $color="$color.pri.l2">
+  <wcex-ui.title class="shadow" style="z-index: 999" $color="$color.pri.l2">
     <!-- 标题栏图标区 -->
     <div slot="icon" class="row">
       <wcex-ui.icon
@@ -63,7 +63,7 @@
       <nav-></nav->
     </div>
     <div class="content">
-      <main-></main->
+      <main- abc="88888" class="main"></main->
 
       <footer-></footer->
     </div>
@@ -80,10 +80,13 @@
         this.loadFont();
       }
       loadFont() {
+        // cn: { css: "@/@wc1font/honglei-sim/font.css", family: "honglei sim" },
+        // https://cdn.jsdelivr.net/npm/@wc1font/lxgw-wen-kai-screen/font.css
         var font = {
-          cn: { css: "@/@wc1font/honglei-sim/font.css", family: "honglei sim" },
+          cn: { css: "@/@wc1font/lxgw-wen-kai-screen/font.css", family: "LXGW WenKai Screen" },
           en: { css: "@/@fontsource/concert-one/index.min.css", family: "Concert One" },
         };
+
         if (localStorage.__FONT) {
           try {
             font = JSON.parse(localStorage.__FONT);
@@ -92,7 +95,7 @@
           }
         }
 
-        var family = "Arial, Helvetica, sans-serif";
+        var family = "Roboto, Arial, Helvetica, sans-serif";
         Object.values(font).forEach((v) => {
           var link = document.createElement("link");
           link.rel = "stylesheet";

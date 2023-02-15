@@ -5,12 +5,11 @@
       flex-direction: column;
     }
     .hello {
-      background-color: red;
     }
   </style>
   <meta name="scope" hello="hello" />
   <!-- <wcex-ui.panel ></wcex-ui.panel> -->
-
+<!-- 
   <wcex-ui.panel>
     <wcex-ui.title slot="title">
       <wcex-ui.icon slot="icon" $color="$color.pri.l5_" icon="menu"></wcex-ui.icon>
@@ -18,7 +17,22 @@
       <wcex-ui.icon active slot="end" $color="$color.sec.l5_" icon="menu"></wcex-ui.icon>
     </wcex-ui.title>
     <div>PKPK panel content</div>
-  </wcex-ui.panel>
+  </wcex-ui.panel> -->
+
+  <h3 :style="background-color: ${$color.pri};">HELLO</h3>
+  <h3 :style="background-color: ${$color.pri};">HELLO</h3>
+  <h3 :style="background-color: ${$color.pria};">HELLO</h3>
+  <h3 :style="background-color: ${$color.pri};">HELLO</h3>
+  <h3 :style="background-color: ${$color.pri};">HELLO</h3>
+
+  <h3 :style="background-color: ${$color.pri};">HELLO</h3>
+  <h3 :style="background-color: ${$color.sec};">HELLO</h3>
+  <h3 :style="background-color: ${$color.pri};">HELLO</h3>
+  <h3 :style="background-color: ${$color.pri};">HELLO</h3>
+  <h3 :style="background-color: ${$color.seca};">HELLO</h3>
+  <h3 :style="background-color: ${$color.pri};">HELLO</h3>
+  <h3 :style="background-color: ${$color.pri};">HELLO</h3>
+
 
   <div class="hello" $abc="abcde">
     HELLO:${abc} ----

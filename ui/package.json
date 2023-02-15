@@ -20,6 +20,7 @@
   "dependencies": {
     "@types/marked": "^4.0.7",
     "@types/ws": "^8.5.4",
-    "wcex": "1.7.85"
+    "moment": "^2.29.4",
+    "wcex": "1.8.5"
   }
 }

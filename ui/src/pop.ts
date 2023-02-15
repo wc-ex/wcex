@@ -61,7 +61,7 @@ export default class extends Scope {
     // 处理hover事件
     switch (ev.type) {
       case 'mouseenter':
-        if (ev.target == this.$rootElem) {
+        if (ev.target == this.$root) {
           this.$log("hoverModeListener self enter", ev.type);
           // 自身
           this.selfEnter = true;
@@ -109,7 +109,7 @@ export default class extends Scope {
   onReady(): void {
     // if (this.$parent.tagName.match(/SUBMENU/)) debugger;
     this.$log("--!!! targetElem", this.targetElem, this.$parent.tagName, this.$rootElem);
-    if (!this.targetElem) this.targetElem = this.$parent;
+    if (!this.targetElem) this.targetElem = this.$rootParentElem;
 
 
     if (this.contextmenu) {
