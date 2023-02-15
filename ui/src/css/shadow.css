@@ -5,27 +5,29 @@
 */
 .shadow {
   --shadow-color1: "$$color.bgr.a7_";
-  --shadow-color2: "$$color.bgr.a8_";
-  --shadow-level: 4;
+  --shadow-color2: "$$color.bgr.a9_";
+  --shadow-level: 2;
   --shadow-x: 0px;
   --shadow-y: calc(1px * var(--shadow-level));
   /* x y blur spread */
-  --shadow-box1: var(--shadow-x) calc(1px + 1px * var(--shadow-level) / 2) calc(2px * var(--shadow-level) / 3)
+  --shadow: var(--shadow-x) calc(1px + 1px * var(--shadow-level) / 2) calc(2px * var(--shadow-level) / 3)
       calc(-1px * var(--shadow-level) / 2) var(--shadow-color1),
     var(--shadow-x) calc(1px + 1px * var(--shadow-level)) calc(3px * var(--shadow-level) / 2) calc(1px * var(--shadow-level) / 8)
       var(--shadow-color1),
     var(--shadow-x) calc(1px + 1px * var(--shadow-level) / 3) calc(2px * var(--shadow-level)) calc(1px * var(--shadow-level) / 3)
       var(--shadow-color2);
-  box-shadow: var(--shadow-box1);
+  box-shadow: var(--shadow);
 }
 
 .grow {
-  --grow-color1: "$$color.pri.s5.a5_";
-  --grow-color2: "$$color.pri.s5.a7_";
+  --grow-color1: "$$color.pri.ss(70).ll(50).a5_";
+  --grow-color2: "$$color.pri.ss(70).ll(50).a7_";
   --grow-level: 3;
+
   /* x y blur spread */
-  --shadow-box: 0 0 calc(2px * var(--grow-level) / 3) calc(-1px * var(--grow-level) / 2) var(--grow-color1),
+  --grow: 0 0 calc(2px * var(--grow-level) / 3) calc(-1px * var(--grow-level) / 2) var(--grow-color1),
     0 0 calc(3px * var(--grow-level) / 2) calc(1px * var(--grow-level) / 8) var(--grow-color1),
     0 0 calc(2px * var(--grow-level)) calc(1px * var(--grow-level) / 3) var(--grow-color2);
-  box-shadow: var(--shadow-box);
+  box-shadow: var(--grow);
+  z-index: 999;
 }

@@ -24,6 +24,15 @@
     </div>
       <div id="d2"> HHH_TEST</div>
 
+      
+  <wcex-ui.panel style="--grow-level:2;">
+    <wcex-ui.title slot="title" 
+      <wcex-ui.icon slot="icon" $color="$color.pri.l5_" icon="menu"></wcex-ui.icon>
+      <h5>HEO</h5>
+      <wcex-ui.icon active slot="end" $color="$color.sec.l3_" icon="menu"></wcex-ui.icon>
+    </wcex-ui.title>
+    <div>PKPK panel content</div>
+  </wcex-ui.panel>
     <!-- <h2 :>TEST----, ttt:${ttt}</h2>
     <h2 $>ppp</h2> -->
 <!-- 
@@ -52,19 +61,9 @@
   </wcex-ui.panel> -->
   <div class="main shadow" :style="margin: 2em;border-radius: 5px;"></div>
 
-<div class="main grow" :style="--grow-color1:${$color.warn};--grow-level:19;margin: 2em;border-radius: 5px;"></div>
+<div class="main grow" :style="--grow-level:5;margin: 2em;border-radius: 5px;"></div>
 
 <!-- 
   <wcex-ui.calendar></wcex-ui.calendar> -->
 
-  <script scope=".">
-    return class{
-      onReady(){
-        // this.$watch(()=>)
-      }
-      onCLick(el,ev){
-        console.log(ev)
-      }
-    }
-  </script>
 </template>
