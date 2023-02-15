@@ -1,0 +1,19 @@
+{
+  "name": "@msc/cn-font-tools",
+  "version": "1.0.20",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "bin": {
+    "cn_font_tools": "src/build.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "download": "^8.0.0",
+    "fontkit": "^1.9.0",
+    "lodash.kebabcase": "^4.1.1",
+    "subset-font": "^1.4.0"
+  }
+}

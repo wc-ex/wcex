@@ -1,5 +1,5 @@
-<template abc="aaaa" class="abc">
-  <meta name="scope" cc.int="2" dd.int="0">
+<template abc="aaaa" class="abc" >
+  <meta name="scope" cc.int="2" dd="abcdef" cc.bool="1" >
   <style>
     :host{
       display:flex;
@@ -10,23 +10,36 @@
       width: 20em;
       height: 10em;
     }
+    .hhh{
+      background-color: red;
+    }
   </style>
-    <h2 @click="dd++" :>Content----, 中文,${dd}</h2>
-<div>
-  打算看见你了勘测hi了很可能擦拭，的后果可怜考虑时间到了贺拉斯DHL哪里开始对接了
 
-</div>
-<div>
-，明年就爱上，你看了就撒都均为看见了sd
-，性能。看看你困了就老实点；解耦；二九九九； 
-拉开圣诞节了就流口水的
-是大卡车； 
-是加拿大厉害啦开始了可能擦。下。名字市场价；欧维u哦；；经常撒；了 ；送电池；俺就；iewj
-可是的交流空间能量咖色示例；的春节row拉开睡觉了；SJA   
-</div>
-    <input $readonly="'0'">
+  <div>skdjk</div>
+    <h2 @click="cc=!cc"  :>CCCC: ${cc}</h2>
+    <div class="hhh"  $aaa="cc">
+      <div id="d1" @click="$log('ABCDE---------->')"> HHHHH_TEST</div>
 
-    <div  :zhufeng="dd=${dd}" :>${dd} </div>
+      <h3 $for(v,k)="1" :class="bugaaa" :>FOR_BUG: ${k}-${v}</h3>
+    </div>
+      <div id="d2"> HHH_TEST</div>
+
+    <!-- <h2 :>TEST----, ttt:${ttt}</h2>
+    <h2 $>ppp</h2> -->
+<!-- 
+
+    <label for="a1">测试</label>
+    <input $@ name="ttt" type="radio" value="1号">
+    <input  $@  name="ttt" type="radio" value="2号">
+    <input  $@  name="ttt" type="radio" value="3号">
+    <input  $@  name="ttt" type="radio" value="4号">
+
+    <input $@ name="ppp" type="checkbox" value="1号">
+    <input  $@  name="ppp" type="checkbox" value="2号">
+    <input  $@  name="ppp" type="checkbox" value="3号">
+    <input  $@  name="ppp" type="checkbox" value="4号">
+
+    <div $for="ppp" $sort="{get:1}" :>ppp: ${console.log('VALUE') || value}</div> -->
 
 <!--     
   <wcex-ui.panel class="main" $color="$color.sec">
@@ -39,7 +52,7 @@
   </wcex-ui.panel> -->
   <div class="main shadow" :style="margin: 2em;border-radius: 5px;"></div>
 
-<div class="main grow" :style="margin: 2em;border-radius: 5px;"></div>
+<div class="main grow" :style="--grow-color1:${$color.warn};--grow-level:19;margin: 2em;border-radius: 5px;"></div>
 
 <!-- 
   <wcex-ui.calendar></wcex-ui.calendar> -->
@@ -48,6 +61,9 @@
     return class{
       onReady(){
         // this.$watch(()=>)
+      }
+      onCLick(el,ev){
+        console.log(ev)
       }
     }
   </script>

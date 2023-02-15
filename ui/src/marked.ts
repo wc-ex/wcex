@@ -2,7 +2,9 @@ import { marked } from 'marked';
 import { Scope } from 'wcex';
 
 export default class extends Scope {
+  
   onReady(): void {
+    // this.
     // 监控内容变化
     this.updateMarked();
   }
