@@ -1,21 +1,33 @@
 <!-- 实现可折叠的面板,通过value可绑定是否打开或者关闭 -->
-<!-- 为整个 panel 设置阴影 -->
-<template class="grow" style="--grow-level:2" closeabl.bool="false" flat.bool="false">
+<!-- 
+  具有标题栏的可收缩面板
+  标题区、内容区、以及动作区
+  可调整颜色
+ -->
+<template open.bool="true" icon="" flat.bool="false" @click="open=!open">
   <style>
     :host {
-      --grow-level:1 ;
+      --title-shadow:1;
       display: flex;
       flex-direction: column;
-      border-radius: 0.2em;
       overflow: hidden;
     }
     .panel{
-      padding: 0.6em;
+      height: "$open?$id.slot.assignedElements()[0].clientHeight+'px':0";
     }
   </style>
+
+  <wcex-ui.title class="title" slot="title" >
+    <wcex-ui.icon slot="icon" $color="$color.pri.l5_" icon="menu"></wcex-ui.icon>
+    <h5><slot name="title"></slot></h5>
+    <!-- <h3>HEO1</h3> -->
+    <wcex-ui.icon active slot="end" $color="$color.sec.l3_" icon="menu"></wcex-ui.icon>
+  </wcex-ui.title>
+
   <!-- 标题栏 -->
   <!-- 当插槽成功填充后显示，否则不显示 -->
-  <div class="shadow trans" ><slot name="title"></slot></div>
+  <div class="shadow" style="user-select: none;--shadow-level:var(--title-shadow)"><slot name="title"></slot></div>
   <!-- 可折叠面板 -->
-  <div class="panel"><slot></slot></div>
+  <div  id="panel" class="panel trans"><slot id="slot"></slot></div>
+  
 </template>

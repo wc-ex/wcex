@@ -4,18 +4,28 @@
       display: flex;
       flex-direction: column;
     }
+    .title{
+      background-color:"$$color.pri" ;
+      color:"$$color.pri.l5_" ;
+    }
   </style>
   <meta name="scope" hello="hello" />
   <!-- <wcex-ui.panel ></wcex-ui.panel> -->
 
   
-  <wcex-ui.panel>
-    <wcex-ui.title slot="title">
+  <!-- 一级主菜单 -->
+  <wcex-ui.panel $open="1" icon="">
+    <span slot="title">标题区</span>
+    <!-- <wcex-ui.title class="title" slot="title" >
       <wcex-ui.icon slot="icon" $color="$color.pri.l5_" icon="menu"></wcex-ui.icon>
-      <h3>HEO</h3>
+      <h3>HEO1</h3>
       <wcex-ui.icon active slot="end" $color="$color.sec.l3_" icon="menu"></wcex-ui.icon>
-    </wcex-ui.title>
-    <div>PKPK panel content</div>
+    </wcex-ui.title> -->
+    <div :style="background-color: ${$color.bg.a5_};padding:0.5em">
+      <!-- 二级目录 -->
+      <h5 $for="5">项目1111</h5>
+
+    </div>
   </wcex-ui.panel>
 
   <h3 :style="background-color: ${$color.pri};">HELLO</h3>

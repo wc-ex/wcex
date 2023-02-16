@@ -4,11 +4,13 @@
 <template nav-align="center" >
   <style>
     :host {
+      --center-align:center;
       display: flex;
       background-color: "$$color.pri.l3";
       color: "$$color.textr";
       padding: 0.2em 0.3em;
       align-items: center;
+
     }
   </style>
 
@@ -27,7 +29,7 @@
   <!-- 填充空间 -->
   <div></div>
   <!-- 导航和信息区条 -->
-  <div :style="display: flex; justify-content: ${navAlign}; flex:1 ">
+  <div :style="display: flex; justify-content: var(--center-align); flex:1 ">
     <slot name="center"></slot>
   </div>
 
