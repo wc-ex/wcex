@@ -1,0 +1,19 @@
+<!-- 
+    创建一个菜单列表，支持选中、高亮、多选等操作
+    type: [radio | checkbox]
+ -->
+
+<template type="" >
+  <style>
+    :host{
+      display: flex;
+      flex-direction: column;
+    }
+
+    ::slotted(*[checked]){
+      color: red;
+    }
+
+  </style>
+  <slot></slot>
+</template>

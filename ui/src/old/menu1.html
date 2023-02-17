@@ -1,0 +1,77 @@
+<!-- 支持多级弹出菜单结构，支持选择水平或者垂直方向弹出 -->
+<template
+  width="10"
+  $color="$color.pri"
+  tabindex="0"
+  @focus="isOpen=true;left=$parent.offsetWidth"
+  @blur="isOpen=false"
+>
+  <meta name="scope" pop-dir="0" is-open.bool="false" left="0" />
+  <style>
+    :host {
+      display: block;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+    /* 
+    slot:not([name])::slotted(*) {
+      display: flex;
+      align-items: center;
+      transition: all 0.3s;
+      position: relative;
+      padding: 0.2em 0.5em;
+      border-color: "$color.l2";
+      border-style: solid;
+      border-width: "$popDir=='r'?'0 0 0 5px':'0 5px 0 0'";
+    }
+    slot:not([name])::slotted(*:hover) {
+      background-color: "$color.l2";
+      border-color: "$color.h2.l5_";
+    }
+    slot:not([name])::slotted(*:focus) {
+      outline: 1.5px solid red;
+    }
+    slot[name="submenu"]::slotted(*) {
+      position: relative;
+    } */
+    slot {
+      display: flex;
+      flex-direction: column;
+    }
+    #menu {
+      left: ":${left}px";
+      border-radius: 5px;
+    }
+    slot:not([name])::slotted(*) {
+      padding: 0.35em;
+      transition: all 0.3s ease-out;
+      border-left: solid 5px "$color.l2";
+    }
+    slot:not([name])::slotted(*:hover) {
+      background-color: "$color.l2";
+    }
+    slot:not([name])::slotted(*[submenu]) {
+      padding-right: 0.5em;
+      border-top-right-radius: 5px 50%;
+      border-bottom-right-radius: 5px 50%;
+      border-right: 5px solid "$color.l5_.a1_";
+    }
+    slot:not([name])::slotted(*[submenu]:hover) {
+      border-top-right-radius: 1em 50%;
+      border-bottom-right-radius: 1em 50%;
+      border-right: 5px solid "$color.l5_.a1_";
+    }
+    slot:not([name])::slotted(*[submenu]:active) {
+      border-top-right-radius: 0.5em 50%;
+      border-bottom-right-radius: 0.5em 50%;
+    }
+  </style>
+  <!-- 弹出菜单 -->
+  <pop1- id="menu" $$dir="popDir" $open="isOpen">
+    <slot></slot>
+  </pop1->
+  <!-- 子菜单，需在子菜单之外，否则将导致被<pop>裁剪 -->
+  <slot name="submenu"></slot>
+  <!-- 弹出子菜单 -->
+</template>

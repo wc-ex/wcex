@@ -1,0 +1,38 @@
+<!-- 
+    全局Tips对象，显示tips内容
+    以使在 overflow 的元素内部可以使用，或者使用
+-->
+
+<template width.int="16" $color="$color.pria" $text-color="$color.textr">
+  <!-- 主元素用于定位和处理事件 -->
+  <style name="layout">
+    :host {
+      /* display: block; */
+      display: "$state?'block':'none'";
+      left: ":${x}px";
+      top: ":${y}px";
+      position: fixed;
+      width: max-content;
+      min-width: 4em;
+      max-width: ":${width}em";
+      min-height: 1em;
+      font-size: 0.85em;
+      color: "$textColor";
+      background-color: "$color.l2.a1_";
+      border: 2px solid "$color.l3_";
+      border-radius: 5px;
+      text-align: justify;
+      z-index: 99999;
+      padding: 0.5em;
+      pointer-events: none;
+      opacity: "$state==2?'1':'0'";
+      transition: "$state==2?'all 0.5s':'none'";
+    }
+    pre {
+      white-space: pre-line;
+      margin: 0;
+    }
+  </style>
+  <div id="pop"></div>
+  <script scope="." src="."></script>
+</template>

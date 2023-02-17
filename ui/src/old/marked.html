@@ -1,0 +1,11 @@
+<template src="" @ready="$id.md.innerHTML = marked.parse(src)">
+  <meta name="module" pkg="marked" content="marked.min.js;" />
+  <style name="layout">
+    :host {
+      display: block;
+      text-align: start;
+    }
+  </style>
+  <div id="md"></div>
+  <script scope="marked" src="marked"></script>
+</template>
