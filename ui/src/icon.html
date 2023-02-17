@@ -17,10 +17,12 @@
   url=""
   active.bool="0"
   $color="$color.pri"
-  $tabindex.int="active?0:-1"
+  $tabindex="active?0:-1"
+  class="grow trans"
+  flaged.bool="0"
 >
   <meta name="scope" />
-  <style>
+  <style id="hostStyle">
     :host {
       display: block;
       position: relative;
@@ -29,24 +31,27 @@
       text-orientation: unset;
       writing-mode: unset;
       user-select: none;
-      padding: 0.2em;
+      border-radius: 25%;
+      box-sizing: border-box;
+      border-bottom: "$flaged?'3px':'0px'" solid "$color.h2_.a5_";
+      pointer-events: "$active?'unset':'none'";
+      
+      --grow-level:0 !important;
+    } 
+    :host(:active){
+      --grow-level:3 !important;
     }
 
-    :host(:focus),
-    :host(:focus-visible),
-    :host(:focus-within) {
-      outline: 2px solid "$color.l5_";
-    }
 
     /* :host(:hover) {
       box-shadow: 0px 0px 2px 0px '$color.l5_';
     } */
     .icon:hover {
-      fill: '$active?color.l3_:""';
+      fill: '$active?color.l3_:"inherit"';
     }
 
     .icon:active {
-      fill: '$active?color.l1:""';
+      fill: '$active?color.l1:"inherit"';
     }
 
     .icon {

@@ -5,9 +5,11 @@
     :host {
       display: flex;
       align-items: center;
+      justify-content: center;
+      padding: 0.1em;
     }
   </style>
-  <wcex-ui.icon $icon="mod?'wb_sunny':'mode_night' " @click="$Colors.switchMode();mod=$Colors.mode" $color="$color.sec" active></wcex-ui.icon>
+  <wcex-ui.icon style="margin: 0 0.5em;" $icon="mod?'wb_sunny':'mode_night' " @click="$Colors.switchMode();mod=$Colors.mode" $color="$color.sec.l2_" active></wcex-ui.icon>
   <toolcool-color-picker
     button-width="2rem"
     id="picker"

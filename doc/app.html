@@ -15,7 +15,6 @@
       flex: 1;
     }
     .left {
-      width: ":${drawer?16:4}em";
       overflow-x: hidden;
       overflow-y: auto;
       background-color: "$$color.pria.l3_";
@@ -33,14 +32,14 @@
     <!-- 标题栏图标区 -->
     <div slot="icon" class="row">
       <wcex-ui.icon
-        class="trans"
         icon="menu"
         size="3"
         active
-        $color="$color.pri.l5_"
+        $color="$color.pri.l3_"
         @click.stop="drawer=!drawer"
+        :style="transform: rotate(${drawer?0:90}deg);"
       ></wcex-ui.icon>
-      <img src="./assets/logo.png" style="width: 4em; margin: 0 1em" alt="" />
+      <img src="./assets/logo.png" style="width: 3em; margin: 0 1em" alt="" />
     </div>
     <!-- 标题内容区 -->
     <h2>WCEX</h2>
@@ -51,25 +50,25 @@
       <div class="column" style="justify-content: center">
         <!-- 调色板 -->
         <com-color_picker> </com-color_picker>
-        <div :>${loadtime}ms</div>
+        <div style="text-align: center;" :>${loadtime}ms</div>
       </div>
     </div>
   </wcex-ui.title>
   <!-- 主窗口 -->
   <div class="main">
-    <!-- <test- $abc="0"></test-> -->
     <!-- 菜单 -->
-    <div class="left shadow trans">
-      <nav-></nav->
+    <div class="left shadow">
+      <nav- $min="!drawer"></nav->
     </div>
     <div class="content">
-      <main- abc="88888" class="main"></main->
+      <main-  class="main"></main->
 
       <footer-></footer->
     </div>
   </div>
 
   <script scope=".">
+
     return class {
       loadtime = 0;
       // 动态设置字体
