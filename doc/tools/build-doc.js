@@ -3,22 +3,23 @@ const path = require("path");
 
 // return {name,isDir}[]
 async function deepDir(obj, pathname, rootPath) {
-  for (let n of await fsp.readdir(pathname)) {
+  for (let listName of await fsp.readdir(pathname)) {
     // console.log("--> ",n)
-    let p = path.join(pathname, n);
+    let p = path.join(pathname, listName);
     let st = await fsp.stat(p);
     if (st.isDirectory()) {
       // 处理目录
-      let desc = JSON.parse(await fsp.readFile(path.join(p, "description.json"), "utf8"));
-      obj[n] = {
+      let icon = JSON.parse(await fsp.readFile(path.join(p, "icon.json"), "utf8"));
+      obj[listName] = {
         typ: "dir",
-        name: n,
+        name: listName,
         path: path.relative(rootPath, p),
         items: {},
-        desc,
+        icon,
       };
-      await deepDir(obj[n].items, p, pathname);
-    } else if (st.isFile() && n.endsWith(".md")) {
+      await deepDir(obj[listName].items, p, pathname);
+    } else if (st.isFile() && listName.endsWith(".md")) {
+      listName = listName.slice(0,listName.length-3)
       // 处理文件
         // 从md第一行获取描述信息
       let md = await fsp.readFile(p, "utf8");
@@ -29,11 +30,11 @@ async function deepDir(obj, pathname, rootPath) {
         desc= JSON.parse(m[1]);
       }
 
-      obj[n] = {
+      obj[listName] = {
         typ: "file",
-        name: n,
+        name: listName,
         path: path.relative(rootPath, p).replace(/\\/g, "/"),
-        desc,
+        ...desc,
       };
     }
   }

@@ -7,10 +7,6 @@
 <template
   open.bool="true"
   $color="$color.pri"
-  icon="circle"
-  icon-type="filled"
-  icon-pkg="mdi"
-  icon-size.float="1.5"
   closeable.bool="false"
   textonly.bool="false"
 >
@@ -40,16 +36,15 @@
   </style>
 
   <div :class="title row trans ${open?'shadow':''} nowrap" style="user-select: none" @click="if(closeable)open=!open">
-    <wcex-ui.icon
-      slot="icon"
-      $color="$root.color.l4_"
-      $icon="$root.icon"
-      $size="iconSize"
-      $pkg="iconPkg"
-      $type="iconType"
-      :style="margin-right: 1em"
-      $if="!textonly"
-    ></wcex-ui.icon>
+    <div $if="!textonly" :style="margin-right: 1em">
+      <slot name="icon">
+        <wcex-ui.icon
+          $color="$root.color.l4_"
+          size="1.5"
+        ></wcex-ui.icon>
+      </slot>
+    </div>
+
     <h4 style="flex: 1"><slot name="title"></slot></h4>
     <!-- 打开指示条 -->
     <wcex-ui.icon
@@ -71,7 +66,7 @@
       onReady() {
         this.update();
         let el = this.$id.slot.assignedElements()[0];
-        this.$log("--- assignedElements:", el);
+        // this.$log("--- assignedElements:", el);
         if (el) {
           this.$monitSize(el, (sz) => {
             this.update();

@@ -26,34 +26,8 @@
       overflow-y: auto;
     }
   </style>
+  <title- $$drawer="$root.drawer"></title->
 
-  <!-- 标题栏 -->
-  <wcex-ui.title class="shadow" style="z-index: 999;padding: 0.5em 0.5em;" $color="$color.pri.l2">
-    <!-- 标题栏图标区 -->
-    <div slot="icon" class="row">
-      <wcex-ui.icon
-        icon="menu"
-        size="3"
-        active
-        $color="$color.sec"
-        @click.stop="drawer=!drawer"
-        :style="transform: rotate(${drawer?0:90}deg);"
-      ></wcex-ui.icon>
-      <img src="./assets/logo.png" style="width: 3em; margin: 0 1em" alt="" />
-    </div>
-    <!-- 标题内容区 -->
-    <h2>WCEX</h2>
-    <div slot="subtitle">原生响应式 Web Components 扩展库</div>
-
-    <!-- 工具区 -->
-    <div class="column" slot="end" style="width: 6em" :>
-      <div class="column" style="justify-content: center">
-        <!-- 调色板 -->
-        <com-color_picker> </com-color_picker>
-        <div style="text-align: center;margin-top: 0.5em;" :>${loadtime}ms</div>
-      </div>
-    </div>
-  </wcex-ui.title>
   <!-- 主窗口 -->
   <div class="main">
     <!-- 菜单 -->
@@ -70,12 +44,8 @@
   <script scope=".">
 
     return class {
-      loadtime = 0;
       // 动态设置字体
       onCreate() {
-        window.addEventListener("wcex-loaded", (ev) => {
-          this.loadtime = ev.detail.time;
-        });
         this.loadFont();
       }
       loadFont() {

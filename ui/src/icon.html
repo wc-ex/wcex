@@ -22,14 +22,12 @@
   flaged.bool="0"
 >
   <meta name="scope" />
-  <!-- border-bottom: "$flaged?'3px':'0px'" solid "$color.h2_.a5_"; -->
 
   <style id="hostStyle">
     :host {
       display: block;
-      position: relative;
-      height: ":${size}em";
-      width: ":${size}em";
+      /* height: ":${size}em";
+      width: ":${size}em"; */
       text-orientation: unset;
       writing-mode: unset;
       user-select: none;
@@ -44,9 +42,6 @@
     }
 
 
-    /* :host(:hover) {
-      box-shadow: 0px 0px 2px 0px '$color.l5_';
-    } */
     .icon:hover {
       fill: '$active?color.l3_:"inherit"';
     }
@@ -56,13 +51,13 @@
     }
 
     .icon {
-      width: ":${size}em";
-      height: ":${size}em";
+      /* width: ":${size}em";
+      height: ":${size}em"; */
       fill: "$color";
       transition: all 0.3s;
     }
   </style>
-  <svg class="icon" $src="srcPath()"></svg>
+  <svg class="icon" :width="${size}em" :height="${size}em" $src="srcPath()"></svg>
   <script scope=".">
     return class {
 
@@ -73,7 +68,7 @@
           "/" +
           this.type +
           "/" +
-          this.icon +
+          (this.icon||"circle") +
           ".svg"
         );
       }

@@ -1,4 +1,42 @@
-<template>
+<template drawer.bool="1">
+  <!-- 标题栏 -->
+  <wcex-ui.title class="shadow" style="z-index: 999; padding: 0.5em 0.5em" $color="$color.pri.l2">
+    <!-- 标题栏图标区 -->
+    <div slot="icon" class="row">
+      <wcex-ui.icon
+        icon="menu"
+        size="3"
+        active
+        $color="$color.sec.l2_"
+        @click.stop="drawer=!drawer"
+        :style="transform: rotate(${drawer?0:90}deg);"
+      ></wcex-ui.icon>
+      <img src="./assets/logo.png" style="width: 3em; margin: 0 1em" alt="" />
+    </div>
+    <!-- 标题内容区 -->
+    <h2>WCEX</h2>
+    <div slot="subtitle">原生响应式 Web Components 扩展库</div>
 
-    <h1 class="abc">TITLE FROM APP</h1>
+    <!-- 工具区 -->
+    <div class="column" slot="end" style="width: 6em" :>
+      <div class="column" style="justify-content: center">
+        <!-- 调色板 -->
+        <com-color_picker> </com-color_picker>
+        <div style="text-align: center; margin-top: 0.5em" :>${loadtime}ms</div>
+      </div>
+    </div>
+  </wcex-ui.title>
+
+  <script scope=".">
+      let _loadtime = 0;
+      window.addEventListener("wcex-loaded", (ev) => {
+          _loadtime = ev.detail.time;
+        });
+    return class {
+      loadtime=0
+      onCreate() {
+        this.loadtime =_loadtime 
+      }
+    };
+  </script>
 </template>
