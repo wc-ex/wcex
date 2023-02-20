@@ -1,0 +1,12 @@
+<template $val="888" $color="$color.pri">
+
+    <style>
+        :host{
+            display: block;
+            background-color: "$color";
+        }
+    </style>
+    
+    <h3 style="user-select: none;" @click="val++" :> INTER CLICK: val=${val}</h3>
+
+</template>

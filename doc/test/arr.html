@@ -1,0 +1,20 @@
+<template >
+    <div $>arr</div>
+  <h2 @click="arr.push('aaa')">ARR PUSH</h2>
+  <h2 @click="arr.shift()">ARR SHIFT</h2>
+  <h2 @click="arr[0]++">ARR [0]++</h2>
+
+  <script scope=".">
+    return class {
+      arr = [1, 2, 3];
+      onReady() {
+        this.$watch(
+          () => this.arr,
+          () => {
+            console.log("changed----- ARR!!!");
+          }
+        );
+      }
+    };
+  </script>
+</template>
