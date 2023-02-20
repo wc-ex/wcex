@@ -10,38 +10,30 @@
       color: "$$color.pri.l5_";
     }
   </style>
-  <meta name="scope" hello="hello" />
+  <meta name="scope" hello="hello" isopen.bool="1"  />
+
   <!-- <wcex-ui.panel ></wcex-ui.panel> -->
 
-  <!-- 一级主菜单 -->
-  <wcex-ui.panel $open="1" $textonly="min" icon="donut_small" closeable $cur="0" $cc="5" >
-    <span slot="title"  :>标题区: ${cur}</span>
-    <!-- 内容区 -->
-    <!-- <div
-      :style="padding: 0.5em 0; text-align: ${min?'center':'left'};"
-    > -->
-      <!-- 二级目录 -->
-      <!-- <h5
-        $@
-        $value="k"
-        name="cur"
-        type="radio"
-        $for(v,k)="5"
-        class="nowrap trans"
-        $checked="cur==value"
-        @click="cur=value"
-        :style=" overflow: hidden ;padding: 0.2em 0 0.2em 2em;background-color:${checked?$color.sec.a7_:$color.none};"
-      >
-        项目1111
-      </h5> -->
-      <wcex-ui.list @change="$log('---CHANGE',$ev.target)">
-        <h4  $@ name="cur"  type="radio" $for="cc" @click="$emit('change',$el)" :>ITEM:${index}</h4>
-      </wcex-ui.list>>
+  <div $cur="[]">
+    <div $>cur</div>
+    <wcex-ui.list style="padding: 0.5em 0" $items="5" type="checkbox" $$="cur" >
+      <h4 $for="items" $slot="index" :style="margin-left: ${min?0:1}em;" :>ITEM:${index}</h4>
+    </wcex-ui.list>
+  </div>
 
-      <!-- <wcex-ui.list>
-      </wcex-ui.list> -->
-    <!-- </div> -->
-  </wcex-ui.panel>
+  
+  <div $cur="0">
+    <div $>cur</div>
+    <wcex-ui.list style="padding: 0.5em 0" $items="5"  $$="cur" >
+      <h4 $for="items" $slot="index" :style="margin-left: ${min?0:1}em;" :>ITEM:${index}</h4>
+    </wcex-ui.list>
+  </div>
+
+  <!-- 一级主菜单 -->
+  <!-- <wcex-ui.panel $$open="isopen" $textonly="min" icon="donut_small" closeable cur="[]">
+    <span slot="title" :>标题区: ${cur}</span> -->
+    <!-- 内容区 -->
+  <!-- </wcex-ui.panel> -->
 
   <h3 :style="background-color: ${$color.pri};">HELLO</h3>
 

@@ -34,4 +34,6 @@ pnpm i -g typescript
   > in current dir, type:
   > _"wcex build"_
 
-
+## New
+  UI Component Test Automation
+  

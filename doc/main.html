@@ -1,99 +1,45 @@
-<template abc="aaaa" class="abc" >
-  <meta name="scope" cc.int="2" dd="abcdef" cc.bool="1" teststyle="" test1="">
+<template class="abc">
+  <meta name="scope"  />
   <style>
-    :host{
-      display:flex;
+    :host {
+      display: flex;
       flex-direction: column;
       align-items: center;
     }
-    .main{
+    .main {
       width: 20em;
       height: 10em;
     }
-    .hhh{
+    .hhh {
       /* 奇怪的用法，在表达式中直接定义和声明scope变量 */
-      --clr:"$this.bg=$color.sec";
-      --pp:"$bg";
+      --clr: "$this.bg=$color.sec";
+      --pp: "$bg";
       background-color: var(--pp);
     }
     .hhhh5:hover {
       color: red;
     }
-    #d2:hover{
-      --test:9999
+    #d2:hover {
+      --test: 9999;
     }
   </style>
 
-  <div>skdjk</div>
-    <h2 @click="cc=!cc"  :>CCCC: ${cc}</h2>
-    <div class="hhh"  $aaa="cc">
-      <div id="d1" @click="$log('ABCDE---------->')"> HHHHH_TEST</div>
 
-      <h3 $for(v,k)="1" :class="bugaaa" :>FOR_BUG: ${k}-${v}</h3>
-    </div>
-    <!-- <h3></h3> -->
+  <script scope=".">
+    return class {
+      abc=[
+        {
+          a:1,b:2,c:3
+        },
+        {
+          a:11,b:22,c:33
+        },
+        {
+          a:111,b:222,c:333
+        },
 
-      <div id="d2" @!--test="teststyle=$ev.detail" :> HHH_TEST: ${teststyle}</div>
-      <div id="d3" @!border-radius="test1=$ev.detail" :> TEST1-RADIUS: ${test1}</div>
+      ]
 
-<!--       
-  <wcex-ui.panel $lll="3" @click="lll++" :style="--grow-level:${lll};border-radius: 0;" id="aaaaa">
-    <wcex-ui.title slot="title" 
-      <wcex-ui.icon slot="icon" $color="$color.pri.l5_" icon="menu"></wcex-ui.icon>
-
-      <h5 class="hhhh5" @!color="console.log('--!!! color changed',$ev.detail)">HOOEO</h5>
-
-      <wcex-ui.icon active slot="end" $color="$color.sec.l3_" icon="menu"></wcex-ui.icon>
-    </wcex-ui.title>
-    <div>PKPK panel content</div>
-  </wcex-ui.panel> -->
-    <!-- <h2 :>TEST----, ttt:${ttt}</h2>
-    <h2 $>ppp</h2> -->
-<!-- 
-
-    <label for="a1">测试</label>
-    <input $@ name="ttt" type="radio" value="1号">
-    <input  $@  name="ttt" type="radio" value="2号">
-    <input  $@  name="ttt" type="radio" value="3号">
-    <input  $@  name="ttt" type="radio" value="4号">
-
-    <input $@ name="ppp" type="checkbox" value="1号">
-    <input  $@  name="ppp" type="checkbox" value="2号">
-    <input  $@  name="ppp" type="checkbox" value="3号">
-    <input  $@  name="ppp" type="checkbox" value="4号">
-
-    <div $for="ppp" $sort="{get:1}" :>ppp: ${console.log('VALUE') || value}</div> -->
-
-<!--     
-  <wcex-ui.panel class="main" $color="$color.sec">
-    <wcex-ui.title slot="title" $color="$parent.color">
-      <wcex-ui.icon slot="icon" $color="$parent.color.l5_" icon="menu"></wcex-ui.icon>
-      <h4>HEO</h4>
-      <wcex-ui.icon active slot="end" $color="$parent.color.l5_" icon="menu"></wcex-ui.icon>
-    </wcex-ui.title>
-    <div>PKPK panel content</div>
-  </wcex-ui.panel> -->
-  <div class="main shadow" :style="margin: 2em;border-radius: 5px;"></div>
-<h3 $>$root.gcolor</h3>
-
-<div class="main grow" :style="--grow-level:8;  --grow-color:${$color.sec}; margin: 2em;border-radius: 5px;"></div>
-
-<!-- 
-  <wcex-ui.calendar></wcex-ui.calendar> -->
-<script scope=".">
-return class{
-  onReady(){
-    // for(let i=0;i<5;i++){
-      
-    //   this.$log('---computedStyleMap 性能',i)
-    //   let pp = 999;
-    //   for(let j=0;j<1000000;j++)
-    //    pp = this.$id.aaaaa.computedStyleMap()
-    //   this.$log('--- display',pp.get('display').value)
-
-    // }
-  }
-}
-
-</script>
+    };
+  </script>
 </template>

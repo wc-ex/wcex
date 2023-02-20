@@ -4,6 +4,8 @@ import fs from 'fs';
 import { dev } from './dev';
 import { init } from './init';
 import { build } from './build';
+import { test } from './test';
+
 
 const pkg = JSON.parse(fs.readFileSync(path.join(__dirname, '../package.json'), 'utf8'));
 // console.log(pkg.name, pkg.version);
@@ -34,6 +36,12 @@ program
   .description('build web component project')
   .option('--dir <string>', 'init project dir', '.')
   .action(build);
+
+program
+  .command('test')
+  .description('run all test case ')
+  .option('--dir <string>', 'test cases dir', path.resolve('.','test'))
+  .action(test);
 
 program.parse();
 

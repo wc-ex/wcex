@@ -35,7 +35,7 @@
         icon="menu"
         size="3"
         active
-        $color="$color.pri.l3_"
+        $color="$color.sec"
         @click.stop="drawer=!drawer"
         :style="transform: rotate(${drawer?0:90}deg);"
       ></wcex-ui.icon>
@@ -50,7 +50,7 @@
       <div class="column" style="justify-content: center">
         <!-- 调色板 -->
         <com-color_picker> </com-color_picker>
-        <div style="text-align: center;" :>${loadtime}ms</div>
+        <div style="text-align: center;margin-top: 0.5em;" :>${loadtime}ms</div>
       </div>
     </div>
   </wcex-ui.title>

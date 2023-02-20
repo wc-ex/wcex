@@ -14,8 +14,8 @@
   closeable.bool="false"
   textonly.bool="false"
 >
-  <link rel="stylesheet" href="./css/shadow.css"/>
-  <link rel="stylesheet" href="./ui.css"/>
+  <link rel="stylesheet" href="./css/shadow.css" />
+  <link rel="stylesheet" href="./ui.css" />
 
   <style>
     :host {
@@ -66,23 +66,22 @@
   <div class="panel trans"><slot id="slot"></slot></div>
 
   <script scope=".">
-    return class{
-      panelHeight=0;
-      onReady(){
-        this.update()
-        let el = this.$id.slot.assignedElements()[0]
-        this.$log("--- assignedElements:",el)
-
-        this.$monitSize(el,(sz)=>{
-          this.update()
-          this.$log("--- SZ:",sz,this.panelHeight)
-        })
+    return class {
+      panelHeight = 0;
+      onReady() {
+        this.update();
+        let el = this.$id.slot.assignedElements()[0];
+        this.$log("--- assignedElements:", el);
+        if (el) {
+          this.$monitSize(el, (sz) => {
+            this.update();
+          });
+        }
       }
-      update(){
-        this.panelHeight = this.$id.slot.assignedElements()[0].clientHeight
-
+      update() {
+        let el = this.$id.slot.assignedElements()[0];
+        this.panelHeight = el && el.clientHeight;
       }
-    }
+    };
   </script>
-
 </template>
