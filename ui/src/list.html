@@ -26,7 +26,7 @@
   <div $>value</div>
   <div $if="type=='radio'">
     <div  $for="items"   class="item trans" $:.click="$root.value" >
-      <!-- 绑定数据为数组，设为数组 -->
+      <!-- 绑定数据为单选-->
         <slot $name="index"></slot>
       </div>
   </div>
