@@ -10,30 +10,34 @@
       color: "$$color.pri.l5_";
     }
   </style>
-  <meta name="scope" hello="hello" isopen.bool="1"  />
+  <meta name="scope" hello="hello" isopen.bool="1" cur.int="1"  />
 
   <!-- <wcex-ui.panel ></wcex-ui.panel> -->
 
-  <div $cur="[]">
-    <div $>cur</div>
-    <wcex-ui.list style="padding: 0.5em 0" $items="5" type="checkbox" $$="cur" >
+  <div $sel="[]">
+    <div $>sel</div>
+    <wcex-ui.list style="padding: 0.5em 0" $items="5" type="checkbox" $$="sel" >
       <h4 $for="items" $slot="index" :style="margin-left: ${min?0:1}em;" :>ITEM:${index}</h4>
     </wcex-ui.list>
   </div>
 
   
-  <div $cur="0">
-    <div $>cur</div>
-    <wcex-ui.list style="padding: 0.5em 0" $items="5"  $$="cur" >
+  <div $sel="0">
+    <div $>sel</div>
+    <wcex-ui.list style="padding: 0.5em 0" $items="5"  $$="sel" >
       <h4 $for="items" $slot="index" :style="margin-left: ${min?0:1}em;" :>ITEM:${index}</h4>
     </wcex-ui.list>
   </div>
 
   <!-- 一级主菜单 -->
-  <!-- <wcex-ui.panel $$open="isopen" $textonly="min" icon="donut_small" closeable cur="[]">
-    <span slot="title" :>标题区: ${cur}</span> -->
+  <wcex-ui.panel $$open="isopen" $textonly="min" icon="donut_small" closeable >
+    <span slot="title" :>标题区: ${cur}</span>
     <!-- 内容区 -->
-  <!-- </wcex-ui.panel> -->
+    <wcex-ui.list style="padding: 0.5em 0" $items="5"  $$="cur" >
+      <h4 $for="items" $slot="index" :style="margin-left: ${min?0:1}em;" :>ITEM:${index}</h4>
+    </wcex-ui.list>
+
+  </wcex-ui.panel>
 
   <h3 :style="background-color: ${$color.pri};">HELLO</h3>
 

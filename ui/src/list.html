@@ -10,11 +10,17 @@
       flex-direction: column;
     }
 
+    .item{
+      display: flex;
+      justify-content: center;
+      /* align-items: center; */
+    }
     .item[checked] {
       color: "$color.l5";
       background-color: "$$color.bg.a6_";
     }
     ::slotted(*) {
+      flex:1;
       border-left: 0 solid "$color.ss(70).ll(50)";
       padding-left: 0.5em;
       transition: all 0.25s ease-out;
@@ -31,10 +37,10 @@
       </div>
   </div>
   <div $if="type=='checkbox'">
-
      <div  $for="items"   class="item trans" $::.click="$root.value" >
     <!-- 绑定数据为数组，设为数组 -->
       <slot $name="index"></slot>
+      <wcex-ui.icon icon="check_circle_outline" $size="checked?1.5:0"></wcex-ui.icon>
     </div>
   </div>
 </template>
