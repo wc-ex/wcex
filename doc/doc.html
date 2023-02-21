@@ -1,0 +1,22 @@
+<!-- 
+  实现 markdown文档预览
+ -->
+<template url="">
+  <meta name="scope"  />
+  <style>
+    :host {
+      display: flex;
+      flex-direction: column;
+    }
+    .title{
+      padding: 0.5em;
+      background-color: "$$color.bg.l3";
+    }
+
+  </style>
+  <!-- 文章标题 -->
+  <div class="title" $>url</div>
+
+  <wcex-ui.marked style="padding: 1em;" $src="($root.url)?$path($root.url):''"></wcex-ui.marked>
+
+</template>

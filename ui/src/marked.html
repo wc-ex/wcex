@@ -1,0 +1,23 @@
+<template src="">
+  <meta name="module" pkg="marked" content="marked.min.js" />
+  <meta name="module" pkg="@highlightjs/cdn-assets" content="styles/github.min.css;highlight.min.js;" cjs/>
+  
+  <!-- 处理markdown样式 -->
+  <style>
+
+  blockquote{
+    background-color: "$$color.pri.a9";
+  }
+  </style>
+
+  <style name="layout">
+    :host {
+      display: block;
+      text-align: start;
+    }
+  </style>
+  <div id="mark"></div>
+
+  <script scope="hljs" src="@highlightjs/cdn-assets" nowatch nocall></script>
+  <script scope="." src="."></script>
+</template>
