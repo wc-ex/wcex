@@ -1,7 +1,7 @@
 <template>
   <link rel="stylesheet" href="." global="import" />
 
-  <meta name="scope" shadow.int="1" drawer.bool="true" />
+  <meta name="scope" shadow.int="1" drawer.bool="true" cur-page.object="{}"/>
   <style>
     :host {
       display: flex;
@@ -13,36 +13,41 @@
     .main {
       display: flex;
       flex: 1;
+      overflow: hidden;
     }
     .left {
-      overflow-x: hidden;
+      background-color: "$$color.bg.l2";
       overflow-y: auto;
-      background-color: "$$color.pria.l3_";
     }
     .content {
-      position: relative;
+      display: flex;
+      flex-direction: column;
       flex: 1;
       overflow-x: hidden;
-      overflow-y: auto;
+      
+    }
+    .doc{
+      flex: 1;
     }
   </style>
-  <title- $$drawer="$root.drawer"></title->
+  <!-- <test-main aa="111"></test-main> -->
+  <title- $$drawer="$root.drawer" style="z-index: 999;"></title->
 
   <!-- 主窗口 -->
   <div class="main">
     <!-- 菜单 -->
     <div class="left shadow">
-      <nav- $min="!drawer"></nav->
+      <nav- $min="!drawer" $$="curPage"></nav->
     </div>
     <div class="content">
-      <main-  class="main"></main->
-
+      <doc- class="doc" $url="curPage.path?`./guide/cn/${curPage.path}`:''"></doc->
       <footer-></footer->
     </div>
   </div>
 
   <script scope=".">
-
+    // location.search
+    // location.hash="#/sss"
     return class {
       // 动态设置字体
       onCreate() {

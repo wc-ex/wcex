@@ -25,7 +25,7 @@
       height: "$open?panelHeight+'px':0";
     }
     .title {
-      background-color: "$open?color:color.s8_.l1";
+      background-color: "$open?color:color.s3_.l2";
       color: "$$color.textr";
       padding: 0.5em 0.5em;
       text-align: "$textonly?'center':'left'";
@@ -50,7 +50,7 @@
     <wcex-ui.icon
       active
       slot="end"
-      $color="$color.sec.l3_"
+      $color="$root.color.l5_"
       $icon="open?'double_arrow':'arrow_right'"
       :style="transform: rotate(${open?90:0}deg);"
       $if="closeable && !textonly"

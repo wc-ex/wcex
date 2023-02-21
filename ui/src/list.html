@@ -38,7 +38,7 @@
   <div $if="type=='checkbox'">
     <div $for="items" class="item trans" $::.click="$root.value">
       <!-- 绑定数据为数组，设为数组 -->
-      <slot $name="index"></slot>
+      <slot $name="index" ></slot>
       <wcex-ui.icon $color="$root.color" $icon="flagIcon" $if="flagIcon" $size="checked?1:0"></wcex-ui.icon>
     </div>
   </div>

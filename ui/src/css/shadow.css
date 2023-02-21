@@ -4,8 +4,9 @@
     shadow: number 指定shadow的级别
 */
 .shadow {
-  --shadow-color: "$$color.bgr.a7_";
-  --shadow-color1: "$$color.bgr.a9_";
+  --shadow-color: "$$color.bgr.ll($color.pri.$l).l8.a7_";
+  --shadow-color1: "$$color.bgr.ll($color.pri.$l).l6.a8_";
+  --shadow-color2: "$$color.bgr.ll($color.pri.$l).l4.a9_";
   --shadow-level: 2;
   --shadow-x: 0px;
   --shadow-y: calc(1px * var(--shadow-level));
@@ -13,9 +14,9 @@
   --shadow: var(--shadow-x) calc(1px + 1px * var(--shadow-level) / 2) calc(2px * var(--shadow-level) / 3)
       calc(-1px * var(--shadow-level) / 2) var(--shadow-color),
     var(--shadow-x) calc(1px + 1px * var(--shadow-level)) calc(3px * var(--shadow-level) / 2) calc(1px * var(--shadow-level) / 8)
-      var(--shadow-color),
+      var(--shadow-color1),
     var(--shadow-x) calc(1px + 1px * var(--shadow-level) / 3) calc(2px * var(--shadow-level)) calc(1px * var(--shadow-level) / 3)
-      var(--shadow-color1);
+      var(--shadow-color2);
   box-shadow: var(--shadow);
 }
 

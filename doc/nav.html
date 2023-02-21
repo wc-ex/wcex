@@ -1,4 +1,6 @@
-<template min.bool="0" class="trans">
+<template min.bool="0" class="trans" $value="{}" @ready="value=navData[0].items[0]">
+  <meta name="scope"  />
+  
   <style>
     :host {
       width: "$min?'6em':'16em'";
@@ -9,35 +11,27 @@
       background-color: "$$color.pri";
     }
   </style>
-  <meta name="scope" $cur-page="Object.keys(navData)"/>
-
-  <div :>cur:${curPage}</div>
 
   <!-- 一级主菜单 -->
-  <wcex-ui.panel  $textonly="min" closeable $for(vnav,knav)="navData" $open="Object.keys(vnav.items).length>0">
+  <wcex-ui.panel $textonly="min" closeable $for(vnav,knav)="navData" $open="Object.keys(vnav.items).length>0">
     <wcex-ui.icon
-    slot="icon"
-    $color="open?$color.pri.l4_:$color.textr.l1"
-    size="1.5"
-    $icon="vnav.icon.name"
-  ></wcex-ui.icon>
+      slot="icon"
+      $color="open?$color.pria.l6_:$color.textr.l8"
+      size="1.5"
+      $icon="vnav.icon.name"
+    ></wcex-ui.icon>
 
-    <span slot="title" :style="color:${open?$color.textr:$color.textr.l2} ;" $>knav.replace(/^.*-/,'')</span>
+    <span slot="title" :style="color:${open?$color.textr:$color.textr.l2} ;" $>vnav.name.replace(/^.*-/,'')</span>
     <!-- 内容区 -->
-    <wcex-ui.list style="padding: 0.5em 0" $items="vnav.items"  $flag-icon="min?'':'send'">
-      <div  $for="vnav.items" $slot="index"  :style="padding:0.3em 0 0.3em ${min?0.2:2}em; display:flex;">
-        <wcex-ui.icon  $icon="value.icon" size="1" style="padding-right: 0.3em;"></wcex-ui.icon>
+    <wcex-ui.list style="padding: 0.5em 0" $items="vnav.items" $flag-icon="min?'':'send'" $$="$root.value">
+      <div $for="vnav.items" $slot="index" :style="padding:0.3em 0 0.3em ${min?0.2:2}em; display:flex;">
+        <wcex-ui.icon $icon="value.icon" size="1" style="padding-right: 0.3em" $checked="value==$root.value" $color="checked?$color.sec.l2_:$color.pria.l2"></wcex-ui.icon>
 
-        <div $>index.replace(/^.*-/,'')</div>
+        <div $>value.name.replace(/^.*-/,'')</div>
       </div>
     </wcex-ui.list>
-
   </wcex-ui.panel>
 
-<!-- <div $>navData</div> -->
   <script scope="navData" src="./guide/cn/nav.json"></script>
-  <!-- <h4 $for(v1,k1)="data">
-        <wcex-ui.panel $>k1</wcex-ui.panel>
-        <div $for(v2,k2)="v1.items" style="margin-left: 0.5em;" $>v2.name</div>
-    </h4> -->
+
 </template>

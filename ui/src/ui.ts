@@ -15,14 +15,6 @@ usePlugins({
       console.log("!!=================>>>! $ifslot", tpl.elem);
     }
 
-    // tpl.querySelectorAll('*[$$ifslot]')?.forEach((el)=>{
-    // let att = el.getAttributeNode('$ifslot')!
-    // el.removeAttributeNode(att)
-    // el.setAttributeNode()
-
-    // $disp="" :style="display: ${disp||'none'};" @slotchange="disp='unset'"
-
-    // })
   },
 });
 

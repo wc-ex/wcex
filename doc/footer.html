@@ -1,24 +1,12 @@
 <template>
-  <meta name="module" pkg="lodash.kebabcase" cjs>
   <meta name="scope" load.int="-1" content="a111bc" abc.obj="{'a':88,'b':99,'c':10}" />
-
-  
-  <div $>abc</div>
-
-  <h3 :>load 1 time:${load}</h3>
-<div $>content</div>
-  <script scope="kb" src="lodash.kebabcase" nowatch nocall  ></script>
-  <script scope=".">
-    return class {
-      onReady(){
-        this.$log('---1->',this.kb)
-      }
-      setElemAttr(el,name,value){
-        var div = document.createElement('div')
-        div.innerHTML=`<div ${name}="${value}"></div>`
-        var att = div.firstElementChild.getAttributeNode(name).cloneNode()
-        div.setAttributeNode(att)
-      }
-    };
-  </script>
+  <style>
+    :host{
+      display: flex;
+      flex-direction: row-reverse;
+      background-color: "$$color.bg.l4";
+      padding: 0 1em;
+    }
+  </style>
+  <div1>wcex</div1>
 </template>

@@ -20,7 +20,8 @@
   "dependencies": {
     "@types/marked": "^4.0.7",
     "@types/ws": "^8.5.4",
+    "highlight.js": "^11.7.0",
     "moment": "^2.29.4",
-    "wcex": "1.8.5"
+    "wcex": "1.8.45"
   }
 }

@@ -2,11 +2,14 @@ import { marked } from 'marked';
 import { Scope } from 'wcex';
 
 export default class extends Scope {
-  
+  src=""
   onReady(): void {
     // this.
     // 监控内容变化
-    this.updateMarked();
+
+  }
+  async content(){
+    return (await fetch(this.src)).text()
   }
   updateMarked() {
     this.$log('MARKED!!!!!');
