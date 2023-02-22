@@ -14,7 +14,7 @@ export default class extends Scope {
   }
   async updateMarked() {
     if(this.src){
-      let text = await this.$loader.getFile(this.src).getResult()
+      let text = await this.$loader.getFile(decodeURI( this.src)).getResult()
       // let text = await (await fetch()).text()
       let html = marked.parse(text.replace(/\\n/g, '\n'));
       this.$id.mark.innerHTML = html;  
