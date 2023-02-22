@@ -3,7 +3,7 @@
     type: [radio | checkbox]
  -->
 
-<template type="radio" $items="3" $color="$color.pri" value.obj="{}" flag-icon="check_circle_outline">
+<template type="radio" $items="3" $color="$color.pri" value.obj="{}" flag-icon="check_circle_outline" $flag-color="$color.ok">
   <style>
     :host {
       display: flex;
@@ -20,26 +20,32 @@
     }
     ::slotted(*) {
       flex: 1;
-      border-left: 0 solid "$color.ss(70).ll(50)";
+      border-left-width: 0;
       padding-left: 0.5em;
+      border-left-style: dotted;
+      border-left-color:transparent;
+
       transition: all 0.25s ease-out;
     }
     .item[checked] > ::slotted(*) {
-      border-left: 0.5em solid "$color.h5.ss(50).ll(50)";
+      border-left-width: 0.5em;
+      border-left-color: "$flagColor";
+      border-left-style: solid;
+      /* border-left: 0.5em solid "$color.h5.ss(50).ll(50)"; */
     }
   </style>
   <div $if="type=='radio'">
     <div $for="items" class="item trans" $:.click="$root.value">
       <!-- 绑定数据为单选-->
       <slot $name="index"></slot>
-      <wcex-ui.icon $color="$root.color" $icon="flagIcon" $if="flagIcon" $size="checked?1:0"></wcex-ui.icon>
+      <wcex-ui.icon $color="flagColor" $icon="flagIcon" $if="flagIcon" $size="checked?1:0"></wcex-ui.icon>
     </div>
   </div>
   <div $if="type=='checkbox'">
     <div $for="items" class="item trans" $::.click="$root.value">
       <!-- 绑定数据为数组，设为数组 -->
       <slot $name="index" ></slot>
-      <wcex-ui.icon $color="$root.color" $icon="flagIcon" $if="flagIcon" $size="checked?1:0"></wcex-ui.icon>
+      <wcex-ui.icon $color="flagColor" $icon="flagIcon" $if="flagIcon" $size="checked?1:0"></wcex-ui.icon>
     </div>
   </div>
 </template>

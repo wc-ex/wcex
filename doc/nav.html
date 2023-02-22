@@ -23,7 +23,7 @@
 
     <span slot="title" :style="color:${open?$color.textr:$color.textr.l2} ;" $>vnav.name.replace(/^.*-/,'')</span>
     <!-- 内容区 -->
-    <wcex-ui.list style="padding: 0.5em 0" $color="$color.pria" $items="vnav.items" $flag-icon="min?'':'send'" $$="$root.value">
+    <wcex-ui.list style="padding: 0.5em 0" $color="$color.pri" $items="vnav.items" $flag-icon="min?'':'send'" $flag-color="$color.sec" $$="$root.value">
 
       <div
         $for="vnav.items"
@@ -37,7 +37,7 @@
           size="1"
           style="padding-right: 0.3em"
           $checked="value==$root.value"
-          $color="checked?$parent.color:$parent.color.l3"
+          $color="checked?flagColor:$parent.color"
         ></wcex-ui.icon>
         <div $>value.name.replace(/^.*-/,'')</div>
       </div>
