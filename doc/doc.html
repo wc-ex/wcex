@@ -2,7 +2,7 @@
   实现 markdown文档预览
  -->
 <template url="">
-  <meta name="scope"  />
+  <meta name="scope"  flag.bool="1"/>
   <style>
     :host {
       display: flex;
@@ -12,8 +12,21 @@
       padding: 0.5em;
       background-color: "$$color.bg.l3";
     }
+    .test{
+      width: 10em;
+      height: 2em;
+      background-color: blue;
+      transform: translateX(200px);
+      transition: all 2s;
+    }
+    .test[if]{
+      transform: translateX(0);
+      background-color: red;
+    }
 
   </style>
+  <div @click="flag=!flag">IF CHECK</div>
+  <div class="test" $if="flag"></div>
   <!-- 文章标题 -->
   <div class="title" $>url</div>
 
