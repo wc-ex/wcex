@@ -1,7 +1,7 @@
 <template>
   <link rel="stylesheet" href="." global="import" />
 
-  <meta name="scope" shadow.int="1" drawer.bool="true" cur-page.object="{}"/>
+  <meta name="scope" shadow.int="1" drawer.bool="true" cur-page.object="{}" home="wcex-doc.doc?url=01-开始上手/01-简介.md"/>
   <style>
     :host {
       display: flex;
@@ -40,7 +40,7 @@
       <nav- $min="!drawer" $$="curPage"></nav->
     </div>
     <div class="content">
-      <wcex-ui.route home="wcex-doc.test-main"></wcex-ui.route>
+      <wcex-ui.route  home="$root.home" @error.stop="$router.go($root.home)"></wcex-ui.route>
       <footer-></footer->
     </div>
   </div>

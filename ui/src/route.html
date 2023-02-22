@@ -1,10 +1,10 @@
 <!-- 
-    根据路由级别判断
-    如有包名则设置为包名路由
-    否则设置为当前包名组件
+    处理路由: /#com-main?a=1&b=2;menu:com-menu?c=3&d=4
+    路由匹配使用 match 参数
+    路由异常通过 error 事件
  -->
 
-<template name="default" home="">
+<template name="default" home="" match="">
   <meta name="scope" />
   <style>
     :host {
@@ -19,6 +19,10 @@
         var r = this.$router.route[this.name];
         var rel = this.$id.route;
         var rsc = this.$id.route.$scope;
+        if (this.match && r.tag) {
+          if (!r.tag.match(new RegExp(this.match))) throw Error("route invalid " + r.tag);
+        }
+        if (r.tag.indexOf("-") < 0) throw Error("invalid tag");
         if (rel) {
           // 首先设置属性
           for (var k of Object.keys(r.attrs)) {
@@ -29,12 +33,31 @@
           // 更新标签
           this.component = r.tag;
         } else {
-          this.$log.error("invalid route name:", this.name);
+          throw Error(`invalid route name:${this.name}`);
+          this.$emit("error", { tag: r.tag });
         }
       }
       onReady() {
-        window.addEventListener("route-change", this.changeRouter.bind(this));
-        this.changeRouter();
+        window.addEventListener("route-change", () => {
+          try {
+            this.changeRouter();
+          } catch (e) {
+            this.$log.error("change route fail: ", e.message);
+          }
+        });
+        window.addEventListener("wc-error", (ev) => {
+          // 错误进入首页
+          var r = this.$router.route[this.name];
+          if (ev.detail.tag === r.tag) {
+            this.$emit("error", { tag: ev.detail.tag });
+          }
+        });
+
+        var r = this.$router.route[this.name];
+        console.log("------------>>>>",r)
+        if(r.tag)this.changeRouter()
+        else this.$router.go(this.home);
+
       }
     };
   </script>
