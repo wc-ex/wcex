@@ -11,7 +11,9 @@
       display: block;
     }
   </style>
-  <div id="route" $as="component"></div>
+  <div @update="console.log('---!! update',$ev)">
+    <div id="route" $as="component"></div>
+  </div>
   <script scope=".">
     return class {
       component = this.home;
@@ -54,7 +56,6 @@
         });
 
         var r = this.$router.route[this.name];
-        console.log("------------>>>>",r)
         if(r.tag)this.changeRouter()
         else this.$router.go(this.home);
 

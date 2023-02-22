@@ -18,6 +18,7 @@ export default class extends Scope {
       // let text = await (await fetch()).text()
       let html = marked.parse(text.replace(/\\n/g, '\n'));
       this.$id.mark.innerHTML = html;  
+      this.$emit('update');
     }else{
       this.$id.mark.innerHTML=""
     }
