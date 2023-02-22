@@ -1,6 +1,6 @@
 <template min.bool="0" class="trans" $value="{}" @ready="value=navData[0].items[0]">
-  <meta name="scope"  />
-  
+  <meta name="scope" />
+
   <style>
     :host {
       width: "$min?'6em':'16em'";
@@ -24,14 +24,23 @@
     <span slot="title" :style="color:${open?$color.textr:$color.textr.l2} ;" $>vnav.name.replace(/^.*-/,'')</span>
     <!-- 内容区 -->
     <wcex-ui.list style="padding: 0.5em 0" $items="vnav.items" $flag-icon="min?'':'send'" $$="$root.value">
-      <div $for="vnav.items" $slot="index" :style="padding:0.3em 0 0.3em ${min?0.2:2}em; display:flex;">
-        <wcex-ui.icon $icon="value.icon" size="1" style="padding-right: 0.3em" $checked="value==$root.value" $color="checked?$color.sec.l2_:$color.pria.l2"></wcex-ui.icon>
-
+      <div
+        $for="vnav.items"
+        $slot="index"
+        :style="padding:0.3em 0 0.3em ${min?0.2:2}em; display:flex;"
+        @click="$router.go({'':{tag:'wcex-doc.doc',attrs:{url:value.path,a:999,b:888}},menu:{tag:'wcex-doc.test-main',attrs:{tt:88,qq:99}}})"
+      >
+        <wcex-ui.icon
+          $icon="value.icon"
+          size="1"
+          style="padding-right: 0.3em"
+          $checked="value==$root.value"
+          $color="checked?$color.sec.l2_:$color.pria.l2"
+        ></wcex-ui.icon>
         <div $>value.name.replace(/^.*-/,'')</div>
       </div>
     </wcex-ui.list>
   </wcex-ui.panel>
 
   <script scope="navData" src="./guide/cn/nav.json"></script>
-
 </template>
