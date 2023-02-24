@@ -4,15 +4,15 @@
     路由异常通过 error 事件
  -->
 
-<template name="default" home="" match="">
+<template name="default" home="" match="" data="">
   <meta name="scope" />
   <style>
     :host {
       display: block;
     }
   </style>
-  <div @update="console.log('---!! update',$ev)">
-    <div id="route" $as="component"></div>
+  <div >
+    <div id="route" $as="component" $data="$root.data"></div>
   </div>
   <script scope=".">
     return class {
@@ -21,6 +21,7 @@
         var r = this.$router.route[this.name];
         var rel = this.$id.route;
         var rsc = this.$id.route.$scope;
+        if(!r) return;
         if (this.match && r.tag) {
           if (!r.tag.match(new RegExp(this.match))) throw Error("route invalid " + r.tag);
         }
@@ -48,6 +49,7 @@
           }
         });
         window.addEventListener("wc-error", (ev) => {
+          this.$log.error('route error:',ev)
           // 错误进入首页
           var r = this.$router.route[this.name];
           if (ev.detail.tag === r.tag) {
@@ -56,8 +58,11 @@
         });
 
         var r = this.$router.route[this.name];
-        if(r.tag)this.changeRouter()
-        else this.$router.go(this.home);
+        if(r&&r.tag){
+          this.$router.go(r.tag,r.attrs)
+          this.changeRouter()
+        }
+        else this.changeRouter()
 
       }
     };

@@ -34,13 +34,14 @@
       border-radius: 25%;
       box-sizing: border-box;
       pointer-events: "$active?'unset':'none'";
-      
-      --grow-level:0 !important;
-    } 
-    :host(:active){
-      --grow-level:3 !important;
-    }
 
+      padding-top: 0.1em;
+      padding-left: 0.1em;
+      --grow-level: 0 !important;
+    }
+    :host(:active) {
+      --grow-level: 3 !important;
+    }
 
     .icon:hover {
       fill: '$active?color.l3_:"inherit"';
@@ -60,15 +61,14 @@
   <svg class="icon" :width="${size}em" :height="${size}em" $src="srcPath()"></svg>
   <script scope=".">
     return class {
-
       srcPath() {
         return (
           "@/" +
-          ({ fa: "@fortawesome/fontawesome-free/svgs", mdi: "@material-design-icons/svg" ,si:'@svg-icons/'}[this.pkg] || this.pkg) +
+          ({ fa: "@fortawesome/fontawesome-free/svgs", mdi: "@material-design-icons/svg", si: "@svg-icons/" }[this.pkg] || this.pkg) +
           "/" +
           this.type +
           "/" +
-          (this.icon||"circle") +
+          (this.icon || "circle") +
           ".svg"
         );
       }

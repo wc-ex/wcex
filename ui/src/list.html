@@ -13,39 +13,53 @@
     .item {
       display: flex;
       align-items: center;
+      border-left-width: 0;
+      transition: all 0.5s;
+      border-left-style: dotted;
+      border-left-color: "$flagColor";
     }
     .item[checked] {
       color: "$color.l5";
-      background-color: "$$color.bg.a6_";
-    }
-    ::slotted(*) {
-      flex: 1;
-      border-left-width: 0;
-      padding-left: 0.5em;
-      border-left-style: dotted;
-      border-left-color:transparent;
-
-      transition: all 0.25s ease-out;
-    }
-    .item[checked] > ::slotted(*) {
-      border-left-width: 0.5em;
       border-left-color: "$flagColor";
+      background-color: "$$color.bg.a6_";
+      border-left-width: 0.5em;
       border-left-style: solid;
-      /* border-left: 0.5em solid "$color.h5.ss(50).ll(50)"; */
     }
+    .flag {
+      transition: all 1s;
+    }
+
   </style>
   <div $if="type=='radio'">
     <div $for="items" class="item trans" $:.click="$root.value">
       <!-- 绑定数据为单选-->
       <slot $name="index"></slot>
-      <wcex-ui.icon $color="flagColor" $icon="flagIcon" $if="flagIcon" $size="checked?1:0"></wcex-ui.icon>
+      <div style="flex: 1">
+        <wcex-ui.icon
+          :style="margin-left: ${checked?'calc(100% - 1.5em)':0}"
+          class="flag"
+          $color="flagColor"
+          $icon="flagIcon"
+          $if="flagIcon"
+          $size="checked?1:0"
+        ></wcex-ui.icon>
+      </div>
     </div>
   </div>
   <div $if="type=='checkbox'">
     <div $for="items" class="item trans" $::.click="$root.value">
       <!-- 绑定数据为数组，设为数组 -->
-      <slot $name="index" ></slot>
-      <wcex-ui.icon $color="flagColor" $icon="flagIcon" $if="flagIcon" $size="checked?1:0"></wcex-ui.icon>
+      <slot $name="index"></slot>
+      <div>
+        <wcex-ui.icon
+          :style="margin-left: ${checked?'calc(100% - 1.5em)':0}"
+          class="flag"
+          $color="flagColor"
+          $icon="flagIcon"
+          $if="flagIcon"
+          $size="checked?1:0"
+        ></wcex-ui.icon>
+      </div>
     </div>
   </div>
 </template>

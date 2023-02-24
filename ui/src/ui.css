@@ -17,66 +17,66 @@ h6 {
 }
 h1 {
   font-weight: 400;
-  font-size: 3rem;
-  line-height: 3.125rem;
+  font-size: 2.2rem;
+  line-height: 2.6rem;
   letter-spacing: 0.05em;
 }
 h2 {
   font-weight: 400;
-  font-size: 2.125rem;
-  line-height: 3.125rem;
+  font-size: 2rem;
+  line-height: 2.4rem;
   letter-spacing: 0.05em;
 }
 h3 {
   font-weight: 400;
-  font-size: 1.75rem;
-  line-height: 2.25rem;
+  font-size: 1.8rem;
+  line-height: 2.2rem;
   letter-spacing: normal;
 }
 h4 {
   font-weight: 500;
-  font-size: 1.25rem;
-  line-height: 1.375rem;
+  font-size: 1.6rem;
+  line-height: 1.9rem;
   letter-spacing: 0.05em;
 }
 h5 {
   font-weight: 500;
-  font-size: 1.15rem;
-  line-height: 1.25rem;
+  font-size: 1.4rem;
+  line-height: 1.6rem;
   letter-spacing: 0.05em;
 }
 h6 {
     font-weight: 400;
-    font-size: 1.05rem;
-    line-height: 1.15rem;
+    font-size: 1.2rem;
+    line-height: 1.4rem;
     letter-spacing: 0.05em;
   }
-.text-subtitle-1 {
+.subtitle1 {
   font-weight: 400;
   font-size: 0.875rem;
   line-height: 1.25rem;
   letter-spacing: 0.1em;
 }
-.text-subtitle-2 {
+.subtitle2 {
   font-weight: 500;
   font-size: 0.875rem;
   line-height: 1.25rem;
   letter-spacing: 0.1em;
 }
 div,
-.text-body-1 {
+.body1 {
   font-weight: 400;
   font-size: 1rem;
   line-height: 1.1rem;
   letter-spacing: 0.12em;
 }
-div1,.text-body-2 {
+div1,.body2 {
   font-weight: 400;
   font-size: 0.875rem;
   line-height: 1rem;
   letter-spacing: 0.1em;
 }
-div1,.text-body-2 {
+div1,.body2 {
   font-weight: 400;
   font-size: 0.875rem;
   line-height: 1.25rem;

@@ -13,7 +13,7 @@
   </style>
 
   <!-- 一级主菜单 -->
-  <wcex-ui.panel $textonly="min" closeable $for(vnav,knav)="navData" $open="Object.keys(vnav.items).length>0">
+  <wcex-ui.panel $textonly="min" closeable $for(vnav,knav)="navData" $open="Object.keys(vnav.items).length>0" psel="">
     <wcex-ui.icon
       slot="icon"
       $color="open?$color.pria.l6_:$color.textr.l8"
@@ -23,21 +23,22 @@
 
     <span slot="title" :style="color:${open?$color.textr:$color.textr.l2} ;" $>vnav.name.replace(/^.*-/,'')</span>
     <!-- 内容区 -->
-    <wcex-ui.list style="padding: 0.5em 0" $color="$color.pri" $items="vnav.items" $flag-icon="min?'':'send'" $flag-color="$color.sec" $$="$root.value">
-
-      <div
-        $for="vnav.items"
-        $slot="index"
-        :style="padding:0.3em 0 0.3em ${min?0.2:2}em; display:flex;"
-        @click="$router.go({'':{tag:'wcex-doc.doc',attrs:{url:value.path,a:999,b:888}},menu:{tag:'wcex-doc.test-main',attrs:{tt:88,qq:99}}})"
-      >
-
+    <wcex-ui.list
+      style="padding: 0.5em 0"
+      $color="$color.pri"
+      $items="vnav.items"
+      $flag-icon="min?'':'send'"
+      $flag-color="$color.sec"
+      $$="$root.value"
+      @change.1="$router.go({'':{tag:'wcex-doc.doc',attrs:{url:value.path}}})"
+    >
+      <div $for="vnav.items" $slot="index" :style="padding:0.3em 0 0.3em ${min?0.2:2}em; display:flex;" >
         <wcex-ui.icon
           $icon="value.icon"
           size="1"
           style="padding-right: 0.3em"
           $checked="value==$root.value"
-          $color="checked?flagColor:$parent.color"
+          $color="checked?flagColor:$parent.color"          
         ></wcex-ui.icon>
         <div $>value.name.replace(/^.*-/,'')</div>
       </div>
@@ -45,4 +46,9 @@
   </wcex-ui.panel>
 
   <script scope="navData" src="./guide/cn/nav.json"></script>
+  <script scope=".">
+    return class{
+      
+    }
+  </script>
 </template>

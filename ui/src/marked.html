@@ -1,14 +1,10 @@
 <template src="">
   <meta name="module" pkg="marked" content="marked.min.js" />
-  <meta name="module" pkg="@highlightjs/cdn-assets" content="styles/github.min.css;highlight.min.js;" cjs/>
-  
-  <!-- 处理markdown样式 -->
-  <style>
+  <link rel="stylesheet" href="./marked.css">
+  <link rel="stylesheet" href="@/@highlightjs/cdn-assets/styles/github.min.css">
+  <meta name="module" pkg="@highlightjs/cdn-assets" content="highlight.min.js;" cjs />
 
-  blockquote{
-    background-color: "$$color.pri.a9";
-  }
-  </style>
+  <!-- 处理markdown样式 -->
 
   <style name="layout">
     :host {
@@ -18,6 +14,6 @@
   </style>
   <div id="mark"></div>
 
-  <script scope="hljs" src="@highlightjs/cdn-assets" nowatch nocall></script>
+  <!-- <script scope="hljs" src="@highlightjs/cdn-assets" nowatch nocall></script> -->
   <script scope="." src="."></script>
 </template>
