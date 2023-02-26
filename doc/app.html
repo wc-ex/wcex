@@ -1,8 +1,14 @@
-<template >
-  <link rel="stylesheet" href="."  />
+<template>
+  <link rel="stylesheet" href="." />
   <!-- <link rel="stylesheet" href="@/@wcex/ui/css/scrollbar.css" /> -->
 
-  <meta name="scope" shadow.int="1" drawer.bool="true" cur-page.object="{}" home="wcex-doc.doc?url=01-开始上手/01-简介.md"/>
+  <meta
+    name="scope"
+    shadow.int="1"
+    drawer.bool="true"
+    cur-page.object="{}"
+    home="wcex-doc.doc?url=01-开始上手/01-简介.md"
+  />
   <style>
     :host {
       display: flex;
@@ -24,14 +30,13 @@
       flex-direction: column;
       flex: 1;
       overflow-x: hidden;
-      
     }
-    .doc{
+    .doc {
       flex: 1;
     }
   </style>
   <!-- <test-main aa="111"></test-main> -->
-  <title- $$drawer="$root.drawer" style="z-index: 999;" ></title->
+  <title- $$drawer="$root.drawer" style="z-index: 999"></title->
 
   <!-- 主窗口 -->
   <div class="main">
@@ -40,7 +45,7 @@
       <nav- $min="!drawer" $$="curPage"></nav->
     </div>
     <div class="content">
-      <wcex-ui.route  home="$root.home" @error.stop="$log.error('error router');$router.go($root.home)"></wcex-ui.route>
+      <wcex-ui.route home="$root.home" @error.stop="$log.error('error router');$router.go($root.home)"></wcex-ui.route>
       <footer-></footer->
     </div>
   </div>
@@ -54,11 +59,8 @@
         this.loadFont();
       }
       loadFont() {
-        // cn: { css: "@/@wc1font/honglei-sim/font.css", family: "honglei sim" },
-        // https://cdn.jsdelivr.net/npm/@wc1font/lxgw-wen-kai-screen/font.css
         var font = {
-        cn: { css: "@/@wc1font/honglei-sim/font.css", family: "honglei sim" },
-        // cn: { css: "@/@wc1font/lxgw-wen-kai-screen/font.css", family: "LXGW WenKai Screen" },
+          cn: { css: "@/cn-fontsource-yozai-bold/font.css", family: "Yozai" },
           en: { css: "@/@fontsource/concert-one/index.min.css", family: "Concert One" },
         };
 

@@ -40,15 +40,10 @@
           $checked="value==$root.value"
           $color="checked?flagColor:$parent.color"          
         ></wcex-ui.icon>
-        <div $>value.name.replace(/^.*-/,'')</div>
+        <div $>value.name.replace(/\.md$/,'')</div>
       </div>
     </wcex-ui.list>
   </wcex-ui.panel>
 
   <script scope="navData" src="./guide/cn/nav.json"></script>
-  <script scope=".">
-    return class{
-      
-    }
-  </script>
 </template>

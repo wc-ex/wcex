@@ -1,6 +1,6 @@
 {
     "name": "@wcex/doc",
-    "version": "1.0.11",
+    "version": "1.0.12",
     "description": "documents for wcex",
     "main": "index.html",
     "scripts": {

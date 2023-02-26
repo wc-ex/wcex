@@ -125,6 +125,6 @@ async function transDoc(toLang:string[]){
 
 (async () => {
   // let text = await fsp.readFile("../../doc/guide/cn/01-开始/01-简介.md", "utf8");
-  await transDoc(['en']);
-  // await buildDoc("../guide/cn");
+  // await transDoc(['en']);
+  await buildDoc(path.join(__dirname,"../../../doc/guide/cn"));
 })();
