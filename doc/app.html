@@ -35,6 +35,8 @@
       flex: 1;
     }
   </style>
+  <wcex-ui.ui !sync ></wcex-ui.ui>
+
   <!-- <test-main aa="111"></test-main> -->
   <title- $$drawer="$root.drawer" style="z-index: 999"></title->
 
@@ -60,8 +62,8 @@
       }
       loadFont() {
         var font = {
-          cn: { css: "@/cn-fontsource-yozai-bold/font.css", family: "Yozai" },
-          en: { css: "@/@fontsource/concert-one/index.min.css", family: "Concert One" },
+          cn: { css: "@/cn-fontsource-yozai-light-regular/font.css", family: "Yozai Light" },
+          en: { css: "@/@fontsource/concert-one/index.css", family: "Concert One" },
         };
 
         if (localStorage.__FONT) {

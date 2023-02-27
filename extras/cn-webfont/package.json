@@ -1,6 +1,6 @@
 {
   "name": "@wcex/cn-fontsource",
-  "version": "1.0.33",
+  "version": "1.0.35",
   "description": "cn-fontsource tools",
   "main": "src/index.js",
   "bin": {

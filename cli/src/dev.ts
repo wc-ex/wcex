@@ -94,6 +94,9 @@ export async function dev(opts: any) {
     // 启动 http 服务
     const app = express();
     const server = new HttpServer(app);
+    app.options(/.*/,(req,res)=>{
+      res.status(200).end('ok');
+    })
     // 跨域配置
     app.use((req, res, next) => {
       res.header('Access-Control-Allow-Origin', '*');
@@ -102,7 +105,7 @@ export async function dev(opts: any) {
       next();
     });
 
-    app.use('/_dist', express.static(path.join(projectDir, 'dist')));
+    app.use('/_dist', express.static(path.join(projectDir, 'dist'),{}));
     app.use(`/node_modules/${pkg.name}`, express.static(path.join(projectDir, 'build/src')));
     app.use(`/node_modules/${pkg.name}`, express.static(path.join(projectDir, 'src')));
     app.use(`/node_modules/${pkg.name}`, express.static(projectDir));

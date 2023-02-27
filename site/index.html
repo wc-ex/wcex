@@ -1,16 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <title>WCEX</title>
-    <meta name="npm" content="https://cdn.jsdelivr.net/npm/">
-    <meta name="viewport" content="initial-scale=1.0;width=device-width">
-    <script src="https://cdn.jsdelivr.net/npm/wcex/index.js"></script>
-</head>
+    <meta name="viewport" content="initial-scale=1.0,width=device-width" />
 
-<body>
-    <h1>WCEX SITE</h1>
-    <h3>In Working</h3>
-    <img src="./images/logo.png">
-</body>
+    <meta name="npm" content="https://cdn.jsdelivr.net/npm/" />
 
+    <!-- <meta name="module" pkg="@wcex/ui" version="1.0.2" /> -->
+    <!-- <meta name="module" pkg="@wcex/ui" version="1.0.2" /> -->
+        <meta name="module" pkg="@wcex/ui" url="http://localhost:8102/" />
+        <meta name="module" pkg="@wcex/doc" url="http://localhost:8101/" />
+
+    <!-- <script src="https://cdn.jsdelivr.net/npm/wcex@1.8.56/index.js"></script> -->
+    <script src="http://localhost:9999/index.js"></script>
+
+    <style>
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        font-size: 18px;
+      }
+    </style>
+  </head>
+
+  <body></body>
+  <script>
+    if (location.protocol == "http:") location.href = location.href.replace(/^http/, "https");
+    else{
+        let tag=location.pathname.replace(/^.*\//,'')||'app-';
+        console.log("---!!!",tag)
+        document.body.appendChild(document.createElement(tag))
+    }
+
+  </script>
 </html>

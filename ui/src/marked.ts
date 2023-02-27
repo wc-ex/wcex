@@ -8,11 +8,14 @@ export default class extends Scope {
   src = "";
   // hljs={} as any
   onReady(): void {
-    this.$log("---", hljs);
-    marked.setOptions({ highlight: (code, lang, callback) => {
-      let html = hljs.highlight(code, {language: lang}).value;
-      return html;
-    } });
+    // this.$log("---1", hljs);
+    marked.setOptions({
+      baseUrl:(this as any).$npm,
+      highlight: (code, lang, callback) => {
+        let html = hljs.highlight(code, { language: lang || "text" }).value;
+        return html;
+      },
+    });
 
     this.$watch(
       () => this.src,

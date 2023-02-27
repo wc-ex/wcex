@@ -1,10 +1,11 @@
 {
-  "name": "site",
-  "version": "1.0.0",
+  "name": "@wcex/site",
+  "version": "1.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "oss":"../../site-oss-tools/oss.cmd"
+    "pub": "npm --registry \"https://registry.npmjs.org/\" publish --access public",
+    "oss":"..\\..\\site-oss-tools\\oss.cmd"
   },
   "keywords": [],
   "author": "",

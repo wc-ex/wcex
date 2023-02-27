@@ -171,7 +171,7 @@ async function buildCharsChunk(
       )
       .join(",")
       .toUpperCase();
-    // font-display: ${isFontDisplayBlock ? "block" : "swap"};
+    // 
     cssText += `@font-face {font-family: '${fkFont.familyName}';src: local('${fkFont.familyName}'), url('${chunkFontFileName}');unicode-range: ${cssRange};}\n`;
   }
   return cssText;
