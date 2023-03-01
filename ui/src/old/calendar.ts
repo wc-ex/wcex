@@ -1,4 +1,4 @@
-import { use, Scope } from "wcex";
+import {  Scope } from "wcex";
 import moment from "moment";
 
 export default class extends Scope {

@@ -107,4 +107,5 @@ code {
   padding: 1em;
   display: block;
   overflow: auto;
+  background-color: "$$color.sec.ss(20).l9_";
 }

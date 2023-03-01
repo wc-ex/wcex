@@ -6,6 +6,8 @@
       width: "$min?'6em':'16em'";
       display: flex;
       flex-direction: column;
+      transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
     }
     .title {
       background-color: "$$color.pri";
@@ -34,13 +36,14 @@
     >
       <div $for="vnav.items" $slot="index" :style="padding:0.3em 0 0.3em ${min?0.2:2}em; display:flex;" >
         <wcex-ui.icon
+        $if="!min"
           $icon="value.icon"
           size="1"
           style="padding-right: 0.3em"
           $checked="value==$root.value"
           $color="checked?flagColor:$parent.color"          
         ></wcex-ui.icon>
-        <div $>value.name.replace(/\.md$/,'')</div>
+        <div style="padding-left: 0.2em;" $>min?value.name.replace(/\.md$/,'').replace(/^\d+-/,''):value.name.replace(/\.md$/,'')</div>
       </div>
     </wcex-ui.list>
   </wcex-ui.panel>

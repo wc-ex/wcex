@@ -8,12 +8,20 @@ export default class extends Scope {
   src = "";
   // hljs={} as any
   onReady(): void {
+    let self = this;
     // this.$log("---1", hljs);
     marked.setOptions({
-      baseUrl:(this as any).$npm,
+      baseUrl: (this as any).$npm,
       highlight: (code, lang, callback) => {
         let html = hljs.highlight(code, { language: lang || "text" }).value;
         return html;
+      },
+    });
+    marked.use({
+      renderer: {
+        image(href: string, title: string, text: string) {
+          return `<p align="center"> <img src="${self.$path(href)}" alt="${text}" > </p>`;
+        },
       },
     });
 

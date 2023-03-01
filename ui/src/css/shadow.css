@@ -11,11 +11,11 @@
   --shadow-x: 0px;
   --shadow-y: calc(1px * var(--shadow-level));
   /* x y blur spread */
-  --shadow: var(--shadow-x) calc(1px + 1px * var(--shadow-level) / 2) calc(2px * var(--shadow-level) / 3)
+  --shadow: var(--shadow-x) calc(1px + 1px * var(--shadow-level) / 2) calc(2px * var(--shadow-level) / 3 +  var(--shadow-x))
       calc(-1px * var(--shadow-level) / 2) var(--shadow-color),
-    var(--shadow-x) calc(1px + 1px * var(--shadow-level)) calc(3px * var(--shadow-level) / 2) calc(1px * var(--shadow-level) / 8)
+    var(--shadow-x) calc(1px + 1px * var(--shadow-level)) calc(3px * var(--shadow-level) / 2 + var(--shadow-x)) calc(1px * var(--shadow-level) / 8)
       var(--shadow-color1),
-    var(--shadow-x) calc(1px + 1px * var(--shadow-level) / 3) calc(2px * var(--shadow-level)) calc(1px * var(--shadow-level) / 3)
+    var(--shadow-x) calc(1px + 1px * var(--shadow-level) / 3) calc(2px * var(--shadow-level) + var(--shadow-x)) calc(1px * var(--shadow-level) / 3)
       var(--shadow-color2);
   box-shadow: var(--shadow);
 }

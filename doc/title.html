@@ -1,6 +1,6 @@
 <template drawer.bool="1">
   <!-- 标题栏 -->
-  <wcex-ui.title class="shadow" style="z-index: 999; padding: 0.5em 0.5em" $color="$color.pri.l2">
+  <wcex-ui.title class="shadow" style="z-index: 999; padding: 0.5em 0.5em" $color="$color.pri.l2" >
     <!-- 标题栏图标区 -->
     <div slot="icon" class="row">
       <wcex-ui.icon
@@ -11,7 +11,7 @@
         @click.stop="drawer=!drawer"
         :style="transform: rotate(${drawer?0:90}deg);"
       ></wcex-ui.icon>
-      <img src="./assets/logo.png" style="width: 3em; margin: 0 1em" alt="" />
+      <img $src="$path('./assets/logo.png')" style="width: 3em; margin: 0 1em" alt="" />
     </div>
     <!-- 标题内容区 -->
     <h2>WCEX</h2>
@@ -21,7 +21,7 @@
     <div class="column" slot="end" style="width: 6em" :>
       <div class="column" style="justify-content: center">
         <!-- 调色板 -->
-        <com-color_picker> </com-color_picker>
+        <com-title_tools> </com-title_tools>
         <div style="text-align: center; margin-top: 0.5em" :>${loadtime}ms</div>
       </div>
     </div>

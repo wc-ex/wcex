@@ -72,6 +72,7 @@ interface IDocInfo {
   name: string;
   path: string;
   items: IDocInfo[];
+  updateAt:number,
   icon?: string;
 }
 async function buildDoc(docPath: string) {
@@ -89,6 +90,7 @@ async function buildDoc(docPath: string) {
         name: path.parse(en.pathname).base,
         path: en.pathname.replace(/\\/g, "/"),
         items: [],
+        updateAt:0,
         icon,
       };
       navDirs.push(curDir);
@@ -98,6 +100,7 @@ async function buildDoc(docPath: string) {
         let fullFilePath = path.join(docDir, en.pathname);
         // 从md第一行获取描述信息
         let md = await fsp.readFile(fullFilePath, "utf8");
+        let st = await fsp.stat(fullFilePath);
         let firstline = md.trim().split(/(\n|\r\n)/, 1)[0];
         let m = firstline.match(/^<!--DESC:(.+)-->$/);
         let desc = {};
@@ -109,6 +112,7 @@ async function buildDoc(docPath: string) {
           typ: "file",
           name: path.parse(en.pathname).base,
           path: en.pathname.replace(/\\/g, "/"),
+          updateAt:st.mtimeMs,
           items: [],
           ...desc,
         });

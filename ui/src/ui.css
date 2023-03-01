@@ -137,3 +137,8 @@ overline,.text-overline {
 .cloak{
   visibility: hidden;
 }
+
+.pop-background{
+  backdrop-filter: blur(10px);
+  background-color: "$$color.bgr.a7_";
+}

@@ -3,15 +3,13 @@
   <head>
     <title>WCEX</title>
     <meta name="viewport" content="initial-scale=1.0,width=device-width" />
-
     <meta name="npm" content="https://cdn.jsdelivr.net/npm/" />
-
-    <!-- <meta name="module" pkg="@wcex/ui" version="1.0.2" /> -->
-    <!-- <meta name="module" pkg="@wcex/ui" version="1.0.2" /> -->
-        <meta name="module" pkg="@wcex/ui" url="http://localhost:8102/" />
-        <meta name="module" pkg="@wcex/doc" url="http://localhost:8101/" />
-
-    <!-- <script src="https://cdn.jsdelivr.net/npm/wcex@1.8.56/index.js"></script> -->
+    <!-- <meta name="module" pkg="@wcex/ui" version="1.0.16" />
+    <meta name="module" pkg="@wcex/doc" version="1.0.15" /> -->
+    <meta name="module" pkg="@wcex/ui" url="http://localhost:8102/" />
+    <meta name="module" pkg="@wcex/doc" url="http://localhost:8101/" />
+  
+    <!-- <script src="https://cdn.jsdelivr.net/npm/wcex@1.8.59/index.js"></script> -->
     <script src="http://localhost:9999/index.js"></script>
 
     <style>
@@ -31,8 +29,9 @@
   <script>
     if (location.protocol == "http:") location.href = location.href.replace(/^http/, "https");
     else{
+
         let tag=location.pathname.replace(/^.*\//,'')||'app-';
-        console.log("---!!!",tag)
+        // console.log("---!!!",tag)
         document.body.appendChild(document.createElement(tag))
     }
 

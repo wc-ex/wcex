@@ -1,4 +1,4 @@
-import { Logger, Scope, usePlugins } from "wcex";
+import { Logger, Scope } from "wcex";
 
 const log = Logger('pop');
 // 初始化创建 pop 弹出窗全局容器
@@ -95,7 +95,7 @@ function _pop(target: HTMLElement | string, ev?: Event) {
 
 }
 
-usePlugins({
+WC.usePlugins({
   name: '$pop',
   priority: 0,
   scope: {
