@@ -1,0 +1,53 @@
+<template>
+    <!-- <link rel="stylesheet" href="." /> -->
+  
+    <meta
+      name="scope"
+      shadow.int="1"
+      drawer.bool="true"
+      cur-page.object="{}"
+    />
+    <style>
+      :host {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+      .main {
+        display: flex;
+        flex: 1;
+        overflow: hidden;
+      }
+      .left {
+        background-color: "$$color.bg.l2";
+      }
+      .content {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        overflow-x: hidden;
+      }
+      .doc {
+        flex: 1;
+      }
+    </style>
+  
+    <!-- <test-main aa="111"></test-main> -->
+    <title- $$drawer="$root.drawer" style="z-index: 999"></title->
+  
+    <!-- 主窗口 -->
+    <div class="main">
+      <!-- 菜单 -->
+      <div class="left shadow scroll" style="--shadow-x:3px">
+        <nav- $min="!drawer" $$="curPage"></nav->
+      </div>
+      <div class="content">
+        <wcex-ui.route home="wcex-doc.doc?url=01-开始上手/01-简介.md" @error.stop="$log.error('error router');$router.go($root.home)"></wcex-ui.route>
+        <footer-></footer->
+      </div>
+    </div>
+  
+  </template>
+  
