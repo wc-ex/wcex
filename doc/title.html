@@ -1,6 +1,20 @@
 <template drawer.bool="1">
+  <style>
+    #logo>:nth-child(1),
+    #logo>:nth-child(2),
+    #logo>:nth-child(4) 
+{
+      fill: "$$color.sec.ss(80).ll(70)";
+    }
+    #logo>:nth-child(3)
+    {
+      fill: "$$color.sec.h5.ss(80).ll(70)";
+    }
+
+  </style>
+
   <!-- 标题栏 -->
-  <wcex-ui.title class="shadow" style="z-index: 999; padding: 0.5em 0.5em" $color="$color.pri.l2" >
+  <wcex-ui.title class="shadow" style="z-index: 99; padding: 0.5em 0.5em" $color="$color.pri.l2">
     <!-- 标题栏图标区 -->
     <div slot="icon" class="row">
       <wcex-ui.icon
@@ -11,7 +25,8 @@
         @click.stop="drawer=!drawer"
         :style="transform: rotate(${drawer?0:90}deg);"
       ></wcex-ui.icon>
-      <img $src="$path('./assets/logo.png')" style="width: 3em; margin: 0 1em" alt="" />
+      <svg id="logo" $src="$path('./assets/logo.svg')" style="width: 6em; margin: 0 1em"></svg>
+      <!-- <img $src="$path('./assets/logo.svg')" style="width: 3em;height: 1em; margin: 0 1em" alt="" /> -->
     </div>
     <!-- 标题内容区 -->
     <h2>WCEX</h2>
@@ -28,14 +43,14 @@
   </wcex-ui.title>
 
   <script scope=".">
-      let _loadtime = 0;
-      window.addEventListener("wcex-loaded", (ev) => {
-          _loadtime = ev.detail.time;
-        });
+    let _loadtime = 0;
+    window.addEventListener("wcex-loaded", (ev) => {
+      _loadtime = ev.detail.time;
+    });
     return class {
-      loadtime=0
+      loadtime = 0;
       onCreate() {
-        this.loadtime =_loadtime 
+        this.loadtime = _loadtime;
       }
     };
   </script>

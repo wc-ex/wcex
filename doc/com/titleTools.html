@@ -9,8 +9,9 @@
       padding: 0.1em;
     }
   </style>
+
   <!-- 改变文字 -->
-  <wcex-ui.icon style="margin: 0 0.5em;" icon="text_fields" @click="$pop('com-font_select',{dir:'v'})" $color="$color.sec.l2_" active></wcex-ui.icon>
+  <wcex-ui.icon style="margin: 0 0.5em;" icon="text_fields" @click="$side('wcex-doc.com-font_select',{pos:'r'})" $color="$color.sec.l2_" active></wcex-ui.icon>
 
   <wcex-ui.icon style="margin: 0 0.5em;" $icon="mod?'wb_sunny':'mode_night' " @click="$Colors.switchMode();mod=$Colors.mode" $color="$color.sec.l2_" active></wcex-ui.icon>
   <toolcool-color-picker
@@ -18,6 +19,7 @@
     id="picker"
     @change="$Colors.set('pri',$ev.detail.hsl)"
   ></toolcool-color-picker>
+
   <script scope=".">
     return class {
       onReady() {

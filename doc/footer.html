@@ -1,5 +1,6 @@
 <template>
   <meta name="scope" load.int="-1" content="a111bc" abc.obj="{'a':88,'b':99,'c':10}" />
+  <meta name="module" pkg="jsbarcode" content="dist/JsBarcode.all.js" eval>
   <style>
     :host{
       display: flex;
@@ -8,5 +9,14 @@
       padding: 0 1em;
     }
   </style>
+
   <div1>WCEX @2023</div1>
+  <script scope="bar" src="jsbarcode" nocall></script>
+  <script scope=".">
+    return class{
+      onReady(){
+        this.$log("------------>>>>!!!! BAR",this.bar)
+      }
+    }
+  </script>
 </template>

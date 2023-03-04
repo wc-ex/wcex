@@ -1,15 +1,24 @@
 <!-- 用来作为全局弹出菜单的容器 -->
-<template>
-    <style>
-        :host{
-            position: fixed;
-            display: block;
-            width: 0px;
-            height: 0px;
-        }
+<template @wc-error.stop="">
+  <style>
+    :host {
+      position: fixed;
+      display: block;
+      left: 0;
+      top: 0;
+      width: 0px;
+      height: 0px;
+      z-index: 9999;
 
-    </style>
+    }
+    .side-r {
+      position: fixed;
+      top: 0;
+      left: 50vw;
+      height: 100vh;
+      visibility: '$vis?"visible":"hidden"';
+    }
+  </style>
 
-    <script scope="." src="."></script>
-    
+  <script scope="." src="."></script>
 </template>

@@ -1,13 +1,15 @@
 {
-    "name": "@wcex/doc",
-    "version": "1.0.16",
-    "description": "documents for wcex",
-    "main": "index.html",
-    "scripts": {
-      "pub": "npm --registry \"https://registry.npmjs.org/\" publish --access public"
-    },
-    "keywords": [],
-    "author": "",
-    "license": "ISC"
+  "name": "@wcex/doc",
+  "version": "1.0.16",
+  "description": "documents for wcex",
+  "main": "index.html",
+  "scripts": {
+    "pub": "npm --registry \"https://registry.npmjs.org/\" publish --access public"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jsbarcode": "^3.11.5"
   }
-  
+}

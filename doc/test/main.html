@@ -1,6 +1,45 @@
 <template aa.int="888">
-  <meta name="scope" />
+  <meta name="scope" vv.int="1"/>
+
+  <meta name="module" pkg="lodash.get" cjs  >
+
+  <style>
+    #a1:hover{
+      --vv:1;
+      background-color: brown;
+      
+    }
+    #a2{
+      --vv:0;
+    }
+    #a2:hover{
+      --vv:2;
+      background-color: brown;
+    }
+
+
+  </style>
   <div $>aa</div>
+  <div $>vv</div>
+
+
+  <h3 id="a1" @!--vv="vv=1">HELLO1</h3>
+
+  <h3 id="a2" @!--vv="vv=2"> HELLO2</h3>
+
+
+  <H1 id="a3" :>测试的数据:${aaaaa}</H1>
+
+
+  <script scope="l_get" src="lodash.get" nocall nowatch></script>
+  <script scope=".">
+    return class{
+      aaaaa=999;
+      onReady(){
+        console.log("--!!!!",this.l_get)
+      }
+    }
+  </script>
   <!-- <div $abc="222">
     <div @click="abc++" :>
       MAIN: ABC= ${abc} DEF= first: ${abc*10}
@@ -12,5 +51,5 @@
   </div>
   <test-com $val="abc"></test-com> -->
 
-  <test-arr></test-arr>
+  <!-- <test-arr></test-arr> -->
 </template>

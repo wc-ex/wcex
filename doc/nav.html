@@ -13,7 +13,6 @@
       background-color: "$$color.pri";
     }
   </style>
-
   <!-- 一级主菜单 -->
   <wcex-ui.panel $textonly="min" closeable $for(vnav,knav)="navData" $open="Object.keys(vnav.items).length>0" psel="">
     <wcex-ui.icon
@@ -32,9 +31,9 @@
       $flag-icon="min?'':'send'"
       $flag-color="$color.sec"
       $$="$root.value"
-      @change.1="$router.go({'':{tag:'wcex-doc.doc',attrs:{url:value.path}}})"
-    >
-      <div $for="vnav.items" $slot="index" :style="padding:0.3em 0 0.3em ${min?0.2:2}em; display:flex;" >
+      @change.1="$router.go('wcex-doc.doc',{url:value.path})"
+      >
+    <div $for="vnav.items" $slot="index" :style="padding:0.3em 0 0.3em ${min?0.2:2}em; display:flex;" >
         <wcex-ui.icon
         $if="!min"
           $icon="value.icon"

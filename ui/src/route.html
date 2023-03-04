@@ -4,7 +4,7 @@
     路由异常通过 error 事件
  -->
 
-<template name="default" home="" match="" data="">
+<template name="default" home="" match="" >
   <meta name="scope" />
   <style>
     :host {
@@ -12,20 +12,22 @@
     }
   </style>
   <div>
-    <div id="route" $as="component" $data="$root.data"></div>
+    <div id="route" $as="component" ></div>
   </div>
   <script scope=".">
     return class {
       component = "";
       changeRouter() {
         try {
-          // debugger
           var r = this.$router.route[this.name];
-          var rel = this.$id.route;
+          var rEl = this.$id.route;
           var rsc = this.$id.route.$scope;
+          this.$log("----> change router",r.tag);
           if (!r) return;
+
           if(!r.tag) {
             // 跳转到默认路由
+            // debugger
             if(this.home) location.hash = this.home;
             else this.$log.warn('no default route:',this.name);
             return;
@@ -34,8 +36,10 @@
           if (this.match) {
             if (!r.tag.match(new RegExp(this.match))) throw Error("route invalid " + r.tag);
           }
-          if (tag.indexOf("-") < 0) throw Error("invalid tag");
-          if (rel) {
+          if (tag.indexOf("-") < 0){
+            throw Error("invalid tag");
+          } 
+          if (rEl) {
             // 首先设置属性
             for (var k of Object.keys(r.attrs)) {
               let v = r.attrs[k];
@@ -49,7 +53,7 @@
           }
         } catch (e) {
           this.$log.error("router error:", e.message);
-          this.$router.go(this.name,this.home)
+          // this.$router.go(this.name,this.home)
           this.$emit("error");
         }
       }
@@ -58,9 +62,7 @@
           this.changeRouter();
         });
         window.addEventListener("wc-error", (ev) => {
-          this.$log.error("route load failed:", ev);
-          // 出现错误回首页
-          this.$router.go(this.name, this.home);
+          this.$log.error("tag load failed:", ev);
           this.$emit("error");
         });
         // 初始化默认路由
