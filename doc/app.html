@@ -1,4 +1,7 @@
 <template>
+  <meta name="scope"  drawer.bool="true" cur-page.object="{}" />
+  <!-- 需要手动引入 -->
+  <link rel="stylesheet" href="@/@wcex/ui/ui.css" />
 
   <style>
     :host {
@@ -12,11 +15,8 @@
   <wcex-ui.ui !sync></wcex-ui.ui>
   <main-></main->
 
-  <!-- <test-main></test-main> -->
-
   <script scope=".">
     return class {
-
       // 动态设置字体
       onCreate() {
         this.loadFont();

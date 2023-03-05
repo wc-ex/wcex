@@ -1,12 +1,11 @@
 <!-- 用于全局注入样式 -->
-<template>
+<template id="ui" :class="" @blur-bg.stop="$root.class=$ev.detail?'blur-bg':''; $log('-->',$ev.detail)" >
   <meta name="scope" />
   <!-- <link rel="stylesheet" href="./css/shadow-global.css" global /> -->
   <link rel="stylesheet" href="./css/shadow.css" global="import" />
   <link rel="stylesheet" href="@/@wcex/ui/css/scrollbar.css" global="import" />
-
   <link rel="stylesheet" href="./ui.css" global="import" />
-  <style></style>
-  <pop-></pop->
+  <pop- ></pop->
+  <side-></side->
   <script scope="." src="."></script>
 </template>

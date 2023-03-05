@@ -1,5 +1,5 @@
 <!-- 用来作为全局弹出菜单的容器 -->
-<template @wc-error.stop="">
+<template>
   <style>
     :host {
       position: fixed;
@@ -9,16 +9,33 @@
       width: 0px;
       height: 0px;
       z-index: 9999;
-
     }
-    .side-r {
+    #side {
       position: fixed;
       top: 0;
-      left: 50vw;
+      width: "$side.size";
+      visibility: '$side.el?"visible":"hidden"';
       height: 100vh;
-      visibility: '$vis?"visible":"hidden"';
+      transition: left 0.35s;
+      color: "$$color.textr";
+      background-color: "$$color.sec.a3_";
+      left: calc(100% - "$side.show?side.size:'0px'" );
+      --side-focus: 0;
     }
+    #side:focus,
+    #side:focus-within {
+      --side-focus: 1;
+    }
+
   </style>
 
-  <script scope="." src="."></script>
+  <div
+    class="shadow"
+    :style="--shadow-level:6;--shadow-x: ${side.show?-6:0}px;"
+    id="side"
+    tabindex="-1"
+    @!--side-focus="if(!parseInt($ev.detail)) side.hide()"
+    @transitionend.self="if(side.show) $el.focus(); else side.close()"
+  ></div>
+  <script scope="." src="."></script> 
 </template>

@@ -1,0 +1,43 @@
+<!-- 用来作为全局弹出菜单的容器 -->
+<template $color="$color.pri">
+    <style>
+      :host {
+        position: fixed;
+        display: block;
+        left: 0;
+        top: 0;
+        width: 0px;
+        height: 0px;
+        z-index: 9999;
+      }
+      #side {
+        position: fixed;
+        left: '${l:show?0:"-"+size,r:`calc(100vw - ${show?size:"0px"})`,t:0,b:0}[pos]' ;
+        /* left:    calc(100% - "$show?size:'0px'" ); */
+        top: '${l:0,r:0,t:show?0:"-"+size,b:`calc(100vh - ${show?size:"0px"})`}[pos]';
+        width: '${l:size,r:size,t:"100vw",b:"100vw"}[pos]';
+        height: '${l:"100vw",r:"100vw",t:size,b:size}[pos]';
+        visibility: '$el?"visible":"hidden"';
+        transition: '$el?{l:"left",r:"left",t:"top",b:"top"}[pos]:"none"' 0.35s;
+        color: "$$color.textr";
+        background-color: "$color.a3_";
+        --side-focus: 0;
+      }
+      #side:focus,
+      #side:focus-within {
+        --side-focus: 1;
+      }
+  
+    </style>
+  
+    <div
+      class="shadow"
+      style="--shadow:6;"
+      id="side"
+      tabindex="-1"
+      @!--side-focus="if(!parseInt($ev.detail)) hide()"
+      @transitionend.self="if(show) $el.focus(); else close()"
+    ></div>
+    <script scope="." src="."></script> 
+  </template>
+  
