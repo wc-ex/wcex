@@ -8,13 +8,13 @@
 .scroll {
   overflow: auto;
   scrollbar-width: 8px;
-  scrollbar-color: "$$color.pria.a4_" "$$color.pria.a8_";
+  scrollbar-color: "$$color.pria.a4_" "$$color.pria.a7_";
 }
 
 ::-webkit-scrollbar {
   height: 8px;
   width: 8px;
-  background-color: "$$color.pria.a8_";
+  background-color: "$$color.pria.a7_";
 }
 
 ::-webkit-scrollbar-thumb {
@@ -26,5 +26,5 @@
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: "$$color.pria.l2.a4_";
+  background-color: "$$color.pria.l3_.a4_";
 }

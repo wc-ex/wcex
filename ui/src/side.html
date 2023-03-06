@@ -32,10 +32,10 @@
   
     <div
       class="shadow"
-      style="--shadow:6;"
+      :style="--shadow:${{l:6,r:-6,t:6,b:-6}[pos]};"
       id="side"
       tabindex="-1"
-      @!--side-focus="if(!parseInt($ev.detail)) hide()"
+      @!--side-focus="if(!parseInt($ev.detail) && autoclose) hide()"
       @transitionend.self="if(show) $el.focus(); else close()"
     ></div>
     <script scope="." src="."></script> 

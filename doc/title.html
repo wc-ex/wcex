@@ -1,20 +1,22 @@
 <template drawer.bool="1">
   <style>
-    #logo>:nth-child(1),
-    #logo>:nth-child(2),
-    #logo>:nth-child(4) 
-{
+    :host {
+      display: block;
+      height: 4em;
+      padding-bottom: 0.4em;
+    }
+    #logo > :nth-child(1),
+    #logo > :nth-child(2),
+    #logo > :nth-child(4) {
       fill: "$$color.pria.ss(90).ll(70)";
     }
-    #logo>:nth-child(3)
-    {
+    #logo > :nth-child(3) {
       fill: "$$color.seca.ss(90).ll(70)";
     }
-
   </style>
 
   <!-- 标题栏 -->
-  <wcex-ui.title class="shadow" style="z-index: 99; padding: 0.5em 0.5em" $color="$color.pri.l2">
+  <wcex-ui.title class="shadow" style="z-index: 99;height: 100%;" $color="$color.pri.l2">
     <!-- 标题栏图标区 -->
     <div slot="icon" class="row">
       <wcex-ui.icon
@@ -25,11 +27,14 @@
         @click.stop="drawer=!drawer"
         :style="transform: rotate(${drawer?0:90}deg);"
       ></wcex-ui.icon>
-      <svg id="logo" $src="$path('./assets/logo.svg')" style="width: 5em; margin: 0 1em"></svg>
+      <svg id="logo" $src="$path('./assets/logo.svg')" style="width: 5em; margin: 0 2em"></svg>
       <!-- <img $src="$path('./assets/logo.svg')" style="width: 3em;height: 1em; margin: 0 1em" alt="" /> -->
     </div>
     <!-- 标题内容区 -->
-    <h2>WCEX</h2>
+    <div style="display: flex; align-items: baseline;">
+      <h2 style="margin-right: 0.5em;">WCEX</h2> 
+      <a href="https://www.npmjs.com/package/wcex"><img src="https://img.shields.io/npm/v/wcex.svg?sanitize=true" alt="Version"></a>  
+    </div>
     <div slot="subtitle">原生响应式 Web Components 扩展库</div>
 
     <!-- 工具区 -->

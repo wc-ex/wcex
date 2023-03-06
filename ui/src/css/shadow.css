@@ -21,33 +21,28 @@
 } */
 
 .shadow {
-  --shadow-color: "$$color.bgr.ll($color.pri.$l).l8.a7_";
-  --shadow-color1: "$$color.bgr.ll($color.pri.$l).l6.a8_";
-  --shadow-color2: "$$color.bgr.ll($color.pri.$l).l4.a9_";
-  --shadow: 2;
+  --shadow-color: "$$color.bgr.ll($color.pri.$l).l8.a6_";
+  --shadow-color1: "$$color.bgr.ll($color.pri.$l).l6.a7_";
+  --shadow-color2: "$$color.bgr.ll($color.pri.$l).l4.a8_";
+  --shadow: 3;
   /* 使用 max() 函数模拟绝对值*/
-  --shadow-level1: calc(1px * var(--shadow));
-  --shadow-level2: calc(-1px * var(--shadow));
-  --shadow-level:var(--shadow-level1);
-     /* max(var(--shadow-level1), var(--shadow-level2)); */
+  --shadow-level: max(calc(1 * var(--shadow)), calc(-1 * var(--shadow)));
   --shadow-x: calc(1px * var(--shadow));
   --shadow-y: calc(1px * var(--shadow));
   /* x y blur spread */
   box-shadow: calc(var(--shadow-x) / 2) calc(var(--shadow-y) / 2) calc(2px * var(--shadow-level) / 3) calc(-1px * var(--shadow-level) / 2)
       var(--shadow-color),
-    var(--shadow-x) var(--shadow-y) calc(3px * var(--shadow-level) / 2) calc(1px * var(--shadow-level) / 8) var(--shadow-color1),
+      calc(var(--shadow-x) * 2 / 3) calc(var(--shadow-y) * 2 / 3) calc(3px * var(--shadow-level) / 2) calc(1px * var(--shadow-level) / 8) var(--shadow-color1),
     var(--shadow-x) var(--shadow-y) calc(2px * var(--shadow-level)) calc(1px * var(--shadow-level) / 3) var(--shadow-color2);
 }
 
 .grow {
-  --grow-color: "$$color.pri.ss(100).ll(60).a2_";
+  --grow-color: "$$color.pri.ss(100).ll(65).a2_";
   --grow-color1: rgba(255, 255, 255, 0.3);
-  --grow-level: 3;
+  --grow: 2;
 
   /* x y blur spread */
-  --grow: 0 0 calc(2px * var(--grow-level) / 3) calc(-1px * var(--grow-level) / 2) var(--grow-color),
-    0 0 calc(3px * var(--grow-level) / 2) calc(1px * var(--grow-level) / 8) var(--grow-color),
-    0 0 calc(2px * var(--grow-level)) calc(1px * var(--grow-level) / 3) var(--grow-color1);
-  box-shadow: var(--grow);
-  z-index: 999;
+  box-shadow: 0 0 calc(2px * var(--grow) / 3) calc(-1px * var(--grow) / 2) var(--grow-color),
+    0 0 calc(3px * var(--grow) / 2) calc(1px * var(--grow) / 8) var(--grow-color),
+    0 0 calc(2px * var(--grow)) calc(1px * var(--grow) / 3) var(--grow-color1);
 }

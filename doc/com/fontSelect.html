@@ -1,11 +1,26 @@
 <!-- 选择字体 -->
 <template open.bool="0">
+    <meta name="scope" sel="中文">
     <style>
         :host{
             display: block;
+            /* height: 100%;
+            width: 100%; */
+        }
+        h4{
+            text-align: center;
+            margin: 0.2em;
         }
     </style>
-    <h1>FONT SEL</h1>
-    <input value="输入框">
+    <h4 @click="$emit('close')" :>选择字体: ${sel}</h4>
+    <wcex-ui.tab $tabs="{'中文':'com-cn_fonts','英文':'com-en_fonts'}" $color="$color.sec.a5_" $$="sel" >
+        <div $for="tabs" :slot="tab-${index}">
+            <h1 style="color: red;" $>$slot.index</h1>
+        </div>
+        <div :slot="panel" >
+            <div $as="$slot.value ">
+            </div>
+        </div>
+    </wcex-ui.tab>
     
 </template>
