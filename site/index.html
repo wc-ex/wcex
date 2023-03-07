@@ -4,13 +4,6 @@
     <title>WCEX</title>
     <meta name="viewport" content="initial-scale=1.0,width=device-width" />
     <meta name="npm" content="https://cdn.jsdelivr.net/npm/" />
-    <!-- <meta name="module" pkg="@wcex/ui" version="1.0.16" />
-    <meta name="module" pkg="@wcex/doc" version="1.0.15" /> -->
-    <meta name="module" pkg="@wcex/ui" url="http://localhost:8102/" />
-    <meta name="module" pkg="@wcex/doc" url="http://localhost:8101/" />
-  
-    <!-- <script src="https://cdn.jsdelivr.net/npm/wcex@1.8.59/index.js"></script> -->
-    <script src="http://localhost:9999/index.js"></script>
 
     <style>
       html,
@@ -26,14 +19,44 @@
   </head>
 
   <body></body>
+
   <script>
+    // 强制https
     if (location.protocol == "http:") location.href = location.href.replace(/^http/, "https");
-    else{
+    // 解析路径,默认跳转文档
+    else if (location.pathname == "/") location.href = "/@wcex/doc@1.0.18/app";
+    else {
+      let sp = location.pathname.split("/").filter(v=>v);
 
-        let tag=location.pathname.replace(/^.*\//,'')||'app-';
-        // console.log("---!!!",tag)
-        document.body.appendChild(document.createElement(tag))
+      let pkg='';
+      let ver='';
+      let path='';
+      if(sp[0].startsWith('@')){
+        // 2 级目录,检测版本
+        var p = sp[1].split('@');
+        pkg = sp[0] +'/'+ p[0];
+        ver = p[1];
+        path=sp.slice(2).join('/');
+
+      }else{
+        var p = sp[0].split('@');
+        pkg = sp[0];
+        ver = sp[1];
+        path=sp.slice(1).join('/');
+      }
+      // 强制版本
+
+      var meta = document.createElement("meta");
+      meta.setAttribute("name", "module");
+      meta.setAttribute("pkg",pkg);
+      if (ver) meta.setAttribute("version", ver);
+      document.head.appendChild(meta);
+      setTimeout(()=>{
+        document.body.appendChild(document.createElement(WC.buildTag(pkg,path)));
+      })
     }
-
   </script>
+
+  <!-- 加载 -->
+  <script src="https://cdn.jsdelivr.net/npm/wcex@1.8.82/index.js"></script>
 </html>

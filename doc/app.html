@@ -1,7 +1,9 @@
 <template>
+  <meta name="module" pkg="@wcex/ui" version="1.0.21" />
   <meta name="scope"  drawer.bool="true" cur-page.object="{}" />
   <!-- 需要手动引入 -->
   <link rel="stylesheet" href="@/@wcex/ui/ui.css" />
+
 
   <style>
     :host {
@@ -15,35 +17,14 @@
   <wcex-ui.ui !sync></wcex-ui.ui>
   <main-></main->
 
+
+  <script scope="font" src="./font.js"></script>
+
   <script scope=".">
     return class {
       // 动态设置字体
       onCreate() {
-        this.loadFont();
-      }
-      loadFont() {
-        var font = {
-          cn: { css: "@/cn-fontsource-smiley-sans-oblique-regular/font.css", family: "Smiley Sans Oblique" },
-          en: { css: "@/@fontsource/concert-one/index.css", family: "Concert One" },
-        };
-
-        if (localStorage.__FONT) {
-          try {
-            font = JSON.parse(localStorage.__FONT);
-          } catch (e) {
-            this.$log("invalid font config:", e.message);
-          }
-        }
-
-        var family = "Roboto, Arial, Helvetica, sans-serif";
-        Object.values(font).forEach((v) => {
-          var link = document.createElement("link");
-          link.rel = "stylesheet";
-          link.href = this.$path(v.css);
-          document.head.appendChild(link);
-          family = v.family + ", " + family;
-        });
-        document.body.parentElement.style.fontFamily = family;
+        this.font.loadFont(this);
       }
     };
   </script>

@@ -1,5 +1,5 @@
 <!-- 用来作为全局弹出菜单的容器 -->
-<template $color="$color.pri">
+<template $color="$color.pri" >
     <style>
       :host {
         position: fixed;
@@ -18,10 +18,11 @@
         width: '${l:size,r:size,t:"100vw",b:"100vw"}[pos]';
         height: '${l:"100vw",r:"100vw",t:size,b:size}[pos]';
         visibility: '$el?"visible":"hidden"';
-        transition: '$el?{l:"left",r:"left",t:"top",b:"top"}[pos]:"none"' 0.35s;
+        transition: '$el?{l:"left",r:"left",t:"top",b:"top"}[pos]:"none"' 0.35s, opacity 0.35s;
         color: "$$color.textr";
         background-color: "$color.a3_";
         --side-focus: 0;
+        opacity: "$show?1:0";
       }
       #side:focus,
       #side:focus-within {

@@ -1,5 +1,5 @@
 <!--DESC: {"icon":"explore"} -->
-<p align="center"><img src="logo.png" width="128" height="128" ></p>
+![img](@/@wcex/doc/assets/logo.svg{width:16em;height:6em})
 # 正在工作
 > 完善中
 

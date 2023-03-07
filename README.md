@@ -6,7 +6,8 @@
   <a href="https://www.npmjs.com/package/wcex"><img src="https://img.shields.io/bundlephobia/minzip/wcex.svg?sanitize=true" alt="minsize"></a>
 </p>
 <p align="center">  
-  <a href="https://wc-ex.com/go?npm/@wcex/doc@1.0.13/index.html" >中文文档（完善中）</a>
+  <a href="https://wc-ex.com" >文档</a>
+  <a href="https://wc-ex.com" >Document</a>
 </p>
 
 ### WCEX - Web Components Extensions (原生Web组件扩展库)
