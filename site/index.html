@@ -51,7 +51,8 @@
       meta.setAttribute("pkg",pkg);
       if (ver) meta.setAttribute("version", ver);
       document.head.appendChild(meta);
-      setTimeout(()=>{
+      // 等待WC加载完成后添加
+      window.addEventListener('wcex-loaded',()=>{
         document.body.appendChild(document.createElement(WC.buildTag(pkg,path)));
       })
     }

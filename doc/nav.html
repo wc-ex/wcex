@@ -13,6 +13,8 @@
       background-color: "$$color.pri";
     }
   </style>
+  <!-- 文档版本 -->
+  <h5 style="margin: 0.5em;" :> 文档版本: ${pkg.version}</h5>
   <!-- 一级主菜单 -->
   <wcex-ui.panel $textonly="min" closeable $for(vnav,knav)="navData" $open="Object.keys(vnav.items).length>0" psel="">
     <wcex-ui.icon
@@ -47,5 +49,6 @@
     </wcex-ui.list>
   </wcex-ui.panel>
 
+  <script scope="pkg" src="./package.json"></script>
   <script scope="navData" src="./guide/cn/nav.json"></script>
 </template>
