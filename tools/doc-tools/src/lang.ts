@@ -111,3 +111,5 @@ export const LANG = {
     "yua": "尤卡坦玛雅语",
     "zu": "祖鲁语"
   }
+
+  export type LANG_NAMES_T = keyof typeof LANG;

@@ -10,11 +10,11 @@
     :host {
       display: flex;
       flex-direction: column;
+      overflow: hidden;
     }
     #tabs {
       position: relative;
       display: flex;
-      overflow-y: clip;
       /* overflow-x: auto; */
       align-items: end;
       height: 2em;
@@ -51,7 +51,7 @@
       position: relative;
       z-index: 9;
       --grow: 2 !important;
-      overflow-y: clip;
+      overflow: auto;
     }
   </style>
   <!-- <div $>tabs</div>

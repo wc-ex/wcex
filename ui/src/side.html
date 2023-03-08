@@ -16,7 +16,7 @@
         /* left:    calc(100% - "$show?size:'0px'" ); */
         top: '${l:0,r:0,t:show?0:"-"+size,b:`calc(100vh - ${show?size:"0px"})`}[pos]';
         width: '${l:size,r:size,t:"100vw",b:"100vw"}[pos]';
-        height: '${l:"100vw",r:"100vw",t:size,b:size}[pos]';
+        height: '${l:"100vh",r:"100vh",t:size,b:size}[pos]';
         visibility: '$el?"visible":"hidden"';
         transition: '$el?{l:"left",r:"left",t:"top",b:"top"}[pos]:"none"' 0.35s, opacity 0.35s;
         color: "$$color.textr";

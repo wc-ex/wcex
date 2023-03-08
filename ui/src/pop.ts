@@ -2,7 +2,7 @@ import { Scope } from "wcex";
 import { ScopedElement } from "wcex/types/plugins/IPlugins";
 
 // 弹出框,弹出框直接位于 body,fullscreen时 绝对定位
-console.log("-->>>> $POP   ");
+console.log("-->>>> $POP  ");
 interface ISideOptions {
   // 属性
   attrs?: { [k: string]: string };

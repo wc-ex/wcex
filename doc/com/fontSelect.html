@@ -16,7 +16,6 @@
     }
     .tab {
       flex: 1;
-      /* overflow-y: clip; */
       overflow: hidden;
     }
     .demo {
@@ -33,7 +32,7 @@
   </style>
   <h4 @click="$emit('close')" :>选择字体: ${sel}</h4>
   <div $if="demo.name" class="demo grow">
-    <img :src="https://cdn.jsdelivr.net/npm/${demo.name}/demo.png" />
+    <img :src="${WC.npmUrl}${demo.name}/demo.png" />
   </div>
 
   <wcex-ui.tab

@@ -1,6 +1,6 @@
 {
   "name": "@wcex/doc",
-  "version": "1.0.21",
+  "version": "1.0.27",
   "description": "documents for wcex",
   "main": "index.html",
   "scripts": {
@@ -10,6 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-   
+    "qrcode": "^1.5.1"
   }
 }
