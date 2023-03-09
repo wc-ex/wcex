@@ -1,6 +1,4 @@
-<!--DESC: {"icon":"explore"} -->
-
-! [img] (@/@wcex/doc/assets/logo.svg{width:16em; height:6em})
+<!--DESC: {"icon":"explore"} -->! [img] (@/@wcex/doc/assets/logo.svg{width:16em; height:6em})
 
 # Welcome to the world of Web Components
 
@@ -29,8 +27,7 @@ Thanks to WCEX's complete implementation of native Web Components, every page, t
 
 When using custom tags, just use tags, no need to download dependencies and introduce JS in advance, WCEX will automatically identify tags and automatically load relevant files on demand, this feature allows us to achieve "time-consuming loading", unused tags in the page will not be read and loaded and affect the page startup speed. Below is a simple example and a functional component in the project shown in this document that you can easily find, the reference code is as follows:
 - _/doc/doc.html_
-```html
-<!-- Implement markdown document preview -->
+```html<!--   实现 markdown文档预览 -->
 <template url="">
   <style>
     :host {
@@ -42,19 +39,15 @@ When using custom tags, just use tags, no need to download dependencies and intr
       background-color: "$$color.bgr.a9_";
     }
   </style>
-  <div class="title" $>url</div>
-  <wcex-ui.marked 
-    style="padding: 1em;" 
-    $src="($root.url)?$path('guide/cn/'+$root.url):''"
-    >
+  <div class="title" $="">url</div>
+  <wcex-ui.marked style="padding: 1em;" $src="($root.url)?$path('guide/cn/'+$root.url):''">
   </wcex-ui.marked>
-</template>
-```
+</template>```
 
-> can see that _\<wcex-ui.marked\>_ is a UI library component we are referencing, and when using the component, wcex will automatically fetch the component and its related dependencies in the npm repository area and load it on demand. There is no need to install packages or third-party libraries that markdown depends on (marked and highlight are used here) to use this component, and these associated libraries are automatically loaded and run from npm on demand. Of course, there is also a very simple way to let WCEX load dependent packages from the local relevant directory. As for the other syntax, the following chapters will be discussed one after another, very concise, isn't it, so that a WebComponent with a custom label named _\<doc-\>_ is implemented, which can be referenced directly on the page, or directly through our routing component, and you can see it by observing the URL bar of the browser.
+> can see that _<wcex-ui.marked\>\_ is a UI library component we are referencing, when using the component, wcex will automatically get the component and its related dependencies to the npm warehouse area and load it on demand. There is no need to install packages or third-party libraries that markdown depends on (marked and highlight are used here) to use this component, and these associated libraries are automatically loaded and run from npm on demand. Of course, there is also a very simple way to let WCEX load dependent packages from the local relevant directory. As for the other syntax, it will be discussed in later chapters, very concise, isn't it, so that a <doc-\>WebComponent with a custom label named _\_ is implemented, which can be referenced directly on the page, or directly through our routing component, and you can see it by observing the URL bar of the browser.
 
 #### Extended WebComponent properties
-In the above example, you can see that the root tag of this component is _\<template url=""\>_, WCEX, and all web components are encapsulated in _\ < template\>_, an external attribute named _url_ is also provided, which can be used to pass external parameters when used, just like an attribute of a normal HTML element tag. Inside the component, it is also convenient to reference this parameter directly.
+In the above example, you can see that the root tag of this component is _\_<template url="" \="">, and in WCEX, all web components are encapsulated in _\_, <template\>along with an external attribute named _url_, which can be used to pass external parameters when used, just like an attribute of a normal HTML element tag. Inside the component, it is also convenient to reference this parameter directly.
 
 #### Enhanced data binding and dependency changes as well as local data
 Within a component, data can be defined and used in many ways, and data can be flexibly defined and set in various parts of a component: property areas, local scopes, elements, embedded scripts, external scripts, external JSON, third-party libraries, etc., in order to define and use it in the most suitable place according to business logic
@@ -99,3 +92,4 @@ The life cycle of a software product is more complex, WCEX considers how to achi
 There is a small button in the upper right corner, you can experience the characteristics of WCEX _Semantic Real-time Color Matching_, choose your favorite color.
 
 In addition, you can see that this document uses special Chinese fonts, and WCEX also implements time-consuming loading of Chinese large fonts. The usability to use a variety of Chinese fonts in the browser is greatly improved, and the details of font loading can be seen in the debugging console, and the use of this Chinese font does not depend on other third-party API services are also completely static and support offline, and there will be a chapter dedicated to the support and optimization of Chinese font loading Reference project: [https://github.com/wc-ex/cn-fontsource]( https://github.com/wc-ex/cn-fontsource)
+</template\></template></doc-\></wcex-ui.marked\>

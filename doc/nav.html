@@ -1,4 +1,4 @@
-<template min.bool="0" class="trans" $value="{}" @ready="value=navData[0].items[0]">
+<template min.bool="0" class="trans" $value="{}" lang="cn">
   <meta name="scope" />
 
   <style>
@@ -7,14 +7,13 @@
       display: flex;
       flex-direction: column;
       transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-
     }
     .title {
       background-color: "$$color.pri";
     }
   </style>
   <!-- 文档版本 -->
-  <h5 style="margin: 0.5em;" :> 文档版本: ${pkg.version}</h5>
+  <h6 style="margin: 0.5em">Doc: ${pkg.version}</h6>
   <!-- 一级主菜单 -->
   <wcex-ui.panel $textonly="min" closeable $for(vnav,knav)="navData" $open="Object.keys(vnav.items).length>0" psel="">
     <wcex-ui.icon
@@ -33,22 +32,42 @@
       $flag-icon="min?'':'send'"
       $flag-color="$color.sec"
       $$="$root.value"
-      @change.1="$router.go('wcex-doc.doc',{url:value.path})"
+    >
+      <div
+        $for="vnav.items"
+        $slot="index"
+        :style="padding:0.3em 0 0.3em ${min?0.2:2}em; display:flex;"
+        @click="$router.go('wcex-doc.doc',{url:value.path,lang:$root.lang})"
       >
-    <div $for="vnav.items" $slot="index" :style="padding:0.3em 0 0.3em ${min?0.2:2}em; display:flex;" >
         <wcex-ui.icon
-        $if="!min"
+          $if="!min"
           $icon="value.icon"
           size="1"
           style="padding-right: 0.3em"
           $checked="value==$root.value"
-          $color="checked?flagColor:$parent.color"          
+          $color="checked?flagColor:$parent.color"
         ></wcex-ui.icon>
-        <div style="padding-left: 0.2em;" $>min?value.name.replace(/\.md$/,'').replace(/^\d+-/,''):value.name.replace(/\.md$/,'')</div>
+        <div style="padding-left: 0.2em" $>
+          min?value.name.replace(/\.md$/,'').replace(/^\d+-/,''):value.name.replace(/\.md$/,'')
+        </div>
       </div>
     </wcex-ui.list>
   </wcex-ui.panel>
 
   <script scope="pkg" src="./package.json"></script>
-  <script scope="navData" src="./guide/cn/nav.json"></script>
+  <script scope=".">
+    return class {
+      navData = {};
+      async onCreate() {
+        this.navData = await (await fetch(this.$path(`./guide/${this.lang}/nav.json`))).json();
+        this.$router.go("wcex-doc.doc", { url: this.navData[0].items[0].path, lang: this.lang });
+        this.value = this.navData[0].items[0];
+      }
+      //
+
+      // onReady(){
+      //   this.$router.go('wcex-doc.doc',{url:this.navData[0].items[0],lang:this.lang})
+      // }
+    };
+  </script>
 </template>

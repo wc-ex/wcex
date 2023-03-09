@@ -31,17 +31,32 @@
   </style>
 
   <!-- <test-main aa="111"></test-main> -->
-  <title- $$drawer="$root.drawer" style="z-index: 99;"></title->
+  <title- $$drawer="$root.drawer" style="z-index: 99"></title->
 
   <!-- 主窗口 -->
   <div class="main">
     <!-- 菜单 -->
     <div class="left shadow scroll">
-      <nav- $min="!drawer" $$="curPage"></nav->
+      <nav- $min="!drawer" $$="curPage" $lang="$root.lang"></nav->
     </div>
     <div class="content">
-      <wcex-ui.route home="wcex-doc.doc?url=01-开始/01-简介.md"></wcex-ui.route>
+      <wcex-ui.route home="wcex-doc.doc" ></wcex-ui.route>
       <footer-></footer->
     </div>
   </div>
+
+  <script scope=".">
+    // 解析lang，获取首页
+    var DOC_LANG = "cn";
+    location.search.split("&").forEach((p) => {
+      let sp = p.split("=");
+      if (sp.length == 2 && sp[0] == "lang") {
+        DOC_LANG = sp[1];
+      }
+    });
+    console.log('use lang',DOC_LANG);
+    return class{
+      lang=DOC_LANG
+    }
+  </script>
 </template>

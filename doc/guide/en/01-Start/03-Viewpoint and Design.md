@@ -1,3 +1,2 @@
-<!--DESC: {"icon":"assistant"} -->
-# is working
+<!--DESC: {"icon":"assistant"} --># is working
 > Perfecting

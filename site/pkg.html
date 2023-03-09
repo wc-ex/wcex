@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html >
   <head>
     <title>WCEX</title>
+    <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1.0,width=device-width" />
     <!-- <meta name="npm" content="https://cdn.jsdelivr.net/npm/" /> -->
     <!-- <meta name="npm" content="https:///unpkg.com/" /> -->
@@ -22,27 +23,56 @@
   </head>
 
   <body>
-    
-    <div id="cdn">
-      <h5>if slowly, please choose cdn:</h5>
-      <a style="margin: 0.5em 1em" href="#">https://npm.elemecdn.com</a>
-      <a style="margin: 0.5em 1em" href="#">https:///unpkg.com</a>
-      <a style="margin: 0.5em 1em" href="#">https://cdn.jsdelivr.net/npm</a>
-    </div>
-
   </body>
 
   <script>
-    var NPM = localStorage.getItem('NPM')||"https://cdn.jsdelivr.net/npm";
-    var WCEX_VER = "1.8.94";
-    var DEV_WCEX=localStorage.getItem('WCEX');
-    document.getElementById('cdn').addEventListener('click',(ev)=>{
-      if(ev.target instanceof HTMLAnchorElement){
-        console.log('choose cdn:',ev.target.textContent);
-        localStorage.setItem('NPM',ev.target.textContent);
-        location.reload();
-      }
-    })
+    // 解析参数
+    var sp1 = location.search.split("&");
+    var pkgPart = sp1[0].slice(1);
+
+    // 解析CDN和语言
+    var cdn = "jsdelivr";
+    var lang = "cn";
+    for (var i = 1; i < sp1.length; i++) {
+      try {
+        var s = sp1[i];
+        let sp2 = s.split("=");
+        if (sp2[0] == "cdn") cdn = sp2[1];
+        else if (sp2[0] == "lang") lang = sp2[1];
+      } catch (e) {}
+    }
+    const cdnUrls = {
+      jsdelivr: "https://cdn.jsdelivr.net/npm/",
+      unpkg: "https:///unpkg.com/",
+      elemecdn: "https://npm.elemecdn.com/",
+      zhimg: "https://unpkg.zhimg.com/",
+    };
+
+    // 解析包名
+    var pkg = "";
+    var ver = "";
+    var path = "";
+    let sp3 = pkgPart.split("/");
+    if (sp3[0].startsWith("@")) {
+      // 2级包名
+      var p = sp3[1].split("@");
+      pkg = sp3[0] + "/" + p[0];
+      ver = p[1];
+      path = sp3.slice(2).join("/");
+    } else {
+      // 1级包名
+      var p = sp3[0].split("@");
+      pkg = p[0];
+      ver = p[1];
+      path = sp3.slice(1).join("/");
+    }
+
+  // 解析完成 
+    console.log(pkg, ver, path, cdn, lang, cdnUrls[cdn]);
+    
+    var WCEX_VER = "1.8.96";
+    var DEV_WCEX = localStorage.getItem("WCEX");
+    var NPM=cdnUrls[cdn];
 
     function _createEl(to, tag, attrs) {
       var el = document.createElement(tag);
@@ -54,46 +84,19 @@
     }
 
     // 强制https
-    if (location.protocol == "http:") location.href = location.href.replace(/^http/, "https");
-    // 解析路径,默认跳转文档
-    else if (location.pathname == "/") location.href = "/@wcex/doc@1.0.27/app";
-    else {
-      let sp = location.pathname.split("/").filter((v) => v);
+    // if (location.protocol == "http:") location.href = location.href.replace(/^http/, "https");
 
-      let pkg = "";
-      let ver = "";
-      let path = "";
-      if (sp[0].startsWith("@")) {
-        // 2 级目录,检测版本
-        var p = sp[1].split("@");
-        pkg = sp[0] + "/" + p[0];
-        ver = p[1];
-        path = sp.slice(2).join("/");
-      } else {
-        var p = sp[0].split("@");
-        pkg = sp[0];
-        ver = sp[1];
-        path = sp.slice(1).join("/");
-      }
-      // 创建NPM
-      _createEl(document.head, "meta", { name: "npm", content:NPM });
+    _createEl(document.head, "meta", { name: "npm", content: cdnUrls[cdn] });
+    //   // 指定加载软件包版本
+    _createEl(document.head, "meta", { name: "module", pkg, version: ver });
 
-      // 指定加载软件包版本
-      _createEl(document.head, "meta", { name: "module", pkg, version: ver });
-
-      window.addEventListener("wcex-loaded", () => {
-        setTimeout(()=>{
-          document.getElementById('cdn').remove();
-        },2000);
-        
-        document.body.appendChild(document.createElement(WC.buildTag(pkg, path)));
-      });
-      // 加载指定版本WCEX库
-      let script = _createEl(document.body,'script',{src:(DEV_WCEX ||`${NPM}/wcex@${WCEX_VER}`) +'/index.js'});
-      script.addEventListener('load',()=>{
-        window.dispatchEvent(new Event('DOMContentLoaded'));
-      })
-    }
+    window.addEventListener("wcex-loaded", () => {
+      document.body.appendChild(document.createElement(WC.buildTag(pkg, path)));
+    });
+    // 加载指定版本WCEX库
+    let script = _createEl(document.body, "script", { src: (DEV_WCEX || `${NPM}/wcex@${WCEX_VER}`) + "/index.js" });
+    script.addEventListener("load", () => {
+      window.dispatchEvent(new Event("DOMContentLoaded"));
+    });
   </script>
-
 </html>

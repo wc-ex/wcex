@@ -27,10 +27,6 @@
         background-color: rgb(220, 220, 220);
         padding-bottom: 2em;
       }
-      .title > svg {
-        width: 16em;
-        height: 16em;
-      }
       .title > h1,
       .title > h4 {
         margin: 0;
@@ -75,6 +71,19 @@
         margin-left: 0.5em;
         margin-right: 2em;
       }
+      .lang {
+        display: flex;
+        flex-wrap: wrap;
+      }
+      .lang > a {
+        display: block;
+        margin: 0.5em;
+        padding: 0.2em 1em;
+        border: 1px solid rgba(0, 180, 240, 0.5);
+      }
+      .lang > a:hover {
+        background-color: rgba(40, 248, 160, 0.2);
+      }
     </style>
   </head>
 
@@ -84,7 +93,7 @@
     </a>
     <div class="title">
       <h1>Welcome To WCEX</h1>
-      <svg viewBox="0 0 85.838112 51.24501">
+      <svg style="margin: 1em" width="8em" height="6em" viewBox="0 0 85.838112 51.24501">
         <path
           fill="#3366cc"
           stroke-width="0"
@@ -107,96 +116,63 @@
         />
       </svg>
       <h4>Native Responsive Web Components Extensions</h4>
+      <p align="center">
+        <a href="https://npmcharts.com/compare/wcex?minimal=true"><img src="https://img.shields.io/npm/dm/wcex.svg?sanitize=true" alt="Downloads"></a>
+        <a href="https://www.npmjs.com/package/wcex"><img src="https://img.shields.io/npm/v/wcex.svg?sanitize=true" alt="Version"></a>
+        <a href="https://www.npmjs.com/package/wcex"><img src="https://img.shields.io/npm/l/wcex.svg?sanitize=true" alt="License"></a>
+        <a href="https://www.npmjs.com/package/wcex"><img src="https://img.shields.io/bundlephobia/minzip/wcex.svg?sanitize=true" alt="minsize"></a>
+      </p>
+      
     </div>
 
     <div class="cdn">
       <h5>Please choose CDN:</h5>
       <form id="cdn">
-        <input type="radio" name="cdn" id="jsdelivr" checked />
+        <input type="radio" name="cdn" id="jsdelivr"  />
         <label>jsdelivr</label>
         <input type="radio" name="cdn" id="unpkg" />
         <label>unpkg</label>
-        <input type="radio" name="cdn" id="elemecdn" />
+        <input type="radio" name="cdn" id="elemecdn" checked />
         <label>elemecdn</label>
+        <input type="radio" name="cdn" id="zhimg" />
+        <label>zhimg</label>
       </form>
     </div>
 
     <div class="doc">
       <h5>Document:</h5>
       <div class="lang">
-        <a  href="#" onclick="goDoc('en')">English</a>
         <a href="#" onclick="goDoc('cn')">中文简体</a>
-        <a  href="#" onclick="goDoc('zh-Hant')">中文繁体</a>
-        <a  href="#" onclick="goDoc('yue')">中文粤语</a>
-        <a  href="#" onclick="goDoc('lzh')">中文文学</a>
-        <a  href="#" onclick="goDoc('ja')">日本語</a>
+        <a href="#" onclick="goDoc('en')">English</a>
+        <a href="#" onclick="goDoc('zh-Hant')">中文繁体</a>
+        <a href="#" onclick="goDoc('yue')">中文粤语</a>
+        <a href="#" onclick="goDoc('lzh')">中文文学</a>
+        <a href="#" onclick="goDoc('ja')">日本語</a>
+        <a href="#" onclick="goDoc('ko')">한국어</a>
+        <a href="#" onclick="goDoc('fr')">Français</a>
+        <a href="#" onclick="goDoc('ru')">Русский</a>
+        <a href="#" onclick="goDoc('it')">Italiano</a>
+        <a href="#" onclick="goDoc('de')">Deutsch</a>
+      </div>
     </div>
   </body>
 
   <script>
-    function goDoc(ev){
-      console.log('go doc:ev---',ev);
-    }
-    var NPM = localStorage.getItem("NPM") || "https://cdn.jsdelivr.net/npm";
-    var WCEX_VER = "1.8.94";
-    var DEV_WCEX = localStorage.getItem("WCEX");
-    document.getElementById("cdn").addEventListener("click", (ev) => {
-      if (ev.target instanceof HTMLAnchorElement) {
-        console.log("choose cdn:", ev.target.textContent);
-        localStorage.setItem("NPM", ev.target.textContent);
-        location.reload();
-      }
-    });
-
-    function _createEl(to, tag, attrs) {
-      var el = document.createElement(tag);
-      Object.keys(attrs).forEach((k) => {
-        if (attrs[k]) el.setAttribute(k, attrs[k]);
-      });
-      to.appendChild(el);
-      return el;
+    var DOC_VER='1.0.29'
+    function goDoc(lang) {
+      let cdn = document.getElementById("jsdelivr").checked
+        ? "jsdelivr"
+        : document.getElementById("unpkg").checked
+        ? "unpkg"
+        : document.getElementById("elemecdn").checked
+        ? "elemecdn"
+        : document.getElementById("zhimg").checked
+        ? "zhimg"
+        : "jsdelivr";
+      
+      console.log("go doc:ev---", lang,cdn);
+      location.href=`/pkg.html?@wcex/doc@${DOC_VER}/app&cdn=${cdn}&lang=${lang}`;
     }
 
-    // 强制https
-    // if (location.protocol == "http:") location.href = location.href.replace(/^http/, "https");
-    // 解析路径,默认跳转文档
-    // else if (location.pathname == "/") location.href = "/@wcex/doc@1.0.28/app";
-    // else {
-    //   let sp = location.pathname.split("/").filter((v) => v);
-
-    //   let pkg = "";
-    //   let ver = "";
-    //   let path = "";
-    //   if (sp[0].startsWith("@")) {
-    //     // 2 级目录,检测版本
-    //     var p = sp[1].split("@");
-    //     pkg = sp[0] + "/" + p[0];
-    //     ver = p[1];
-    //     path = sp.slice(2).join("/");
-    //   } else {
-    //     var p = sp[0].split("@");
-    //     pkg = sp[0];
-    //     ver = sp[1];
-    //     path = sp.slice(1).join("/");
-    //   }
-    //   // 创建NPM
-    //   _createEl(document.head, "meta", { name: "npm", content: NPM });
-
-    //   // 指定加载软件包版本
-    //   _createEl(document.head, "meta", { name: "module", pkg, version: ver });
-
-    //   window.addEventListener("wcex-loaded", () => {
-    //     setTimeout(() => {
-    //       document.getElementById("cdn").remove();
-    //     }, 2000);
-
-    //     document.body.appendChild(document.createElement(WC.buildTag(pkg, path)));
-    //   });
-    //   // 加载指定版本WCEX库
-    //   let script = _createEl(document.body, "script", { src: (DEV_WCEX || `${NPM}/wcex@${WCEX_VER}`) + "/index.js" });
-    //   script.addEventListener("load", () => {
-    //     window.dispatchEvent(new Event("DOMContentLoaded"));
-    //   });
-    // }
   </script>
 </html>

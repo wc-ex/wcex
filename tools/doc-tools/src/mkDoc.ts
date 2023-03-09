@@ -15,33 +15,54 @@ let ENDPOINT = "https://api.cognitive.microsofttranslator.com";
 let TRANS_LOCATION = "eastasia";
 let DOC_ROOT = path.resolve(__dirname, "../../../doc/guide/");
 
-type ITransResult = {translations:{text:string,to:LANG_NAMES_T}[]}[];
+type ITransResult = { translations: { text: string; to: LANG_NAMES_T }[] }[];
 
-async function transText(texts: string[], toLangs: string[],textType:'plain'|'html'|'markdown'):Promise<ITransResult> {
-  if(texts && texts.length <=0) return [];
+async function timeoutPromise(timeout: number) {
+  return new Promise((res) => {
+    setTimeout(() => {
+      res(null);
+    }, timeout);
+  });
+}
 
-  return await (axios({
-    baseURL: ENDPOINT,
-    url: "/translate",
-    method: "post",
-    headers: {
-      "ocp-apim-subscription-key": KEY,
-      // location required if you're using a multi-service or regional (not global) resource.
-      "Ocp-Apim-Subscription-Region": TRANS_LOCATION,
-      "Content-type": "application/json",
-      // 'X-ClientTraceId': uuidv4().toString()
-    },
-    params: {
-      "api-version": "3.0",
-      textType: textType,
-      from: "zh-Hans",
-      to: toLangs,
-    },
-    data: texts.map((v) => {
-      return { text: v };
-    }),
-    responseType: "json",
-  }).then((v)=>v.data)).catch(e=>console.log(e.message)) as ITransResult;
+async function transText(
+  texts: string[],
+  toLangs: string[],
+  textType: "plain" | "html"
+): Promise<ITransResult> {
+  if (texts && texts.length <= 0) return [];
+  for (;;) {
+    try {
+      let ret = await axios({
+        baseURL: ENDPOINT,
+        url: "/translate",
+        method: "post",
+        headers: {
+          "ocp-apim-subscription-key": KEY,
+          // location required if you're using a multi-service or regional (not global) resource.
+          "Ocp-Apim-Subscription-Region": TRANS_LOCATION,
+          "Content-type": "application/json",
+          // 'X-ClientTraceId': uuidv4().toString()
+        },
+        params: {
+          "api-version": "3.0",
+          textType: textType,
+          from: "zh-Hans",
+          to: toLangs,
+        },
+        data: texts.map((v) => {
+          return { text: v };
+        }),
+        responseType: "json",
+      });
+      return ret.data;
+    } catch (e: any) {
+      console.log("Error:", e.message);
+      await timeoutPromise(5000);
+    }
+  }
+
+  // return await (.then((v)=>v.data)).catch(e=>console.log(e.message)) as ITransResult;
 }
 
 // async function
@@ -103,7 +124,11 @@ async function buildDoc(docPath: string) {
         let m = firstline.match(/^<!--DESC:(.+)-->$/);
         let desc = {};
         if (m && m.length == 2) {
-          desc = JSON.parse(m[1]);
+          try{
+            desc = JSON.parse(m[1]);
+          }catch(e){
+            console.log('error get desc:',en.pathname)
+          }
         }
 
         curDir?.items.push({
@@ -121,7 +146,6 @@ async function buildDoc(docPath: string) {
   console.log("== Succeed ", docDir);
 }
 
-
 async function transDoc(toLang: LANG_NAMES_T[]) {
   let baseLangDir = path.join(DOC_ROOT, "cn");
   let dirs = (await fsp.readdir(baseLangDir, { encoding: "utf8", withFileTypes: true }))
@@ -129,7 +153,7 @@ async function transDoc(toLang: LANG_NAMES_T[]) {
     .map((v) => v.name);
 
   // 翻译主目录
-  let transDirs = await transText(dirs, toLang,'plain');
+  let transDirs = await transText(dirs, toLang, "plain");
   // console.log(transDirs);
 
   // 获取和翻译md文件
@@ -137,60 +161,68 @@ async function transDoc(toLang: LANG_NAMES_T[]) {
     // 翻译一级目录
     let dirName = dirs[dirId];
     let dirBase = path.join(baseLangDir, dirName);
-    let allFiles = (await fsp.readdir(dirBase, { encoding: "utf8", withFileTypes: true }))
-    .filter((v) => v.isFile() )
+    let allFiles = (await fsp.readdir(dirBase, { encoding: "utf8", withFileTypes: true })).filter((v) => v.isFile());
 
     // 复制目录的其他文件
-    for(let langId in toLang){
+    for (let langId in toLang) {
       let tDir = transDirs[dirId].translations[langId].text;
-      tDir = tDir.replace(/\s*-\s*/,'-');
-      let transMdDir = path.join(DOC_ROOT,toLang[langId],tDir);
-      await fsp.mkdir(transMdDir,{recursive:true});
-      for(let f of allFiles.filter(v=>!v.name.endsWith('.md'))){
-        await fsp.copyFile(path.join(dirBase,f.name),path.join(transMdDir,f.name))
-      }      
+      tDir = tDir.replace(/\s*-\s*/, "-");
+      let transMdDir = path.join(DOC_ROOT, toLang[langId], tDir);
+      await fsp.mkdir(transMdDir, { recursive: true });
+      for (let f of allFiles.filter((v) => !v.name.endsWith(".md"))) {
+        await fsp.copyFile(path.join(dirBase, f.name), path.join(transMdDir, f.name));
+      }
     }
 
-
-    let mdFiles = allFiles.filter(v=>v.name.endsWith('.md')).map((v) => v.name);
+    let mdFiles = allFiles.filter((v) => v.name.endsWith(".md")).map((v) => v.name);
     // 翻译md文件名
-    let transMdFiles = await transText(mdFiles, toLang,'plain');
+    let transMdFiles = await transText(mdFiles, toLang, "plain");
 
     for (let mdId in mdFiles) {
       let mdName = mdFiles[mdId];
-      let str = await fsp.readFile(path.join(dirBase,mdName),{encoding:'utf8'});
+      let str = await fsp.readFile(path.join(dirBase, mdName), { encoding: "utf8" });
       // 翻译md内容
-      let transStr =  await transText([str], toLang,'plain');
+      let transStr = await transText([str], toLang, "html");
       // 写入翻译文件
-      for(let langId in toLang){
+      for (let langId in toLang) {
         let tDir = transDirs[dirId].translations[langId].text;
-        tDir = tDir.replace(/\s*-\s*/,'-');
-        let transMdDir = path.join(DOC_ROOT,toLang[langId],tDir);
-        await fsp.mkdir(transMdDir,{recursive:true});
-        let tMd = transMdFiles[mdId].translations[langId].text
-        tMd = tMd.replace(/\s*-\s*/,'-');
+        tDir = tDir.replace(/\s*-\s*/, "-");
+        let transMdDir = path.join(DOC_ROOT, toLang[langId], tDir);
+        await fsp.mkdir(transMdDir, { recursive: true });
+        let tMd = transMdFiles[mdId].translations[langId].text;
+        tMd = tMd.replace(/\s*-\s*/, "-");
 
-        let trandMdFile = path.join(transMdDir,tMd);
-        await fsp.writeFile(trandMdFile,transStr[0].translations[langId].text);
-        console.log("write :",trandMdFile);
+        let trandMdFile = path.join(transMdDir, tMd);
+        await fsp.writeFile(trandMdFile, transStr[0].translations[langId].text);
+        console.log("write :", trandMdFile);
       }
     }
   }
-  console.log("all ok:",toLang);
-
+  console.log("all ok:", toLang);
 }
 
 (async () => {
   // let text = await fsp.readFile("../../doc/guide/cn/01-开始/01-简介.md", "utf8");
-  let LANGS:LANG_NAMES_T[]=["en", "ja", "zh-Hant", "lzh","yue","ko"];
-  for(let l of LANGS){
-    await fsp.rm(path.join(DOC_ROOT,l),{recursive:true});
+  let LANGS1: LANG_NAMES_T[] = ["en", "ja", "zh-Hant", "lzh", "yue"];
+  let LANGS2: LANG_NAMES_T[] = [ "ko", "fr", "it", "de","ru"];
+  for (let l of LANGS1) {
+    try {
+      await fsp.rm(path.join(DOC_ROOT, l), { recursive: true });
+    } catch (e) {}
   }
-  await transDoc(LANGS);
+  for (let l of LANGS2) {
+    try {
+      await fsp.rm(path.join(DOC_ROOT, l), { recursive: true });
+    } catch (e) {}
+  }
+  await transDoc(LANGS1);
+  await transDoc(LANGS2);
   // 生成索引
-  await buildDoc(path.join(DOC_ROOT,'cn'))
-  for(let l of LANGS){
-    await buildDoc(path.join(DOC_ROOT,l))
+  await buildDoc(path.join(DOC_ROOT, "cn"));
+  for (let l of LANGS1) {
+    await buildDoc(path.join(DOC_ROOT, l));
   }
-
+  for (let l of LANGS2) {
+    await buildDoc(path.join(DOC_ROOT, l));
+  }
 })();

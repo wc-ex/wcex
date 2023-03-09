@@ -61,9 +61,6 @@
       async onCreate() {
         this.loadtime = _loadtime;
         // this.$log('lget',this.lget);
-        let lang =this.lget(this.$router,'route.default.attrs.lang', 'cn')
-        let info = await (await fetch(this.$path(`./guide/${lang}/info.json`))).json();
-        this.desc = info.description;
       }
     };
   </script>

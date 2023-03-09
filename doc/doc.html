@@ -15,8 +15,8 @@
   </style>
 
   <!-- 文章标题 -->
-  <div class="title" $>url</div>
+  <div class="title" :>${lang} ${url}</div>
 
-  <wcex-ui.marked style="padding: 1em;" $src="($root.url)?$path(`./guide/${lang}/${$root.url}`):''"></wcex-ui.marked>
+  <wcex-ui.marked style="padding: 1em;" $if="url" $src="($root.url)?$path(`./guide/${lang}/${$root.url}`):''"></wcex-ui.marked>
 
 </template>
