@@ -1,10 +1,11 @@
 {
   "name": "@wcex/doc",
-  "version": "1.0.27",
+  "version": "1.0.28",
   "description": "documents for wcex",
   "main": "index.html",
   "scripts": {
-    "pub": "npm --registry \"https://registry.npmjs.org/\" publish --access public"
+    "pub": "npm --registry \"https://registry.npmjs.org/\" publish --access public",
+    "lang":"ts-node ../tools/doc-tools/src/mkDoc.ts"
   },
   "keywords": [],
   "author": "",

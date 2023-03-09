@@ -1,4 +1,6 @@
 <template drawer.bool="1">
+
+  <meta name="module" pkg="lodash.get" cjs>
   <style>
     :host {
       display: block;
@@ -35,7 +37,7 @@
       <h2 style="margin-right: 0.5em;">WCEX</h2> 
       <a href="https://www.npmjs.com/package/wcex"><img src="https://img.shields.io/npm/v/wcex.svg?sanitize=true" alt="Version"></a>  
     </div>
-    <div slot="subtitle">原生响应式 Web Components 扩展库</div>
+    <div slot="subtitle" >Native Responsive Web Components Extensions</div>
 
     <!-- 工具区 -->
     <div class="column" slot="end" style="width: 8em" :>
@@ -47,6 +49,7 @@
     </div>
   </wcex-ui.title>
 
+  <script scope="lget" src="lodash.get" nocall></script>
   <script scope=".">
     let _loadtime = 0;
     window.addEventListener("wcex-loaded", (ev) => {
@@ -54,8 +57,13 @@
     });
     return class {
       loadtime = 0;
-      onCreate() {
+      desc='';
+      async onCreate() {
         this.loadtime = _loadtime;
+        // this.$log('lget',this.lget);
+        let lang =this.lget(this.$router,'route.default.attrs.lang', 'cn')
+        let info = await (await fetch(this.$path(`./guide/${lang}/info.json`))).json();
+        this.desc = info.description;
       }
     };
   </script>

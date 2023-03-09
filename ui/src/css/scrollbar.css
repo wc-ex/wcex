@@ -8,23 +8,23 @@
 .scroll {
   overflow: auto;
   scrollbar-width: 8px;
-  scrollbar-color: "$$color.pria.a4_" "$$color.pria.a7_";
+  scrollbar-color: "$$color.seca.a4_" "$$color.seca.a7_";
 }
 
 ::-webkit-scrollbar {
   height: 8px;
   width: 8px;
-  background-color: "$$color.pria.a7_";
+  background-color: "$$color.seca.a7_";
 }
 
 ::-webkit-scrollbar-thumb {
   width: 8px;
   height: 8;
   border-radius: 4px;
-  background-color: "$$color.pria.a4_";
+  background-color: "$$color.seca.a4_";
   transition: all 0.3s;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: "$$color.pria.l3_.a4_";
+  background-color: "$$color.seca.l3_.a4_";
 }

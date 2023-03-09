@@ -23,10 +23,14 @@
         background-color: "$color.a3_";
         --side-focus: 0;
         opacity: "$show?1:0";
+        outline: none;
+        overflow: "$clip?'auto':'unset'";
       }
       #side:focus,
+      #side:focus-visible,
       #side:focus-within {
         --side-focus: 1;
+        outline: none !important;
       }
   
     </style>

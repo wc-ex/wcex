@@ -20,9 +20,13 @@ WC.usePlugins({
 
 export default class extends Scope {
   onCreate() {
-    // 检测当前父元素是否为WC并进行CSS注入（因为当前包含ui库的元素已经创建，无法注入css）
-    
-    // 为 CSS 设置彩色模式
-    // this.$Colors.mode;
+    // 检测和启用dev面板
+    if (localStorage.getItem("__DEV") != null) {
+      window.addEventListener("keydown", (ev) => {
+        if (ev.altKey && ev.key == "`") {
+          (this as any).$side('wcex-ui.dev_panel',{pos:'t',size:'16em',color:this.$color.sec})
+        }
+      });
+    }
   }
 }

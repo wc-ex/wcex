@@ -1,8 +1,6 @@
 import { Scope } from "wcex";
-import { ScopedElement } from "wcex/types/plugins/IPlugins";
 
 // 弹出框,弹出框直接位于 body,fullscreen时 绝对定位
-console.log("-->>>> $POP   ");
 interface ISideOptions {
   // 属性
   attrs?: { [k: string]: string };
@@ -11,13 +9,14 @@ interface ISideOptions {
   // 框大小
   size?: string;
   autoclose?:boolean;
+  clip?:boolean;
+  color?:any; // $color对象
 }
 
 let popInstance = undefined as Side | undefined;
 
 WC.usePlugins({
   name: "$side",
-  
   scope: {
     $side(tagOrEl: string | HTMLElement, options?: ISideOptions) {
       popInstance?.open(tagOrEl, options);
@@ -33,6 +32,8 @@ export default class Side extends Scope {
   pos = "r";
   sty = {} as { color?: any };
   autoclose = true;
+  clip=true;
+  color:any;
   constructor() {
     super();
   }
@@ -46,7 +47,12 @@ export default class Side extends Scope {
     this.size = options?.size || "12em";
     this.pos = options?.pos || "r";
     this.autoclose = (options?.autoclose === false )?false:true;
+    this.clip = (options?.clip === false )?false:true;
     let target = tagOrEl instanceof HTMLElement ? tagOrEl : document.createElement(tagOrEl);
+
+    if(options?.color){
+      this.color = options.color;
+    }
 
     // 下个周期插入元素,
     requestAnimationFrame(() => {
