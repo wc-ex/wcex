@@ -62,51 +62,62 @@ Im Vergleich zu normalem HTML benötigen wir nur drei einfache Schritte:
 
 Im vorherigen Abschnitt haben wir gesehen, dass die erste Webkomponente, die wir definiert haben, in index.html geladen wurde, jetzt erstellen wir sie, was eine klassische Hello World ist.
 
-- Erstellen Sie in diesem Verzeichnis eine neue Datei mit dem Namen _app.html_, die wie folgt lautet:
+- Erstellen Sie in diesem Verzeichnis eine neue Datei mit dem Namen **app.html die wie folgt lautet:
 
 ```html
 <template>
-    <h1>Hello World!</h1>
+  <h1>Hello World!</h1>
 </template>
-
 ```
+
 Wie Sie sehen können, ist dies eine normale HTML-Datei, und ihre einzige Anforderung ist, dass sie \<template\> als Stammtag verwenden muss. </template\>
 
-> Informationen zu _template_ finden Sie unter: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template, Dies ist eine W3C-Standardspezifikation, WCEX verwendet eine standardisierte native Webkomponentenspezifikation zur Implementierung, und viele technische Punkte können in Zukunft verwendet werden, die alle zur Standardspezifikation gehören. So können Sie vorab einen Blick auf die Spezifikationen werfen, von denen die meisten hier zu finden sind: https://developer.mozilla.org/en-US/docs/Web/Web_Components
+> Informationen zu _template_ finden Sie unter: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template, Dies ist die Standard-W3C-Spezifikation, WCEX verwendet die standardisierte native Webkomponentenspezifikation zur Implementierung, und viele technische Punkte können in Zukunft verwendet werden, die alle zur Standardspezifikation gehören. So können Sie vorab einen Blick auf die Spezifikationen werfen, von denen die meisten hier zu finden sind: https://developer.mozilla.org/en-US/docs/Web/Web_Components
 
 Okay, jetzt, da alles, was wir brauchen, erledigt ist, lassen Sie uns tatsächlich loslegen.
 
 ### In einem Browser öffnen
-Wie wir im vorherigen Kapitel behandelt haben, ist eines der wichtigsten Dinge, die WCEX tut, dynamisches Laden, und wir hassen komplexe Paketierung, Umgebungskonfiguration und diese Dinge. Das nächste ist also einfach. Sie haben viele Möglichkeiten. Sie können es zum Laufen bringen. Legen Sie einfach die beiden oben genannten Dateien in ein statisches Web, sogar Github oder NPM. Diese Methoden werden im Folgenden beschrieben:
+
+Wie wir im vorherigen Kapitel behandelt haben, ist eines der wichtigsten Dinge, die WCEX tut, dynamisches Laden, das wir für komplexe Verpackungs- und Umgebungskonfigurationen hassen. Das nächste ist also einfach. Sie haben viele Möglichkeiten. Sie können es zum Laufen bringen. Legen Sie einfach die beiden oben genannten Dateien in ein statisches WEB oder sogar Github oder NPM. Diese Methoden werden im Folgenden beschrieben:
 
 #### Starten des lokalen HTTP-Dienstes
+
 - Am einfachsten ist es, ein schnelles HTTP-Server-Tool mit npm zu installieren
+
 ```shell
 npm install -g http-server
 ```
+
 - Dann starten Sie gerade im Verzeichnis, gehen Sie in der Befehlszeile zu Ihrem Verzeichnis und führen Sie den folgenden Befehl aus.
+
 ```shell
 http-server
 ```
+
 - Sie können sehen, dass Ihr HTTP-Server auf Port 8080 gestartet wurde, öffnen Sie nun einen Browser und geben Sie in die Adressleiste ein:
+
 ```
 http://localhost:8080
 ```
+
 Jetzt können Sie Hello World sehen, natürlich können Sie jede Art von HTTP-Server verwenden, den Sie mögen, nginx, lighttpd ....
 
-> Okay, als nächstes. Sie können das Debugging-Fenster Ihres Browsers öffnen. Sehen Sie sich Ihre Komponente im DOM an, bei der es sich um die Interna einer standardisierten Webkomponente handelt. Hier können Sie vielleicht das zweite Hauptmerkmal von WCEX sehen: **Intuitiv**. Aufgrund der Aufgabe von VDOM und der Vorlagen-Engine, der nativen Implementierung und der standardisierten Implementierung werden Sie feststellen, dass die DOM-Struktur, die Sie im Debug-Fenster sehen, im Grunde die gleiche ist wie die Struktur in der Vorlage, was sehr förderlich für unsere Beobachtung und das Debuggen von Problemen ist, durch das Debug-Fenster können Sie fast alles tun, was Sie wollen, Datenänderungen beobachten, Ereignisse senden, Daten ändern usw. Um dieses Ziel so weit wie möglich zu erreichen. WCEX-Implementierung hat auch viele Details, wie in der **if** und **for** Struktur von WCEX, das implementierte DOM ist Geschwister, anstatt eine weitere Ebene von Wrapper-Elementen hinzuzufügen, was sehr förderlich für unsere Konsistenz und ** intuitiv ** des Zugriffs auf Elemente in CSS und Datenstrukturen ist.
+> Okay, als nächstes. Sie können das Debugging-Fenster Ihres Browsers öffnen. Betrachtet man Ihre Komponente im DOM, so ist dies die interne Struktur einer standardisierten Web-Komponente. Hier können Sie vielleicht das zweite Hauptmerkmal von WCEX sehen: **Intuitiv**. Aufgrund der Aufgabe von VDOM und der Vorlagen-Engine, der nativen Implementierung und der standardisierten Implementierung werden Sie feststellen, dass die DOM-Struktur, die Sie im Debug-Fenster sehen, im Grunde die gleiche ist wie die Struktur in der Vorlage, die für uns sehr förderlich ist, um Probleme zu beobachten und zu debuggen, durch das Debug-Fenster können Sie fast alles tun, was Sie wollen, Datenänderungen beobachten, Ereignisse senden, Daten ändern und so weiter. Um dieses Ziel so weit wie möglich zu erreichen. WCEX-Implementierung hat auch viele Details, wie in WCEXs **if** und **for** Struktur, das implementierte DOM ist siblisch, anstatt eine weitere Ebene von Wrapper-Elementen hinzuzufügen, was sehr förderlich für unsere Konsistenz und ** intuitiv ** von CSS- und Datenstruktur-Zugriffselementen ist.
 
 #### Direkte Vorschau über Web
+
 Wenn Sie die oben genannten Dateien an **github** senden oder das Paket über npm veröffentlichen, können Sie direkt über das CDN darauf zugreifen, und wir haben ein Widget erstellt, das Ihnen hilft, direkt eine Vorschau anzuzeigen, dieses Tool verwendet **jsdelivr** als CDN.
 Spezifische Zugriffsformate und Beschreibungen finden Sie unter https://www.jsdelivr.com/
 
 - NPM-Zugang, bitte ersetzen Sie Ihren eigenen Paketnamen.
+
 ```
 https://wc-ex.com/go?npm/@wcex/example-basic/index.html
 
 https://wc-ex.com/go?npm/[YOUT PACKAGE NAME][@VERSION]/index.html
 
 ```
+
 - Für den GitHub-Zugriff ersetzen Sie bitte Ihren eigenen Repository-Namen und -Pfad
 
 ```
@@ -114,8 +125,8 @@ https://wc-ex.com/go?gh/wc-ex/wcex/example/basic/index.html
 https://wc-ex.com/go?gh/[YOU REPOS]@[COMMIT ID]/[YOU DIR]/index.html
 ```
 
-> Natürlich haben wir zusätzlich zu den oben genannten Methoden auch ein CLI-Toolkit erstellt. Es ist sehr klein, und es ist auch nur Dutzende von K groß, und ist nicht auf komplexe Verpackungswerkzeuge wie Webpack und Rollup angewiesen. Es kann uns helfen, mehr Arbeit zu erledigen, z. B. die Kompilierung und Veröffentlichung von Hot-Updates usw. Ein weiterer wichtiger Punkt ist die Unterstützung von TypeScript. Sie können **@wcex/cli** über npm installieren, dessen Details in einem späteren Abschnitt behandelt werden.
+> Natürlich haben wir zusätzlich zu den oben genannten Methoden auch ein CLI-Toolkit erstellt. Sehr klein, auch nur zehn K groß, ist nicht auf Webpack, Rollup und andere komplexe Verpackungswerkzeuge angewiesen. Es kann uns helfen, mehr Arbeit zu erledigen, z. B. die Kompilierung und Veröffentlichung von Hot-Updates usw. Ein weiterer wichtiger Punkt ist die Unterstützung von TypeScript. Sie können **@wcex/CLI** über npm installieren, dessen Details in späteren Abschnitten behandelt werden.
 
 ### Weitere Verfeinerung
-Ganz einfach, im nächsten Kapitel werden wir versuchen, zum Beispiel weitere Funktionen hinzuzufügen. Fügen Sie benutzerdefinierte Eigenschaften hinzu, um Datenbindung hinzuzufügen. Behandeln Sie Ereignisse, und fügen Sie weitere Komponenten hinzu.
 
+Ganz einfach, im nächsten Kapitel werden wir versuchen, zum Beispiel weitere Funktionen hinzuzufügen. Fügen Sie benutzerdefinierte Eigenschaften hinzu, um Datenbindung hinzuzufügen. Behandeln Sie Ereignisse, und fügen Sie weitere Komponenten hinzu.

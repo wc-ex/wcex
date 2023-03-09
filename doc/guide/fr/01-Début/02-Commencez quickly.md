@@ -62,51 +62,62 @@ Par rapport au HTML normal, nous n’avons besoin que de trois étapes simples:
 
 Dans la section précédente, nous avons vu que le premier composant Web que nous avons défini était chargé dans index.html, créons-le maintenant, qui est un Hello World classique.
 
-- Créez un nouveau fichier dans ce répertoire, nommé _app.html_, qui se lit comme suit :
+- Créez un nouveau fichier dans ce répertoire, nommé **app.html qui se lit comme suit :
 
 ```html
 <template>
-    <h1>Hello World!</h1>
+  <h1>Hello World!</h1>
 </template>
-
 ```
+
 Comme vous pouvez le voir, il s’agit d’un fichier HTML normal, et sa seule exigence est qu’il doit utiliser \<template\> comme balise racine. </template\>
 
-> Pour connaître _template_, vous pouvez vous référer à : https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template, Il s’agit d’une spécification W3C standard, WCEX utilise une spécification de composant Web natif standardisé pour implémenter, et de nombreux points techniques peuvent être utilisés à l’avenir, qui appartiennent tous à la spécification standard. Vous pouvez donc consulter les spécifications à l’avance, dont la plupart peuvent être trouvées ici: https://developer.mozilla.org/en-US/docs/Web/Web_Components
+> Pour connaître _template_, vous pouvez vous référer à : https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template, Il s’agit de la spécification W3C standard, WCEX utilise la spécification native normalisée Web Component pour implémenter, et de nombreux points techniques peuvent être utilisés à l’avenir, qui appartiennent tous à la spécification standard. Vous pouvez donc consulter les spécifications à l’avance, dont la plupart peuvent être trouvées ici: https://developer.mozilla.org/en-US/docs/Web/Web_Components
 
 D’accord, maintenant que tout ce dont nous avons besoin est fait, mettons-nous réellement en marche.
 
 ### Ouvrir dans un navigateur
-Comme nous l’avons expliqué dans le chapitre précédent, l’une des principales choses que fait WCEX est le chargement dynamique, et nous détestons l’emballage complexe, la configuration de l’environnement, ces choses. La prochaine chose est donc simple. Vous avez plusieurs façons. Vous pouvez le faire fonctionner. Il suffit de mettre les deux fichiers ci-dessus dans n’importe quel site Web statique, même Github ou NPM. Ces méthodes sont décrites ci-dessous :
+
+Comme nous l’avons expliqué dans le chapitre précédent, l’une des principales choses que fait WCEX est le chargement dynamique, que nous détestons pour l’emballage complexe et la configuration de l’environnement. La prochaine chose est donc simple. Vous avez plusieurs façons. Vous pouvez le faire fonctionner. Il suffit de mettre les deux fichiers ci-dessus dans n’importe quel WEB statique ou même Github ou NPM. Ces méthodes sont décrites ci-dessous :
 
 #### Démarrer le service HTTP local
+
 - Le plus simple est d’installer un outil de serveur HTTP rapide avec npm
+
 ```shell
 npm install -g http-server
 ```
+
 - Ensuite, démarrez dans le répertoire tout à l’heure, sur la ligne de commande, allez dans votre répertoire et exécutez la commande suivante.
+
 ```shell
 http-server
 ```
+
 - Vous pouvez voir que votre serveur HTTP a été démarré sur le port 8080, maintenant ouvrez un navigateur et tapez dans la barre d’adresse:
+
 ```
 http://localhost:8080
 ```
+
 Maintenant, vous pouvez voir Hello World, bien sûr, vous pouvez utiliser n’importe quel type de serveur HTTP que vous aimez, nginx, lighttpd....
 
-> D’accord, ensuite. Vous pouvez ouvrir la fenêtre de débogage de votre navigateur. Examinez votre composant dans le DOM, qui est l’interne d’un composant Web standardisé. Ici, vous pourrez peut-être voir la deuxième caractéristique principale de WCEX: **Intuitif**. En raison de l’abandon de VDOM et du moteur de modèles, de l’implémentation native et de l’implémentation standardisée, vous constaterez que la structure DOM que vous voyez dans la fenêtre de débogage est fondamentalement la même que la structure du modèle, ce qui est très propice à notre observation et au débogage des problèmes, grâce à la fenêtre de débogage, vous pouvez faire presque tout ce que vous voulez, observer les changements de données, envoyer des événements, modifier les données, etc. Afin d’atteindre cet objectif autant que possible. L’implémentation de WCEX a également fait beaucoup de détails, comme dans la structure **if** et **for** de WCEX, le DOM implémenté est frère, plutôt que d’ajouter une autre couche d’éléments wrapper, ce qui est très propice à notre cohérence et **intuitive** d’accès aux éléments dans CSS et structures de données.
+> D’accord, ensuite. Vous pouvez ouvrir la fenêtre de débogage de votre navigateur. En examinant votre composant dans le DOM, il s’agit de la structure interne d’un composant Web standardisé. Ici, vous pourrez peut-être voir la deuxième caractéristique principale de WCEX: **Intuitif**. En raison de l’abandon de VDOM et du moteur de modèle, de l’implémentation native et de l’implémentation standardisée, vous constaterez que la structure DOM que vous voyez dans la fenêtre de débogage est fondamentalement la même que la structure du modèle, ce qui est très propice à l’observation et au débogage des problèmes, via la fenêtre de débogage, vous pouvez faire presque tout ce que vous voulez, observer les modifications de données, envoyer des événements, modifier les données, etc. Afin d’atteindre cet objectif autant que possible. L’implémentation de WCEX a également fait beaucoup de détails, comme dans la structure **if** et **for** de WCEX, le DOM implémenté est similaire, plutôt que d’ajouter une autre couche d’éléments wrapper, ce qui est très propice à notre cohérence et **intuitif** des éléments d’accès CSS et à la structure de données.
 
 #### Aperçu direct via le Web
+
 Si vous soumettez les fichiers ci-dessus à **github** ou publiez le package via npm, vous pouvez y accéder directement via le CDN, et nous avons créé un widget pour vous aider à prévisualiser directement, cet outil utilise **jsdelivr** comme CDN.
 Pour obtenir des formats d’accès et des descriptions spécifiques, reportez-vous à la section https://www.jsdelivr.com/
 
 - Accès NPM, veuillez remplacer votre propre nom de paquet.
+
 ```
 https://wc-ex.com/go?npm/@wcex/example-basic/index.html
 
 https://wc-ex.com/go?npm/[YOUT PACKAGE NAME][@VERSION]/index.html
 
 ```
+
 - Pour accéder à GitHub, veuillez remplacer votre propre nom de référentiel et chemin
 
 ```
@@ -114,8 +125,8 @@ https://wc-ex.com/go?gh/wc-ex/wcex/example/basic/index.html
 https://wc-ex.com/go?gh/[YOU REPOS]@[COMMIT ID]/[YOU DIR]/index.html
 ```
 
-> Bien sûr, en plus des méthodes ci-dessus, nous avons également créé une boîte à outils CLI. Il est très petit, et il ne mesure que des dizaines de K et ne repose pas sur des outils d’emballage complexes tels que le webpack et le rollup. Cela peut nous aider à faire plus de travail, comme la compilation et la publication de mises à jour à chaud, etc. Un autre point important est de prendre en charge TypeScript. Vous pouvez installer **@wcex/cli** via npm, dont les détails seront traités dans une section ultérieure.
+> Bien sûr, en plus des méthodes ci-dessus, nous avons également créé une boîte à outils CLI. Très petit, également de seulement quelques dizaines de K, ne repose pas sur le webpack, le rollup et d’autres outils d’emballage complexes. Cela peut nous aider à faire plus de travail, comme la compilation et la publication de mises à jour à chaud, etc. Un autre point important est de prendre en charge TypeScript. Vous pouvez installer **@wcex/CLI** via npm, dont les détails seront abordés dans les sections suivantes.
 
 ### Affinement supplémentaire
-Tout simplement, dans le chapitre suivant, nous essaierons d’y ajouter plus de fonctionnalités, par exemple. Ajoutez des propriétés personnalisées pour ajouter une liaison de données. Gérer les événements et ajouter d’autres composants.
 
+Tout simplement, dans le chapitre suivant, nous essaierons d’y ajouter plus de fonctionnalités, par exemple. Ajoutez des propriétés personnalisées pour ajouter une liaison de données. Gérer les événements et ajouter d’autres composants.
