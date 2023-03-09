@@ -1,0 +1,71 @@
+<!-- 开发者工具 -->
+<template @timer.1000="ob=$json(__OB_STATUS())">
+  <style>
+    :host {
+        display: flex;
+        flex-direction: column;
+    }
+    :host > div {
+      border-bottom: solid 1px rgba(255, 255, 255, 0.5);
+      padding: 0.2em 1em;
+    }
+    input {
+        margin: 0.2em 0.5em;
+    }
+    input[type="checkbox"] {
+      width: 1.5em;
+      height: 1.5em;
+    }
+    .pkg{
+        border-bottom: solid 1px rgba(255, 255, 255, 0.5);
+        padding: 0.3em 0;
+    }
+    .reload:hover{
+        user-select: none;
+        color: red;
+    }
+  </style>
+  <div class="row">
+    <h4 >DEV TOOLS</h4>
+    <div class="flex"></div>
+    <h4 class="reload" @click="location.reload()">RELOAD</h4>
+  </div>
+  <!-- 是否开启调试信息 -->
+  <div class="row">
+    <div>Enable Debug Output:</div>
+    <input type="checkbox" $$checked="dev.debugOutput" />
+  </div>
+  <!-- 选择调试软件包 -->
+  <div>
+    <div $for(v,k)="pkgs" class="row pkg">
+        <span :>${v}: </span>
+        <input $disabled="!dev.pkgs[v].enable" type="url" $$="dev.pkgs[v].hostport">
+        <input type="checkbox" $$checked="dev.pkgs[v].enable" @click="if(!dev.pkgs[v].hostport) dev.pkgs[v].hostport='localhost:8101'"/>
+    </div>
+  </div>
+
+  <script scope=".">
+    return class {
+      dev = {};
+      pkgs = [];
+      ob='';
+      onReady() {
+        try {
+          this.dev = JSON.parse(localStorage.getItem("__DEV"));
+        } catch (e) {}
+        if(!this.dev.pkgs) this.dev.pkgs = {};
+        this.pkgs = Object.keys(WC.modules).sort();
+        this.pkgs.forEach(p=>{
+            if(!this.dev.pkgs[p]){
+                this.dev.pkgs[p]={}
+            }
+        })
+
+        this.$watch(()=>this.$json(this.dev),()=>{
+            localStorage.setItem('__DEV',JSON.stringify(this.dev));
+        })
+
+      }
+    };
+  </script>
+</template>
