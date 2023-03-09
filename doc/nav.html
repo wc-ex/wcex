@@ -1,5 +1,6 @@
 <template min.bool="0" class="trans" $value="{}" lang="cn">
   <meta name="scope" />
+  <meta name="module" pkg="lodash.throttle" cjs />
 
   <style>
     :host {
@@ -13,7 +14,7 @@
     }
   </style>
   <!-- 文档版本 -->
-  <h6 style="margin: 0.5em">Doc: ${pkg.version}</h6>
+  <h6 style="margin: 0.5em" :>DOC: ${pkg.version}</h6>
   <!-- 一级主菜单 -->
   <wcex-ui.panel $textonly="min" closeable $for(vnav,knav)="navData" $open="Object.keys(vnav.items).length>0" psel="">
     <wcex-ui.icon
@@ -31,13 +32,15 @@
       $items="vnav.items"
       $flag-icon="min?'':'send'"
       $flag-color="$color.sec"
+
       $$="$root.value"
+      $fn="throttle(()=>{$router.go('wcex-doc.doc',{url:value.path,lang:$root.lang})},50,{leading:false,trailing:true})"
+      @change.1="fn()"
     >
       <div
         $for="vnav.items"
         $slot="index"
         :style="padding:0.3em 0 0.3em ${min?0.2:2}em; display:flex;"
-        @click="$router.go('wcex-doc.doc',{url:value.path,lang:$root.lang})"
       >
         <wcex-ui.icon
           $if="!min"
@@ -53,6 +56,7 @@
       </div>
     </wcex-ui.list>
   </wcex-ui.panel>
+  <script scope="throttle" src="lodash.throttle" nocall></script>
 
   <script scope="pkg" src="./package.json"></script>
   <script scope=".">

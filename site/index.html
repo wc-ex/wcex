@@ -117,23 +117,30 @@
       </svg>
       <h4>Native Responsive Web Components Extensions</h4>
       <p align="center">
-        <a href="https://npmcharts.com/compare/wcex?minimal=true"><img src="https://img.shields.io/npm/dm/wcex.svg?sanitize=true" alt="Downloads"></a>
-        <a href="https://www.npmjs.com/package/wcex"><img src="https://img.shields.io/npm/v/wcex.svg?sanitize=true" alt="Version"></a>
-        <a href="https://www.npmjs.com/package/wcex"><img src="https://img.shields.io/npm/l/wcex.svg?sanitize=true" alt="License"></a>
-        <a href="https://www.npmjs.com/package/wcex"><img src="https://img.shields.io/bundlephobia/minzip/wcex.svg?sanitize=true" alt="minsize"></a>
+        <a href="https://npmcharts.com/compare/wcex?minimal=true"
+          ><img src="https://img.shields.io/npm/dm/wcex.svg?sanitize=true" alt="Downloads"
+        /></a>
+        <a href="https://www.npmjs.com/package/wcex"
+          ><img src="https://img.shields.io/npm/v/wcex.svg?sanitize=true" alt="Version"
+        /></a>
+        <a href="https://www.npmjs.com/package/wcex"
+          ><img src="https://img.shields.io/npm/l/wcex.svg?sanitize=true" alt="License"
+        /></a>
+        <a href="https://www.npmjs.com/package/wcex"
+          ><img src="https://img.shields.io/bundlephobia/minzip/wcex.svg?sanitize=true" alt="minsize"
+        /></a>
       </p>
-      
     </div>
 
     <div class="cdn">
       <h5>Please choose CDN:</h5>
       <form id="cdn">
-        <input type="radio" name="cdn" id="jsdelivr"  />
+        <input type="radio" name="cdn" id="jsdelivr" />
         <label>jsdelivr</label>
         <input type="radio" name="cdn" id="unpkg" />
         <label>unpkg</label>
         <input type="radio" name="cdn" id="elemecdn" checked />
-        <label>elemecdn</label>
+        <label>elemecdn(国内推荐)</label>
         <input type="radio" name="cdn" id="zhimg" />
         <label>zhimg</label>
       </form>
@@ -158,7 +165,7 @@
   </body>
 
   <script>
-    var DOC_VER='1.0.29'
+    var DOC_VER = "1.0.36";
     function goDoc(lang) {
       let cdn = document.getElementById("jsdelivr").checked
         ? "jsdelivr"
@@ -169,10 +176,9 @@
         : document.getElementById("zhimg").checked
         ? "zhimg"
         : "jsdelivr";
-      
-      console.log("go doc:ev---", lang,cdn);
-      location.href=`/pkg.html?@wcex/doc@${DOC_VER}/app&cdn=${cdn}&lang=${lang}`;
-    }
 
+      console.log("go doc:ev---", lang, cdn);
+      location.href = `/pkg.html?@wcex/doc@${DOC_VER}/app&cdn=${cdn}&lang=${lang}`;
+    }
   </script>
 </html>

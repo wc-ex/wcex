@@ -203,8 +203,10 @@ async function transDoc(toLang: LANG_NAMES_T[]) {
 
 (async () => {
   // let text = await fsp.readFile("../../doc/guide/cn/01-开始/01-简介.md", "utf8");
-  let LANGS1: LANG_NAMES_T[] = ["en", "ja", "zh-Hant", "lzh", "yue"];
-  let LANGS2: LANG_NAMES_T[] = [ "ko", "fr", "it", "de","ru"];
+  let LANGS1: LANG_NAMES_T[] = ["en"];
+  let LANGS2: LANG_NAMES_T[] = ["ja" ];
+  // let LANGS1: LANG_NAMES_T[] = ["en", "ja", "zh-Hant", "lzh", "yue"];
+  // let LANGS2: LANG_NAMES_T[] = [ "ko", "fr", "it", "de","ru"];
   for (let l of LANGS1) {
     try {
       await fsp.rm(path.join(DOC_ROOT, l), { recursive: true });

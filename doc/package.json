@@ -1,11 +1,11 @@
 {
   "name": "@wcex/doc",
-  "version": "1.0.29",
+  "version": "1.0.36",
   "description": "documents for wcex",
   "main": "index.html",
   "scripts": {
-    "pub": "npm --registry \"https://registry.npmjs.org/\" publish --access public",
-    "lang":"ts-node ../tools/doc-tools/src/mkDoc.ts"
+    "pub": "node ./_pub_doc.js && npm --registry \"https://registry.npmjs.org/\" publish --access public",
+    "lang": "ts-node ../tools/doc-tools/src/mkDoc.ts"
   },
   "keywords": [],
   "author": "",

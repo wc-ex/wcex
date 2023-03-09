@@ -40,7 +40,7 @@
     $tabs="{'中文':'com-cn_fonts','英文':'com-en_fonts'}"
     $color="$color.sec.a5_"
     $$="sel"
-    $fn="throttle((pkg)=>{$log('--- DEMO');demo.name=pkg},500,{leading:false,trailing:true})"
+    $fn="throttle((pkg)=>{demo.name=pkg},500,{leading:false,trailing:true})"
     @demo="fn($ev.detail)"
   >
     <div slot="panel" $as="$slot.value " ></div>
