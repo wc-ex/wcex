@@ -10,7 +10,6 @@ export default class extends Scope {
   // hljs={} as any
   onReady(): void {
     let self = this;
-    this.$log("---1 hljs", hljs);
     marked.setOptions({
       baseUrl: (this as any).$npm,
       highlight: (code, lang, callback) => {
@@ -20,6 +19,17 @@ export default class extends Scope {
     });
     marked.use({
       renderer: {
+        html(html){
+          // 为svg 文件处理路径
+          let m = html.match(/(<svg .* src=")(.*)(" .*>[\s\S]*<\/svg>)/)
+          if(m && m.length == 4){
+            if(m[2].startsWith('@/')){
+                return m[1]+ self.$path(m[2])+m[3];
+            }
+          }
+          return html;
+        },
+        
         image(href: string, title: string, text: string) {
           let m = href.match(/^(.+?)\{(.*)\}$/)!
           let url = "";
@@ -30,8 +40,6 @@ export default class extends Scope {
           }else{
             url=self.$path(href);
           }
-          console.log("============================IMG",url,sty)
-          // let sty = (sp[1] && sp[2])?`width:${sp[1]};height:${}`
 
           if(url.endsWith('.svg')){
             return `<p align="center"> <svg src="${url}" alt="${text}" style="${sty}"></svg> </p>`;
