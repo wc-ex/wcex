@@ -1,7 +1,5 @@
 <template>
-  <meta name="scope" load.int="-1" content="a111bc" abc.obj="{'a':88,'b':99,'c':10}" />
-  <meta name="module" pkg="qrcode" content="build/qrcode.js">
-  <!-- <meta name="module" pkg="jsbarcode" content="dist/JsBarcode.all.js" eval> -->
+  <meta name="scope" />
   <style>
     :host{
       display: flex;
@@ -11,13 +9,14 @@
     }
   </style>
 
+<wcex-ui.icon></wcex-ui.icon>
+<!-- <svg $src=""></svg> -->
+
+
   <div1>WCEX @2023</div1>
-  <script scope="_qrcode" src="qrcode" nocall></script>
   <script scope=".">
     return class{
-      // qrcode=QRCode;
       onReady(){
-        this.$log("------------>>>>!!!! QR",QRCode.default)
       }
     }
   </script>

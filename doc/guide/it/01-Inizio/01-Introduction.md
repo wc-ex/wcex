@@ -1,8 +1,9 @@
-<!--DESC: {"icon":"explore"} -->! [img] (@/@wcex/doc/assets/logo.svg{width:16em; altezza:6em})
+<!--DESC: {"icon":"explore"} -->
+<p align="center"><svg width=8em src="/logo.svg" ></svg></p>
 
 # Benvenuti nel mondo dei Web Components
 
-WCEX è una "**Extension Library" che implementa rapidamente "Web Components**" per sviluppare in modo rapido ed efficiente pagine front-end web
+WCEX è una libreria di estensioni che implementa rapidamente componenti Web e consente lo sviluppo rapido ed efficiente di pagine front-end Web
 
 - **Modern Framework Features**: WCEX implementa anche molte delle funzionalità dei moderni framework front-end web, come l'associazione dati, gli aggiornamenti delle dipendenze, il routing, il caricamento a caldo dello sviluppo....
 - **Caratteristiche uniche**: WCEX ha anche molte caratteristiche uniche, come l'associazione dinamica dello stile, nessuna confezione, la corrispondenza automatica dei colori, ecc
@@ -27,7 +28,8 @@ Grazie all'implementazione completa di WCEX di componenti Web nativi, ogni pagin
 
 Quando si utilizzano tag personalizzati, basta usare i tag, non è necessario scaricare dipendenze e introdurre JS in anticipo, WCEX identificherà automaticamente i tag e caricherà automaticamente i file pertinenti su richiesta, questa funzione ci consente di ottenere un "caricamento che richiede tempo", i tag inutilizzati nella pagina non verranno letti e caricati e influiranno sulla velocità di avvio della pagina. Di seguito è riportato un semplice esempio e un componente funzionale del progetto mostrato in questo documento che puoi facilmente trovare, il codice di riferimento è il seguente:
 - _/doc/doc.html_
-'''html<!--   实现 markdown文档预览 -->
+- Implementare l'anteprima del documento markdown
+```html
 <template url="">
   <style>
     :host {
@@ -39,15 +41,20 @@ Quando si utilizzano tag personalizzati, basta usare i tag, non è necessario sc
       background-color: "$$color.bgr.a9_";
     }
   </style>
-  <div class="title" $="">URL</div>
-  <wcex-ui.marked style="padding: 1em;" $src="($root.url)?$path('guide/cn/'+$root.url):''">
+  <div class="title" $>url</div>
+  <wcex-ui.marked 
+    style="padding: 1em;" 
+    $src="($root.url)?$path('guide/cn/'+$root.url):''"
+    >
   </wcex-ui.marked>
-</template>```
+</template>
+```
 
-> possibile vedere che _<wcex-ui.marked\>\_ è un componente della libreria dell'interfaccia utente a cui stiamo facendo riferimento, quando si utilizza il componente, WCEX otterrà automaticamente il componente e le relative dipendenze nell'area warehouse npm e lo caricherà su richiesta. Non è necessario installare pacchetti o librerie di terze parti da cui dipende il markdown (contrassegnati ed evidenziati sono usati qui) per utilizzare questo componente, e queste librerie associate vengono automaticamente caricate ed eseguite da npm su richiesta. Naturalmente, esiste anche un modo molto semplice per consentire a WCEX di caricare pacchetti dipendenti dalla directory locale pertinente. Per quanto riguarda l'altra sintassi, verrà discussa nei capitoli successivi, molto concisa, non è vero, in modo <doc-\>che venga implementato un WebComponent con un'etichetta personalizzata denominata _\_, a cui si può fare riferimento direttamente nella pagina, o direttamente attraverso il nostro componente di routing, e si può vedere osservando la barra degli URL del browser.
+> possibile vedere che _\<wcex-ui.marked\>_ è un componente della libreria dell'interfaccia utente a cui si fa riferimento e, quando si utilizza il componente, wcex passerà automaticamente all'area warehouse npm per ottenere il componente e le relative dipendenze e caricarlo su richiesta. Non è necessario installare pacchetti o librerie di terze parti da cui dipende il markdown (contrassegnati ed evidenziati sono usati qui) per utilizzare questo componente, e queste librerie associate vengono automaticamente caricate ed eseguite da npm su richiesta. Naturalmente, esiste anche un modo molto semplice per consentire a WCEX di caricare pacchetti dipendenti dalla directory locale pertinente. Per quanto riguarda l'altra sintassi, verrà discussa nei capitoli successivi, molto concisa, non è vero, in modo <doc-\>che venga implementato un WebComponent con un'etichetta personalizzata denominata _\_, a cui si può fare riferimento direttamente nella pagina, o direttamente attraverso il nostro componente di routing, e si può vedere osservando la barra degli URL del browser. </doc-\></wcex-ui.marked\>
 
 #### Proprietà WebComponent estese
-Nell'esempio precedente, è possibile vedere che il tag radice di questo componente è _\_<template url="" \="">, e in WCEX, tutti i componenti Web sono incapsulati in _\_, <template\>insieme a un attributo esterno denominato _url_, che può essere utilizzato per passare parametri esterni quando viene utilizzato, proprio come un attributo di un normale tag di elemento HTML. All'interno del componente, è anche conveniente fare riferimento direttamente a questo parametro.
+Nell'esempio precedente, è possibile vedere che il tag radice di questo componente è _\_<template url="" \="">, e in WCEX, tutti i componenti Web sono incapsulati in _\_, <template\>insieme a un attributo esterno denominato _url_, che può essere utilizzato per passare parametri esterni quando viene utilizzato, proprio come un attributo di un normale tag di elemento HTML. All'interno del componente, è anche conveniente fare riferimento direttamente a questo parametro. </template\></template>
+
 
 #### Associazione dati migliorata e modifiche alle dipendenze, nonché dati locali
 All'interno di un componente, i dati possono essere definiti e utilizzati in molti modi, e i dati possono essere definiti e impostati in modo flessibile in varie parti di un componente: aree di proprietà, ambiti locali, elementi, script incorporati, script esterni, JSON esterni, librerie di terze parti, ecc., Al fine di definirli e utilizzarli nel luogo più adatto in base alla logica di business
@@ -80,6 +87,8 @@ A differenza di altri framework, WCEX non ha una forte preferenza di linguaggio,
 > - In terzo luogo, man mano che l'attività aumenta ulteriormente e il numero di righe di codice aumenta, generalmente controlliamo _inlining JavaScript_ All'interno di 50 righe, Js viene suddiviso in file Typescript indipendenti e completa il tipo. Con il supporto di _WCEX_, questo lavoro sarebbe facile;
 > - Infine, il componente è più grande, e questo è quando il componente viene diviso in modo indipendente
 
+
+
 ## Consegna a basso costo
 Il ciclo di vita di un prodotto software è più complesso, WCEX considera come ottenere una semplificazione e un'ottimizzazione complessive nell'intero ciclo di vita del prodotto software, compresa la catena di sviluppo e debug. Testare le versioni di distribuzione e le modifiche successive. Iterazione della versione e molti altri collegamenti. Ottimizza e semplifica questi collegamenti. Può migliorare notevolmente l'efficienza del nostro sviluppo. Ciò riduce il costo dell'intero ciclo di sviluppo del software. Pertanto, molte delle funzionalità che progettiamo sono correlate a questi. Nei capitoli seguenti. Probabilmente vedrai alcune app interessanti in ogni passaggio.
 > Ad esempio, in base alle caratteristiche delle dipendenze dinamiche e del caricamento, è possibile ottenere moduli multicomponente e aggiornamenti rapidi collaborativi di rete collaborativa multipersona nello sviluppo del team e questi aggiornamenti si basano su aggiornamenti locali. Le modifiche di tutti si riflettono nella tua anteprima live in tempo reale
@@ -92,4 +101,3 @@ Il ciclo di vita di un prodotto software è più complesso, WCEX considera come 
 C'è un piccolo pulsante nell'angolo in alto a destra, puoi sperimentare le caratteristiche di WCEX _Semantic Real-time Color Matching_, scegli il tuo colore preferito.
 
 Inoltre, è possibile vedere che questo documento utilizza caratteri cinesi speciali e WCEX implementa anche il caricamento dispendioso in termini di tempo dei caratteri cinesi di grandi dimensioni. L'usabilità di utilizzare una varietà di caratteri cinesi nel browser è notevolmente migliorata e i dettagli del caricamento dei caratteri possono essere visualizzati nella console di debug e l'uso di questo carattere cinese non dipende da altri servizi API di terze parti sono anche completamente statici e supportano offline, e ci sarà un capitolo dedicato al supporto e all'ottimizzazione del caricamento dei caratteri cinesi Progetto di riferimento: [https://github.com/wc-ex/cn-fontsource]( https://github.com/wc-ex/cn-fontsource)
-</template\></template></doc-\></wcex-ui.marked\>

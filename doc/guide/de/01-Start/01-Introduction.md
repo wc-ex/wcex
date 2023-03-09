@@ -1,8 +1,9 @@
-<!--DESC: {"icon":"explore"} -->! [img] (@/@wcex/doc/assets/logo.svg{width:16em; Höhe:6em})
+<!--DESC: {"icon":"explore"} -->
+<p align="center"><svg width=8em src="/logo.svg" ></svg></p>
 
 # Willkommen in der Welt der Webkomponenten
 
-WCEX ist eine "**Erweiterungsbibliothek", die schnell "Webkomponenten" implementiert, um Web-Frontend-Seiten schnell und effizient zu entwickeln
+WCEX ist eine Erweiterungsbibliothek, die Webkomponenten schnell implementiert und eine schnelle und effiziente Entwicklung von Web-Frontend-Seiten ermöglicht.
 
 - ** Moderne Framework-Funktionen **: WCEX implementiert auch viele der Funktionen moderner Web-Front-End-Frameworks heute, wie Datenbindung, Abhängigkeitsaktualisierungen, Routing, Entwicklung Hot Loading....
 - ** Einzigartige Funktionen **: WCEX hat auch viele einzigartige Funktionen, wie z. B. dynamische Stilbindung, keine Verpackung, automatische Farbanpassung usw.
@@ -27,7 +28,8 @@ Dank der vollständigen Implementierung von nativen Webkomponenten durch WCEX is
 
 Wenn Sie benutzerdefinierte Tags verwenden, verwenden Sie einfach Tags, keine Notwendigkeit, Abhängigkeiten herunterzuladen und JS im Voraus einzuführen, WCEX identifiziert automatisch Tags und lädt automatisch relevante Dateien bei Bedarf, diese Funktion ermöglicht es uns, "zeitaufwendiges Laden" zu erreichen, nicht verwendete Tags auf der Seite werden nicht gelesen und geladen und beeinflussen die Startgeschwindigkeit der Seite. Im Folgenden finden Sie ein einfaches Beispiel und eine funktionale Komponente in dem in diesem Dokument gezeigten Projekt, die Sie leicht finden können, der Referenzcode lautet wie folgt:
 - _/doc/doc.html_
-'''html<!--   实现 markdown文档预览 -->
+- Implementieren Sie die Vorschau von Markdown-Dokumenten
+```html
 <template url="">
   <style>
     :host {
@@ -39,15 +41,20 @@ Wenn Sie benutzerdefinierte Tags verwenden, verwenden Sie einfach Tags, keine No
       background-color: "$$color.bgr.a9_";
     }
   </style>
-  <div class="title" $="">URL</div>
-  <wcex-ui.marked style="padding: 1em;" $src="($root.url)?$path('guide/cn/'+$root.url):''">
+  <div class="title" $>url</div>
+  <wcex-ui.marked 
+    style="padding: 1em;" 
+    $src="($root.url)?$path('guide/cn/'+$root.url):''"
+    >
   </wcex-ui.marked>
-</template>```
+</template>
+```
 
-> sehen, dass _<wcex-ui.marked\>\_ eine UI-Bibliothekskomponente ist, auf die wir verweisen, ruft wcex bei Verwendung der Komponente automatisch die Komponente und die zugehörigen Abhängigkeiten zum NPM-Lagerbereich ab und lädt sie bei Bedarf. Es ist nicht erforderlich, Pakete oder Bibliotheken von Drittanbietern zu installieren, von denen Markdown abhängt (markiert und hervorgehoben werden hier verwendet), um diese Komponente zu verwenden, und diese zugeordneten Bibliotheken werden bei Bedarf automatisch geladen und von npm ausgeführt. Natürlich gibt es auch eine sehr einfache Möglichkeit, WCEX abhängige Pakete aus dem lokal relevanten Verzeichnis laden zu lassen. Was die andere Syntax betrifft, so wird sie in späteren Kapiteln sehr prägnant diskutiert, nicht wahr, so dass eine <doc-\>WebComponent mit einer benutzerdefinierten Bezeichnung namens _\_ implementiert wird, auf die direkt auf der Seite oder direkt über unsere Routingkomponente verwiesen werden kann, und Sie können es sehen, indem Sie die URL-Leiste des Browsers beobachten.
+> können sehen, dass _\<wcex-ui.marked\>_ eine UI-Bibliothekskomponente ist, auf die wir verweisen, und wenn wir die Komponente verwenden, wechselt WCEX automatisch zum NPM-Lagerbereich, um die Komponente und die zugehörigen Abhängigkeiten abzurufen und bei Bedarf zu laden. Es ist nicht erforderlich, Pakete oder Bibliotheken von Drittanbietern zu installieren, von denen Markdown abhängt (markiert und hervorgehoben werden hier verwendet), um diese Komponente zu verwenden, und diese zugeordneten Bibliotheken werden bei Bedarf automatisch geladen und von npm ausgeführt. Natürlich gibt es auch eine sehr einfache Möglichkeit, WCEX abhängige Pakete aus dem lokal relevanten Verzeichnis laden zu lassen. Was die andere Syntax betrifft, so wird sie in späteren Kapiteln sehr prägnant diskutiert, nicht wahr, so dass eine <doc-\>WebComponent mit einer benutzerdefinierten Bezeichnung namens _\_ implementiert wird, auf die direkt auf der Seite oder direkt über unsere Routingkomponente verwiesen werden kann, und Sie können es sehen, indem Sie die URL-Leiste des Browsers beobachten. </doc-\></wcex-ui.marked\>
 
 #### Erweiterte WebComponent-Eigenschaften
-Im obigen Beispiel sehen Sie, dass das Stammtag dieser Komponente _\_ ist, <template url="" \="">und in WCEX sind alle Webkomponenten in _\_ gekapselt, <template\>zusammen mit einem externen Attribut namens _url_, das verwendet werden kann, um externe Parameter zu übergeben, wenn es verwendet wird, genau wie ein Attribut eines normalen HTML-Elementtags. Innerhalb der Komponente ist es auch praktisch, diesen Parameter direkt zu referenzieren.
+Im obigen Beispiel sehen Sie, dass das Stammtag dieser Komponente _\_ ist, <template url="" \="">und in WCEX sind alle Webkomponenten in _\_ gekapselt, <template\>zusammen mit einem externen Attribut namens _url_, das verwendet werden kann, um externe Parameter zu übergeben, wenn es verwendet wird, genau wie ein Attribut eines normalen HTML-Elementtags. Innerhalb der Komponente ist es auch praktisch, diesen Parameter direkt zu referenzieren. </template\></template>
+
 
 #### Verbesserte Datenbindungs- und Abhängigkeitsänderungen sowie lokale Daten
 Innerhalb einer Komponente können Daten auf vielfältige Weise definiert und verwendet werden, und Daten können flexibel definiert und in verschiedenen Teilen einer Komponente festgelegt werden: Eigenschaftsbereiche, lokale Bereiche, Elemente, eingebettete Skripte, externe Skripte, externes JSON, Bibliotheken von Drittanbietern usw., um sie entsprechend der Geschäftslogik an der am besten geeigneten Stelle zu definieren und zu verwenden.
@@ -80,6 +87,8 @@ Im Gegensatz zu anderen Frameworks hat WCEX keine starke Sprachpräferenz, sei e
 > - Drittens, wenn das Geschäft weiter wächst und die Anzahl der Codezeilen zunimmt, kontrollieren wir im Allgemeinen _inlining JavaScript_ Innerhalb von 50 Zeilen wird Js in unabhängige Typescript-Dateien aufgeteilt und vervollständigt den Typ. Mit der Unterstützung von _WCEX_ wäre diese Arbeit einfach;
 > - Schließlich ist die Komponente weiter groß, und dies ist, wenn die Komponente unabhängig voneinander aufgeteilt wird
 
+
+
 ## Kostengünstige Lieferung
 Der Lebenszyklus eines Softwareprodukts ist komplexer, WCEX überlegt, wie eine allgemeine Vereinfachung und Optimierung im gesamten Lebenszyklus des Softwareprodukts erreicht werden kann, einschließlich der Entwicklungs- und Debugging-Kette. Testen Sie Bereitstellungsversionen und nachfolgende Änderungen. Versionsiteration und viele andere Links. Optimieren und vereinfachen Sie diese Links. Es kann die Effizienz unserer Entwicklung erheblich verbessern. Dies reduziert die Kosten für den gesamten Softwareentwicklungszyklus. Daher sind viele der von uns entworfenen Funktionen mit diesen verbunden. In den folgenden Kapiteln. Sie werden wahrscheinlich in jedem Schritt einige interessante Apps sehen.
 > Basierend auf den Merkmalen dynamischer Abhängigkeiten und Laden können beispielsweise in der Teamentwicklung Mehrkomponentenmodule und kollaborative Netzwerk-Hotupdates für mehrere Personen erzielt werden, und diese Aktualisierungen basieren auf lokalen Aktualisierungen. Alle Änderungen werden in Echtzeit in Ihrer Live-Vorschau widergespiegelt
@@ -92,4 +101,3 @@ Der Lebenszyklus eines Softwareprodukts ist komplexer, WCEX überlegt, wie eine 
 Es gibt eine kleine Schaltfläche in der oberen rechten Ecke, Sie können die Eigenschaften von WCEX erleben _Semantic Echtzeitfarbe Matching_, wählen Sie Ihre Lieblingsfarbe.
 
 Darüber hinaus können Sie sehen, dass dieses Dokument spezielle chinesische Schriftarten verwendet, und WCEX implementiert auch das zeitaufwändige Laden von chinesischen großen Schriftarten. Die Benutzerfreundlichkeit, eine Vielzahl von chinesischen Schriftarten im Browser zu verwenden, wurde stark verbessert, und die Details zum Laden von Schriftarten können in der Debugging-Konsole angezeigt werden, und die Verwendung dieser chinesischen Schriftart hängt nicht von anderen API-Diensten von Drittanbietern ab, die ebenfalls vollständig statisch sind und offline unterstützt werden, und es wird ein Kapitel geben, das der Unterstützung und Optimierung des Ladens chinesischer Schriftarten gewidmet ist Referenzprojekt: [https://github.com/wc-ex/cn-fontsource]( https://github.com/wc-ex/cn-fontsource)
-</template\></template></doc-\></wcex-ui.marked\>

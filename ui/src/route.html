@@ -4,7 +4,7 @@
     路由异常通过 error 事件
  -->
 
-<template name="default" home="" match="" >
+<template name="default" home="" match="">
   <meta name="scope" />
   <style>
     :host {
@@ -12,7 +12,7 @@
     }
   </style>
   <div>
-    <div id="route" $as="component" ></div>
+    <div id="route" $as="component"></div>
   </div>
   <script scope=".">
     return class {
@@ -22,23 +22,23 @@
           var r = this.$router.route[this.name];
           var rEl = this.$id.route;
           var rsc = this.$id.route.$scope;
-          this.$log("----> change router",r.tag);
+          this.$log("----> change router", r.tag, JSON.stringify(r.attrs));
           if (!r) return;
 
-          if(!r.tag) {
+          if (!r.tag) {
             // 跳转到默认路由
             // debugger
-            if(this.home) location.hash = this.home;
-            else this.$log.warn('no default route:',this.name);
+            if (this.home) location.hash = this.home;
+            else this.$log.warn("no default route:", this.name);
             return;
           }
-          var tag = r.tag
+          var tag = r.tag;
           if (this.match) {
             if (!r.tag.match(new RegExp(this.match))) throw Error("route invalid " + r.tag);
           }
-          if (tag.indexOf("-") < 0){
+          if (tag.indexOf("-") < 0) {
             throw Error("invalid tag");
-          } 
+          }
           if (rEl) {
             // 首先设置属性
             for (var k of Object.keys(r.attrs)) {
@@ -46,8 +46,10 @@
               this.$id.route.setAttribute(k, v);
               if (rsc && rsc.hasOwnProperty(k)) rsc[k] = v;
             }
-            // 更新标签
-            this.component = tag;
+            if (this.component != tag) {
+              // 更新标签
+              this.component = tag;
+            }
           } else {
             this.$emit("error", { tag: r.tag });
           }

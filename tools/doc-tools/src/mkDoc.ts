@@ -181,8 +181,36 @@ async function transDoc(toLang: LANG_NAMES_T[]) {
     for (let mdId in mdFiles) {
       let mdName = mdFiles[mdId];
       let str = await fsp.readFile(path.join(dirBase, mdName), { encoding: "utf8" });
-      // 翻译md内容
-      let transStr = await transText([str], toLang, "html");
+      // 翻译md内容,整理格式
+      str = str.replace(/\r\n/g,'\n');
+      // 查找代码块，替换为不翻译标志
+
+
+      let lines=str.split('\n');
+      let codeFlag = false;
+      let sendLines=[];
+      for( let k in lines){
+        let l = lines[k];
+        if(l.startsWith('```')){
+          if(codeFlag){
+            // 结束代码块
+            sendLines.push(`@@${k}@@`);
+          }else{
+            // 开始代码块
+            sendLines.push(`@@${k}@@`);
+          }
+          // 代码, 替换为不翻译
+          codeFlag = !codeFlag;
+        }else if(codeFlag){
+          // 代码块
+          sendLines.push(`@@${k}@@`);
+        }else {
+          // 普通行
+          sendLines.push(l)
+        }
+      }
+      
+      let transLines = await transText(sendLines, toLang, "html");
       // 写入翻译文件
       for (let langId in toLang) {
         let tDir = transDirs[dirId].translations[langId].text;
@@ -193,7 +221,42 @@ async function transDoc(toLang: LANG_NAMES_T[]) {
         tMd = tMd.replace(/\s*-\s*/, "-");
 
         let trandMdFile = path.join(transMdDir, tMd);
-        await fsp.writeFile(trandMdFile, transStr[0].translations[langId].text);
+
+        let transStr = transLines.map(v=>v.translations[langId].text).map(v=>{
+          // 处理因为翻译工具将行首的 # 后面空格剔除的问题
+          let m = v.match(/^([#]+)([^# ].*)$/);
+          if(m){
+            console.log("PROC ### ",v);
+            return m[1] + ' '+ m[2]
+          }
+          // 处理首行的 "-""
+           m = v.match(/^(\s*-)([^ ].*)$/);
+          if(m){
+            console.log("PROC - ",v);
+            return m[1] + ' '+ m[2]
+          }
+          // 处理首行的 "-""
+          m = v.match(/^(\s*>)([^ ].*)$/);
+          if(m){
+            console.log("PROC > ",v);
+            return m[1] + ' '+ m[2]
+          }
+          
+          return v;
+        })                
+        .map(v=>{
+          // 还原不翻译的行
+          let m = v.match(/@@([\d ]+)@@/);
+          if(m && m.length == 2){
+            return lines[parseInt(m[1])]
+          }else return v;
+        })        
+        .join('\n');
+
+        await fsp.writeFile(trandMdFile, transStr);
+        // 设置修改时间与源文件一致
+        let stSrc = await fsp.stat(path.join(dirBase, mdName));
+        await fsp.utimes(trandMdFile,stSrc.atime,stSrc.mode);
         console.log("write :", trandMdFile);
       }
     }
@@ -203,10 +266,10 @@ async function transDoc(toLang: LANG_NAMES_T[]) {
 
 (async () => {
   // let text = await fsp.readFile("../../doc/guide/cn/01-开始/01-简介.md", "utf8");
-  let LANGS1: LANG_NAMES_T[] = ["en"];
-  let LANGS2: LANG_NAMES_T[] = ["ja" ];
-  // let LANGS1: LANG_NAMES_T[] = ["en", "ja", "zh-Hant", "lzh", "yue"];
-  // let LANGS2: LANG_NAMES_T[] = [ "ko", "fr", "it", "de","ru"];
+  // let LANGS1: LANG_NAMES_T[] = ["en"];
+  // let LANGS2: LANG_NAMES_T[] = ["ja" ];
+  let LANGS1: LANG_NAMES_T[] = ["en", "ja", "zh-Hant", "lzh", "yue"];
+  let LANGS2: LANG_NAMES_T[] = [ "ko", "fr", "it", "de","ru"];
   for (let l of LANGS1) {
     try {
       await fsp.rm(path.join(DOC_ROOT, l), { recursive: true });

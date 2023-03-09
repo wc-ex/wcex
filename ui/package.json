@@ -1,10 +1,10 @@
 {
   "name": "@wcex/ui",
-  "version": "1.0.25",
+  "version": "1.0.31",
   "description": "wcex ui library",
   "scripts": {
     "dev": "wcex -p 8102",
-    "pub": "cd dist && npm --registry \"https://registry.npmjs.org/\" publish --access public"
+    "pub": "wcex build && cd dist && npm --registry \"https://registry.npmjs.org/\" publish --access public"
   },
   "keywords": [
     "webcomponents",

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html >
+<html>
   <head>
     <title>WCEX</title>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <meta name="viewport" content="initial-scale=1.0,width=device-width" />
     <!-- <meta name="npm" content="https://cdn.jsdelivr.net/npm/" /> -->
     <!-- <meta name="npm" content="https:///unpkg.com/" /> -->
@@ -22,10 +22,11 @@
     </style>
   </head>
 
-  <body>
-  </body>
+  <body></body>
 
   <script>
+    var WCEX_VER = "1.8.106";
+
     // 解析参数
     var sp1 = location.search.split("&");
     var pkgPart = sp1[0].slice(1);
@@ -67,12 +68,11 @@
       path = sp3.slice(1).join("/");
     }
 
-  // 解析完成 
+    // 解析完成
     console.log(pkg, ver, path, cdn, lang, cdnUrls[cdn]);
-    
-    var WCEX_VER = "1.8.96";
+
     var DEV_WCEX = localStorage.getItem("WCEX");
-    var NPM=cdnUrls[cdn];
+    var NPM = cdnUrls[cdn];
 
     function _createEl(to, tag, attrs) {
       var el = document.createElement(tag);
@@ -91,7 +91,8 @@
     _createEl(document.head, "meta", { name: "module", pkg, version: ver });
 
     window.addEventListener("wcex-loaded", () => {
-      document.body.appendChild(document.createElement(WC.buildTag(pkg, path)));
+      let tag = WC.buildTag(pkg, path);
+      _createEl(document.body, tag, { "__sync": 1 });
     });
     // 加载指定版本WCEX库
     let script = _createEl(document.body, "script", { src: (DEV_WCEX || `${NPM}/wcex@${WCEX_VER}`) + "/index.js" });

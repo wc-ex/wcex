@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <title>WCEX</title>
+    <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1.0,width=device-width" />
     <meta name="npm" content="https://cdn.jsdelivr.net/npm/" />
     <!-- <meta name="npm" content="https:///unpkg.com/" /> -->
@@ -135,11 +136,11 @@
     <div class="cdn">
       <h5>Please choose CDN:</h5>
       <form id="cdn">
-        <input type="radio" name="cdn" id="jsdelivr" />
+        <input type="radio" name="cdn" id="jsdelivr" checked/>
         <label>jsdelivr</label>
         <input type="radio" name="cdn" id="unpkg" />
         <label>unpkg</label>
-        <input type="radio" name="cdn" id="elemecdn" checked />
+        <input type="radio" name="cdn" id="elemecdn"  />
         <label>elemecdn(国内推荐)</label>
         <input type="radio" name="cdn" id="zhimg" />
         <label>zhimg</label>
@@ -165,7 +166,10 @@
   </body>
 
   <script>
-    var DOC_VER = "1.0.36";
+    var DOC_VER = "1.0.48";
+    if(navigator.language.indexOf('zh-CN')>=0){
+      document.getElementById("elemecdn").checked=true;
+    }
     function goDoc(lang) {
       let cdn = document.getElementById("jsdelivr").checked
         ? "jsdelivr"

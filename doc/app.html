@@ -1,7 +1,6 @@
 <template>
-  <meta name="module" pkg="@wcex/ui" url="http://localhost:8102/" />
 
-  <meta name="module" pkg="@wcex/ui" version="1.0.25" />
+  <meta name="module" pkg="@wcex/ui" version="1.0.31" />
   <meta name="scope"  drawer.bool="true" cur-page.object="{}" />
   <!-- 需要手动引入 -->
   <link rel="stylesheet" href="@/@wcex/ui/ui.css" />
@@ -16,7 +15,9 @@
     }
 
   </style>
-  <wcex-ui.ui !sync></wcex-ui.ui>
+
+
+  <wcex-ui.ui __sync></wcex-ui.ui>
   <main-></main->
 
 
@@ -27,6 +28,8 @@
       // 动态设置字体
       onCreate() {
         this.font.loadFont(this);
+      }
+      onReady(){
       }
     };
   </script>

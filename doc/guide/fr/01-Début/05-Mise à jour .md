@@ -1,3 +1,8 @@
+### 1.8.104
+- Référence de chemin optimisée
+- Affichage optimisé du temps de chargement
+- Correction du bug du chemin de référence multi-package
+
 ### 1.8.95
 - Ajout de la fonction de portée $json
 - Interface optimisée du panneau de débogage
@@ -8,4 +13,4 @@
 - Nouveau et amélioré @! Syntaxe de liaison de style
 
 ### 1.8.75 
-- Scope ajoute des variables $slot pour prendre en charge l’accès direct aux données internes des emplacements
+- Scope ajoute des variables $slot pour prendre en charge l’accès direct aux données internes des emplacements 
