@@ -1,4 +1,7 @@
-### 1.8.104
+### UI-Bibliothek 1.0.32
+
+
+### WCEX 1.8.104
 - Optimierte Pfadreferenz
 - Optimierte Ladezeitanzeige
 - Fehler mit dem Multi-Paket-Referenzpfad behoben

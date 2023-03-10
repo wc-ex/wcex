@@ -1,4 +1,7 @@
-### 1.8.104
+### Bibliothèque de l’interface utilisateur 1.0.32
+
+
+### WCEX 1.8.104
 - Référence de chemin optimisée
 - Affichage optimisé du temps de chargement
 - Correction du bug du chemin de référence multi-package

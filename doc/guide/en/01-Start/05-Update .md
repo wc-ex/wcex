@@ -1,4 +1,7 @@
-### 1.8.104
+### UI Library 1.0.32
+
+
+### WCEX 1.8.104
 - Optimized path reference
 - Optimized load time display
 - Fixed the multi-package reference path bug

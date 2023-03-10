@@ -1,4 +1,7 @@
-### 1.8.104
+### UI Library 1.0.32
+
+
+### WCEX 1.8.104
 - Riferimento di percorso ottimizzato
 - Visualizzazione ottimizzata del tempo di caricamento
 - Corretto il bug del percorso di riferimento multi-pacchetto
