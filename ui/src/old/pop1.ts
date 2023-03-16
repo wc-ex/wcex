@@ -95,7 +95,7 @@ function _pop(target: HTMLElement | string, ev?: Event) {
 
 }
 
-WC.usePlugins({
+WCEX.usePlugins({
   name: '$pop',
   priority: 0,
   scope: {

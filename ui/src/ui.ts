@@ -3,7 +3,7 @@ import { Scope } from "wcex";
 // 注入插件 $ifslot 语法糖结构
 // 主要用于在slot父元素上检测内部slot是否被attach，成功则显示父级元素，否则隐藏父级
 const IFSLOT = "$ifslot";
-WC.usePlugins({
+WCEX.usePlugins({
   name: IFSLOT,
   priority: 0,
   tplParse(tpl) {

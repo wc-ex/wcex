@@ -15,7 +15,7 @@ interface ISideOptions {
 
 let popInstance = undefined as Side | undefined;
 
-WC.usePlugins({
+WCEX.usePlugins({
   name: "$side",
   scope: {
     $side(tagOrEl: string | HTMLElement, options?: ISideOptions) {

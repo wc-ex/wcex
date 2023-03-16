@@ -14,7 +14,7 @@ interface ISideOptions {
 
 let popInstance = undefined as Pop | undefined;
 
-WC.usePlugins({
+WCEX.usePlugins({
   name: "$pop",
   scope: {
     // 创建一个边缘窗口，任何外部点击将导致关闭

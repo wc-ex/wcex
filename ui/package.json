@@ -1,6 +1,6 @@
 {
   "name": "@wcex/ui",
-  "version": "1.0.36",
+  "version": "1.0.38",
   "description": "wcex ui library",
   "scripts": {
     "dev": "wcex -p 8102",
@@ -23,6 +23,6 @@
     "@types/ws": "^8.5.4",
     "highlight.js": "^11.7.0",
     "moment": "^2.29.4",
-    "wcex": "1.8.109"
+    "wcex": "1.9.12"
   }
 }
