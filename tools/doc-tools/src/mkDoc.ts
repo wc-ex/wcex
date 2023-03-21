@@ -5,14 +5,19 @@ import os from "os";
 import { LANG_NAMES_T } from "./lang";
 
 // return {name,isDir}[]
-// const { v4: uuidv4 } = require('uuid');
+const { v4: uuidv4 } = require('uuid');
 const KEY = fs.readFileSync(path.join(os.homedir(), "wcex_trans_key.txt"), "utf8").trim();
 console.log("TRANS API KEY: ", KEY);
-let ENDPOINT = "https://api.cognitive.microsofttranslator.com";
+let ENDPOINT = "https://api.cognitive.microsofttranslator.com/";
+// let ENDPOINT = "api-apc.cognitive.microsofttranslator.com";
+
 
 // location, also known as region.
 // required if you're using a multi-service or regional (not global) resource. It can be found in the Azure portal on the Keys and Endpoint page.
-let TRANS_LOCATION = "eastasia";
+// let TRANS_LOCATION = "eastasia";
+let TRANS_LOCATION = "japaneast";
+
+
 let DOC_ROOT = path.resolve(__dirname, "../../../doc/guide/");
 
 type ITransResult = { translations: { text: string; to: LANG_NAMES_T }[] }[];
@@ -25,6 +30,13 @@ async function timeoutPromise(timeout: number) {
   });
 }
 
+axios.interceptors.request.use((cfg)=>{
+  console.log("http req:",cfg.method, cfg.url);
+  return cfg;
+},(err)=>{
+  return Promise.reject(err)
+})
+
 async function transText(
   texts: string[],
   toLangs: string[],
@@ -34,30 +46,29 @@ async function transText(
   for (;;) {
     try {
       let ret = await axios({
+        method:'POST',
         baseURL: ENDPOINT,
-        url: "/translate",
-        method: "post",
+        data:texts.map((v) => {
+          return { text: v };
+        }), 
+        url:'/translate',         
         headers: {
           "ocp-apim-subscription-key": KEY,
           // location required if you're using a multi-service or regional (not global) resource.
           "Ocp-Apim-Subscription-Region": TRANS_LOCATION,
           "Content-type": "application/json",
-          // 'X-ClientTraceId': uuidv4().toString()
+          'X-ClientTraceId': uuidv4().toString()
         },
         params: {
-          "api-version": "3.0",
-          textType: textType,
+          "api-version":"3.0",
           from: "zh-Hans",
           to: toLangs,
         },
-        data: texts.map((v) => {
-          return { text: v };
-        }),
         responseType: "json",
       });
       return ret.data;
     } catch (e: any) {
-      console.log("Error:", e.message);
+      console.log("Error:",ENDPOINT, toLangs,textType,texts,e.message);
       await timeoutPromise(5000);
     }
   }

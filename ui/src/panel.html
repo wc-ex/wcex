@@ -1,8 +1,12 @@
-<!-- 实现可折叠的面板,通过value可绑定是否打开或者关闭 -->
 <!-- 
+  jsdoc3语法
+ @prop 
   具有标题栏的可收缩面板
   标题区、内容区、以及动作区
   可调整颜色
+  @event
+  @slot
+  @plugins 
  -->
 <template
   open.bool="true"
@@ -53,7 +57,9 @@
       $icon="open?'double_arrow':'arrow_right'"
       :style="transform: rotate(${open?90:0}deg);"
       $if="closeable && !textonly"
-    ></wcex-ui.icon>
+    >
+        <div $>icon</div>
+  </wcex-ui.icon>
   </div>
 
   <!-- 可折叠面板 -->

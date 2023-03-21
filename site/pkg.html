@@ -92,7 +92,7 @@
 
     window.addEventListener("wcex-loaded", () => {
       let tag = WC.buildTag(pkg, path);
-      _createEl(document.body, tag, { "__sync": 1 });
+      _createEl(document.body, tag, { "!sync": 1 });
     });
     // 加载指定版本WCEX库
     let script = _createEl(document.body, "script", { src: (DEV_WCEX || `${NPM}/wcex@${WCEX_VER}`) + "/index.js" });
