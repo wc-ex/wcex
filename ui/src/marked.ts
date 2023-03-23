@@ -63,7 +63,7 @@ export default class extends Scope {
     if (this.src) {
       let text = await this.$loader.getFile(this.src).getResult();
       // let text = await (await fetch()).text()
-      let html = marked.parse(text.replace(/\\n/g, "\n"));
+      let html = marked.parse(text.replace(/\r\n/g, "\n"));
       this.$id.mark.innerHTML = html;
       this.$emit("update");
     } else {
