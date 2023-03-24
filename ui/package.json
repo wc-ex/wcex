@@ -1,6 +1,6 @@
 {
   "name": "@wcex/ui",
-  "version": "1.0.41",
+  "version": "1.0.42",
   "description": "wcex ui library",
   "scripts": {
     "dev": "wcex -p 8102",
