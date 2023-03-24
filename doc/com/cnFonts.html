@@ -30,7 +30,7 @@
         <h4 :> ${ftype}: <span style="font-style: italic" :>(${Object.keys(fonts[ftype]).length})</span></h4>
         <div $for="fonts[ftype]" class="item trans" @mouseenter="$emit('demo',value.name)" @click="$emit('close');font.setCnFont(this,value.name,value.font.familyName)">
           <div1 style="white-space: nowrap" $>value.name</div1>
-          <img style="max-width: 90%; max-height: 4em" :src="${WC.npmUrl}${value.name}/font.png" />
+          <img style="max-width: 90%; max-height: 4em" :src="@/${value.name}/font.png" />
         </div>
       </div>
     
@@ -48,7 +48,7 @@
       }
       async loadFonts() {
         this.fonts = await (
-          await fetch(`${WC.npmUrl}@cnfontsource/pkg/cn-fontsource-list.json`)
+          await fetch(this.$path(`@/@cnfontsource/pkg/cn-fontsource-list.json`))
         ).json();
       }
     };

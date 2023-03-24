@@ -6,6 +6,11 @@ https://www.npmjs.com/package/comment-parser
 
 -->
 <template @timer.1000="ob=$json(__OB_STATUS())">
+  <!-- <link rel="stylesheet" href="./css/shadow-global.css" global /> -->
+  <link rel="stylesheet" href="./css/shadow.css"  />
+  <link rel="stylesheet" href="./css/scrollbar.css" />
+  <link rel="stylesheet" href="./ui.css" />
+
   <style>
     :host {
         display: flex;
@@ -51,6 +56,7 @@ https://www.npmjs.com/package/comment-parser
   </div>
 
   <script scope=".">
+    
     return class {
       dev = {};
       pkgs = [];
@@ -60,7 +66,7 @@ https://www.npmjs.com/package/comment-parser
           this.dev = JSON.parse(localStorage.getItem("__DEV"));
         } catch (e) {}
         if(!this.dev.pkgs) this.dev.pkgs = {};
-        this.pkgs = Object.keys(WC.modules).sort();
+        this.pkgs = Object.keys(WCEX.modules).sort();
         this.pkgs.forEach(p=>{
             if(!this.dev.pkgs[p]){
                 this.dev.pkgs[p]={}

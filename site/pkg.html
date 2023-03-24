@@ -4,11 +4,6 @@
     <title>WCEX</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="initial-scale=1.0,width=device-width" />
-    <!-- <meta name="npm" content="https://cdn.jsdelivr.net/npm/" /> -->
-    <!-- <meta name="npm" content="https:///unpkg.com/" /> -->
-    <!-- <meta name="npm" content="https://npm.elemecdn.com/" /> -->
-    <!-- <meta name="npm" content="https://unpkg.zhimg.com/" /> -->
-
     <style>
       html,
       body {
@@ -25,7 +20,7 @@
   <body></body>
 
   <script>
-    var WCEX_VER = "1.8.106";
+    var WCEX_VER = "1.9.13";
 
     // 解析参数
     var sp1 = location.search.split("&");
@@ -82,7 +77,6 @@
       to.appendChild(el);
       return el;
     }
-
     // 强制https
     // if (location.protocol == "http:") location.href = location.href.replace(/^http/, "https");
 
@@ -91,8 +85,8 @@
     _createEl(document.head, "meta", { name: "module", pkg, version: ver });
 
     window.addEventListener("wcex-loaded", () => {
-      let tag = WC.buildTag(pkg, path);
-      _createEl(document.body, tag, { "!sync": 1 });
+      let tag = WCEX.buildTag(pkg, path);
+      _createEl(document.body, tag,{});
     });
     // 加载指定版本WCEX库
     let script = _createEl(document.body, "script", { src: (DEV_WCEX || `${NPM}/wcex@${WCEX_VER}`) + "/index.js" });
