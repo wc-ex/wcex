@@ -35,7 +35,7 @@ WCEXのネイティブWebコンポーネントの完全な実装のおかげで�
   <style>
     :host {
       display: flex;
-      flex-direction: column;
+ティッカー @@
     }
     .title{
       padding: 0.5em;

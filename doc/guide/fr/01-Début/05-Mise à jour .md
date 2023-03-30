@@ -1,3 +1,9 @@
+### WCEX 1.9.15
+Optimiser la mise en œuvre de $id
+Ajouter la prise en charge de la table des matières pour la bibliothèque d’interface utilisateur marquée 
+### WCEX 1.9.14
+Prise en charge des mises à jour pour les liaisons bidirectionnelles multiples $$
+
 ### WCEX 1.9.5
 Fiez-vous au mécanisme React de référence de collecte de modifications et traitez les modifications dans les 20 millisecondes à chaque fois pour éviter d’affecter le dessin de l’interface.
 Ajout d’une décoration passive pour les reliures d’événements

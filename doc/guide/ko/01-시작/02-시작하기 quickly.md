@@ -127,6 +127,15 @@ https://wc-ex.com/go?gh/[YOU REPOS]@[COMMIT ID]/[YOU DIR]/index.html
 
 > 물론 위의 방법 외에도 CLI 툴킷도 만들었습니다. 크기가 수십 K에 불과한 매우 작고 webpack, 롤업 및 기타 복잡한 패키징 도구에 의존하지 않습니다. 핫 업데이트 컴파일 및 릴리스 등과 같은 더 많은 작업을 수행하는 데 도움이 될 수 있습니다. 또 다른 중요한 점은 TypeScript를 지원하는 것입니다. npm을 통해 **@wcex/CLI**를 설치할 수 있으며, 이에 대한 자세한 내용은 이후 섹션에서 설명합니다.
 
+### 첫 번째 예
+
+<div>
+<WCEX-doc.com-playground files="['first/index.html','first/app.html']"></WCEX-doc.com-playground>
+</div>
+
+
+
+
 ### 추가 개선
 
 간단히 말해서, 다음 장에서는 예를 들어 더 많은 기능을 추가하려고 노력할 것입니다. 사용자 지정 속성을 추가하여 데이터 바인딩을 추가합니다. 이벤트를 처리하고 구성 요소를 더 추가합니다.

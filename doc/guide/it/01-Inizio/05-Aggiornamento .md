@@ -1,3 +1,9 @@
+### WCEX 1.9.15
+Ottimizzare l'implementazione di $id
+Aggiungere il supporto sommario per la libreria dell'interfaccia utente contrassegnata 
+### WCEX 1.9.14
+Aggiorna il supporto per $$ multiple two-way bindings
+
 ### WCEX 1.9.5
 Affidatevi al meccanismo React di riferimento della raccolta delle modifiche ed elaborate le modifiche ogni volta entro 20 millisecondi per evitare di influire sul disegno dell'interfaccia.
 Aggiunta una decorazione passiva per le associazioni degli eventi

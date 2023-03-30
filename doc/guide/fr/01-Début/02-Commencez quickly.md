@@ -127,6 +127,15 @@ https://wc-ex.com/go?gh/[YOU REPOS]@[COMMIT ID]/[YOU DIR]/index.html
 
 > Bien sûr, en plus des méthodes ci-dessus, nous avons également créé une boîte à outils CLI. Très petit, également de seulement quelques dizaines de K, ne repose pas sur le webpack, le rollup et d’autres outils d’emballage complexes. Cela peut nous aider à faire plus de travail, comme la compilation et la publication de mises à jour à chaud, etc. Un autre point important est de prendre en charge TypeScript. Vous pouvez installer **@wcex/CLI** via npm, dont les détails seront abordés dans les sections suivantes.
 
+### Premier exemple
+
+<div>
+<wcex-doc.com-playground files="['first/index.html','first/app.html']"></wcex-doc.com-playground>
+</div>
+
+
+
+
 ### Affinement supplémentaire
 
 Tout simplement, dans le chapitre suivant, nous essaierons d’y ajouter plus de fonctionnalités, par exemple. Ajoutez des propriétés personnalisées pour ajouter une liaison de données. Gérer les événements et ajouter d’autres composants.

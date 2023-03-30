@@ -1,5 +1,5 @@
 <!-- 由于monaco实现了自己的AmdLoader，和WCLoader冲突，因此通过IFrame处理 -->
-<template file="" @update="layout()">
+<template file="" @update="layout()" @reload="reload()">
   <meta name="module" pkg="esbuild-wasm" content="lib/browser.min.js" cjs />
 
   <style>

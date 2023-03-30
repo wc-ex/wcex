@@ -20,7 +20,7 @@ let TRANS_LOCATION = "japaneast";
 
 let DOC_ROOT = path.resolve(__dirname, "../../../doc/guide/");
 
-type ITransResult = { translations: { text: string; to: LANG_NAMES_T }[] }[];
+type ITransResult = { translations: { text: string; to: LANG_NAMES_T; }[]; }[];
 
 async function timeoutPromise(timeout: number) {
   return new Promise((res) => {
@@ -30,12 +30,12 @@ async function timeoutPromise(timeout: number) {
   });
 }
 
-axios.interceptors.request.use((cfg)=>{
-  console.log("http req:",cfg.method, cfg.url);
+axios.interceptors.request.use((cfg) => {
+  console.log("http req:", cfg.method, cfg.url);
   return cfg;
-},(err)=>{
-  return Promise.reject(err)
-})
+}, (err) => {
+  return Promise.reject(err);
+});
 
 async function transText(
   texts: string[],
@@ -43,15 +43,15 @@ async function transText(
   textType: "plain" | "html"
 ): Promise<ITransResult> {
   if (texts && texts.length <= 0) return [];
-  for (;;) {
+  for (; ;) {
     try {
       let ret = await axios({
-        method:'POST',
+        method: 'POST',
         baseURL: ENDPOINT,
-        data:texts.map((v) => {
+        data: texts.map((v) => {
           return { text: v };
-        }), 
-        url:'/translate',         
+        }),
+        url: '/translate',
         headers: {
           "ocp-apim-subscription-key": KEY,
           // location required if you're using a multi-service or regional (not global) resource.
@@ -60,7 +60,7 @@ async function transText(
           'X-ClientTraceId': uuidv4().toString()
         },
         params: {
-          "api-version":"3.0",
+          "api-version": "3.0",
           from: "zh-Hans",
           to: toLangs,
         },
@@ -68,7 +68,7 @@ async function transText(
       });
       return ret.data;
     } catch (e: any) {
-      console.log("Error:",ENDPOINT, toLangs,textType,texts,e.message);
+      console.log("Error:", ENDPOINT, toLangs, textType, texts, e.message);
       await timeoutPromise(5000);
     }
   }
@@ -79,7 +79,7 @@ async function transText(
 // async function
 
 async function lsDirDeep(rootPath: string) {
-  let allItem = [] as { isDir: boolean; pathname: string }[];
+  let allItem = [] as { isDir: boolean; pathname: string; }[];
   async function _dir(dirPath: string) {
     for (let listName of await fsp.readdir(path.join(rootPath, dirPath))) {
       let fullPath = path.resolve(rootPath, dirPath, listName);
@@ -113,17 +113,23 @@ async function buildDoc(docPath: string) {
   for (let en of await lsDirDeep(docDir)) {
     if (en.isDir) {
       // 处理目录
-      let icon = JSON.parse(await fsp.readFile(path.join(docDir, en.pathname, "icon.json"), "utf8"));
+      try {
+        let icon = JSON.parse(await fsp.readFile(path.join(docDir, en.pathname, "icon.json"), "utf8"));
 
-      curDir = {
-        typ: "dir",
-        name: path.parse(en.pathname).base,
-        path: en.pathname.replace(/\\/g, "/"),
-        items: [],
-        updateAt: 0,
-        icon,
-      };
-      navDirs.push(curDir);
+        curDir = {
+          typ: "dir",
+          name: path.parse(en.pathname).base,
+          path: en.pathname.replace(/\\/g, "/"),
+          items: [],
+          updateAt: 0,
+          icon,
+        };
+        navDirs.push(curDir);
+      } catch (e:any) {
+        console.log("skip dir:",en);
+      }
+
+
     } else {
       //处理文件
       if (en.pathname.endsWith(".md")) {
@@ -135,10 +141,10 @@ async function buildDoc(docPath: string) {
         let m = firstline.match(/^<!--DESC:(.+)-->$/);
         let desc = {};
         if (m && m.length == 2) {
-          try{
+          try {
             desc = JSON.parse(m[1]);
-          }catch(e){
-            console.log('error get desc:',en.pathname)
+          } catch (e) {
+            console.log('error get desc:', en.pathname);
           }
         }
 
@@ -172,16 +178,36 @@ async function transDoc(toLang: LANG_NAMES_T[]) {
     // 翻译一级目录
     let dirName = dirs[dirId];
     let dirBase = path.join(baseLangDir, dirName);
-    let allFiles = (await fsp.readdir(dirBase, { encoding: "utf8", withFileTypes: true })).filter((v) => v.isFile());
+    let transDirAllEntry = (await fsp.readdir(dirBase, { encoding: "utf8", withFileTypes: true }));
+    let allFiles = transDirAllEntry.filter((v) => v.isFile());
+    let allDirs = transDirAllEntry.filter((v) => v.isDirectory());
 
-    // 复制目录的其他文件
+
     for (let langId in toLang) {
-      let tDir = transDirs[dirId].translations[langId].text;
+    // 复制目录的其他文件
+    let tDir = transDirs[dirId].translations[langId].text;
       tDir = tDir.replace(/\s*-\s*/, "-");
       let transMdDir = path.join(DOC_ROOT, toLang[langId], tDir);
       await fsp.mkdir(transMdDir, { recursive: true });
       for (let f of allFiles.filter((v) => !v.name.endsWith(".md"))) {
-        await fsp.copyFile(path.join(dirBase, f.name), path.join(transMdDir, f.name));
+        let fullSrc = path.join(dirBase, f.name)
+          await fsp.copyFile(fullSrc, path.join(transMdDir, f.name));
+      }
+
+      // 复制子目录的所有文件
+      for (let dd of allDirs){
+        let fullSrc = path.join(dirBase,dd.name);
+          console.log("COPY DIR:",fullSrc)
+          // 拷贝目录
+          for(let ff of await lsDirDeep(fullSrc)){
+            if(!ff.isDir){
+              let toFile = path.join(transMdDir, dd.name,ff.pathname);
+              let p = path.parse(toFile);
+              await fsp.mkdir(  p.dir,{recursive:true})
+              await fsp.copyFile(path.join(fullSrc,ff.pathname), toFile);
+            }
+          }
+  
       }
     }
 
@@ -189,38 +215,39 @@ async function transDoc(toLang: LANG_NAMES_T[]) {
     // 翻译md文件名
     let transMdFiles = await transText(mdFiles, toLang, "plain");
 
+
     for (let mdId in mdFiles) {
       let mdName = mdFiles[mdId];
       let str = await fsp.readFile(path.join(dirBase, mdName), { encoding: "utf8" });
       // 翻译md内容,整理格式
-      str = str.replace(/\r\n/g,'\n');
+      str = str.replace(/\r\n/g, '\n');
       // 查找代码块，替换为不翻译标志
 
 
-      let lines=str.split('\n');
+      let lines = str.split('\n');
       let codeFlag = false;
-      let sendLines=[];
-      for( let k in lines){
+      let sendLines = [];
+      for (let k in lines) {
         let l = lines[k];
-        if(l.startsWith('```')){
-          if(codeFlag){
+        if (l.startsWith('```')) {
+          if (codeFlag) {
             // 结束代码块
             sendLines.push(`@@${k}@@`);
-          }else{
+          } else {
             // 开始代码块
             sendLines.push(`@@${k}@@`);
           }
           // 代码, 替换为不翻译
           codeFlag = !codeFlag;
-        }else if(codeFlag){
+        } else if (codeFlag) {
           // 代码块
           sendLines.push(`@@${k}@@`);
-        }else {
+        } else {
           // 普通行
-          sendLines.push(l)
+          sendLines.push(l);
         }
       }
-      
+
       let transLines = await transText(sendLines, toLang, "html");
       // 写入翻译文件
       for (let langId in toLang) {
@@ -233,44 +260,46 @@ async function transDoc(toLang: LANG_NAMES_T[]) {
 
         let trandMdFile = path.join(transMdDir, tMd);
 
-        let transStr = transLines.map(v=>v.translations[langId].text).map(v=>{
+        let transStr = transLines.map(v => v.translations[langId].text).map(v => {
           // 处理因为翻译工具将行首的 # 后面空格剔除的问题
           let m = v.match(/^([#]+)([^# ].*)$/);
-          if(m){
-            console.log("PROC ### ",v);
-            return m[1] + ' '+ m[2]
+          if (m) {
+            console.log("PROC ### ", v);
+            return m[1] + ' ' + m[2];
           }
           // 处理首行的 "-""
-           m = v.match(/^(\s*-)([^ ].*)$/);
-          if(m){
-            console.log("PROC - ",v);
-            return m[1] + ' '+ m[2]
+          m = v.match(/^(\s*-)([^ ].*)$/);
+          if (m) {
+            console.log("PROC - ", v);
+            return m[1] + ' ' + m[2];
           }
           // 处理首行的 "-""
           m = v.match(/^(\s*>)([^ ].*)$/);
-          if(m){
-            console.log("PROC > ",v);
-            return m[1] + ' '+ m[2]
+          if (m) {
+            console.log("PROC > ", v);
+            return m[1] + ' ' + m[2];
           }
-          
+
           return v;
-        })                
-        .map(v=>{
-          // 还原不翻译的行
-          let m = v.match(/@@([\d ]+)@@/);
-          if(m && m.length == 2){
-            return lines[parseInt(m[1])]
-          }else return v;
-        })        
-        .join('\n');
+        })
+          .map(v => {
+            // 还原不翻译的行
+            let m = v.match(/@@([\d ]+)@@/);
+            if (m && m.length == 2) {
+              return lines[parseInt(m[1])];
+            } else return v;
+          })
+          .join('\n');
 
         await fsp.writeFile(trandMdFile, transStr);
         // 设置修改时间与源文件一致
         let stSrc = await fsp.stat(path.join(dirBase, mdName));
-        await fsp.utimes(trandMdFile,stSrc.atime,stSrc.mode);
+        await fsp.utimes(trandMdFile, stSrc.atime, stSrc.mode);
         console.log("write :", trandMdFile);
       }
     }
+
+
   }
   console.log("all ok:", toLang);
 }
@@ -280,16 +309,16 @@ async function transDoc(toLang: LANG_NAMES_T[]) {
   // let LANGS1: LANG_NAMES_T[] = ["en"];
   // let LANGS2: LANG_NAMES_T[] = ["ja" ];
   let LANGS1: LANG_NAMES_T[] = ["en", "ja", "zh-Hant", "lzh", "yue"];
-  let LANGS2: LANG_NAMES_T[] = [ "ko", "fr", "it", "de","ru"];
+  let LANGS2: LANG_NAMES_T[] = ["ko", "fr", "it", "de", "ru"];
   for (let l of LANGS1) {
     try {
       await fsp.rm(path.join(DOC_ROOT, l), { recursive: true });
-    } catch (e) {}
+    } catch (e) { }
   }
   for (let l of LANGS2) {
     try {
       await fsp.rm(path.join(DOC_ROOT, l), { recursive: true });
-    } catch (e) {}
+    } catch (e) { }
   }
   await transDoc(LANGS1);
   await transDoc(LANGS2);

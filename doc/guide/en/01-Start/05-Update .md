@@ -1,3 +1,9 @@
+### WCEX 1.9.15
+Optimize the implementation of $id
+Add TOC support for the marked UI library 
+### WCEX 1.9.14
+Updates support for $$ multiple two-way bindings
+
 ### WCEX 1.9.5
 Rely on the change collection reference React mechanism, and process changes within 20 milliseconds each time to avoid affecting interface drawing.
 Added a passive decoration for event bindings

@@ -21,7 +21,7 @@
     <style>
       html,
       body {
-        width: 100%;
+アグスト @@
         height: 100%;
         overflow: hidden;
         margin: 0;
@@ -35,7 +35,7 @@
   <body>
     <app-></app->
   </body>
-</html>
+ティッカー @@
 ```
 
 通常のHTMLと比較して、必要なのは3つの簡単なステップだけです。
@@ -126,6 +126,15 @@ https://wc-ex.com/go?gh/[YOU REPOS]@[COMMIT ID]/[YOU DIR]/index.html
 ```
 
 > もちろん、上記の方法に加えて、CLIツールキットも作成しました。 非常に小さく、サイズもわずか数十Kで、webpack、ロールアップ、その他の複雑なパッケージングツールに依存していません。 ホットアップデートのコンパイルやリリースなど、より多くの作業を行うのに役立ちます。 もう一つの重要な点は、TypeScriptをサポートすることです。 **@wcex/CLI** は npm 経由でインストールできますが、その詳細については後のセクションで説明します。
+
+### 最初の例
+
+<div>
+<wcex-doc.com-playground files="['first/index.html','first/app.html']"></wcex-doc.com-playground>
+</div>
+
+
+
 
 ### さらなる改良
 

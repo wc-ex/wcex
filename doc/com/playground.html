@@ -1,10 +1,16 @@
-<template title="Sample" files.array="[]" height.int="30" class="shadow">
+<template files.array="[]" height.int="30" class="shadow">
   <meta name="scope" cur.int="1" />
+  <meta name="module" pkg="lodash.throttle" cjs />
+  <script scope="throttle" src="lodash.throttle" nocall></script>
+
   <style>
     :host {
       display: flex;
       flex-direction: column;
       height: ":${height}em";
+      border-radius: 5px;
+      overflow: hidden;
+      background-color: "$$color.bg.l5_";
     }
     #demo {
       display: block;
@@ -13,10 +19,35 @@
       padding: 0;
       margin: 0;
     }
+    #url {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      font-size: 0.6em;
+      font-weight: 300;
+    }
+    #title {
+      padding: 0.2em;
+      display: flex;
+      background-color: "$$color.bgr";
+      color: "$$color.textr";
+    }
+    #title > * {
+      padding: 0 0.1em;
+    }
   </style>
+  <div id="title">
+    <wcex-ui.icon style="margin: 0 0.3em;" icon="airplay" size="1"></wcex-ui.icon>
+    <div>PLAYGROUND</div>
+    <div style="flex: 1"></div>
+
+    <div id="url" $>docPath(files[0])</div>
+    <wcex-ui.icon title="reload" icon="replay_circle_filled" $color="$color.sec" active size="1" @click="reloadDemo()"></wcex-ui.icon>
+    <wcex-ui.icon title="reset" icon="delete_forever" $color="$color.sec" active size="1" @click="resetCache()"></wcex-ui.icon>
+  </div>
   <!-- 示例区域 -->
-  <div1 $>docPath(files[0])</div1>
-  <iframe id="demo" $src="docPath(files[0])" sandbox="allow-same-origin allow-scripts"></iframe>
+
+  <iframe id="demo" $src="docPath(files[0])"></iframe>
   <!-- 编辑器 -->
   <wcex-ui.tab $tabs="files" style="flex: 1" $$="cur" @change.1="$emit('update',$id['ed'+value])">
     <div slot="panel" style="height: 100%" class="column">
@@ -26,26 +57,67 @@
         $for="files"
         $file="docPath(value)"
         $show="(cur==index)?'panel':''"
-        @edit="onEdit($ev)"
+        $fn="throttle((ev)=>onEdit(ev),1000,{leading:false,trailing:true})"
+        @edit="fn($ev)"
       ></wcex-ui.monaco>
     </div>
   </wcex-ui.tab>
+  <script scope="throttle" src="lodash.throttle" nocall></script>
+
   <script scope=".">
+    // 注意开发时iframe配置的同源问题,需要使用localhost访问
     return class {
+      onReady() {
+        this.$id.demo.setAttribute("origin", location.origin);
+      }
       docPath(path) {
-        return this.$path(
+        return decodeURI(this.$path(
           "../guide/" +
             this.$router.route.default.attrs.lang +
             "/" +
             this.$router.route.default.attrs.url.replace(/\/.*$/, "/") +
             path
-        );
+        ));
       }
-      onEdit(ev) {
-        this.$id.demo.contentWindow.postMessage(
-          { type: "wc-hotload", file: ev.detail.file, text: ev.detail.text },
-          "*"
-        );
+      async swPost(type, data) {
+        (await navigator.serviceWorker.getRegistration("/")).active.postMessage({
+          type,
+          data,
+        });
+      }
+      async updateDemo(file) {
+        if (file && file != this.files[0]) {
+          //获取主index.html路径
+          let p = this.docPath(this.files[0]).replace(/^(.*\/).*?$/,'$1');
+          let f = file.replace(p,'');
+          // 热更新
+          this.$id.demo.contentWindow.dispatchEvent( new CustomEvent("wc-hotload",{detail:{path:f}} ));
+        } else {
+          // 重新load
+          this.$id.demo.contentWindow.location.reload();
+        }
+      }
+      async onEdit(ev) {
+        if (ev) {
+          // 向sw发送消息,更新缓存
+          await this.swPost("hotCacheSet", {
+            file: ev.detail.file,
+            text: ev.detail.text,
+          });
+          await this.updateDemo(ev.detail.file);
+        }
+      }
+      reloadDemo(){
+        this.$id.demo.contentWindow.location.reload();
+
+      }
+      async resetCache() {
+        await this.swPost("hotCacheClean", {});
+        // 通知编辑器重新加载
+        for (let i = 0; i < this.files.length; i++) {
+          this.$emit("reload", this.$id["ed" + i]);
+        }
+        await this.updateDemo();
       }
     };
   </script>

@@ -47,5 +47,8 @@ export default class extends Scope {
         let frame = this.$id.frame as HTMLIFrameElement;
         frame.contentWindow?.postMessage({ type: 'layout', value: ''}, "*");
     }
+    reload(){
+        this.updateEditor()
+    }
 
 }

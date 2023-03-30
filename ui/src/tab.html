@@ -2,6 +2,7 @@
 <template
   $tabs="3"
   $color="$color.pri"
+  $bgcolor="$color.bg"
   $value="(tabs instanceof Array)?0:(typeof tabs == 'object')?Object.keys(tabs)[0]:0"
   @change.1="updateLinePos()"
 >
@@ -50,7 +51,7 @@
     }
     .panels {
       flex: 1;
-      background-color: "$color";
+      background-color: "$bgcolor";
       position: relative;
       z-index: 1;
       --grow: 2 !important;
