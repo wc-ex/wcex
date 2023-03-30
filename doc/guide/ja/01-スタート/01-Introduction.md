@@ -41,7 +41,7 @@ WCEXのネイティブWebコンポーネントの完全な実装のおかげで�
       padding: 0.5em;
       background-color: "$$color.bgr.a9_";
     }
-アグート @@
+  </style>
   <div class="title" $>url</div>
   <wcex-ui.marked 
     style="padding: 1em;" 

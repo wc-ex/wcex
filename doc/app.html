@@ -1,6 +1,6 @@
 <template>
   <!-- <meta name="module" pkg="@wcex/ui" url="http://localhost:8102" /> -->
-  <meta name="module" pkg="@wcex/ui" version="1.0.47" />
+  <meta name="module" pkg="@wcex/ui" version="1.0.48" />
   <meta name="scope" drawer.bool="true" cur-page.object="{}" />
   <!-- 需要手动引入 -->
   <link rel="stylesheet" href="@/@wcex/ui/ui.css" />
@@ -20,6 +20,7 @@
   <script scope="font" src="./font.js"></script>
 
   <script scope=".">
+    window.__initSwFlag=false;
     return class {
       // 动态设置字体
       onCreate() {
@@ -27,6 +28,8 @@
         this.initSw();
       }
       initSw() {
+        if(window.__initSwFlag) return;
+        window.__initSwFlag=true;
         navigator.serviceWorker
           .register('/sw.js', { scope: location.origin+'/', updateViaCache: "all" })
           .then(function (registration) {

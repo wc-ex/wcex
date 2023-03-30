@@ -127,15 +127,27 @@ https://wc-ex.com/go?gh/[YOU REPOS]@[COMMIT ID]/[YOU DIR]/index.html
 
 > Bien sûr, en plus des méthodes ci-dessus, nous avons également créé une boîte à outils CLI. Très petit, également de seulement quelques dizaines de K, ne repose pas sur le webpack, le rollup et d’autres outils d’emballage complexes. Cela peut nous aider à faire plus de travail, comme la compilation et la publication de mises à jour à chaud, etc. Un autre point important est de prendre en charge TypeScript. Vous pouvez installer **@wcex/CLI** via npm, dont les détails seront abordés dans les sections suivantes.
 
-### Premier exemple
+### Essayez-le maintenant
 
 <div>
-<wcex-doc.com-playground files="['first/index.html','first/app.html']"></wcex-doc.com-playground>
+<wcex-doc.com-playground files="['first/index.html','first/app.html','first/com/time.html']"></wcex-doc.com-playground>
 </div>
 
+- Ceci est une salle de pratique, vous pouvez la modifier directement dans l’éditeur ci-dessous pour voir l’effet en temps réel.
+- Dans ce projet d’initialisation, nous avons trois fichiers, l’entrée principale _index.html_, et deux composants
+- Vous pouvez voir les règles de référence et de dénomination des composants, et comment la liaison de données est gérée
+- Familiarisez-vous d’abord, vous pouvez essayer d’expérimenter la tâche.
+  - Ajouter l’attribut name pour _\<app\>_ dans _index.html_ 
+  - Remplacez la liaison $_ value par _:_ string template binding dans _com/time.html_ 
+  - Ajuster l’intervalle de _@time_ à 2 secondes en _com/time.html_ 
+  - La syntaxe principale utilisée : _"$$"_ est une liaison bidirectionnelle, _"$"_ est une liaison de calcul, _ »:"_ est une liaison de chaîne de modèle, _'@'_ est une liaison d’événement
+  - La syntaxe en CSS est légèrement modifiée, la liaison de variable doit être entourée de _"_ ou _'_, et le premier caractère _$_ ou _:_ représente la méthode de liaison, ce qui est cohérent avec les règles ci-dessus
+- Lorsque vous changez _com/time.html_, vous pouvez voir que la mise à jour du code du composant est locale et n’affecte pas l’état actuel du composant _app.html_, qui est le même que le mécanisme d’implémentation de notre outil client _@wcex/cli_, que nous appelons **local hot update**, ce qui sera très utile lors du débogage et du développement.
 
 
-
-### Affinement supplémentaire
+### Prochaine extension
 
 Tout simplement, dans le chapitre suivant, nous essaierons d’y ajouter plus de fonctionnalités, par exemple. Ajoutez des propriétés personnalisées pour ajouter une liaison de données. Gérer les événements et ajouter d’autres composants.
+et le traitement des scripts.
+- N’oubliez pas, dans le coin supérieur droit, vous pouvez choisir votre couleur préférée.
+

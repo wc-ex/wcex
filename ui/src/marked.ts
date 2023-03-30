@@ -22,7 +22,6 @@ export default class extends Scope {
         html(html){
           // 为svg 文件处理路径
           let m = html.match(/(.*<svg .* src=")(.*)(" .*>[\s\S]*<\/svg>.*)/);
-          console.log("--------->> svg",html)
           if(m && m.length == 4){
             if(m[2].startsWith('@/')){
                 return m[1]+ self.$path(m[2])+m[3];

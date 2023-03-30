@@ -1,0 +1,12 @@
+<template @timer.500="time=new Date().toString();hh=new Date().getTime()%360" >
+    <meta name="scope" time="" hh.int="0">
+    <style>
+        :host{
+            display: block;
+            color: hsl("$hh",100%,50%);
+            transform:translateX(":${hh%100}px");
+            transition: all 1s;
+        }
+    </style>
+    <h5 $>time</h5>
+</template>

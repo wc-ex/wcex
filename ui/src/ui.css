@@ -58,28 +58,33 @@ h6 {
   letter-spacing: 0.1em;
 }
 .subtitle2 {
-  font-weight: 500;
-  font-size: 0.875rem;
-  line-height: 1.25rem;
+  font-weight: 400;
+  font-size: 0.7rem;
+  line-height: 1rem;
   letter-spacing: 0.1em;
 }
-div,
-.body1 {
-  font-weight: 400;
+div {
+  font-weight: 300;
   font-size: 1rem;
   line-height: 1.1rem;
   letter-spacing: 0.12em;
 }
-div1,.body2 {
-  font-weight: 400;
+div1 {
+  font-weight: 260;
   font-size: 0.875rem;
-  line-height: 1rem;
+  line-height: 1.2rem;
   letter-spacing: 0.1em;
 }
-div1,.body2 {
-  font-weight: 400;
-  font-size: 0.875rem;
-  line-height: 1.25rem;
+div2{
+  font-weight: 230;
+  font-size: 0.72rem;
+  line-height: 1rem;
+  letter-spacing: 0.18em;
+}
+div3{
+  font-weight: 200;
+  font-size: 0.625rem;
+  line-height: 0.85rem;
   letter-spacing: 0.18em;
 }
 

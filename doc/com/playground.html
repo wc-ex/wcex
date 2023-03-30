@@ -79,25 +79,29 @@
   <script scope=".">
     // 注意开发时iframe配置的同源问题,需要使用localhost访问
     return class {
-      readyFlag=0;
+      readyFlag = 0;
+      baseUrl = "";
+      lang = "";
       async onReady() {
+        this.baseUrl = this.$router.route.default.attrs.url;
+        this.lang = this.$router.route.default.attrs.lang;
         await this.loadDemo();
         this.readyFlag = 1;
+        this.$monitSize(this.$rootElem, () => {
+          console.log("size--Changed");
+          // 通知编辑器重新布局
+          for (let i = 0; i < this.files.length; i++) {
+            this.$emit("update", this.$id["ed" + i]);
+          }
+        });
       }
+
       docPath(path) {
-        return decodeURI(
-          this.$path(
-            "../guide/" +
-              this.$router.route.default.attrs.lang +
-              "/" +
-              this.$router.route.default.attrs.url.replace(/\/.*$/, "/") +
-              path
-          )
-        );
+        return decodeURI(this.$path("../guide/" + this.lang + "/" + this.baseUrl.replace(/\/.*$/, "/") + path));
       }
-      playgroundPath(path){
-        if(path){
-          return decodeURI(`${location.origin}/__playground/${this.$router.route.default.attrs.url}/${path}`)
+      playgroundPath(path) {
+        if (path && this.baseUrl) {
+          return decodeURI(`${location.origin}/__playground/${this.baseUrl}/${path}`);
         }
       }
       async swPost(type, data) {
@@ -107,7 +111,7 @@
         });
       }
       async updateDemo(file) {
-        let mainFile = this.playgroundPath(this.files[0])
+        let mainFile = this.playgroundPath(this.files[0]);
         if (file && file != mainFile) {
           //获取主index.html路径
           let p = mainFile.replace(/^(.*\/).*?$/, "$1");
@@ -123,13 +127,14 @@
         if (ev) {
           // 向sw发送消息,更新缓存
           await this.swPost("hotCacheSet", {
-            file:ev.detail.file,
+            file: ev.detail.file,
             text: ev.detail.text,
           });
           await this.updateDemo(ev.detail.file);
         }
       }
       async loadDemo() {
+        if (!this.baseUrl) return;
         // 加载数据
         let loadFiles = await Promise.all(
           this.files.map((f) => {

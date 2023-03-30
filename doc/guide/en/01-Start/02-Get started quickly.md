@@ -127,15 +127,27 @@ https://wc-ex.com/go?gh/[YOU REPOS]@[COMMIT ID]/[YOU DIR]/index.html
 
 > Of course, in addition to the above methods, we have also made a CLI toolkit. Very small, also only tens of K in size, does not rely on webpack, rollup and other complex packaging tools. It can help us do more work, such as hot update compilation and release, etc. Another important point is to support TypeScript. You can install **@wcex/CLI** via npm, the details of which will be covered in later sections.
 
-### First example
+### Try it now
 
 <div>
-<wcex-doc.com-playground files="['first/index.html','first/app.html']"></wcex-doc.com-playground>
+<wcex-doc.com-playground files="['first/index.html','first/app.html','first/com/time.html']"></wcex-doc.com-playground>
 </div>
 
+- This is a practice hall, you can modify it directly in the editor below to see the real-time effect.
+- In this initialization project, we have three files, the _index.html_ main entry, and two components
+- You can see the rules for component reference and naming, and how data binding is handled
+- Get acquainted with it first, you can try to experiment with the task.
+  - Add the name attribute for _\<app\>_ in _index.html_ 
+  - Change $_ value binding to _:_ string template binding in _com/time.html_ 
+  - Adjust the interval of _@time_ to 2 seconds in _com/time.html_ 
+  - The main syntax used: _"$$"_ is a two-way binding, _"$"_ is a compute binding, _":"_ is a template string binding, _'@'_ is an event binding
+  - The syntax in CSS is slightly changed, variable binding needs to be surrounded by _"_ or _'_, and the first character _$_ or _:_ represents the binding method, which is consistent with the above rules
+- When changing _com/time.html_, you can see that the update of the component code is local and does not affect the current state in the _app.html_ component, which is the same as the implementation mechanism of our client tool _@wcex/cli_, which we call **local hot update**, which will be very useful when we debug and develop.
 
 
-
-### Further refinement
+### Next extension
 
 Quite simply, in the next chapter, we'll try to add more features to it, for example. Add custom properties to add data binding. Handle events, and add more components.
+and the processing of scripts.
+- Don't forget, in the upper right corner you can choose your favorite color.
+

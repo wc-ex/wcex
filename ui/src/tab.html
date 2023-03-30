@@ -4,7 +4,7 @@
   $color="$color.pri"
   $bgcolor="$color.bg"
   $value="(tabs instanceof Array)?0:(typeof tabs == 'object')?Object.keys(tabs)[0]:0"
-  @change.1="updateLinePos()"
+  @scroll.stop=""
 >
   <meta name="scope" />
   <style>
@@ -24,7 +24,7 @@
       flex-shrink: 0;
       z-index: 9;
       color: "$$color.textr";
-
+      overflow: hidden;
     }
     .tab {
       padding: 0.2em 0.6em;
@@ -36,7 +36,7 @@
     }
     .tab[checked] {
       padding: 0.3em 0.6em;
-      background-color: "$color";
+      background-color: "$color.l3";
       --grow: 2 !important;
       z-index: 10;
     }
@@ -64,9 +64,9 @@
     <div :>${value}, ${typeof value}</div> -->
 
   <div id="tabs">
-    <div class="tab trans grow" $for="tabs" $:index.click="$root.value">
+    <div class="tab trans grow" $for="tabs" $:index.click="$root.value" @click.1="updateLinePos(true)">
       <slot :name="tab-${index}">
-        <div $>(tabs instanceof Array)?value:index</div>
+        <div1 $>(tabs instanceof Array)?value:index</div1>
       </slot>
     </div>
     <div class="line trans"></div>
@@ -78,22 +78,26 @@
   </div>
   <script scope=".">
     return class {
+      // 初始化第一次不滚动,否则可能影响其他滚动效果
       linepos = {
         left: 0,
         width: 0,
       };
-      updateLinePos() {
-        // requestAnimationFrame(() => {
-        //   var el = this.$id.tabs.querySelector("[checked]");
-        //   if (el) {
-        //     var r1 = this.$id.tabs.getBoundingClientRect();
-        //     var r2 = el.getBoundingClientRect();
-        //     this.linepos.left = el.offsetLeft;
-        //     this.linepos.width = el.offsetWidth;
-        //     // 滚动到此位置
-        //     el.scrollIntoView();
-        //   }
-        // });
+      onReady() {
+        this.updateLinePos();
+      }
+      updateLinePos(doScroll) {
+        requestAnimationFrame(() => {
+          var el = this.$id.tabs.querySelector("[checked]");
+          if (el) {
+            var r1 = this.$id.tabs.getBoundingClientRect();
+            var r2 = el.getBoundingClientRect();
+            this.linepos.left = el.offsetLeft;
+            this.linepos.width = el.offsetWidth;
+            // 滚动到此位置
+            if (doScroll) el.scrollIntoView({ block: "nearest", inline: "center", behavior: "smooth" });
+          }
+        });
       }
     };
   </script>

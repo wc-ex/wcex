@@ -127,15 +127,27 @@ https://wc-ex.com/go?gh/[YOU REPOS]@[COMMIT ID]/[YOU DIR]/index.html
 
 > Natürlich haben wir zusätzlich zu den oben genannten Methoden auch ein CLI-Toolkit erstellt. Sehr klein, auch nur Dutzende von K groß, ist nicht auf Webpack, Rollup und andere komplexe Verpackungswerkzeuge angewiesen. Es kann uns helfen, mehr Arbeit zu erledigen, wie z.B. Hot-Update-Kompilierung und -Veröffentlichung usw. Ein weiterer wichtiger Punkt ist die Unterstützung von TypeScript. Sie können **@wcex/CLI** über npm installieren, die Details dazu werden in späteren Abschnitten behandelt.
 
-### Erstes Beispiel
+### Probieren Sie es jetzt aus
 
 <div>
-<wcex-doc.com-playground files="['first/index.html','first/app.html']"></wcex-doc.com-playground>
+<wcex-doc.com-playground files="['first/index.html','first/app.html','first/com/time.html']"></wcex-doc.com-playground>
 </div>
 
+- Dies ist eine Übungshalle, Sie können sie direkt im Editor unten ändern, um den Echtzeiteffekt zu sehen.
+- In diesem Initialisierungsprojekt haben wir drei Dateien, den Haupteintrag _index.html_ und zwei Komponenten
+- Sie können die Regeln für die Komponentenreferenz und -benennung sowie die Handhabung der Datenbindung sehen
+- Machen Sie sich zuerst damit vertraut, Sie können versuchen, mit der Aufgabe zu experimentieren.
+  - Fügen Sie das name-Attribut für _\<app\>_ in _index.html_ hinzu. 
+  - Ändern Sie die $_-Wertbindung in die _:_-Zeichenfolgenvorlagenbindung in _com/time.html_ 
+  - Passen Sie das Intervall von _@time_ bis 2 Sekunden in _com/time.html_ 
+  - Die verwendete Hauptsyntax: _"$$"_ ist eine bidirektionale Bindung, _"$"_ ist eine Compute-Bindung, _":"_ ist eine Vorlagen-String-Bindung, _'@'_ ist eine Ereignisbindung
+  - Die Syntax in CSS wurde leicht geändert, die Variablenbindung muss von _"_ oder _'_ umgeben sein, und das erste Zeichen _$_ oder _:_ stellt die Bindungsmethode dar, die mit den obigen Regeln übereinstimmt
+- Wenn Sie _com/time.html_ ändern, können Sie sehen, dass die Aktualisierung des Komponentencodes lokal ist und sich nicht auf den aktuellen Status der _app.html_-Komponente auswirkt, der mit dem Implementierungsmechanismus unseres Client-Tools _@wcex/cli_ identisch ist, das wir **local hot update** nennen, was sehr nützlich sein wird, wenn wir debuggen und entwickeln.
 
 
-
-### Weitere Verfeinerung
+### Nächste Erweiterung
 
 Ganz einfach, im nächsten Kapitel werden wir versuchen, zum Beispiel weitere Funktionen hinzuzufügen. Fügen Sie benutzerdefinierte Eigenschaften hinzu, um Datenbindung hinzuzufügen. Behandeln Sie Ereignisse, und fügen Sie weitere Komponenten hinzu.
+und die Verarbeitung von Skripten.
+- Vergessen Sie nicht, in der oberen rechten Ecke können Sie Ihre Lieblingsfarbe auswählen.
+

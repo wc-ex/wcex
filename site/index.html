@@ -141,9 +141,7 @@
         <input type="radio" name="cdn" id="unpkg" />
         <label>unpkg</label>
         <input type="radio" name="cdn" id="elemecdn"  />
-        <label>elemecdn(国内推荐)</label>
-        <input type="radio" name="cdn" id="zhimg" />
-        <label>zhimg</label>
+        <label>elemecdn</label>
       </form>
     </div>
 
@@ -166,10 +164,10 @@
   </body>
 
   <script>
-    var DOC_VER = "1.0.71";
-    if(navigator.language.indexOf('zh-CN')>=0){
-      document.getElementById("elemecdn").checked=true;
-    }
+    var DOC_VER = "1.0.72";
+    // if(navigator.language.indexOf('zh-CN')>=0){
+    //   document.getElementById("elemecdn").checked=true;
+    // }
     function goDoc(lang) {
       let cdn = document.getElementById("jsdelivr").checked
         ? "jsdelivr"

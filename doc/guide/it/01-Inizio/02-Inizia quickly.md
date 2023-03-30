@@ -127,15 +127,27 @@ https://wc-ex.com/go?gh/[YOU REPOS]@[COMMIT ID]/[YOU DIR]/index.html
 
 > Naturalmente, oltre ai metodi di cui sopra, abbiamo anche creato un toolkit CLI. Molto piccolo, anche solo decine di K di dimensioni, non si basa su webpack, rollup e altri strumenti di imballaggio complessi. Può aiutarci a fare più lavoro, come la compilazione e il rilascio di aggiornamenti a caldo, ecc. Un altro punto importante è supportare TypeScript. È possibile installare **@wcex/CLI** tramite npm, i cui dettagli saranno trattati nelle sezioni successive.
 
-### Primo esempio
+### Provalo subito
 
 <div>
-<wcex-doc.com-playground files="['first/index.html','first/app.html']"></wcex-doc.com-playground>
+<wcex-doc.com-playground files="['first/index.html','first/app.html','first/com/time.html']"></wcex-doc.com-playground>
 </div>
 
+- Questa è una sala prove, puoi modificarla direttamente nell'editor qui sotto per vedere l'effetto in tempo reale.
+- In questo progetto di inizializzazione, abbiamo tre file, la voce principale _index.html_ e due componenti
+- È possibile visualizzare le regole per il riferimento e la denominazione dei componenti e come viene gestita l'associazione dati
+- Familiarizzare con esso prima, puoi provare a sperimentare con il compito.
+  - Aggiungere l'attributo name per _\<app\>_ in _index.html_ 
+  - Modificare l'associazione del valore $_ in _:_ string template binding in _com/time.html_ 
+  - Regolare l'intervallo da _@time_ a 2 secondi in _com/time.html_ 
+  - La sintassi principale utilizzata: _"$$"_ è un'associazione bidirezionale, _"$"_ è un'associazione di calcolo, _":"_ è un'associazione di stringhe di template, _'@'_ è un'associazione di eventi
+  - La sintassi nei CSS è leggermente cambiata, l'associazione variabile deve essere circondata da _"_ o _'_, e il primo carattere _$_ o _:_ rappresenta il metodo di associazione, che è coerente con le regole di cui sopra
+- Quando si modifica _com/time.html_, è possibile vedere che l'aggiornamento del codice del componente è locale e non influisce sullo stato corrente nel componente _app.html_, che è lo stesso del meccanismo di implementazione del nostro strumento client _@wcex/cli_, che chiamiamo **aggiornamento locale a caldo**, che sarà molto utile durante il debug e lo sviluppo.
 
 
-
-### Ulteriore perfezionamento
+### Prossima estensione
 
 Molto semplicemente, nel prossimo capitolo, cercheremo di aggiungere altre funzionalità ad esso, per esempio. Aggiungere proprietà personalizzate per aggiungere l'associazione dati. Gestire gli eventi e aggiungere altri componenti.
+e l'elaborazione degli script.
+- Non dimenticare, nell'angolo in alto a destra puoi scegliere il tuo colore preferito.
+
