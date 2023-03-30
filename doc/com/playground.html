@@ -1,0 +1,52 @@
+<template title="Sample" files.array="[]" height.int="30" class="shadow">
+  <meta name="scope" cur.int="1" />
+  <style>
+    :host {
+      display: flex;
+      flex-direction: column;
+      height: ":${height}em";
+    }
+    #demo {
+      display: block;
+      overflow: hidden;
+      border: none;
+      padding: 0;
+      margin: 0;
+    }
+  </style>
+  <!-- 示例区域 -->
+  <div1 $>docPath(files[0])</div1>
+  <iframe id="demo" $src="docPath(files[0])" sandbox="allow-same-origin allow-scripts"></iframe>
+  <!-- 编辑器 -->
+  <wcex-ui.tab $tabs="files" style="flex: 1" $$="cur" @change.1="$emit('update',$id['ed'+value])">
+    <div slot="panel" style="height: 100%" class="column">
+      <wcex-ui.monaco
+        style="height: 100%"
+        :id="ed${index}"
+        $for="files"
+        $file="docPath(value)"
+        $show="(cur==index)?'panel':''"
+        @edit="onEdit($ev)"
+      ></wcex-ui.monaco>
+    </div>
+  </wcex-ui.tab>
+  <script scope=".">
+    return class {
+      docPath(path) {
+        return this.$path(
+          "../guide/" +
+            this.$router.route.default.attrs.lang +
+            "/" +
+            this.$router.route.default.attrs.url.replace(/\/.*$/, "/") +
+            path
+        );
+      }
+      onEdit(ev) {
+        this.$id.demo.contentWindow.postMessage(
+          { type: "wc-hotload", file: ev.detail.file, text: ev.detail.text },
+          "*"
+        );
+      }
+    };
+  </script>
+</template>

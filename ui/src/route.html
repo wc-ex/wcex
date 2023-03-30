@@ -4,16 +4,19 @@
     路由异常通过 error 事件
  -->
 
-<template name="default" home="" match="">
+<template name="default" home="" match="" overflow="auto">
   <meta name="scope" />
   <style>
     :host {
       display: block;
     }
+    #route{
+      width: 100%;
+      height: 100%;
+      overflow: "$overflow";
+    }
   </style>
-  <div>
-    <div id="route" $as="component"></div>
-  </div>
+  <div id="route" $as="component"></div>
   <script scope=".">
     return class {
       component = "";

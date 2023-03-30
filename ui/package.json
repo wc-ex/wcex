@@ -23,6 +23,9 @@
     "@types/ws": "^8.5.4",
     "highlight.js": "^11.7.0",
     "moment": "^2.29.4",
-    "wcex": "1.9.12"
+    "wcex": "1.9.14"
+  },
+  "devDependencies": {
+    "monaco-editor": "^0.36.1"
   }
 }

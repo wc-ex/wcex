@@ -11,10 +11,11 @@
     }
     .title {
       background-color: "$$color.pri";
+      user-select: none;
     }
   </style>
   <!-- 文档版本 -->
-  <h6 style="margin: 0.5em" :>DOC: ${pkg.version}</h6>
+  <h6 style="margin: 0.5em; text-align: center;" :>${pkg.version}</h6>
   <!-- 一级主菜单 -->
   <wcex-ui.panel $textonly="min" closeable $for(vnav,knav)="navData" $open="Object.keys(vnav.items).length>0" psel="">
     <wcex-ui.icon
@@ -40,7 +41,7 @@
       <div
         $for="vnav.items"
         $slot="index"
-        :style="padding:0.3em 0 0.3em ${min?0.2:2}em; display:flex;"
+        :style="padding:0.3em 0 0.3em ${min?0.2:2}em; display:flex;user-select: none;"
       >
         <wcex-ui.icon
           $if="!min"
@@ -64,14 +65,25 @@
       navData = {};
       async onCreate() {
         this.navData = await (await fetch(this.$path(`./guide/${this.lang}/nav.json`))).json();
-        this.$router.go("wcex-doc.doc", { url: this.navData[0].items[0].path, lang: this.lang });
-        this.value = this.navData[0].items[0];
+        let r = this.$router.route && this.$router.route.default;
+        let mathedItem = this.navData[0].items[0]
+        if(r && r.attrs && r.attrs.url ){
+          // 从当前url中解析
+          for(let na of this.navData){
+            for(let it of na.items){
+              if(it.path == r.attrs.url){
+                // 匹配URL的菜单项
+                mathedItem= it;
+                break;
+              }
+            }
+          }
+        }else{
+          // 默认为第一项
+          this.$router.go("wcex-doc.doc", { url: mathedItem.path, lang: this.lang });
+        }
+        this.value = mathedItem;
       }
-      //
-
-      // onReady(){
-      //   this.$router.go('wcex-doc.doc',{url:this.navData[0].items[0],lang:this.lang})
-      // }
     };
   </script>
 </template>

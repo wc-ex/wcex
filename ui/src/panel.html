@@ -8,12 +8,7 @@
   @slot
   @plugins 
  -->
-<template
-  open.bool="true"
-  $color="$color.pri"
-  closeable.bool="false"
-  textonly.bool="false"
->
+<template open.bool="true" $color="$color.pri" closeable.bool="false" textonly.bool="false">
   <link rel="stylesheet" href="./css/shadow.css" />
   <link rel="stylesheet" href="./ui.css" />
 
@@ -41,10 +36,7 @@
   <div :class="title row trans ${open?'shadow':''} nowrap" style="user-select: none" @click="if(closeable)open=!open">
     <div $if="!textonly" :style="margin-right: 1em">
       <slot name="icon">
-        <wcex-ui.icon
-          $color="$root.color.l4_"
-          size="1.5"
-        ></wcex-ui.icon>
+        <wcex-ui.icon $color="$root.color.l4_" size="1.5"></wcex-ui.icon>
       </slot>
     </div>
 
@@ -58,8 +50,8 @@
       :style="transform: rotate(${open?90:0}deg);"
       $if="closeable && !textonly"
     >
-        <div $>icon</div>
-  </wcex-ui.icon>
+      <div $>icon</div>
+    </wcex-ui.icon>
   </div>
 
   <!-- 可折叠面板 -->
@@ -71,7 +63,6 @@
       onReady() {
         this.update();
         let el = this.$id.slot.assignedElements()[0];
-        // this.$log("--- assignedElements:", el);
         if (el) {
           this.$monitSize(el, (sz) => {
             this.update();
@@ -79,8 +70,10 @@
         }
       }
       update() {
-        let el = this.$id.slot.assignedElements()[0];
-        this.panelHeight = el && el.clientHeight;
+        if (this.$id.slot) {
+          let el = this.$id.slot.assignedElements()[0];
+          this.panelHeight = el && el.clientHeight;
+        }
       }
     };
   </script>

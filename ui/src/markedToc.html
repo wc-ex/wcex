@@ -1,0 +1,99 @@
+<!-- 多级目录结构,最多2级 -->
+<template @update="updateToc($ev)" @sync-scroll="syncScroll($ev)" level.int="3" first-header.int="2">
+  <style>
+    :host {
+      padding: 0.5em;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+    .item {
+      font-size: 0.6em;
+      padding-top: 0.2em;
+      padding-bottom: 0.2em;
+      padding-left: 0.2em;
+      padding-right: 0.4em;
+      user-select: none;
+      box-sizing: border-box;
+      border-color: transparent;
+      border-left-style: solid;
+      border-left-width: 0;
+      transition: all 0.3s;
+    }
+    .item[flag] {
+      padding-right: 0;
+      color: "$$color.pri";
+      border-color: "$$color.sec";
+    }
+  </style>
+  <div $for="tocs">
+    <div
+      :id="item${value.id}"
+      class="item"
+      $flag="value.id==cur"
+      :style="margin-left: ${0.3*(value.level+1)}em;  border-left-width:${flag?0.4:0}em;"
+      @click.stop="onClickItem(value)"
+      $
+    >
+      value.title
+    </div>
+  </div>
+
+  <script scope=".">
+    return class {
+      tocs = [];
+      cur = 0;
+
+      // 生成 TOC Json 树
+      updateToc($ev) {
+        let parentEl = $ev.detail.md;
+        this.tocs = [];
+        if (parentEl) {
+          for (let i = 0; i < parentEl.children.length; i++) {
+            let el = parentEl.children[i];
+            if (el.tagName.startsWith("H") && el.tagName.length == 2) {
+              let l = parseInt(el.tagName.slice(1)) - this.firstHeader;
+              if (l >= 0 && l < this.level) {
+                this.tocs.push({
+                  id: this.tocs.length,
+                  title: el.textContent.trim(),
+                  el,
+                  level: l,
+                });
+              }
+            }
+          }
+        }
+      }
+      //   点击目录
+      onClickItem(item) {
+        item.el.scrollIntoView({ behavior: "smooth", block: "start" });
+        this.cur = item.id;
+      }
+      //   同步 marked 文档中的 scroll事件，同步目录
+      syncScroll(ev) {
+        // 遍历子选项，匹配在当前显示窗口中的元素，设置为当前选项
+        let parentRt = this.$rootParentElem.getBoundingClientRect();
+        let find = 0;
+        for (let t of this.tocs) {
+          let rt = t.el.getBoundingClientRect();
+          // 计算是否显示
+          if (rt.top >= parentRt.top - 5) {
+            // 如果标题完全出现，则设置为当前项
+            if (rt.bottom < parentRt.bottom) {
+              find = t.id;
+            }
+            break;
+          }
+          find = t.id;
+        }
+        this.cur = find;
+        let el = this.$id[`item${find}`];
+        if(el){
+            el.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+      }
+    };
+  </script>
+</template>

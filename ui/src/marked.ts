@@ -64,10 +64,20 @@ export default class extends Scope {
       let text = await this.$loader.getFile(this.src).getResult();
       // let text = await (await fetch()).text()
       let html = marked.parse(text.replace(/\r\n/g, "\n"));
-      this.$id.mark.innerHTML = html;
-      this.$emit("update");
+      this.$id.md.innerHTML = html;
+      this.$id.content.scrollTo(0,0);
+      setTimeout(()=>{
+        this.$emit("update",{md:this.$id.md});
+        this.$emit("update",{md:this.$id.md},this.$id.toc);
+        
+      })
     } else {
-      this.$id.mark.innerHTML = "";
+      this.$id.md.innerHTML = "";
     }
+
+  }
+
+  onScroll(){
+    this.$emit('sync-scroll',this.$id.toc)
   }
 }

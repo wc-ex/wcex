@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1.0,width=device-width" />
+
+    <style>
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        margin: 0;
+        padding: 0;
+        font-size: 14px;
+        background-color: transparent;
+      }
+      #contain {
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="contain"></div>
+  </body>
+  <script src="$path(@/monaco-editor/min/vs/loader.js)"></script>
+  <script>
+    require.config({ paths: { vs: "$path(@/monaco-editor/min/vs)" } });
+    require(["vs/editor/editor.main"], function () {
+      monaco.editor.onDidCreateEditor((ed) => {
+        ed.layout();
+      });
+
+      let editor = monaco.editor.create(document.getElementById("contain"), {
+        value: decodeURI("$text()"),
+        language: "$language()",
+        minimap: { enabled: false },
+        theme: "$colorMode()",
+      });
+
+      editor.onDidChangeModelContent(function (event) {
+        // 执行相关操作
+        window.frameElement.dispatchEvent(new CustomEvent('edit',{detail:{text:editor.getValue()}}))
+      });
+      window.onmessage = (event) => {
+        switch (event.data.type) {
+          case "color":
+            monaco.editor.setTheme(event.data.value);
+            break;
+          case "layout":
+            editor.layout();
+            break;
+        }
+      };
+    });
+  </script>
+</html>

@@ -15,15 +15,17 @@
     }
     .left {
       background-color: "$$color.bg.l2";
+      z-index: 9;
     }
     .content {
       display: flex;
       flex-direction: column;
       flex: 1;
-      overflow-x: hidden;
+      overflow: hidden;
     }
     .content > :first-child {
       flex: 1;
+      overflow: hidden;
     }
     .doc {
       flex: 1;
@@ -40,7 +42,7 @@
       <nav- $min="!drawer" $lang="$root.lang"></nav->
     </div>
     <div class="content">
-      <wcex-ui.route home="wcex-doc.doc" ></wcex-ui.route>
+      <wcex-ui.route home="wcex-doc.doc" overflow="hidden"></wcex-ui.route>
       <footer-></footer->
     </div>
   </div>

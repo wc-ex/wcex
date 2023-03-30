@@ -1,0 +1,21 @@
+<!-- 由于monaco实现了自己的AmdLoader，和WCLoader冲突，因此通过IFrame处理 -->
+<template file="" @update="layout()">
+  <meta name="module" pkg="esbuild-wasm" content="lib/browser.min.js" cjs />
+
+  <style>
+    :host {
+      display: block;
+    }
+    #frame {
+      display: block;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      border: none;
+      padding: 0;
+      margin: 0;
+    }
+  </style>
+  <iframe id="frame" title="wcex" @edit.stop="$emit('edit',{file,text:$ev.detail.text})"></iframe>
+  <script scope="." src=".">  </script>
+</template>

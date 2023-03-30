@@ -1,17 +1,47 @@
-<template src="">
+<template src="" toc.int="8" toc-height="100%">
   <meta name="module" pkg="marked" content="marked.min.js" />
   <link rel="stylesheet" href="./marked.css" />
   <link rel="stylesheet" href="@/@highlightjs/cdn-assets/styles/github.min.css" />
+  <meta name="module" pkg="lodash.throttle" cjs />
+
   <meta name="module" pkg="@highlightjs/cdn-assets" content="highlight.js" cjs />
 
   <!-- 处理markdown样式 -->
-
   <style name="layout">
     :host {
       display: block;
+      position: relative;
       text-align: start;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+    #content {
+      width: 100%;
+      height: 100%;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+    #toc {
+      position: absolute;
+      width: ":${toc}em";
+      background-color: "$$color.bg.l9_.a5_";
+      top: 1em;
+      height: calc("$tocHeight" - 3em);
+      border-radius: 10px;
+      left: calc(100% - ":${toc}em - 2em");
+    }
+    #md {
+      padding: 1em ":${toc+2 }em" 1em 1em;
     }
   </style>
-  <div id="mark"></div>
+  <!-- 目录 -->
+  <marked_toc- id="toc"></marked_toc->
+  <div id="content" @scroll.stop.passive="fn()" $fn="throttle(()=>onScroll(),500,{leading:false,trailing:true})">
+    <!-- 内容 -->
+    <div id="md"></div>
+  </div>
+  <script scope="throttle" src="lodash.throttle" nocall></script>
+
   <script scope="." src="."></script>
 </template>

@@ -21,11 +21,14 @@
       user-select: none;
       scroll-behavior: smooth;
       flex-shrink: 0;
+      z-index: 9;
+      color: "$$color.textr";
+
     }
     .tab {
       padding: 0.2em 0.6em;
       background-color: "$$color.bgr.a5_";
-      border-radius: 10px 10px 0 0;
+      border-radius: 5px 5px 0 0;
       --grow: 0 !important;
       z-index: 1;
       white-space: nowrap;
@@ -40,8 +43,8 @@
       position: absolute;
       left: ":${linepos.left}px";
       width: ":${linepos.width}px";
-      height: 0.1em;
-      background-color: "$color.h5.l5_.a9";
+      height: 4px;
+      background-color: "$color.h5";
       border-radius: 10px;
       z-index: 11;
     }
@@ -49,9 +52,11 @@
       flex: 1;
       background-color: "$color";
       position: relative;
-      z-index: 9;
+      z-index: 1;
       --grow: 2 !important;
       overflow: auto;
+      display: flex;
+      flex-direction: column;
     }
   </style>
   <!-- <div $>tabs</div>
@@ -77,17 +82,17 @@
         width: 0,
       };
       updateLinePos() {
-        requestAnimationFrame(() => {
-          var el = this.$id.tabs.querySelector("[checked]");
-          if (el) {
-            var r1 = this.$id.tabs.getBoundingClientRect();
-            var r2 = el.getBoundingClientRect();
-            this.linepos.left = el.offsetLeft;
-            this.linepos.width = el.offsetWidth;
-            // 滚动到此位置
-            el.scrollIntoView();
-          }
-        });
+        // requestAnimationFrame(() => {
+        //   var el = this.$id.tabs.querySelector("[checked]");
+        //   if (el) {
+        //     var r1 = this.$id.tabs.getBoundingClientRect();
+        //     var r2 = el.getBoundingClientRect();
+        //     this.linepos.left = el.offsetLeft;
+        //     this.linepos.width = el.offsetWidth;
+        //     // 滚动到此位置
+        //     el.scrollIntoView();
+        //   }
+        // });
       }
     };
   </script>

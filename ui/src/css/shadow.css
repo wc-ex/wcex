@@ -37,12 +37,13 @@
 }
 
 .grow {
-  --grow-color: "$$color.pri.ss(100).ll(65).a2_";
+  --grow-color: "$$color.pri";
   --grow-color1: rgba(255, 255, 255, 0.3);
   --grow: 2;
 
   /* x y blur spread */
-  box-shadow: 0 0 calc(2px * var(--grow) / 3) calc(-1px * var(--grow) / 2) var(--grow-color),
+  /*    0 0 calc(2px * var(--grow) / 3) calc(-1px * var(--grow) / 2) var(--grow-color), */
+  box-shadow:
     0 0 calc(3px * var(--grow) / 2) calc(1px * var(--grow) / 8) var(--grow-color),
     0 0 calc(2px * var(--grow)) calc(1px * var(--grow) / 3) var(--grow-color1);
 }
