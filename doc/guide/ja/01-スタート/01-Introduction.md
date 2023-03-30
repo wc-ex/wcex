@@ -35,13 +35,13 @@ WCEXのネイティブWebコンポーネントの完全な実装のおかげで�
   <style>
     :host {
       display: flex;
-ティッカー @@
+      flex-direction: column;
     }
     .title{
       padding: 0.5em;
       background-color: "$$color.bgr.a9_";
     }
-  </style>
+アグート @@
   <div class="title" $>url</div>
   <wcex-ui.marked 
     style="padding: 1em;" 

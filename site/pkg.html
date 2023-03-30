@@ -78,7 +78,7 @@
       return el;
     }
     // 强制https
-    // if (location.protocol == "http:") location.href = location.href.replace(/^http/, "https");
+    if (location.protocol == "http:") location.href = location.href.replace(/^http/, "https");
 
     _createEl(document.head, "meta", { name: "npm", content: cdnUrls[cdn] });
     //   // 指定加载软件包版本

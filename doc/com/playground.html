@@ -1,7 +1,6 @@
 <template files.array="[]" height.int="30" class="shadow">
   <meta name="scope" cur.int="1" />
-  <meta name="module" pkg="lodash.throttle" cjs />
-  <script scope="throttle" src="lodash.throttle" nocall></script>
+  <meta name="module" pkg="lodash.debounce" cjs />
 
   <style>
     :host {
@@ -37,17 +36,30 @@
     }
   </style>
   <div id="title">
-    <wcex-ui.icon style="margin: 0 0.3em;" icon="airplay" size="1"></wcex-ui.icon>
+    <wcex-ui.icon style="margin: 0 0.3em" icon="airplay" size="1"></wcex-ui.icon>
     <div>PLAYGROUND</div>
-    <div style="flex: 1"></div>
 
-    <div id="url" $>docPath(files[0])</div>
-    <wcex-ui.icon title="reload" icon="replay_circle_filled" $color="$color.sec" active size="1" @click="reloadDemo()"></wcex-ui.icon>
-    <wcex-ui.icon title="reset" icon="delete_forever" $color="$color.sec" active size="1" @click="resetCache()"></wcex-ui.icon>
+    <div id="url" style="flex: 1; text-align: center" $>files[0]</div>
+    <wcex-ui.icon
+      title="reload"
+      icon="replay_circle_filled"
+      $color="$color.sec"
+      active
+      size="1"
+      @click="loadDemo()"
+    ></wcex-ui.icon>
+    <wcex-ui.icon
+      title="reset"
+      icon="delete_forever"
+      $color="$color.sec"
+      active
+      size="1"
+      @click="resetCache()"
+    ></wcex-ui.icon>
   </div>
   <!-- 示例区域 -->
 
-  <iframe id="demo" $src="docPath(files[0])"></iframe>
+  <iframe id="demo"></iframe>
   <!-- 编辑器 -->
   <wcex-ui.tab $tabs="files" style="flex: 1" $$="cur" @change.1="$emit('update',$id['ed'+value])">
     <div slot="panel" style="height: 100%" class="column">
@@ -55,29 +67,38 @@
         style="height: 100%"
         :id="ed${index}"
         $for="files"
-        $file="docPath(value)"
+        $file="readyFlag?playgroundPath(value):''"
         $show="(cur==index)?'panel':''"
-        $fn="throttle((ev)=>onEdit(ev),1000,{leading:false,trailing:true})"
+        $fn="debounce((ev)=>onEdit(ev),1000,{leading:false,trailing:true})"
         @edit="fn($ev)"
       ></wcex-ui.monaco>
     </div>
   </wcex-ui.tab>
-  <script scope="throttle" src="lodash.throttle" nocall></script>
+  <script scope="debounce" src="lodash.debounce" nocall></script>
 
   <script scope=".">
     // 注意开发时iframe配置的同源问题,需要使用localhost访问
     return class {
-      onReady() {
-        this.$id.demo.setAttribute("origin", location.origin);
+      readyFlag=0;
+      async onReady() {
+        await this.loadDemo();
+        this.readyFlag = 1;
       }
       docPath(path) {
-        return decodeURI(this.$path(
-          "../guide/" +
-            this.$router.route.default.attrs.lang +
-            "/" +
-            this.$router.route.default.attrs.url.replace(/\/.*$/, "/") +
-            path
-        ));
+        return decodeURI(
+          this.$path(
+            "../guide/" +
+              this.$router.route.default.attrs.lang +
+              "/" +
+              this.$router.route.default.attrs.url.replace(/\/.*$/, "/") +
+              path
+          )
+        );
+      }
+      playgroundPath(path){
+        if(path){
+          return decodeURI(`${location.origin}/__playground/${this.$router.route.default.attrs.url}/${path}`)
+        }
       }
       async swPost(type, data) {
         (await navigator.serviceWorker.getRegistration("/")).active.postMessage({
@@ -86,12 +107,13 @@
         });
       }
       async updateDemo(file) {
-        if (file && file != this.files[0]) {
+        let mainFile = this.playgroundPath(this.files[0])
+        if (file && file != mainFile) {
           //获取主index.html路径
-          let p = this.docPath(this.files[0]).replace(/^(.*\/).*?$/,'$1');
-          let f = file.replace(p,'');
+          let p = mainFile.replace(/^(.*\/).*?$/, "$1");
+          let f = file.replace(p, "");
           // 热更新
-          this.$id.demo.contentWindow.dispatchEvent( new CustomEvent("wc-hotload",{detail:{path:f}} ));
+          this.$id.demo.contentWindow.dispatchEvent(new CustomEvent("wc-hotload", { detail: { path: f } }));
         } else {
           // 重新load
           this.$id.demo.contentWindow.location.reload();
@@ -101,23 +123,47 @@
         if (ev) {
           // 向sw发送消息,更新缓存
           await this.swPost("hotCacheSet", {
-            file: ev.detail.file,
+            file:ev.detail.file,
             text: ev.detail.text,
           });
           await this.updateDemo(ev.detail.file);
         }
       }
-      reloadDemo(){
-        this.$id.demo.contentWindow.location.reload();
+      async loadDemo() {
+        // 加载数据
+        let loadFiles = await Promise.all(
+          this.files.map((f) => {
+            return fetch(this.docPath(f))
+              .then((r) => {
+                return r.text();
+              })
+              .then((v) => {
+                return {
+                  url: this.playgroundPath(f),
+                  text: v,
+                };
+              });
+          })
+        );
 
+        // 更新缓存
+        for (let f of loadFiles) {
+          await this.swPost("hotCacheSet", {
+            file: f.url,
+            text: f.text,
+          });
+        }
+
+        this.$id.demo.src = loadFiles[0].url;
       }
       async resetCache() {
         await this.swPost("hotCacheClean", {});
+
+        await this.loadDemo();
         // 通知编辑器重新加载
         for (let i = 0; i < this.files.length; i++) {
           this.$emit("reload", this.$id["ed" + i]);
         }
-        await this.updateDemo();
       }
     };
   </script>

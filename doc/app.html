@@ -1,6 +1,6 @@
 <template>
   <!-- <meta name="module" pkg="@wcex/ui" url="http://localhost:8102" /> -->
-  <meta name="module" pkg="@wcex/ui" version="1.0.45" />
+  <meta name="module" pkg="@wcex/ui" version="1.0.47" />
   <meta name="scope" drawer.bool="true" cur-page.object="{}" />
   <!-- 需要手动引入 -->
   <link rel="stylesheet" href="@/@wcex/ui/ui.css" />
@@ -28,7 +28,7 @@
       }
       initSw() {
         navigator.serviceWorker
-          .register(this.$path("./sw.js", { scope: "/", updateViaCache: "all" }))
+          .register('/sw.js', { scope: location.origin+'/', updateViaCache: "all" })
           .then(function (registration) {
             registration.addEventListener("updatefound", function () {
               console.log("New version found!");
@@ -44,6 +44,8 @@
                 }
               });
             });
+
+            // navigator.serviceWorker.register(this.$path("./sw.js", { scope: WCEX.npmUrl, updateViaCache: "all" }));
           });
       }
       onReady() {}

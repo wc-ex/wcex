@@ -21,7 +21,7 @@
     <style>
       html,
       body {
-アグスト @@
+        width: 100%;
         height: 100%;
         overflow: hidden;
         margin: 0;
@@ -35,7 +35,7 @@
   <body>
     <app-></app->
   </body>
-ティッカー @@
+</html>
 ```
 
 通常のHTMLと比較して、必要なのは3つの簡単なステップだけです。
