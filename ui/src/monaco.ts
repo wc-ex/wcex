@@ -9,7 +9,7 @@ export default class extends Scope {
         if (this.file) {
             let m = this.file.match(/^.*\.(\w+)$/); // 获取扩展名
             if (m && m.length == 2) {
-                let lang = { js: 'javascript' ,html:'html',css:'css',svg:'svg',ts:'typescript'}[m[1]];
+                let lang = { js: 'javascript' ,html:'html',css:'css',svg:'svg',ts:'typescript',json:'json'}[m[1]];
                 if (lang) {
                     // 设置编辑器
                     let html = await (await fetch(this.$path('./monaco_frame.html'))).text();
