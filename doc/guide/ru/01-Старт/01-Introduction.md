@@ -34,7 +34,7 @@ WCEX - это библиотека расширений, которая быст
 <template url="">
   <style>
     :host {
-КОПИРОВАТЬ @@
+      display: flex;
       flex-direction: column;
     }
     .title{

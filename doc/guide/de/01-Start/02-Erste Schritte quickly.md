@@ -143,6 +143,7 @@ https://wc-ex.com/go?gh/[YOU REPOS]@[COMMIT ID]/[YOU DIR]/index.html
   - Die verwendete Hauptsyntax: _"$$"_ ist eine bidirektionale Bindung, _"$"_ ist eine Compute-Bindung, _":"_ ist eine Vorlagen-String-Bindung, _'@'_ ist eine Ereignisbindung
   - Die Syntax in CSS wurde leicht geändert, die Variablenbindung muss von _"_ oder _'_ umgeben sein, und das erste Zeichen _$_ oder _:_ stellt die Bindungsmethode dar, die mit den obigen Regeln übereinstimmt
 - Wenn Sie _com/time.html_ ändern, können Sie sehen, dass die Aktualisierung des Komponentencodes lokal ist und sich nicht auf den aktuellen Status der _app.html_-Komponente auswirkt, der mit dem Implementierungsmechanismus unseres Client-Tools _@wcex/cli_ identisch ist, das wir **local hot update** nennen, was sehr nützlich sein wird, wenn wir debuggen und entwickeln.
+- Öffnen Sie schließlich Ihr Debugging-Fenster und beobachten Sie die Dokumentstruktur, Sie werden die Konsistenz der DOM-Struktur und der Vorlagenquelldateien finden, was ein weiteres Merkmal von _WCEX_ ist: * Intuitiv *
 
 
 ### Nächste Erweiterung

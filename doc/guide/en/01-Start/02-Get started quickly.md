@@ -143,6 +143,7 @@ https://wc-ex.com/go?gh/[YOU REPOS]@[COMMIT ID]/[YOU DIR]/index.html
   - The main syntax used: _"$$"_ is a two-way binding, _"$"_ is a compute binding, _":"_ is a template string binding, _'@'_ is an event binding
   - The syntax in CSS is slightly changed, variable binding needs to be surrounded by _"_ or _'_, and the first character _$_ or _:_ represents the binding method, which is consistent with the above rules
 - When changing _com/time.html_, you can see that the update of the component code is local and does not affect the current state in the _app.html_ component, which is the same as the implementation mechanism of our client tool _@wcex/cli_, which we call **local hot update**, which will be very useful when we debug and develop.
+- Finally, open your debugging window and observe the document structure, you will find the consistency of the DOM structure and template source files, which is another feature of _WCEX_: *Intuitive*
 
 
 ### Next extension

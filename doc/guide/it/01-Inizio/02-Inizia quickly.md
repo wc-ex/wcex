@@ -143,6 +143,7 @@ https://wc-ex.com/go?gh/[YOU REPOS]@[COMMIT ID]/[YOU DIR]/index.html
   - La sintassi principale utilizzata: _"$$"_ è un'associazione bidirezionale, _"$"_ è un'associazione di calcolo, _":"_ è un'associazione di stringhe di template, _'@'_ è un'associazione di eventi
   - La sintassi nei CSS è leggermente cambiata, l'associazione variabile deve essere circondata da _"_ o _'_, e il primo carattere _$_ o _:_ rappresenta il metodo di associazione, che è coerente con le regole di cui sopra
 - Quando si modifica _com/time.html_, è possibile vedere che l'aggiornamento del codice del componente è locale e non influisce sullo stato corrente nel componente _app.html_, che è lo stesso del meccanismo di implementazione del nostro strumento client _@wcex/cli_, che chiamiamo **aggiornamento locale a caldo**, che sarà molto utile durante il debug e lo sviluppo.
+- Infine, apri la finestra di debug e osserva la struttura del documento, troverai la coerenza della struttura DOM e dei file sorgente del modello, che è un'altra caratteristica di _WCEX_: * Intuitivo *
 
 
 ### Prossima estensione

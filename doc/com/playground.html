@@ -1,4 +1,4 @@
-<template files.array="[]" height.int="30" class="shadow">
+<template files.array="[]" size.int="14" class="shadow" ed-size.int="20">
   <meta name="scope" cur.int="1" />
   <meta name="module" pkg="lodash.debounce" cjs />
 
@@ -6,7 +6,7 @@
     :host {
       display: flex;
       flex-direction: column;
-      height: ":${height}em";
+      height: ":${size+edSize}em";
       border-radius: 5px;
       overflow: hidden;
       background-color: "$$color.bg.l5_";
@@ -14,6 +14,7 @@
     #demo {
       display: block;
       overflow: hidden;
+      height: ":${size}em";
       border: none;
       padding: 0;
       margin: 0;
@@ -62,7 +63,7 @@
   <iframe id="demo"></iframe>
   <!-- 编辑器 -->
   <wcex-ui.tab $tabs="files" style="flex: 1" $$="cur" @change.1="$emit('update',$id['ed'+value])">
-    <div slot="panel" style="height: 100%" class="column">
+    <div slot="panel" style="height: 100%" class="column" >
       <wcex-ui.monaco
         style="height: 100%"
         :id="ed${index}"
@@ -130,7 +131,9 @@
             file: ev.detail.file,
             text: ev.detail.text,
           });
-          await this.updateDemo(ev.detail.file);
+          setTimeout(()=>{
+            this.updateDemo(ev.detail.file);
+          },200)
         }
       }
       async loadDemo() {

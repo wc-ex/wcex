@@ -2,8 +2,8 @@ define(() => {
   return {
     loadFont(scope) {
       var font = {
-        cn: { css: "@/cn-fontsource-smiley-sans-oblique-regular/font.css", family: "Smiley Sans Oblique" },
-        en: { css: "@/@fontsource/concert-one/index.css", family: "Concert One" },
+        cn: { css: "@/cn-fontsource-lxgw-wen-kai-screen/font.css", family: "LXGW WenKai Screen" },
+        en: { css: "@/@fontsource/abel/index.css", family: "Abel" },
       };
 
       if (localStorage.__FONT) {

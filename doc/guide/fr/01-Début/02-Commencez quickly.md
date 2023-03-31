@@ -143,6 +143,7 @@ https://wc-ex.com/go?gh/[YOU REPOS]@[COMMIT ID]/[YOU DIR]/index.html
   - La syntaxe principale utilisée : _"$$"_ est une liaison bidirectionnelle, _"$"_ est une liaison de calcul, _ »:"_ est une liaison de chaîne de modèle, _'@'_ est une liaison d’événement
   - La syntaxe en CSS est légèrement modifiée, la liaison de variable doit être entourée de _"_ ou _'_, et le premier caractère _$_ ou _:_ représente la méthode de liaison, ce qui est cohérent avec les règles ci-dessus
 - Lorsque vous changez _com/time.html_, vous pouvez voir que la mise à jour du code du composant est locale et n’affecte pas l’état actuel du composant _app.html_, qui est le même que le mécanisme d’implémentation de notre outil client _@wcex/cli_, que nous appelons **local hot update**, ce qui sera très utile lors du débogage et du développement.
+- Enfin, ouvrez votre fenêtre de débogage et observez la structure du document, vous trouverez la cohérence de la structure DOM et des fichiers sources du modèle, ce qui est une autre fonctionnalité de _WCEX_: *Intuitif*
 
 
 ### Prochaine extension
