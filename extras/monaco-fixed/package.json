@@ -1,0 +1,13 @@
+{
+  "name": "@wcex/monaco-fixed",
+  "version": "0.36.2",
+  "description": "fixed in webcomponent ,cursor position, the newer version monaco-editor already fixed,wait release",
+  "info":"modify shadowCaretRangeFromPoint(), /vs/editor/browser/controller/mouseTarget.ts, change: font() to join props",
+  "main": "index.js",
+  "scripts": {
+    "pub": "npm --registry \"https://registry.npmjs.org/\" publish --access public"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
