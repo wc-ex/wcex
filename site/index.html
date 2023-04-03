@@ -2,7 +2,8 @@
 <html lang="en">
   <head>
     <title>WCEX</title>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
     <meta name="viewport" content="initial-scale=1.0,width=device-width" />
     <meta name="npm" content="https://cdn.jsdelivr.net/npm/" />
     <!-- <meta name="npm" content="https:///unpkg.com/" /> -->
@@ -86,11 +87,16 @@
         background-color: rgba(40, 248, 160, 0.2);
       }
     </style>
+    <script>
+      if (window.location.protocol !== "https:") {
+        window.location.href = "https:" + window.location.href.substring(window.location.protocol.length);
+      }
+    </script>
   </head>
 
   <body>
     <a class="github" href="https://github.com/wc-ex/wcex">
-      <img src="./github-mark.svg" />
+      <img src="/github-mark.svg" />
     </a>
     <div class="title">
       <h1>Welcome To WCEX</h1>
@@ -136,11 +142,11 @@
     <div class="cdn">
       <h5>Please choose CDN:</h5>
       <form id="cdn">
-        <input type="radio" name="cdn" id="jsdelivr" checked/>
+        <input type="radio" name="cdn" id="jsdelivr" checked />
         <label>jsdelivr</label>
         <input type="radio" name="cdn" id="unpkg" />
         <label>unpkg</label>
-        <input type="radio" name="cdn" id="elemecdn"  />
+        <input type="radio" name="cdn" id="elemecdn" />
         <label>elemecdn</label>
       </form>
     </div>

@@ -2,9 +2,8 @@
 <template
   $tabs="3"
   $color="$color.pri"
-  $bgcolor="$color.bg"
+  $bgcolor="$color.bg.l2_"
   $value="(tabs instanceof Array)?0:(typeof tabs == 'object')?Object.keys(tabs)[0]:0"
-  @scroll.stop=""
 >
   <meta name="scope" />
   <style>
@@ -24,11 +23,12 @@
       flex-shrink: 0;
       z-index: 9;
       color: "$$color.textr";
-      overflow: hidden;
+      overflow-x: auto;
+      overflow-y: hidden;
     }
     .tab {
       padding: 0.2em 0.6em;
-      background-color: "$$color.bgr.a5_";
+      background-color: "$color.l3";
       border-radius: 5px 5px 0 0;
       --grow: 0 !important;
       z-index: 1;
@@ -36,7 +36,7 @@
     }
     .tab[checked] {
       padding: 0.3em 0.6em;
-      background-color: "$color.l3";
+      background-color: "$color.l1";
       --grow: 2 !important;
       z-index: 10;
     }
@@ -53,17 +53,17 @@
       flex: 1;
       background-color: "$bgcolor";
       position: relative;
-      z-index: 1;
+      z-index: 12;
       --grow: 2 !important;
       overflow: auto;
-      display: flex;
-      flex-direction: column;
+      display: block;
     }
+
   </style>
   <!-- <div $>tabs</div>
     <div :>${value}, ${typeof value}</div> -->
 
-  <div id="tabs">
+  <div id="tabs" >
     <div class="tab trans grow" $for="tabs" $:index.click="$root.value" @click.1="updateLinePos(true)">
       <slot :name="tab-${index}">
         <div1 $>(tabs instanceof Array)?value:index</div1>
@@ -72,7 +72,7 @@
     <div class="line trans"></div>
   </div>
   <div class="panels grow" $value="(typeof $root.tabs == 'object')? $root.tabs[$root.value]:$root.value" $index="$root.value">
-    <slot :name="panel">
+    <slot name="panel">
       <div :>${index} - ${value}</div>
     </slot>
   </div>
@@ -95,7 +95,7 @@
             this.linepos.left = el.offsetLeft;
             this.linepos.width = el.offsetWidth;
             // 滚动到此位置
-            if (doScroll) el.scrollIntoView({ block: "nearest", inline: "center", behavior: "smooth" });
+            if (doScroll) el.scrollIntoView({ block: "nearest", inline: "nearest", behavior: "smooth" });
           }
         });
       }

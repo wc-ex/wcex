@@ -38,6 +38,7 @@
         minimap: { enabled: false },
         theme: "$colorMode()",
       });
+      window.__EDITOR = editor;
 
       editor.onDidChangeModelContent(function (event) {
         // 执行相关操作

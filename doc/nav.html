@@ -17,15 +17,17 @@
   <!-- 文档版本 -->
   <h6 style="margin: 0.5em; text-align: center;" :>${pkg.version}</h6>
   <!-- 一级主菜单 -->
-  <wcex-ui.panel $textonly="min" closeable $for(vnav,knav)="navData" $open="Object.keys(vnav.items).length>0" psel="">
+  <wcex-ui.panel $textonly="min" closeable $for(vnav,knav)="navData"  $open="1" >
     <wcex-ui.icon
       slot="icon"
       $color="open?$color.pria.l6_:$color.textr.l8"
       size="1.5"
-      $icon="vnav.icon.name"
+      $pkg="vnav.dirInfo.icon.pkg"
+      $type="vnav.dirInfo.icon.type"
+      $icon="vnav.dirInfo.icon.name"
     ></wcex-ui.icon>
 
-    <span slot="title" :style="color:${open?$color.textr:$color.textr.l2} ;" $>vnav.name.replace(/^.*-/,'')</span>
+    <span slot="title" :style="color:${open?$color.textr:$color.textr.l2} ;" $>vnav.name</span>
     <!-- 内容区 -->
     <wcex-ui.list
       style="padding: 0.5em 0"
@@ -40,20 +42,24 @@
     >
       <div
         $for="vnav.items"
+        $sort="{id:1}"
         $slot="index"
-        :style="padding:0.3em 0 0.3em ${min?0.2:2}em; display:flex;user-select: none;"
+        :style="padding:0.3em 0 0.3em ${min?0.2:2}em; display:flex;user-select: none;position: relative;"
       >
         <wcex-ui.icon
           $if="!min"
-          $icon="value.icon"
+          $icon="value.icon&&value.icon.name"
+          $pkg="value.icon && value.icon.pkg"
+          $type="value.icon && value.icon.type"
           size="1"
           style="padding-right: 0.3em"
           $checked="value==$root.value"
           $color="checked?flagColor:$parent.color"
         ></wcex-ui.icon>
-        <div style="padding-left: 0.2em" $>
-          min?value.name.replace(/\.md$/,'').replace(/^\d+-/,''):value.name.replace(/\.md$/,'')
+        <div style="padding-left: 0.2em;position: relative;" $>value.name
+          <wcex-ui.badge style="scale: 0.7;" pos="l" x="-4" y="-2">NEW 24H</wcex-ui.badge>
         </div>
+
       </div>
     </wcex-ui.list>
   </wcex-ui.panel>
@@ -62,9 +68,10 @@
   <script scope="pkg" src="./package.json"></script>
   <script scope=".">
     return class {
-      navData = {};
+      navData = [];
       async onCreate() {
-        this.navData = await (await fetch(this.$path(`./guide/${this.lang}/nav.json`))).json();
+        this.navData = (await (await fetch(this.$path(`./guide/${this.lang}/nav.json`))).json())
+        this.navData.sort((a,b)=>a.dirInfo.id-b.dirInfo.id)
         let r = this.$router.route && this.$router.route.default;
         let mathedItem = this.navData[0].items[0]
         if(r && r.attrs && r.attrs.url ){

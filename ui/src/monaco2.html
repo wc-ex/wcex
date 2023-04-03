@@ -1,0 +1,54 @@
+<!-- 由于monaco实现了自己的AmdLoader，和WCLoader冲突，因此通过IFrame处理 
+  iframe内部维护多个编辑器实例, 通过参数和消息切换实例
+  全局维护唯一的iframe元素, 当切换文件或者焦点状态时，自动移动到当前位置
+-->
+<template files.array="[]" cur.int="0">
+  <meta name="module" pkg="esbuild-wasm" content="lib/browser.min.js" cjs />
+  <meta name="no-import-global-css" />
+  <link rel="stylesheet" href="@/monaco-editor/min/vs/editor/editor.main.css" />
+
+  <style>
+    :host {
+      display: flex;
+      flex-direction: column;
+    }
+    #editor {
+      flex: 1;
+      display: block;
+      margin: 0;
+      padding: 0;
+      overflow: auto;
+      background-color: red;
+      z-index: 9;
+    }
+  </style>
+  <div $>files[cur]</div>
+  <div id="editor"></div>
+  <script src="@/monaco-editor/min/vs/loader.js" amdloader="monaco-editor"></script>
+  <script scope=".">
+    var monacoPromise = new Promise((res) => {
+      WCEX.amdloader["monaco-editor"].then((loader) => {
+        loader.require.config({ paths: { vs: WCEX.npmUrl + "monaco-editor/min/vs" } });
+        loader.require(["vs/editor/editor.main"], function () {
+          console.warn("-----> MONACO", window.monaco);
+          res(window.monaco);
+        });
+      });
+    });
+
+    // 缓存编辑器frames
+    return class {
+      async onReady() {
+        let monaco = await monacoPromise;
+
+        let editor = monaco.editor.create(this.$id.editor, {
+          value: "var aaa = 999;",
+          language: "javascript",
+          minimap: { enabled: false },
+          theme: "vs",
+        });
+        console.warn("-----> MONACO EDITOR", editor);
+      }
+    };
+  </script>
+</template>

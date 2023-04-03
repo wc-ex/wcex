@@ -3,6 +3,7 @@ import path from "path";
 import axios from "axios";
 import os from "os";
 import { LANG_NAMES_T } from "./lang";
+import json5 from 'json5';
 
 // return {name,isDir}[]
 const { v4: uuidv4 } = require('uuid');
@@ -96,6 +97,9 @@ async function lsDirDeep(rootPath: string) {
   await _dir(".");
   return allItem;
 }
+interface IDirInfo {
+    baseName: string, icon: {};
+}
 
 interface IDocInfo {
   typ: "dir" | "file";
@@ -103,7 +107,7 @@ interface IDocInfo {
   path: string;
   items: IDocInfo[];
   updateAt: number;
-  icon?: string;
+  dirInfo?: IDirInfo;
 }
 async function buildDoc(docPath: string) {
   let navDirs = [] as IDocInfo[];
@@ -114,19 +118,21 @@ async function buildDoc(docPath: string) {
     if (en.isDir) {
       // 处理目录
       try {
-        let icon = JSON.parse(await fsp.readFile(path.join(docDir, en.pathname, "icon.json"), "utf8"));
-
+        let dirInfoFile = path.join(docDir, en.pathname, "__dir.json5")
+        let dirInfo: IDirInfo = json5.parse(await fsp.readFile(dirInfoFile, "utf8"));
+        dirInfo.baseName = en.pathname;
+        await fsp.writeFile(dirInfoFile,json5.stringify(dirInfo,null,2),'utf8')
         curDir = {
           typ: "dir",
           name: path.parse(en.pathname).base,
           path: en.pathname.replace(/\\/g, "/"),
           items: [],
           updateAt: 0,
-          icon,
+          dirInfo,
         };
         navDirs.push(curDir);
-      } catch (e:any) {
-        console.log("skip dir:",en);
+      } catch (e: any) {
+        console.log("skip dir:", en, e.message);
       }
 
 
@@ -142,7 +148,7 @@ async function buildDoc(docPath: string) {
         let desc = {};
         if (m && m.length == 2) {
           try {
-            desc = JSON.parse(m[1]);
+            desc = json5.parse(m[1]);
           } catch (e) {
             console.log('error get desc:', en.pathname);
           }
@@ -150,7 +156,7 @@ async function buildDoc(docPath: string) {
 
         curDir?.items.push({
           typ: "file",
-          name: path.parse(en.pathname).base,
+          name: path.parse(en.pathname).name,
           path: en.pathname.replace(/\\/g, "/"),
           updateAt: st.mtimeMs,
           items: [],
@@ -184,30 +190,30 @@ async function transDoc(toLang: LANG_NAMES_T[]) {
 
 
     for (let langId in toLang) {
-    // 复制目录的其他文件
-    let tDir = transDirs[dirId].translations[langId].text;
+      // 复制目录的其他文件
+      let tDir = transDirs[dirId].translations[langId].text;
       tDir = tDir.replace(/\s*-\s*/, "-");
       let transMdDir = path.join(DOC_ROOT, toLang[langId], tDir);
       await fsp.mkdir(transMdDir, { recursive: true });
       for (let f of allFiles.filter((v) => !v.name.endsWith(".md"))) {
-        let fullSrc = path.join(dirBase, f.name)
-          await fsp.copyFile(fullSrc, path.join(transMdDir, f.name));
+        let fullSrc = path.join(dirBase, f.name);
+        await fsp.copyFile(fullSrc, path.join(transMdDir, f.name));
       }
 
       // 复制子目录的所有文件
-      for (let dd of allDirs){
-        let fullSrc = path.join(dirBase,dd.name);
-          console.log("COPY DIR:",fullSrc)
-          // 拷贝目录
-          for(let ff of await lsDirDeep(fullSrc)){
-            if(!ff.isDir){
-              let toFile = path.join(transMdDir, dd.name,ff.pathname);
-              let p = path.parse(toFile);
-              await fsp.mkdir(  p.dir,{recursive:true})
-              await fsp.copyFile(path.join(fullSrc,ff.pathname), toFile);
-            }
+      for (let dd of allDirs) {
+        let fullSrc = path.join(dirBase, dd.name);
+        console.log("COPY DIR:", fullSrc);
+        // 拷贝目录
+        for (let ff of await lsDirDeep(fullSrc)) {
+          if (!ff.isDir) {
+            let toFile = path.join(transMdDir, dd.name, ff.pathname);
+            let p = path.parse(toFile);
+            await fsp.mkdir(p.dir, { recursive: true });
+            await fsp.copyFile(path.join(fullSrc, ff.pathname), toFile);
           }
-  
+        }
+
       }
     }
 
@@ -222,8 +228,6 @@ async function transDoc(toLang: LANG_NAMES_T[]) {
       // 翻译md内容,整理格式
       str = str.replace(/\r\n/g, '\n');
       // 查找代码块，替换为不翻译标志
-
-
       let lines = str.split('\n');
       let codeFlag = false;
       let sendLines = [];
@@ -242,7 +246,12 @@ async function transDoc(toLang: LANG_NAMES_T[]) {
         } else if (codeFlag) {
           // 代码块
           sendLines.push(`@@${k}@@`);
-        } else {
+        } else if (l.startsWith('<!--')) {
+          // 注释块
+          sendLines.push(`@@${k}@@`);
+        }
+
+        else {
           // 普通行
           sendLines.push(l);
         }
@@ -305,29 +314,29 @@ async function transDoc(toLang: LANG_NAMES_T[]) {
 }
 
 (async () => {
-  // let text = await fsp.readFile("../../doc/guide/cn/01-开始/01-简介.md", "utf8");
-  // let LANGS1: LANG_NAMES_T[] = ["en"];
-  // let LANGS2: LANG_NAMES_T[] = ["ja" ];
-  let LANGS1: LANG_NAMES_T[] = ["en", "ja", "zh-Hant", "lzh", "yue"];
-  let LANGS2: LANG_NAMES_T[] = ["ko", "fr", "it", "de", "ru"];
-  for (let l of LANGS1) {
-    try {
-      await fsp.rm(path.join(DOC_ROOT, l), { recursive: true });
-    } catch (e) { }
-  }
-  for (let l of LANGS2) {
-    try {
-      await fsp.rm(path.join(DOC_ROOT, l), { recursive: true });
-    } catch (e) { }
-  }
-  await transDoc(LANGS1);
-  await transDoc(LANGS2);
   // 生成索引
   await buildDoc(path.join(DOC_ROOT, "cn"));
-  for (let l of LANGS1) {
-    await buildDoc(path.join(DOC_ROOT, l));
+  if (process.argv[3] == 'lang') {
+    let LANGS1: LANG_NAMES_T[] = ["en", "ja", "zh-Hant", "lzh", "yue"];
+    let LANGS2: LANG_NAMES_T[] = ["ko", "fr", "it", "de", "ru"];
+    for (let l of LANGS1) {
+      try {
+        await fsp.rm(path.join(DOC_ROOT, l), { recursive: true });
+      } catch (e) { }
+    }
+    for (let l of LANGS2) {
+      try {
+        await fsp.rm(path.join(DOC_ROOT, l), { recursive: true });
+      } catch (e) { }
+    }
+    await transDoc(LANGS1);
+    await transDoc(LANGS2);
+    for (let l of LANGS1) {
+      await buildDoc(path.join(DOC_ROOT, l));
+    }
+    for (let l of LANGS2) {
+      await buildDoc(path.join(DOC_ROOT, l));
+    }
   }
-  for (let l of LANGS2) {
-    await buildDoc(path.join(DOC_ROOT, l));
-  }
+
 })();

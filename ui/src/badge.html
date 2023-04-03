@@ -1,0 +1,33 @@
+<!-- 
+    为父元素添加角标
+ -->
+<template $color="$color.error.a3_" pos="tr" x="0" y="0" flat.bool="1" >
+    <style>
+        :host{
+            display: block;
+            white-space: nowrap;
+            position: absolute;
+            overflow: hidden;
+            background-color: "$flat?'rgba(255,255,255,.3)':color";
+            outline: 2px solid "$color.a2_";
+            border-radius: 3em 1em 2em  0.3em ;
+            color:"$flat?$color.text:$color.textr";
+            font-size: 0.6em;
+            font-weight: 600;
+            padding: 2px 1em;
+            transition: all 1s;
+            pointer-events: none;
+            left: "$has('l')?0:has('r')?'100%':'50%'";
+            top:"$has('t')?0:has('b')?'100%':'50%'";
+            transform: translate(calc(-50% + "$x+'em'"),calc(-50% + "$y+'em'"));
+        }
+    </style>
+    <slot></slot>
+    <script scope=".">
+        return class{
+            has(ch){
+                return this.pos.indexOf(ch)>=0;
+            }
+        }
+    </script>
+</template>

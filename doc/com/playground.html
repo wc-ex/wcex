@@ -10,6 +10,7 @@
       border-radius: 5px;
       overflow: hidden;
       background-color: "$$color.bg.l5_";
+      overflow: hidden;
     }
     #demo {
       display: block;
@@ -63,17 +64,13 @@
   <iframe id="demo"></iframe>
   <!-- 编辑器 -->
   <wcex-ui.tab $tabs="files" style="flex: 1" $$="cur" @change.1="$emit('update',$id['ed'+value])">
-    <div slot="panel" style="height: 100%" class="column" >
-      <wcex-ui.monaco
-        style="height: 100%"
-        :id="ed${index}"
-        $for="files"
-        $file="readyFlag?playgroundPath(value):''"
-        $show="(cur==index)?'panel':''"
+      <wcex-ui.monaco2 slot="panel"
+      style="width:100%;height: 100%;"
+        $files="$root.files"
+        $cur="$root.cur"
         $fn="debounce((ev)=>onEdit(ev),1000,{leading:false,trailing:true})"
         @edit="fn($ev)"
-      ></wcex-ui.monaco>
-    </div>
+      ></wcex-ui.monaco2>
   </wcex-ui.tab>
   <script scope="debounce" src="lodash.debounce" nocall></script>
 
@@ -161,8 +158,7 @@
             text: f.text,
           });
         }
-
-        this.$id.demo.src = loadFiles[0].url;
+        if(loadFiles.length>0)        this.$id.demo.src = loadFiles[0].url;
       }
       async resetCache() {
         await this.swPost("hotCacheClean", {});
