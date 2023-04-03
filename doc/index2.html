@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <title>WCEX Doocument</title>
+    <meta name="viewport" content="initial-scale=1.0,width=device-width" />
+    <meta charset="utf-8" />
+    <meta name="npm" content="https://cdn.jsdelivr.net/npm/" />
+    <link rel="stylesheet" type="text/css" data-name="vs/editor/editor.main" href="http://localhost:8101/node_modules/monaco-editor/dev/vs/editor/editor.main.css">
+
+    <!-- <script src="https://cdn.jsdelivr.net/npm/wcex@1.9.16/index.js"></script> -->
+    <!-- <script src="http://localhost:9999/index.js"></script> -->
+
+    <style>
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
+        font-size: 18px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div>ED</div>
+    <div id="ed"  style="width: 1200px; height: 600px"></div>
+  </body>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/monaco-editor/min/vs/loader.js"></script> -->
+  <script src="http://localhost:8101/node_modules/monaco-editor/dev/vs/loader.js"></script>
+
+  <script>
+    require.config({ paths: { vs: "http://localhost:8101/node_modules/monaco-editor/dev/vs" } });
+    // require.config({ paths: { vs: "https://cdn.jsdelivr.net/npm/monaco-editor/min/vs" } });
+    require(["vs/editor/editor.main"], async function () {
+      monaco.editor.onDidCreateEditor((ed) => {
+        ed.layout();
+      });
+      let text = await (await fetch("/nav.html")).text();
+
+      let editor = monaco.editor.create(document.getElementById("ed"), {
+        value: text,
+        language: "html",
+        minimap: { enabled: false },
+        theme: "vs",
+      });
+
+    });
+
+
+  </script>
+
+</html>

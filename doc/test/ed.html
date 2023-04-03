@@ -1,0 +1,50 @@
+<template>
+  <link
+    rel="stylesheet"
+    type="text/css"
+    data-name="vs/editor/editor.main"
+    href="http://localhost:8101/node_modules/monaco-editor/dev/vs/editor/editor.main.css"
+    global="link"
+  />
+
+  <div>ED</div>
+
+  <div id="ed" style="width: 1200px; height: 600px"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@wcex/monaco-fixed/min/vs/loader.js" amdloader="@wcex/monaco-fixed@0.36.2"></script>
+
+  <script scope=".">
+    return class {
+      async onReady() {
+        setTimeout(()=>{
+            this.init()
+        },1000)
+      }
+      async init() {
+        let loader = await WCEX.amdloader["@wcex/monaco-fixed@0.36.2"];
+        // loader.require.config({ paths: { vs: "https://cdn.jsdelivr.net/npm/monaco-editor/min/vs" } });
+        loader.require.config({ paths: { vs: "https://cdn.jsdelivr.net/npm/@wcex/monaco-fixed@0.36.2/min/vs" } });
+        let self = this;
+        loader.require(["vs/editor/editor.main"], async function () {
+          monaco.editor.onDidCreateEditor((ed) => {
+            ed.layout();
+          });
+
+          let text = await (await fetch("/nav.html")).text();
+
+          let editor = monaco.editor.create(self.$id.ed, {
+            //   let editor = monaco.editor.create(document.getElementById('ed'), {
+            ariaContainerElement: self.$id.ed,
+            overflowWidgetsDomNode: self.$id.ed,
+            value: text,
+            language: "html",
+            minimap: { enabled: false },
+            theme: "vs",
+          });
+          window.__EDITOR = editor;
+        });
+        console.log("---->>>> LOADER OK 2 ");
+      }
+    };
+  </script>
+</template>
