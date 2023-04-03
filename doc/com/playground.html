@@ -63,14 +63,16 @@
 
   <iframe id="demo"></iframe>
   <!-- 编辑器 -->
-  <wcex-ui.tab $tabs="files" style="flex: 1" $$="cur" @change.1="$emit('update',$id['ed'+value])">
-      <wcex-ui.monaco2 slot="panel"
-      style="width:100%;height: 100%;"
-        $files="$root.files"
-        $cur="$root.cur"
-        $fn="debounce((ev)=>onEdit(ev),1000,{leading:false,trailing:true})"
-        @edit="fn($ev)"
-      ></wcex-ui.monaco2>
+  <wcex-ui.tab $tabs="files" style="flex: 1" $$="cur" @change.1="$emit('layout',$id['ed'+value]);">
+    <wcex-ui.monaco2
+      slot="panel"
+      :id="ed${index}"
+      style="width: 100%; height: 100%"
+      $file="docPath(value)"
+      @edit="onEdit($ev)"
+      $for="files"
+      $show="$root.cur==index"
+    ></wcex-ui.monaco2>
   </wcex-ui.tab>
   <script scope="debounce" src="lodash.debounce" nocall></script>
 
@@ -89,18 +91,13 @@
           console.log("size--Changed");
           // 通知编辑器重新布局
           for (let i = 0; i < this.files.length; i++) {
-            this.$emit("update", this.$id["ed" + i]);
+            this.$emit("layout", this.$id["ed" + i]);
           }
         });
       }
 
       docPath(path) {
         return decodeURI(this.$path("../guide/" + this.lang + "/" + this.baseUrl.replace(/\/.*$/, "/") + path));
-      }
-      playgroundPath(path) {
-        if (path && this.baseUrl) {
-          return decodeURI(`${location.origin}/__playground/${this.baseUrl}/${path}`);
-        }
       }
       async swPost(type, data) {
         (await navigator.serviceWorker.getRegistration("/")).active.postMessage({
@@ -109,7 +106,7 @@
         });
       }
       async updateDemo(file) {
-        let mainFile = this.playgroundPath(this.files[0]);
+        let mainFile = this.docPath(this.files[0]);
         if (file && file != mainFile) {
           //获取主index.html路径
           let p = mainFile.replace(/^(.*\/).*?$/, "$1");
@@ -128,9 +125,9 @@
             file: ev.detail.file,
             text: ev.detail.text,
           });
-          setTimeout(()=>{
+          setTimeout(() => {
             this.updateDemo(ev.detail.file);
-          },200)
+          }, 200);
         }
       }
       async loadDemo() {
@@ -144,7 +141,7 @@
               })
               .then((v) => {
                 return {
-                  url: this.playgroundPath(f),
+                  url: this.docPath(f),
                   text: v,
                 };
               });
@@ -158,7 +155,7 @@
             text: f.text,
           });
         }
-        if(loadFiles.length>0)        this.$id.demo.src = loadFiles[0].url;
+        if (loadFiles.length > 0) this.$id.demo.src = loadFiles[0].url;
       }
       async resetCache() {
         await this.swPost("hotCacheClean", {});

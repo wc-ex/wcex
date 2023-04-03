@@ -1,36 +1,33 @@
-<!-- 由于monaco实现了自己的AmdLoader，和WCLoader冲突，因此通过IFrame处理 
-  iframe内部维护多个编辑器实例, 通过参数和消息切换实例
-  全局维护唯一的iframe元素, 当切换文件或者焦点状态时，自动移动到当前位置
+<!-- 
+  使用自定义加载器, file 参数必选, text 参数可选
+  https://microsoft.github.io/monaco-editor/docs.html#interfaces/editor.IStandaloneEditorConstructionOptions.html
 -->
-<template files.array="[]" cur.int="0">
+
+<template file="" text="" $options="{}" @layout.stop="onLayout()">
   <meta name="module" pkg="esbuild-wasm" content="lib/browser.min.js" cjs />
   <meta name="no-import-global-css" />
-  <link rel="stylesheet" href="@/monaco-editor/min/vs/editor/editor.main.css" />
+  <meta name="module" pkg="lodash.debounce" cjs />
+
+  <link rel="stylesheet" href="@/@wcex/monaco-fixed@0.36.2/min/vs/editor/editor.main.css" global="link" />
 
   <style>
     :host {
-      display: flex;
-      flex-direction: column;
+      display: block;
     }
     #editor {
-      flex: 1;
-      display: block;
-      margin: 0;
-      padding: 0;
-      overflow: auto;
-      background-color: red;
+      width: 100%;
+      height: 100%;
       z-index: 9;
     }
   </style>
-  <div $>files[cur]</div>
   <div id="editor"></div>
-  <script src="@/monaco-editor/min/vs/loader.js" amdloader="monaco-editor"></script>
+  <script scope="debounce" src="lodash.debounce" nocall></script>
+  <script src="@/@wcex/monaco-fixed@0.36.2/min/vs/loader.js" amdloader="@wcex/monaco-fixed@0.36.2"></script>
   <script scope=".">
     var monacoPromise = new Promise((res) => {
-      WCEX.amdloader["monaco-editor"].then((loader) => {
-        loader.require.config({ paths: { vs: WCEX.npmUrl + "monaco-editor/min/vs" } });
+      WCEX.amdloader["@wcex/monaco-fixed@0.36.2"].then((loader) => {
+        loader.require.config({ paths: { vs: WCEX.npmUrl + "@wcex/monaco-fixed@0.36.2/min/vs" } });
         loader.require(["vs/editor/editor.main"], function () {
-          console.warn("-----> MONACO", window.monaco);
           res(window.monaco);
         });
       });
@@ -38,16 +35,54 @@
 
     // 缓存编辑器frames
     return class {
+      editor = undefined;
       async onReady() {
         let monaco = await monacoPromise;
+        let text = this.text;
+        if (!this.text) {
+          text = await (await fetch(this.file)).text();
+        }
+        // 自动解析扩展名
+        let ext = this.file.replace(/^.*\./, "");
+        let language = { js: "javascript", ts: "typescript", css: "css", html: "html", json: "json", json5: "json5" }[ext];
 
-        let editor = monaco.editor.create(this.$id.editor, {
-          value: "var aaa = 999;",
-          language: "javascript",
-          minimap: { enabled: false },
-          theme: "vs",
+        this.editor = this.$noWatch(
+          monaco.editor.create(
+            this.$id.editor,
+            Object.assign(
+              {
+                value: text,
+                language,
+                minimap: { enabled: false },
+                theme: this.$Colors.mode ? "vs" : "vs-dark",
+                mouseWheelZoom: "scroll",
+                lineHeight: 20,
+                fontFamily: "Abel",
+                scrollBeyondLastLine: true,
+                tabSize: 4,
+                insertSpaces: true,
+                detectIndentation: false,
+              },
+              this.options
+            )
+          )
+        );
+
+        // 编辑器发生改变，延迟500毫秒，仅在最后变化时发送消息
+        this.editor.onDidChangeModelContent(
+          this.debounce(
+            (ev) => {
+              this.$emit(new CustomEvent("edit", { detail: { file: this.file, text: this.editor.getValue() } }));
+            },
+            1000,
+            { leading: false, trailing: true }
+          )
+        );
+      }
+      onLayout() {
+        requestAnimationFrame(() => {
+          if (this.editor) this.editor.layout();
         });
-        console.warn("-----> MONACO EDITOR", editor);
       }
     };
   </script>
