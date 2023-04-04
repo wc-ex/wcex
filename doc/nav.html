@@ -57,7 +57,7 @@
           $color="checked?flagColor:$parent.color"
         ></wcex-ui.icon>
         <div style="padding-left: 0.2em;position: relative;" $>value.name
-          <wcex-ui.badge style="scale: 0.7;border-radius:50% 20% 1em 1em; " pos="r" x="2" y="-2" flat="0" >24H</wcex-ui.badge>
+          <wcex-ui.badge $if="docTime(value)" style="scale: 0.7;border-radius:50% 20% 1em 1em; " pos="r" x="2" y="-2" flat="0" $>docTime(value)</wcex-ui.badge>
         </div>
 
       </div>
@@ -90,6 +90,14 @@
           this.$router.go("wcex-doc.doc", { url: mathedItem.path, lang: this.lang });
         }
         this.value = mathedItem;
+      }
+      docTime(item){
+        let hours = Math.floor((new Date().getTime() - item.updateAt)/1000/3600);
+        let days = Math.floor(hours/24);
+        if(hours < 12) return `${hours+1}H`;
+        if(days < 30) {
+          return `${days+1}D`;
+        }
       }
     };
   </script>

@@ -1,21 +1,89 @@
-<!-- 由于monaco实现了自己的AmdLoader，和WCLoader冲突，因此通过IFrame处理 -->
-<template file="" @update="layout()" @reload="reload()">
+<!-- 
+  使用自定义加载器, file 参数必选, text 参数可选
+  https://microsoft.github.io/monaco-editor/docs.html#interfaces/editor.IStandaloneEditorConstructionOptions.html
+-->
+
+<template file="" text="" $options="{}" @layout.stop="onLayout()">
   <meta name="module" pkg="esbuild-wasm" content="lib/browser.min.js" cjs />
+  <meta name="no-import-global-css" />
+  <meta name="module" pkg="lodash.debounce" cjs />
+
+  <link rel="stylesheet" href="@/@wcex/monaco-fixed@0.36.2/min/vs/editor/editor.main.css" global="link" />
 
   <style>
     :host {
       display: block;
     }
-    #frame {
-      display: block;
+    #editor {
       width: 100%;
       height: 100%;
-      overflow: hidden;
-      border: none;
-      padding: 0;
-      margin: 0;
+      z-index: 9;
     }
   </style>
-  <iframe id="frame" title="wcex" @edit.stop="$emit('edit',{file,text:$ev.detail.text})"></iframe>
-  <script scope="." src=".">  </script>
+  <div id="editor"></div>
+  <script scope="debounce" src="lodash.debounce" nocall></script>
+  <script src="@/@wcex/monaco-fixed@0.36.2/min/vs/loader.js" amdloader="@wcex/monaco-fixed@0.36.2"></script>
+  <script scope=".">
+    var monacoPromise = new Promise((res) => {
+      WCEX.amdloader["@wcex/monaco-fixed@0.36.2"].then((loader) => {
+        loader.require.config({ paths: { vs: WCEX.npmUrl + "@wcex/monaco-fixed@0.36.2/min/vs" } });
+        loader.require(["vs/editor/editor.main"], function () {
+          res(window.monaco);
+        });
+      });
+    });
+
+    // 缓存编辑器frames
+    return class {
+      editor = undefined;
+      async onReady() {
+        let monaco = await monacoPromise;
+        let text = this.text;
+        if (!this.text) {
+          text = await (await fetch(this.file)).text();
+        }
+        // 自动解析扩展名
+        let ext = this.file.replace(/^.*\./, "");
+        let language = { js: "javascript", ts: "typescript", css: "css", html: "html", json: "json", json5: "json5" }[ext];
+
+        this.editor = this.$noWatch(
+          monaco.editor.create(
+            this.$id.editor,
+            Object.assign(
+              {
+                value: text,
+                language,
+                minimap: { enabled: false },
+                theme: this.$Colors.mode ? "vs" : "vs-dark",
+                mouseWheelZoom: "scroll",
+                lineHeight: 20,
+                fontFamily: "Abel",
+                scrollBeyondLastLine: true,
+                tabSize: 4,
+                insertSpaces: true,
+                detectIndentation: false,
+              },
+              this.options
+            )
+          )
+        );
+
+        // 编辑器发生改变，延迟500毫秒，仅在最后变化时发送消息
+        this.editor.onDidChangeModelContent(
+          this.debounce(
+            (ev) => {
+              this.$emit(new CustomEvent("edit", { detail: { file: this.file, text: this.editor.getValue() } }));
+            },
+            1000,
+            { leading: false, trailing: true }
+          )
+        );
+      }
+      onLayout() {
+        requestAnimationFrame(() => {
+          if (this.editor) this.editor.layout();
+        });
+      }
+    };
+  </script>
 </template>
