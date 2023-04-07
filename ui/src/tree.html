@@ -1,0 +1,102 @@
+<!--!!
+    实现简单树列表,传入如下结构:
+    @prop tree 
+    [{
+        title:"abc",
+        icon:"" 或者 {icon:"",pkg:"",type:"",color:{}},
+        actions:[{name:"",icon:"",}],
+        child:[], // 有此参数则为节点
+    }
+    ]
+    @props value 当前选中的节点
+    @props open 是否打开
+    @props ctl-icon 控制图标
+    
+-->
+<template $tree="[]" value.obj="{}" openicon="play_arrow" $color="$color.pri">
+  <style>
+    :host {
+      display: flex;
+      flex-direction: column;
+    }
+    .item {
+      display: flex;
+      flex-direction: column;
+    }
+    .line {
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      transition: all 0.35s;
+      outline: 0px solid "$$color.bg";
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+    .title {
+      user-select: none;
+    }
+    .line:hover {
+      outline: 1px solid "$color.a3_";
+      background-color: "$$color.bgr.a9_";
+    }
+    .line[checked] {
+      background-color: "$color.a6_";
+    }
+    .child {
+      transition: all 0.35s;
+    }
+    .action {
+      display: flex;
+      align-items: center;
+      opacity: 0;
+      transition: all 0.35s;
+    }
+    .line:hover > .action {
+      opacity: 1;
+    }
+    .child {
+      border-left-style: solid;
+      margin-left: 0.55em;
+      border-left: 1px dotted "$color.a3_";
+    }
+    .item:focus-within > .child {
+      border-left-style:  solid ;
+      border-left-width:  1.5px ;
+    }
+  </style>
+  <div $for(v,k)="tree" class="item" $open="true">
+    <!-- 如果是子节点，则添加操作图标 -->
+    <div class="line" @click.stop="$root.value=v;open=!open;$emit('item',v)" $checked="$root.value==v" tabindex="0">
+      <!-- 控制是否打开按钮 -->
+      <icon-
+        $if="v.child"
+        class="ctrl"
+        $icon="openicon"
+        size="1"
+        :style="transform: rotate(${open?90:0}deg) scaleX(${open?1.8:1});"
+        $color="$root.color"
+      ></icon->
+      <div $if="(!v.child) || (v.child.length==0)" style="width: 0.5em;height: 1em;"></div>
+      <!-- 图标 -->
+      <icon- $if="v.icon" $icon="v.icon.icon||v.icon" size="1" $color="v.icon.color||$root.color"></icon->
+      <div class="text" style="user-select: none" $>v.title</div>
+      <div style="flex: 1"></div>
+      <!-- action 按钮，hover显示 -->
+      <div class="action">
+        <icon-
+          active
+          $for(iv,ik)="v.actions"
+          size="1"
+          $color="iv.icon.color||$root.color"
+          $icon="iv.icon.icon||iv.icon"
+          $type="iv.icon.type||undefined"
+          $pkg="iv.icon.pkg||undefined"
+          $title="iv.name"
+          @click.capture.stop="$emit('action',{name:iv.name,value:v})"
+        ></icon->
+      </div>
+    </div>
+    <tree- class="child" $if="v.child && open" $tree="v.child" $color="$root.color" $openicon="$root.openicon" $$value="$root.value"></tree->
+  </div>
+</template>

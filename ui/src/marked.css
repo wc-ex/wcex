@@ -6,6 +6,12 @@ blockquote {
   border-right: 0.2em solid "$$color.pri.ss(100)";
   border-radius: 1em;
 }
+a{
+  color: "$$color.pri";
+}
+a:visited{
+  color: "$$color.pria";
+}
 
 blockquote > p {
   margin: 0.2em 0;

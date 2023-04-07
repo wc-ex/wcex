@@ -1,0 +1,69 @@
+<!-- 
+开发者工具
+
+https://www.npmjs.com/package/doctrine
+https://www.npmjs.com/package/comment-parser
+
+-->
+<template >
+    <!-- <link rel="stylesheet" href="./css/shadow-global.css" global /> -->
+    <link rel="stylesheet" href="../css/shadow.css" />
+    <link rel="stylesheet" href="../css/scrollbar.css" />
+    <link rel="stylesheet" href="../ui.css" />
+  
+    <style>
+      :host {
+        display: flex;
+        flex-direction: column;
+        width: 100%; height: 100%;
+      }
+      :host > div {
+        border-bottom: solid 1px rgba(255, 255, 255, 0.5);
+        padding: 0.2em 1em;
+      }
+      input {
+        margin: 0.2em 0.5em;
+      }
+      input[type="checkbox"] {
+        width: 1.5em;
+        height: 1.5em;
+      }
+      .pkg {
+        border-bottom: solid 1px rgba(255, 255, 255, 0.5);
+        padding: 0.3em 0;
+      }
+      .reload:hover {
+        user-select: none;
+        color: red;
+      }
+    </style>
+    <div class="row center" :style="background-color: ${$color.sec};">
+      <h4 style="margin-right: 1em">DEV PANEL</h4>
+      <!-- 是否开启调试信息 -->
+      <div>Enable Debug Output:</div>
+      <input type="checkbox" $$checked="dev.debugOutput" />
+  
+      <div class="flex"></div>
+      <h4 class="reload" @click="location.reload()">RELOAD</h4>
+    </div>
+  
+    <!-- 选择调试软件包 -->
+    <div class="row" style="flex: 1; overflow: hidden">
+      <div style=" overflow: auto">
+        <div2 $for(v,k)="pkgs" class="row pkg">
+          <span style="min-width: 15em; text-align: right" :>${v}: </span>
+          <input style="flex: 1" $disabled="!dev.pkgs[v].enable" type="url" $$="dev.pkgs[v].hostport" />
+          <input type="checkbox" $$checked="dev.pkgs[v].enable" @click="if(!dev.pkgs[v].hostport) dev.pkgs[v].hostport='localhost:8101'" />
+        </div2>
+      </div>
+      <!-- 显示组件结构树 -->
+      <div
+        :style="overflow: auto;flex: 1; border-left: 1px solid ${$color.sec};margin-left:1em;padding-left:1em;overflow:auto"
+      >
+        <tree- $tree="wctree" $color="$color.seca" @item="$log($ev.detail.el)"></tree->
+      </div>
+    </div>
+  
+    <script scope="." src="."></script>
+  </template>
+  

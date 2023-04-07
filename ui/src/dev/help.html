@@ -1,0 +1,105 @@
+<template tags="" cur="">
+  <style>
+    :host {
+      display: flex;
+      flex-direction: column;
+    }
+    .title{
+        border-bottom: 1px solid "$$color.textr";
+
+    }
+    .list {
+      padding: 0.5em;
+      display: flex;
+      flex-wrap: wrap;
+    }
+    .tag {
+      background-color: "$$color.text.a8_";
+      border-radius: 5px;
+      border: 2px solid "$$color.textr.a2_";
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      margin: 0.2em;
+      padding: 0.2em 1em;
+    }
+    .tag[checked] {
+      background-color: "$$color.sec";
+    }
+    .close{
+        user-select: none;
+    }
+    .close:hover{
+        color: red;
+    }
+  </style>
+  <div class="row center title">
+    <div class="list">
+      <div2 class="tag" $for="taglist" $:.click="cur" $>value</div2>
+    </div>
+    <h3 class="close" @click="$emit('close')">CLOSE</h3>
+  </div>
+  <marked- $text="parsed.desc.text"></marked->
+
+  <script scope=".">
+    return class {
+      comment = "";
+      parsed = { desc: {} };
+      taglist = [];
+      onReady() {
+        this.$watch(
+          () => this.tags,
+          () => (this.taglist = this.tags.split(" "))
+        );
+        this.taglist = this.tags.split(" ");
+        this.parseHelp();
+        this.$watch(
+          () => this.cur,
+          (v) => {
+            this.parseHelp();
+          }
+        );
+      }
+      parseHelp() {
+        let cls = customElements.get(this.cur);
+        if (!cls) return;
+        let tpl = cls.$tpl;
+        if (!tpl) return;
+        let s = tpl.comment.trim();
+        if (s.startsWith("!!")) s = s.slice(2);
+        // 解析注释
+        this.parseComment(s);
+      }
+      parseComment(comment) {
+        // 检测和删除首行的!!标识
+        const desc = {
+          text: "",
+        };
+
+        const params = {};
+        let lines = comment.replace(/\r\n/, "\n").split("\n");
+        // debugger
+        // 解析描述信息,进行分段
+        let curItem = desc;
+        for (let l of lines) {
+          let s = l.trim();
+
+          let m = s.match(/^(@\w+)[ ]+([\w\d]+)[ ]+(.*)$/);
+          if (m && m.length == 4) {
+            // 新建描述对象
+            let type = m[1];
+            let name = m[2];
+            let text = m[3];
+            if (!params[type]) params[type] = {};
+            if (!params[type][name]) params[type][name] = { text };
+
+            curItem = params[type][name];
+          }
+
+          // 添加文本描述信息
+          curItem.text = curItem.text + (curItem.text ? "\n" : "") + s;
+        }
+        this.parsed = { desc, params };
+      }
+    };
+  </script>
+</template>

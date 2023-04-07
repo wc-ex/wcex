@@ -48,7 +48,7 @@
       $color="$color.sec"
       active
       size="1"
-      @click="loadDemo()"
+      @click="reload()"
     ></wcex-ui.icon>
     <wcex-ui.icon
       title="reset"
@@ -68,7 +68,7 @@
       slot="panel"
       :id="ed${index}"
       style="width: 100%; height: 100%"
-      $file="docPath(value)"
+      $file="playgroundPath(value)"
       @edit="onEdit($ev)"
       $for="files"
       $show="$root.cur==index"
@@ -98,6 +98,10 @@
         return this.$router.route.default.attrs.url;
       }
 
+      playgroundPath(path){
+        return location.origin +'/__playground/'+ this.baseUrl().replace(/\/.*$/, "/") +path;
+      }
+
       docPath(path) {
         return decodeURI(this.$path("../guide/" + this.lang() + "/" + this.baseUrl().replace(/\/.*$/, "/") + path));
       }
@@ -108,11 +112,13 @@
         });
       }
       async updateDemo(file) {
-        let mainFile = this.docPath(this.files[0]);
+        let mainFile = this.playgroundPath(this.files[0]);
         if (file && file != mainFile) {
           //获取主index.html路径
           let p = mainFile.replace(/^(.*\/).*?$/, "$1");
           let f = file.replace(p, "");
+          // 读取住文件
+
           // 热更新
           this.$id.demo.contentWindow.dispatchEvent(new CustomEvent("wc-hotload", { detail: { path: f } }));
         } else {
@@ -132,6 +138,9 @@
           }, 200);
         }
       }
+      reload(){
+        this.$id.demo.contentWindow.location.reload()
+      }
       async loadDemo() {
         if (!this.baseUrl()) return;
         // 加载数据
@@ -143,7 +152,7 @@
               })
               .then((v) => {
                 return {
-                  url: this.docPath(f),
+                  url: this.playgroundPath(f),
                   text: v,
                 };
               });
@@ -161,7 +170,7 @@
       }
       async resetCache() {
         await this.swPost("hotCacheClean", {});
-
+        
         await this.loadDemo();
         // 通知编辑器重新加载
         for (let i = 0; i < this.files.length; i++) {

@@ -1,55 +1,46 @@
 <template aa.int="888">
-  <meta name="scope" vv.int="1"/>
+  <meta name="scope" vv.int="1" />
 
-  <meta name="module" pkg="lodash.get" cjs  >
-
-  <style>
-    #a1:hover{
-      --vv:1;
-      background-color: brown;
-      
-    }
-    #a2{
-      --vv:0;
-    }
-    #a2:hover{
-      --vv:2;
-      background-color: brown;
-    }
-
-
+  <style>   
   </style>
-  <div $>aa</div>
-  <div $>vv</div>
+  <div>OKOKO2</div>
+  <wcex-ui.tree $tree="treeData" style="width: 200px;" $color="$color.sec"> </wcex-ui.tree>
 
-
-  <h3 id="a1" @!--vv="vv=1">HELLO1</h3>
-
-  <h3 id="a2" @!--vv="vv=2"> HELLO2</h3>
-
-
-  <H1 id="a3" :>测试的数据:${aaaaa}</H1>
-
-
-  <script scope="l_get" src="lodash.get" nocall nowatch></script>
   <script scope=".">
-    return class{
-      aaaaa=999;
-      onReady(){
-        console.log("--!!!!",this.l_get)
-      }
-    }
+    return class {
+      treeData = [
+        {
+          title: "目录-1111",
+          icon: "autofps_select",
+          child: [
+            { title: "叶子-1", icon: "autofps_select" },
+            { title: "叶子-2", icon: "autofps_select" },
+            { title: "叶子-3", icon: "autofps_select"},
+          ],
+        },
+        {
+          title: "目录-222",
+          icon: "autofps_select",
+          child: [
+            { title: "叶子-1", icon: {icon:'add_home',color:"#ff0000"} },
+            { title: "叶子-2", icon: "autofps_select" },
+            { title: "叶子-3", icon: "autofps_select" },
+          ],
+        },
+        {
+          title: "节点-111",
+          icon: "autofps_select",
+        },
+        {
+          title: "节点-222",
+          icon: "autofps_select",
+        },
+        {
+          title: "节点-333",
+          icon: "autofps_select",
+          actions:[{name:"aaa",icon:{type:"outlined",icon:"add_home"}}] 
+        },
+      ];
+    };
   </script>
-  <!-- <div $abc="222">
-    <div @click="abc++" :>
-      MAIN: ABC= ${abc} DEF= first: ${abc*10}
-
-      <h1>OK</h1>
-      second: ${abc*100}
-    </div>
-    <test-com $val="abc" @change="$log('!!!!change',val); abc=val" $color="$color.sec"></test-com>
-  </div>
-  <test-com $val="abc"></test-com> -->
-
-  <!-- <test-arr></test-arr> -->
 </template>

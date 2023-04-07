@@ -110,7 +110,12 @@ overline,.text-overline {
 
 .row{
     display: flex;
-    align-items: center;
+}
+.center{
+  align-items: center;
+}
+.just-center{
+  justify-content: center;
 }
 .col,
 .column{
@@ -150,4 +155,17 @@ overline,.text-overline {
   pointer-events: none;
   user-select: none;
   filter: blur(5px) brightness(0.5);
+}
+
+input{
+  box-sizing: border-box;
+  border: none;
+  border-radius: 4px;
+  padding: 0.1em 0.5em;
+  box-shadow: inset 0px 0px 0px "$$color.pria";
+  transition: all .5s;
+}
+input:focus,input:focus-visible{
+  outline: none;
+  box-shadow: inset 0px 0px 5px "$$color.pria";
 }

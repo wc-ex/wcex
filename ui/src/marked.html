@@ -1,4 +1,4 @@
-<template src="" toc.int="8" toc-height="100%">
+<template src="" toc.int="0" toc-height="100%" text="">
   <meta name="module" pkg="marked" content="marked.min.js" />
   <link rel="stylesheet" href="./marked.css" />
   <link rel="stylesheet" href="@/@highlightjs/cdn-assets/styles/github.min.css" />
@@ -32,11 +32,11 @@
       left: calc(100% - ":${toc}em - 2em");
     }
     #md {
-      padding: 1em ":${toc+2 }em" 1em 1em;
+      padding: 1em ":${toc?toc+2:1}em" 1em 1em;
     }
   </style>
   <!-- 目录 -->
-  <marked_toc- id="toc"></marked_toc->
+  <marked_toc- id="toc" $if="toc"></marked_toc->
   <div id="content" @scroll.stop.passive="fn()" $fn="throttle(()=>onScroll(),500,{leading:false,trailing:true})">
     <!-- 内容 -->
     <div id="md"></div>

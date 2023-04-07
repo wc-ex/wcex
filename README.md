@@ -216,5 +216,5 @@ The following are main features:
     > 在项目目录下执行: "wcex", 即启动开发模式
 
 ### Documents
-  document(NPM): (https://wc-ex.com/go?npm/@wcex/doc/index.html)
+  document: (https://wc-ex.com)
 ### Update

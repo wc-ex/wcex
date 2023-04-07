@@ -20,13 +20,6 @@ WCEX.usePlugins({
 
 export default class extends Scope {
   onCreate() {
-    // 检测和启用dev面板
-    if (localStorage.getItem("__DEV") != null) {
-      window.addEventListener("keydown", (ev) => {
-        if ((ev.ctrlKey||ev.altKey) && (ev.code.toLowerCase() == 'backquote' || ev.key == '`')) {
-          (this as any).$side('wcex-ui.dev_panel',{pos:'t',size:'16em',color:this.$color.sec})
-        }
-      });
-    }
   }
+
 }

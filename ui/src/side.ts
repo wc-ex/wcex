@@ -63,9 +63,13 @@ export default class Side extends Scope {
         }
       }
       this.$id.side.appendChild(target);
-      this.el = target;
-      this.show = true;
-      this.$emit("blur-bg", true);
+      // 再等一个周期，初始化位置，不做动画
+      requestAnimationFrame(()=>{
+        this.show = true;
+        this.el = target;
+        this.$emit("blur-bg", true);
+  
+      })
     });
     let closeListener = (ev:Event)=>{
         if(ev.target == target){

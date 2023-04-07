@@ -44,6 +44,7 @@ async function distHtml(src: string) {
   // 解析HTML
   let outHtml = await htmlMin.minify(html, {
     minifyJS: {
+      compress:true,
       mangle: {
         properties: {
           keep_quoted: true,

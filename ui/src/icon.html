@@ -1,13 +1,25 @@
-<!-- 
-通用图标组件,支持SVG图标
-参考:
+<!--!!
+  通用SVG图标组件,支持NPM 标准SVG图标库，内置支持 **material-design-icons**, **fortawesome**, **svg-icons**,
+  - 使用标准图标库时, pkg属性可使用简称, 默认使用 "md",,
+  - 可自定义其他NPM svg 图标库引用，此时需设置pkg参数为npm的完整包名。
+  - 可使用url参数直接指定需引用svg图标的完整地址  
+  - **md** [@material-design-icons/svg](https://www.npmjs.com/package/@material-design-icons/svg)
+    > 类型: filled, outlined, round,sharp,two-tone, 
+    > [图标列表](https://marella.me/material-design-icons/demo/svg/)
 
-MDI:https://marella.me/material-design-icons/demo/svg/
-FA: https://fontawesome.com/search?o=r&m=free&f=classic%2Cbrands
-@fortawesome/fontawesome-free
-SI
-@svg-icons/octicons
-https://www.svgrepo.com/    
+  - **fa** [@fortawesome/fontawesome-free](https://www.npmjs.com/package/@fortawesome/fontawesome-free)
+    > 类型: brands, regular, solid
+    > [图标列表](https://fontawesome.com/search?o=r&m=free)
+
+  - **si** [@svg-icons](https://www.npmjs.com/org/svg-icons)
+    > 类型: bootstrap, boxicons-logos, boxicons-regular,boxicons-solid,crypto,entypo,entypo-social...
+    > [图标列表](https://fontawesome.com/search?o=r&m=free)
+
+
+
+  @prop pkg NPM SVG图标库名称, 内置简写: 'mdi', 'fa', 'si' 等图标库，支持其他svg图标库
+  @prop type 图标类型, 映射到图标库中的子目录, 可自定义
+
 -->
 <template
   size.float="1.5"
@@ -62,7 +74,7 @@ https://www.svgrepo.com/
   <script scope=".">
     return class {
       srcPath() {
-        return (
+        return this.url||(
           "@/" +
           ({ fa: "@fortawesome/fontawesome-free/svgs", mdi: "@material-design-icons/svg", si: "@svg-icons/" }[this.pkg] || this.pkg) +
           "/" +

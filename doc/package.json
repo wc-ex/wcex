@@ -1,10 +1,11 @@
 {
   "name": "@wcex/doc",
-  "version": "1.0.76",
+  "version": "1.0.79",
   "description": "documents for wcex",
   "main": "index.html",
   "scripts": {
     "pub": "node ./_pub_doc.js",
+    "build": "ts-node ../tools/doc-tools/src/mkDoc.ts",
     "lang": "ts-node ../tools/doc-tools/src/mkDoc.ts"
   },
   "keywords": [],
@@ -14,3 +15,4 @@
     "monaco-editor": "^0.36.1"
   }
 }
+

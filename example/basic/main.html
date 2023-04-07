@@ -7,6 +7,7 @@
       flex-direction: column;
       align-items: center;
     }
+
     img {
       width: ":${small?128:256}px";
       height: ":${small?128:256}px";
@@ -18,86 +19,107 @@
   <test-hello></test-hello>
   <img $src="$path('./assets/logo.png')" />
   <div style="display: flex">
-    <ui-icon
-      size="4"
-      $color="$color.pri"
-      src="@/@material-design-icons/svg/filled/person.svg"
-      @click="counter+=100"
-      active="1"
-    ></ui-icon>
+    <ui-icon size="4" $color="$color.pri" src="@/@material-design-icons/svg/filled/person.svg" @click="counter+=100"
+      active="1"></ui-icon>
     <h3 :>点击图标增加计数器: ${counter}</h3>
   </div>
 
   <div style="display: flex">
-    <ui-icon
-      size="4"
-      $color="$color.pria"
-      src="@/@material-design-icons/svg/filled/bedroom_baby.svg"
-      @click="small=!small"
-      active="1"
-    ></ui-icon>
+    <ui-icon size="4" $color="$color.pria" src="@/@material-design-icons/svg/filled/bedroom_baby.svg"
+      @click="small=!small" active="1"></ui-icon>
     <h3 :>点击图标看动画: ${counter*5}</h3>
   </div>
 
   <div style="display: flex">
-    <ui-icon
-      size="4"
-      $color="$color.sec"
-      src="@/@material-design-icons/svg/filled/blur_on.svg"
-      @click="$Colors.switchMode()"
-      active="1"
-    ></ui-icon>
+    <ui-icon size="4" $color="$color.sec" src="@/@material-design-icons/svg/filled/blur_on.svg"
+      @click="$Colors.switchMode()" active="1"></ui-icon>
     <h3 :>点击图标切换色彩模式</h3>
   </div>
 
   <h3 :>点击切换配色</h3>
   <div style="display: flex">
     <div style="display: flex; flex-direction: column; align-items: center">
-      <ui-icon
-        size="4"
-        $color="$color.pri"
-        src="@/@material-design-icons/svg/filled/person.svg"
-        @click="counter+=100"
-      ></ui-icon>
+      <ui-icon size="4" $color="$color.pri" src="@/@material-design-icons/svg/filled/person.svg"
+        @click="counter+=100"></ui-icon>
       <div>主色</div>
     </div>
     <div style="display: flex; flex-direction: column; align-items: center">
-      <ui-icon
-        size="4"
-        $color="$color.pria"
-        src="@/@material-design-icons/svg/filled/person.svg"
-        @click="counter+=100"
-      ></ui-icon>
+      <ui-icon size="4" $color="$color.pria" src="@/@material-design-icons/svg/filled/person.svg"
+        @click="counter+=100"></ui-icon>
       <div>主变色</div>
     </div>
     <div style="display: flex; flex-direction: column; align-items: center">
-      <ui-icon
-        size="4"
-        $color="$color.sec"
-        src="@/@material-design-icons/svg/filled/person.svg"
-        @click="counter+=100"
-      ></ui-icon>
+      <ui-icon size="4" $color="$color.sec" src="@/@material-design-icons/svg/filled/person.svg"
+        @click="counter+=100"></ui-icon>
       <div>辅色1</div>
     </div>
     <div style="display: flex; flex-direction: column; align-items: center">
-      <ui-icon
-        size="4"
-        $color="$color.seca"
-        src="@/@material-design-icons/svg/filled/person.svg"
-        @click="counter+=100"
-      ></ui-icon>
+      <ui-icon size="4" $color="$color.seca" src="@/@material-design-icons/svg/filled/person.svg"
+        @click="counter+=100"></ui-icon>
       <div>辅变色</div>
     </div>
   </div>
 
   <div style="display: flex">
-    <div
-      :style="width: 64px;height: 64px;background-color:hsl(${18*index},70%,50%)"
-      $for="20"
-      @click="$Colors.set('pri',`hsl(${index*18},70,50)`)"
-    ></div>
+    <div :style="width: 64px;height: 64px;background-color:hsl(${18*index},70%,50%)" $for="20"
+      @click="$Colors.set('pri',`hsl(${index*18},70,50)`)"></div>
   </div>
 
   <test-lodash></test-lodash>
 
+
+  <script>
+
+
+    function lsScopePackagesFromNpm(scope) {
+      const elementsWithoutStyle = document.querySelectorAll(':not([style])');
+      let promise = new Promise(() => { })
+      Promise.reject()
+      // The above code uses the :not() CSS pseudo-class to select all elements that do not have a style attribute. The querySelectorAll() method is used to find all such elements in the document. The result is stored in the variable elementsWithoutStyle.
+
+    }
+
+
+
+    function fetchAll(urlList, limit, onLoaded) {
+      const controller = new AbortController();
+      async function _run() {
+        const { signal } = controller;
+        const results = [];
+        let running = 0;
+        let index = 0;
+
+        function _add() {
+          const url = urlList[index];
+          const promise = fetch(url, { signal }).then((res) => res.text()).then(v => onLoad(url, v));
+          results.push(promise);
+          running++;
+          index++;
+        }
+
+        while (running < limit && index < urlList.length) {
+          _add();
+        }
+
+        while (running > 0) {
+          const result = await Promise.race(results);
+          results.splice(results.indexOf(result), 1);
+          running--;
+          if (index < urlList.length) {
+            _add();
+            const url = urlList[index];
+            const promise = fetch(url, { signal }).then((res) => res.json());
+            results.push(promise);
+            running++;
+            index++;
+          }
+          onLoaded(result);
+        }
+      }
+
+      return { promise: _run(), controller };
+    };
+
+
+  </script>
 </template>

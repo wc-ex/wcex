@@ -1,0 +1,134 @@
+<template>
+  <link rel="stylesheet" href="./ui.css" />
+  <meta name="module" pkg="lodash.debounce" cjs />
+
+  <style>
+    :host {
+      position: fixed;
+      display: "$sel.el?'block':'none'";
+      width: ":${sel.el?sel.width:0}px";
+      height: ":${sel.el?sel.height:0}px";
+      left: ":${sel.el?sel.left:0}px";
+      top: ":${sel.el?sel.top:0}px";
+      z-index: 9999;
+      pointer-events: none;
+      box-sizing: border-box;
+      border: 4px solid red;
+    }
+  </style>
+  <dev-elem_select id="select"></dev-elem_select>
+  <script scope="debounce" src="lodash.debounce" nocall></script>
+  <script scope="side" src="./side.ts"></script>
+  <script scope=".">
+    return class {
+      sel = {};
+      mousemoveListener;
+      onReady() {
+        this.initDev();
+      }
+      // 全局监控鼠标
+      findWcElFromPoint(x, y) {
+        let el = document.elementFromPoint(x, y);
+        let wcel;
+        while (el?.shadowRoot) {
+          if (el?.shadowRoot) wcel = el;
+          // let rect = el.getBoundingClientRect();
+          let findEl = el.shadowRoot.elementFromPoint(x, y);
+          if (findEl == el) break;
+          else el = findEl;
+        }
+        return wcel;
+      }
+
+      findParentWcDeep(el, callback) {
+        let parent = el.parentNode instanceof ShadowRoot ? el.parentNode.host : el.parentNode;
+        if (!parent) return;
+
+        if (parent.rootScope) callback(parent);
+        this.findParentWcDeep(parent, callback);
+      }
+
+      findShadowChildWcDeep(el, callback) {
+        if (el.shadowRoot) {
+          for (let ch of el.shadowRoot.querySelectorAll("[wcid]")) {
+            callback(ch);
+            this.findShadowChildWcDeep(ch, callback);
+          }
+        }
+      }
+
+      async initDev() {
+        // 检测和启用dev面板
+        if (localStorage.getItem("__DEV") != null) {
+          this.mousemoveListener = this.debounce(
+            (ev) => {
+              // 使用debounced 节流
+              if (ev.ctrlKey && ev.shiftKey) {
+                // debugger;
+                // 查找所有鼠标下面的元素，弹出按钮，点击显示组件说明
+                let el = this.findWcElFromPoint(ev.clientX, ev.clientY);
+                if (el) {
+                  console.log("find-->", el.tagName);
+                  let { width, height, left, top } = el.getBoundingClientRect();
+                  this.sel = { el, width, height, left, top };
+                }
+              } else {
+                if (this.sel.el) {
+                  this.sel = {};
+                }
+              }
+            },
+            100,
+            { leading: false, trailing: true }
+          ).bind(this);
+          // 监控热键，调试弹窗
+          window.addEventListener("keydown", (ev) => {
+            if ((ev.ctrlKey || ev.altKey) && (ev.code.toLowerCase() == "backquote" || ev.key == "`")) {
+              this.$side("wcex-ui.dev-config", { pos: "t", size: "16em", color: this.$color.pri.l5 });
+            }
+          });
+        }
+
+        window.addEventListener("mousemove", this.mousemoveListener);
+        window.addEventListener("contextmenu", (ev) => {
+          if (ev.ctrlKey && ev.shiftKey) {
+            ev.preventDefault();
+            if (this.sel.el) {
+              // 弹出帮助边栏,自动选择左侧还是右边
+              let pos = this.sel.left > window.innerWidth / 2 ? "l" : "r";
+
+              // 查找关联组件
+              let tagSets = new Set();
+              tagSets.add(this.sel.el.tagName.toLowerCase());
+              //  递归查找父组件
+              this.findParentWcDeep(this.sel.el, (el) => {
+                tagSets.add(el.tagName.toLowerCase());
+              });
+              // 查找自身子元素
+              for (let el of this.sel.el.querySelectorAll("[wcid]")) {
+                tagSets.add(el.tagName.toLowerCase());
+              }
+              // 查找shadowRoot子元素
+              this.findShadowChildWcDeep(this.sel.el, (el) => {
+                tagSets.add(el.tagName.toLowerCase());
+              });
+
+              // 第一个组件为当前组件
+              this.$side("wcex-ui.dev-help", {
+                color: this.$color.pri.l5,
+                pos,
+                size: "50vw",
+                attrs: {
+                  tags: [...tagSets].join(" "),
+                  cur: this.sel.el.tagName.toLowerCase(),
+                },
+                autoclose:false
+              });
+              this.sel = {};
+            }
+          }
+        });
+      }
+    };
+  </script>
+</template>

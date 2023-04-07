@@ -1,0 +1,91 @@
+<html>
+    <body>
+
+<style>
+    :root {
+        --rotate-x: 0deg;
+        --rotate-y: 0deg;
+    }
+
+    .cube {
+        width: 100px;
+        height: 100px;
+        position: relative;
+        transform-style: preserve-3d;
+        transform: rotateX(var(--rotate-x)) rotateY(var(--rotate-y));
+    }
+
+    .cube-face {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border: 1px solid black;
+    }
+
+    .cube-face.front {
+        transform: translateZ(50px);
+    }
+
+    .cube-face.back {
+        transform: translateZ(-50px);
+        border-style: dashed; /* add dashed border */
+    }
+
+    .cube-face.right {
+        transform: rotateY(90deg) translateZ(50px);
+    }
+
+    .cube-face.left {
+        transform: rotateY(-90deg) translateZ(50px);
+    }
+
+    .cube-face.top {
+        transform: rotateX(90deg) translateZ(50px);
+    }
+
+    .cube-face.bottom {
+        transform: rotateX(-90deg) translateZ(50px);
+    }
+</style>
+
+<div class="cube">
+    <div class="cube-face front"></div>
+    <div class="cube-face back"></div>
+    <div class="cube-face right"></div>
+    <div class="cube-face left"></div>
+    <div class="cube-face top"></div>
+    <div class="cube-face bottom"></div>
+</div>
+
+<script>
+    const cube = document.querySelector('.cube');
+    let rotateX = 0;
+    let rotateY = 0;
+
+    document.addEventListener('keydown', (event) => {
+        switch (event.key) {
+            case 'ArrowUp':
+                rotateX -= 10;
+                break;
+            case 'ArrowDown':
+                rotateX += 10;
+                break;
+            case 'ArrowLeft':
+                rotateY -= 10;
+                break;
+            case 'ArrowRight':
+                rotateY += 10;
+                break;
+        }
+        cube.style.setProperty('--rotate-x', `${rotateX}deg`);
+        cube.style.setProperty('--rotate-y', `${rotateY}deg`);
+        // add code to detect back face and set border to dashed
+        if (rotateX > 90) {
+            cube.querySelector('.back').style.borderStyle = 'dashed';
+        } else {
+            cube.querySelector('.back').style.borderStyle = 'solid';
+        }
+    });
+</script>
+    </body>
+</html>

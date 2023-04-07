@@ -1,0 +1,190 @@
+<template pkg="" npm-scope.bool="0">
+  <style>
+    :host {
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .iconlist {
+      flex: 1;
+      display: flex;
+      flex-wrap: wrap;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+    .icon {
+      margin: 0.3em;
+      padding: 0.2em;
+      box-sizing: border-box;
+      border-radius: 5px;
+      border: 2px solid rgb(160, 160, 160);
+    }
+    .icon:hover {
+      background-color: rgb(160, 160, 160);
+    }
+    .icon-name {
+      width: 5em;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  </style>
+  <wcex-ui.tags
+    :style="border-bottom: 1px solid ${$color.pri};"
+    $list="dirs"
+    @change.stop="onSelectIconType($ev)"
+  ></wcex-ui.tags>
+  <wcex-ui.progress $if="loading" infinity height="0.3"></wcex-ui.progress>
+  <h5 $>icons[curType]?icons[curType].length:''</h5>
+  <div class="iconlist">
+    <div class="column" $for="icons[curType]" @click.stop="onClickIcon(value)">
+      <svg $title="value" width="4em" height="4em" class="icon" $id="value"></svg>
+      <div3 class="icon-name" $>value</div3>
+    </div>
+  </div>
+
+  <script scope=".">
+    return class {
+      dirs = [];
+      icons = {};
+      curType = "";
+      loading = false;
+      loadIconPromise;
+      async onReady() {
+        this.dirs = await (this.npmScope
+          ? this.lsScopePackagesFromNpm(this.pkg)
+          : this.loadDirFiles(WCEX.npmUrl + this.pkg + "/", "/"));
+
+        // 等待200毫秒，然后开始加载svg
+      }
+
+      /**
+       * 从urlList中获取所有url的内容
+       * @param {Array} urlList - url列表
+       * @param {Number} limit - 并发请求数量
+       * @param {(url,text)=>void} onLoaded - 加载完成后的回调函数
+       * @returns {promise,controller} - 包含promise和controller的对象
+       */
+      fetchAll(urlList, limit, onLoaded) {
+        const controller = new AbortController();
+        const { signal } = controller;
+        let runningFlag = true;
+        async function _run() {
+          const results = [];
+          let running = 0;
+          let index = 0;
+
+          function _add() {
+            const url = urlList[index];
+            console.log("--->add", url);
+            const promise = fetch(url, { signal })
+              .then((res) => res.text())
+              .then((v) => onLoaded(url, v));
+            results.push(promise);
+            running++;
+            index++;
+          }
+
+          while (running < limit && index < urlList.length && runningFlag) {
+            _add();
+          }
+
+          while (running > 0 && runningFlag) {
+            const result = await Promise.race(results).catch((e) => console.log(e.message));
+            results.splice(results.indexOf(result), 1);
+            running--;
+            if (index < urlList.length) {
+              _add();
+            }
+          }
+        }
+
+        return {
+          promise: _run(),
+          abort() {
+            runningFlag = false;
+            controller.abort("abort");
+          },
+        };
+      }
+
+      svgFetchLoader = undefined;
+      loadAllSvg() {
+        // 加载所有未加载的svg
+        let urlList = this.icons[this.curType].map((value) => {
+          let el = this.$id[value];
+          if (el) {
+            while (el.firstChild) el.removeChild(el.firstChild);
+          }
+          return WCEX.npmUrl + this.pkg + "/" + this.curType + "/" + value;
+        });
+        this.svgFetchLoader = this.fetchAll(urlList, 6, (url, text) => {
+          console.log("onLoad...", url);
+          let id = url.replace(/^.*\//, "");
+          let p = new DOMParser();
+          let dom = p.parseFromString(text, "image/svg+xml");
+          let svg = dom.firstElementChild;
+          let el = this.$id[id];
+          if (el && svg) {
+            el.innerHTML = svg.innerHTML;
+            // svg.childNodes.forEach((n) => el.append(n.cloneNode(true)));
+            el.setAttribute("viewBox", svg.getAttribute("viewBox"));
+          }
+        });
+      }
+
+      async loadDirFiles(path, endStr) {
+        // 读取列表
+        return fetch(path)
+          .then((response) => response.text())
+          .then((html) => {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, "text/html");
+            const links = doc.querySelectorAll(`a[href$="${endStr}"]`);
+            const fileNames = Array.from(links).map((link) => link.textContent.trim().replace(/\/$/, ""));
+            return fileNames;
+          });
+      }
+
+      lsScopePackagesFromNpm(scope) {
+        const url = `https://registry.npmjs.org/-/v1/search?text=scope:${scope.slice(1)}&size=250`;
+        return fetch(url)
+          .then((response) => response.json())
+          .then((data) => {
+            return data.objects.map((pkg) => pkg.package.name.replace(scope + "/", ""));
+          });
+      }
+
+      onClickIcon(icon) {
+        let str = `<wcex-ui.icon pkg="${this.pkg}" type="${this.curType}" icon="${icon.replace(".svg",'')}"></wcex-ui.icon>`;
+        navigator.clipboard.writeText(str);
+        this.$log('copy',str)
+      }
+
+      async onSelectIconType(ev) {
+        if (ev.detail && ev.detail.prop == "value" && ev.detail.value) {
+          this.loading = true;
+          this.curType = ev.detail.value;
+
+          // 加载图标
+          if (!this.icons[this.curType]) {
+            this.icons[this.curType] = await this.loadDirFiles(
+              WCEX.npmUrl + this.pkg + "/" + this.curType + "/",
+              ".svg"
+            );
+          }
+
+          this.loading = false;
+          // 加载所有的图标SVG
+          if (this.svgFetchLoader) {
+            this.svgFetchLoader.abort();
+            this.svgFetchLoader = undefined;
+          }
+          setTimeout(() => {
+            this.loadAllSvg();
+          }, 200);
+        }
+      }
+    };
+  </script>
+</template>

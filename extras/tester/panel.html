@@ -1,0 +1,82 @@
+
+<template @timer.1000="ob=$json(__OB_STATUS())">
+  <link rel="stylesheet" href="./css/shadow.css" />
+  <link rel="stylesheet" href="./css/scrollbar.css" />
+  <link rel="stylesheet" href="./ui.css" />
+
+  <style>
+    :host {
+      display: flex;
+      flex-direction: column;
+    }
+    :host > div {
+      border-bottom: solid 1px rgba(255, 255, 255, 0.5);
+      padding: 0.2em 1em;
+    }
+    input {
+      margin: 0.2em 0.5em;
+    }
+    input[type="checkbox"] {
+      width: 1.5em;
+      height: 1.5em;
+    }
+    .pkg {
+      border-bottom: solid 1px rgba(255, 255, 255, 0.5);
+      padding: 0.3em 0;
+    }
+    .reload:hover {
+      user-select: none;
+      color: red;
+    }
+  </style>
+  <div class="row" :style="background-color: ${$color.sec};">
+    <h4>DEV PANEL</h4>
+    <div class="row" style="padding-left: 2em">
+      <div>Enable Debug Output:</div>
+      <input type="checkbox" $$checked="dev.debugOutput" />
+    </div>
+
+    <div class="flex"></div>
+    <h4 class="reload" @click="location.reload()">RELOAD</h4>
+  </div>
+
+  <div class="row">
+    <div>
+      <div $for(v,k)="pkgs" class="row pkg">
+        <span style="min-width: 15em; text-align: right" :>${v}: </span>
+        <input style="flex: 1" $disabled="!dev.pkgs[v].enable" type="url" $$="dev.pkgs[v].hostport" />
+        <input type="checkbox" $$checked="dev.pkgs[v].enable" @click="if(!dev.pkgs[v].hostport) dev.pkgs[v].hostport='localhost:8101'" />
+      </div>
+    </div>
+    <div :style="flex: 1; border-left: 1px solid ${$color.sec};height:100%">
+      OK
+    </div>
+  </div>
+
+  <script scope=".">
+    return class {
+      dev = {};
+      pkgs = [];
+      ob = "";
+      onReady() {
+        try {
+          this.dev = JSON.parse(localStorage.getItem("__DEV"));
+        } catch (e) {}
+        if (!this.dev.pkgs) this.dev.pkgs = {};
+        this.pkgs = Object.keys(WCEX.modules).sort();
+        this.pkgs.forEach((p) => {
+          if (!this.dev.pkgs[p]) {
+            this.dev.pkgs[p] = {};
+          }
+        });
+
+        this.$watch(
+          () => this.$json(this.dev),
+          () => {
+            localStorage.setItem("__DEV", JSON.stringify(this.dev));
+          }
+        );
+      }
+    };
+  </script>
+</template>

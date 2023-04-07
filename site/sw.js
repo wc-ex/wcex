@@ -27,6 +27,7 @@ this.addEventListener('fetch', function (event) {
 
     let url = decodeURI(event.request.url);
     if (hotCache[url]) {
+        console.log("---> SW FETCH Cache");
         // 返回缓存数据
         event.respondWith(
             new Response(hotCache[url], {
@@ -37,6 +38,8 @@ this.addEventListener('fetch', function (event) {
         );
     } else {
         // 请求网路数据
+        console.log("---> SW FETCH Net");
+        event.request.referrerPolicy='no-referrer-when-downgrade';
         event.respondWith(fetch(event.request));
     }
 

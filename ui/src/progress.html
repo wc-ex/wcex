@@ -1,0 +1,58 @@
+<!-- 水平进度条 -->
+<template $color="$color.pri" percent.int="50" infinity.bool="0" height="1" class="shadow">
+  <style>
+    /* Set the container properties */
+    :host {
+      position: relative;
+      border-radius: ":${height/2}em";
+      background-color: "$color.l5_";
+      overflow: hidden;
+      user-select: none;
+      height: ":${height}em";
+      --shadow: 1.5 !important;
+    }
+
+    /* Set the progress bar properties */
+    .progress-bar {
+      position: relative;
+      width: ":${infinity?100:percent}%";
+      height: 10em;
+      background: radial-gradient(at 0% 0%, "$color" 0%, "$color.h(60)" 20%,"$color.h(120)" 40%,"$color.h(180)" 60%);
+      background-position: 10%;
+      transition: all 0.5s;
+      animation: "$(infinity || percent <100)?'progress 15s linear infinite reverse':'none'";
+    }
+
+    @keyframes progress {
+      from {
+        background-position: 0;
+      }
+      to {
+        background-position: -500em;
+      }
+    }
+    .text {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .text > div {
+      color: "$$color.textr";
+      font-size: ":${height*0.8}em";
+      font-weight: 600;
+      background-color: "$$color.bgr.a7_";
+      padding: 0 1em;
+    }
+  </style>
+
+  <div class="progress-bar"></div>
+  <div class="text" $if="!infinity"><div :>${percent}%</div></div>
+
+  <script scope=".">
+    return class {};
+  </script>
+</template>

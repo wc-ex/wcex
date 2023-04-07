@@ -7,6 +7,8 @@ import { Scope } from "wcex";
 export default class extends Scope {
   hljs:any;
   src = "";
+  text="";
+  toc=0;
   // hljs={} as any
   onReady(): void {
     let self = this;
@@ -56,23 +58,29 @@ export default class extends Scope {
         this.updateMarked();
       }
     );
+    this.$watch(()=>this.text,()=>this.updateMarked());
     this.updateMarked();
   }
   async updateMarked() {
+    let text = this.text;
+
     if (this.src) {
-      let text = await this.$loader.getFile(this.src).getResult();
-      // let text = await (await fetch()).text()
-      let html = marked.parse(text.replace(/\r\n/g, "\n"));
+      text = await this.$loader.getFile(this.src).getResult();
+    }
+
+    if(text){
+      let html = marked.parse(text.replace(/\r\n/g, "\n")) || "";
       this.$id.md.innerHTML = html;
       this.$id.content.scrollTo(0,0);
-      setTimeout(()=>{
-        this.$emit("update",{md:this.$id.md});
-        this.$emit("update",{md:this.$id.md},this.$id.toc);
-        
-      })
-    } else {
+    }else{
       this.$id.md.innerHTML = "";
+      this.$id.content.scrollTo(0,0);
     }
+    setTimeout(()=>{
+      this.$emit("update",{md:this.$id.md});
+      if(this.toc)
+      this.$emit("update",{md:this.$id.md},this.$id.toc);      
+    })  
 
   }
 

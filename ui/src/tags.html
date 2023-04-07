@@ -1,0 +1,32 @@
+<!--!! 显示标签列表 -->
+<template list.obj="[]" value="" $color="$color.pri" closeable.bool="0">
+  <style>
+    :host {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .tag {
+      background-color: "$color.a9_";
+      border-radius: 10px;
+      margin: 0.3em;
+      transition: all .5s;
+      user-select: none;
+      display: flex;
+      align-items: center;
+    }
+    .tag[checked] {
+        border-radius: 5px;
+        background-color: "$color.a3_";
+        --grow:1 !important;
+    }
+    .tag>div{
+        margin: 0.2em 0.5em;
+    }
+    
+  </style>
+  <div class="tag grow" $for="list" $:.click="$root.value">
+    <div $>value</div>
+    <icon- $if="closeable" active class="close" icon="do_disturb_on" size="1" $color="$root.color.h5" @click.stop="list.splice(index,1)"></icon->
+  </div>
+</template>
