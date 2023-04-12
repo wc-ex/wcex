@@ -1,0 +1,9 @@
+{
+  id: 2,
+  icon: {
+    pkg: 'mdi',
+    type: 'filled',
+    name: 'auto_stories',
+  },
+  baseName: 'Fundament',
+}

@@ -1,0 +1,105 @@
+<template min.bool="0" class="trans" $value="{}" lang="cn">
+  <meta name="scope" />
+  <meta name="module" pkg="lodash.throttle" cjs />
+
+  <style>
+    :host {
+      width: "$min?'6em':'16em'";
+      display: flex;
+      flex-direction: column;
+      transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .title {
+      background-color: "$$color.pri";
+      user-select: none;
+    }
+  </style>
+  <!-- 文档版本 -->
+  <h6 style="margin: 0.5em; text-align: center;" :>${pkg.version}</h6>
+  <!-- 一级主菜单 -->
+  <wcex-ui.panel $textonly="min" closeable $for(vnav,knav)="navData"  $open="1" >
+    <wcex-ui.icon
+      slot="icon"
+      $color="open?$color.pria.l6_:$color.textr.l8"
+      size="1.5"
+      $pkg="vnav.dirInfo.icon.pkg"
+      $type="vnav.dirInfo.icon.type"
+      $icon="vnav.dirInfo.icon.name"
+    ></wcex-ui.icon>
+
+    <span slot="title" :style="color:${open?$color.textr:$color.textr.l2} ;" $>vnav.name.replace(/^\d+-/,'')</span>
+    <!-- 内容区 -->
+    <wcex-ui.list
+      style="padding: 0.5em 0"
+      $color="$color.pri"
+      $items="vnav.items"
+      $flag-icon="(!!min)?'':'send'"
+      $flag-color="$color.sec"
+
+      $$="$root.value"
+      $fn="throttle(()=>{$router.go('wcex-doc.doc',{url:value.path,lang:$root.lang})},50,{leading:false,trailing:true})"
+      @change.1="fn()"
+    >
+    <!-- $sort="{id:1}" -->
+    <div
+        $for="vnav.items"
+        $sort="{id:1}" 
+        $slot="index"
+        :style="padding:0.3em 0 0.3em ${min?0.2:2}em; display:flex;user-select: none;position: relative;"
+      >
+        <wcex-ui.icon
+          $show="!min"
+          $icon="value.icon&&value.icon.name"
+          $pkg="value.icon && value.icon.pkg"
+          $type="value.icon && value.icon.type"
+          size="1"
+          style="padding-right: 0.3em"
+          $checked="value==$root.value"
+          $color="checked?flagColor:$parent.color"
+        ></wcex-ui.icon>
+        <div style="padding-left: 0.2em;position: relative;" >
+          <div $>value.name.replace(/^\d+-/,'')</div>
+          <wcex-ui.badge $if="!!docTime(value) && !min" style="scale: 0.7;border-radius:50% 20% 1em 1em; " pos="r" x="2" y="-2" flat="0" $>docTime(value)</wcex-ui.badge>
+        </div>
+      </div>
+    </wcex-ui.list>
+  </wcex-ui.panel>
+  <script scope="throttle" src="lodash.throttle" nocall></script>
+
+  <script scope="pkg" src="./package.json"></script>
+  <script scope=".">
+    return class {
+      navData = [];
+      async onCreate() {
+        this.navData = (await (await fetch(this.$path(`./guide/${this.lang}/nav.json`))).json())
+        this.navData.sort((a,b)=>a.dirInfo.id-b.dirInfo.id)
+        let r = this.$router.route && this.$router.route.default;
+        let mathedItem = this.navData[0].items[0]
+        if(r && r.attrs && r.attrs.url ){
+          // 从当前url中解析
+          for(let na of this.navData){
+            for(let it of na.items){
+              if(it.path == r.attrs.url){
+                // 匹配URL的菜单项
+                mathedItem= it;
+                break;
+              }
+            }
+          }
+        }else{
+          // 默认为第一项
+          this.$router.go("wcex-doc.doc", { url: mathedItem.path, lang: this.lang });
+        }
+        this.value = mathedItem;
+      }
+      docTime(item){
+        let hours = Math.floor((new Date().getTime() - item.updateAt)/1000/3600);
+        let days = Math.floor(hours/24);
+        if(hours < 12) return `${hours+1}H`;
+        if(days < 15) {
+          return `${days+1}D`;
+        }
+      }
+    };
+  </script>
+</template>

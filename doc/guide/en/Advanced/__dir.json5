@@ -1,0 +1,9 @@
+{
+  id: 3,
+  icon: {
+    pkg: 'mdi',
+    type: 'filled',
+    name: 'auto_stories',
+  },
+  baseName: 'Advanced',
+}

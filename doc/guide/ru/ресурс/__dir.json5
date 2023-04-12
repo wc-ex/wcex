@@ -1,0 +1,9 @@
+{
+  id: 7,
+  icon: {
+    pkg: 'mdi',
+    type: 'filled',
+    name: 'hive',
+  },
+  baseName: 'ресурс',
+}

@@ -1,0 +1,9 @@
+{
+  id: 8,
+  icon: {
+    pkg: 'mdi',
+    type: 'filled',
+    name: 'hive',
+  },
+  baseName: '技巧',
+}

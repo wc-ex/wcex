@@ -1,0 +1,9 @@
+{
+  id: 5,
+  icon: {
+    pkg: 'mdi',
+    type: 'filled',
+    name: 'hive',
+  },
+  baseName: 'étendre',
+}

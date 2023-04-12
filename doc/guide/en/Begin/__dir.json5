@@ -1,0 +1,9 @@
+{
+  id: 1,
+  icon: {
+    pkg: 'mdi',
+    type: 'filled',
+    name: 'bookmarks',
+  },
+  baseName: 'Begin',
+}

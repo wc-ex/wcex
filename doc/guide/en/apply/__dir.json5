@@ -1,0 +1,9 @@
+{
+  id: 4,
+  icon: {
+    pkg: 'mdi',
+    type: 'filled',
+    name: 'important_devices',
+  },
+  baseName: 'apply',
+}
