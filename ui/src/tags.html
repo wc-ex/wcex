@@ -25,7 +25,7 @@
     }
     
   </style>
-  <div class="tag grow" $for="list" $:.click="$root.value">
+  <div class="tag grow" :style="--grow-color:${color}" $for="list" $:.click="$root.value">
     <div $>value</div>
     <icon- $if="closeable" active class="close" icon="do_disturb_on" size="1" $color="$root.color.h5" @click.stop="list.splice(index,1)"></icon->
   </div>

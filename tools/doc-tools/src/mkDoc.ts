@@ -316,7 +316,8 @@ async function transDoc(toLang: LANG_NAMES_T[]) {
 (async () => {
   // 生成索引
   await buildDoc(path.join(DOC_ROOT, "cn"));
-  if (process.argv[3] == 'lang') {
+  console.log(process.argv);
+  if (process.argv[2] == 'lang') {
     let LANGS1: LANG_NAMES_T[] = ["en", "ja", "zh-Hant", "lzh", "yue"];
     let LANGS2: LANG_NAMES_T[] = ["ko", "fr", "it", "de", "ru"];
     for (let l of LANGS1) {

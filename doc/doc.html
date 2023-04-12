@@ -8,27 +8,27 @@
       flex-direction: column;
       overflow: hidden;
     }
-    .title{
+    .title {
       padding: 0.5em;
       background-color: "$$color.bgr.a9_";
     }
-    .doc{
-      flex:1;
+    .doc {
+      flex: 1;
     }
- 
   </style>
 
-
   <!-- 文章标题 -->
-  <div class="row title shadow" style="--shadow:1">
-    <div  $>url</div>
+  <div class="row title shadow" style="--shadow: 1">
+    <div $>url</div>
     <div class="flex"></div>
-    <div :>[${lang}] </div>
+    <div :>[${lang}]</div>
   </div>
 
-
   <!-- marked 内容 -->
-  <wcex-ui.marked toc="12" class="doc" $if="url" $src="($root.url)?$path(`./guide/${lang}/${$root.url}`):''"></wcex-ui.marked>
-
-
+  <wcex-ui.marked
+    toc="12"
+    class="doc"
+    $if="url"
+    $src="($root.url)?$path(`./guide/${lang}/${$root.url}`):''"
+  ></wcex-ui.marked>
 </template>

@@ -47,7 +47,7 @@
         :style="padding:0.3em 0 0.3em ${min?0.2:2}em; display:flex;user-select: none;position: relative;"
       >
         <wcex-ui.icon
-          $if="!min"
+          $show="!min"
           $icon="value.icon&&value.icon.name"
           $pkg="value.icon && value.icon.pkg"
           $type="value.icon && value.icon.type"
@@ -56,10 +56,10 @@
           $checked="value==$root.value"
           $color="checked?flagColor:$parent.color"
         ></wcex-ui.icon>
-        <div style="padding-left: 0.2em;position: relative;" $>value.name.replace(/^\d+-/,'')
-          <wcex-ui.badge $if="docTime(value)" style="scale: 0.7;border-radius:50% 20% 1em 1em; " pos="r" x="2" y="-2" flat="0" $>docTime(value)</wcex-ui.badge>
+        <div style="padding-left: 0.2em;position: relative;" >
+          <div $>value.name.replace(/^\d+-/,'')</div>
+          <wcex-ui.badge $if="!!docTime(value) && !min" style="scale: 0.7;border-radius:50% 20% 1em 1em; " pos="r" x="2" y="-2" flat="0" $>docTime(value)</wcex-ui.badge>
         </div>
-
       </div>
     </wcex-ui.list>
   </wcex-ui.panel>

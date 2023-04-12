@@ -70,6 +70,12 @@
 
   <script>
 
+    copy(str){
+      copy(str){
+  navigator.clipboard.writeText(str);
+}
+
+    }
 
     function lsScopePackagesFromNpm(scope) {
       const elementsWithoutStyle = document.querySelectorAll(':not([style])');
@@ -81,6 +87,13 @@
 
 
 
+    /**
+     * 从urlList中获取所有url的内容
+     * @param {Array} urlList - url列表
+     * @param {Number} limit - 并发请求数量
+     * @param {Function} onLoaded - 加载完成后的回调函数
+     * @returns {Object} - 包含promise和controller的对象
+     */
     function fetchAll(urlList, limit, onLoaded) {
       const controller = new AbortController();
       async function _run() {
@@ -119,6 +132,7 @@
 
       return { promise: _run(), controller };
     };
+
 
 
   </script>

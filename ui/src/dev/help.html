@@ -1,4 +1,8 @@
 <template tags="" cur="">
+  <link rel="stylesheet" href="../css/shadow.css" />
+  <link rel="stylesheet" href="../css/scrollbar.css" />
+  <link rel="stylesheet" href="../ui.css" />
+
   <style>
     :host {
       display: flex;
@@ -31,14 +35,59 @@
     .close:hover{
         color: red;
     }
+
+    .params:nth-child(odd){
+      background-color: "$$color.bgr.a6_";
+    }
+    .params:nth-child(even){
+      background-color: "$$color.bgr.a3_";
+    }
+    .params{
+      border-bottom: 3px double rgba(255,255,255,.3);
+    }
+
+    .ptype{
+      text-align: center;
+      padding: 0.3em 1em;
+      font-weight: 600;
+      border-bottom: 1px solid "$$color.bg.a6_";
+    }
+    .pinfo{
+      display: flex;
+      border-bottom: 1px solid rgba(255,255,255,.3);
+      align-items: center;
+
+    }
+    .pname{
+      min-width: 4em;
+      white-space: pre-wrap;
+      padding: 0.5em 0.5em;      
+      text-align: center;
+    }
+    .ptext{
+      border-left: 1px solid rgba(255,255,255,.3);
+      font-size: 11px ;
+    }
   </style>
   <div class="row center title">
     <div class="list">
       <div2 class="tag" $for="taglist" $:.click="cur" $>value</div2>
     </div>
-    <h3 class="close" @click="$emit('close')">CLOSE</h3>
+    <div style="flex: 1;"></div>
+    <h3 class="close" style="padding-right: 1em;" @click="$emit('close')">CLOSE</h3>
   </div>
   <marked- $text="parsed.desc.text"></marked->
+
+  <!-- 显示参数等说明 -->
+    <div class="params" $for="parsed.params">
+      <div class="ptype" $>index.slice(1)</div>
+      <div class="pinfo" $for(pv,pi)="value">
+          <div class="pname" $>pi</div>
+          <marked- class="ptext" $text="pv.text"></marked->
+      </div>
+
+  </div>
+
 
   <script scope=".">
     return class {
@@ -83,7 +132,7 @@
         for (let l of lines) {
           let s = l.trim();
 
-          let m = s.match(/^(@\w+)[ ]+([\w\d]+)[ ]+(.*)$/);
+          let m = s.match(/^(@\w+)\s+([\w\d]+)\s+(.*)$/);
           if (m && m.length == 4) {
             // 新建描述对象
             let type = m[1];

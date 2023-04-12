@@ -17,6 +17,7 @@ let popInstance = undefined as Side | undefined;
 
 WCEX.usePlugins({
   name: "$side",
+  
   scope: {
     $side(tagOrEl: string | HTMLElement, options?: ISideOptions) {
       popInstance?.open(tagOrEl, options);

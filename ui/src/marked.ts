@@ -63,15 +63,17 @@ export default class extends Scope {
   }
   async updateMarked() {
     let text = this.text;
+    if(!this.$id.md) return;
 
     if (this.src) {
       text = await this.$loader.getFile(this.src).getResult();
     }
-
+ 
     if(text){
       let html = marked.parse(text.replace(/\r\n/g, "\n")) || "";
-      this.$id.md.innerHTML = html;
-      this.$id.content.scrollTo(0,0);
+        this.$id.md.innerHTML = html;
+        this.$id.content.scrollTo(0,0);
+  
     }else{
       this.$id.md.innerHTML = "";
       this.$id.content.scrollTo(0,0);
