@@ -9,8 +9,17 @@
   <script scope=".">
     return class {
       onReady() {
-          // console.debug("WCEX_TEST_END");
-          
+        // requestAnimationFrame(() => {
+          console.log("测试组件引用: <test1->")
+          console.assert(
+            this.$rootElem.shadowRoot.querySelector("test1-").shadowRoot.querySelector("h1").textContent.trim() ==
+              "test1",
+            "Failed Create component"
+          );
+          console.debug("WCEX_TEST_END");
+        // });
+        
+
       }
     };
   </script>

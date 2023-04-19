@@ -82,10 +82,18 @@ const TEST_HTML_DEFAULT = `
 `;
 
 let ERROR_FLAG = false;
+
 // 运行一个测试用例
 async function runCase(browser: Browser, options: { id: number, baseDir: string, testDir: string, wcexUrl: string, npmUrl: string; localServer: string; isShow: boolean; }): Promise<any> {
     if (ERROR_FLAG) return;
     let startTm = new Date().getTime();
+
+    function errorOut(msg: string) {
+        ERROR_FLAG = true;
+        console.error(colors.red(prefix + msg));
+        if (!options.isShow) process.exit(1);
+    }
+
 
     // 挂载测试目录
     let homeDir = `${options.testDir.replace(/\\/g, '/')}/index.html`;
@@ -104,7 +112,11 @@ async function runCase(browser: Browser, options: { id: number, baseDir: string,
     });
     console.log(`Run: ${options.id}:`, homeDir);
     // let homeUrl = `${options.localServer}/${options.testDir}/${options.testDir}`;
-    let page = await browser.newPage();
+    // 重用 blank page 或者新建page
+    let blankPages = (await browser.pages()).filter(v=>v.url().startsWith('about:'));
+
+
+    let page = blankPages.length>0?blankPages[0]: await browser.newPage();
     const prefix = `${options.id}-[${homeDir}] `;
     await page.setViewport({ width: 0, height: 0 });
 
@@ -123,9 +135,7 @@ async function runCase(browser: Browser, options: { id: number, baseDir: string,
                 case 'error':
                     if (!(loc.url?.match(/favicon\.ico/))) {
                         // 出现错误，停止执行
-                        ERROR_FLAG = true;
-                        console.error(colors.red(`${prefix}${text}, ${loc.url}, ${loc.columnNumber || 0}/${loc.lineNumber || 0}`));
-                        if (!options.isShow) process.exit(1);
+                        errorOut(`${text}, ${loc.url}, ${loc.columnNumber || 0}/${loc.lineNumber || 0}`)
                     }
                     break;
                 case 'warning':
@@ -137,12 +147,18 @@ async function runCase(browser: Browser, options: { id: number, baseDir: string,
                         let tm = Math.round((new Date().getTime() - startTm)) / 1000;
                         res({ id: options.id, dir: homeDir, time: tm });
                         console.log(colors.green(prefix + `succeed, time: ${tm}s`));
-                    }else{
+                    } else {
                         console.log(colors.gray(prefix + text));
                     }
                     break;
             }
         });
+        page.on('pageerror',(ev)=>{
+            errorOut(`${ev.name}, ${ev.message}, \n ${ev.stack}`)
+        })
+        page.on('error',(ev)=>{
+            errorOut(`${ev.name}, ${ev.message}, \n ${ev.stack}`)
+        })
 
         page.goto(`${options.localServer}/${homeDir}`);
     });
@@ -157,7 +173,8 @@ async function launchBrowser(browserName: string, isShow: boolean) {
         executablePath: browserExe,
         headless: !isShow,
         devtools: false,
-        product:browserName.match('firefox')?'firefox':'chrome'
+        product: browserName.match('firefox') ? 'firefox' : 'chrome',
+
     });
 }
 interface IOpts { wcex: string, dir: string, concurrent: number, npm: string; port: number, browser: string, show: boolean; }

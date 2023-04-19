@@ -61,8 +61,8 @@
       border-left: 1px dotted "$color.a3_";
     }
     .item:focus-within > .child {
-      border-left-style:  solid ;
-      border-left-width:  1.5px ;
+      border-left-style: solid;
+      border-left-width: 1.5px;
     }
   </style>
   <div $for(v,k)="tree" class="item" $open="true">
@@ -77,7 +77,7 @@
         :style="transform: rotate(${open?90:0}deg) scaleX(${open?1.8:1});"
         $color="$root.color"
       ></icon->
-      <div $if="(!v.child) || (v.child.length==0)" style="width: 0.5em;height: 1em;"></div>
+      <div $if="(!v.child) || (v.child.length==0)" style="width: 0.5em; height: 1em"></div>
       <!-- 图标 -->
       <icon- $if="v.icon" $icon="v.icon.icon||v.icon" size="1" $color="v.icon.color||$root.color"></icon->
       <div class="text" style="user-select: none" $>v.title</div>
@@ -97,6 +97,13 @@
         ></icon->
       </div>
     </div>
-    <tree- class="child" $if="v.child && open" $tree="v.child" $color="$root.color" $openicon="$root.openicon" $$value="$root.value"></tree->
+    <tree-
+      class="child"
+      $if="v.child && open"
+      $tree="v.child"
+      $color="$root.color"
+      $openicon="$root.openicon"
+      $$value="$root.value"
+    ></tree->
   </div>
 </template>
