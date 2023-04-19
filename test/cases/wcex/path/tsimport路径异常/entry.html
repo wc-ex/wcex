@@ -1,0 +1,12 @@
+<!-- 多重数据绑定测试 -->
+<template>
+    <script scope="api" src="@/@test/mod2/mod2.js" nocall nowatch></script>
+
+    <script scope=".">
+        return class {
+            onReady() {
+                console.log('ennnn~!!!!!!', this.api)
+            }
+        }
+    </script>
+</template>
