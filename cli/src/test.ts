@@ -132,12 +132,13 @@ async function runCase(browser: Browser, options: { id: number, baseDir: string,
                     console.warn(colors.yellow(prefix + text));
                     break;
                 default:
-                    console.log(colors.gray(prefix + text));
                     if (text === 'WCEX_TEST_END') {
                         page.close();
                         let tm = Math.round((new Date().getTime() - startTm)) / 1000;
                         res({ id: options.id, dir: homeDir, time: tm });
-                        console.log(colors.gray(prefix + `time: ${tm}s`));
+                        console.log(colors.green(prefix + `succeed, time: ${tm}s`));
+                    }else{
+                        console.log(colors.gray(prefix + text));
                     }
                     break;
             }
