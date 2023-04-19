@@ -5,10 +5,10 @@ import * as hljs from "@highlightjs/cdn-assets";
 import { Scope } from "wcex";
 
 export default class extends Scope {
-  hljs:any;
+  hljs: any;
   src = "";
-  text="";
-  toc=0;
+  text = "";
+  toc = 0;
   // hljs={} as any
   onReady(): void {
     let self = this;
@@ -21,31 +21,31 @@ export default class extends Scope {
     });
     marked.use({
       renderer: {
-        html(html){
+        html(html) {
           // 为svg 文件处理路径
           let m = html.match(/(.*<svg .* src=")(.*)(" .*>[\s\S]*<\/svg>.*)/);
-          if(m && m.length == 4){
-            if(m[2].startsWith('@/')){
-                return m[1]+ self.$path(m[2])+m[3];
+          if (m && m.length == 4) {
+            if (m[2].startsWith('@/')) {
+              return m[1] + self.$path(m[2]) + m[3];
             }
           }
           return html;
         },
-        
+
         image(href: string, title: string, text: string) {
-          let m = href.match(/^(.+?)\{(.*)\}$/)!
+          let m = href.match(/^(.+?)\{(.*)\}$/)!;
           let url = "";
           let sty = "";
-          if(m && m.length == 3){
-            url=self.$path(m[1]);
-            sty=m[2];
-          }else{
-            url=self.$path(href);
+          if (m && m.length == 3) {
+            url = self.$path(m[1]);
+            sty = m[2];
+          } else {
+            url = self.$path(href);
           }
 
-          if(url.endsWith('.svg')){
+          if (url.endsWith('.svg')) {
             return `<p align="center"> <svg src="${url}" alt="${text}" style="${sty}"></svg> </p>`;
-          }else{
+          } else {
             return `<p align="center"> <img src="${url}" alt="${text}" style="${sty}"> </p>`;
           }
         },
@@ -58,35 +58,35 @@ export default class extends Scope {
         this.updateMarked();
       }
     );
-    this.$watch(()=>this.text,()=>this.updateMarked());
+    this.$watch(() => this.text, () => this.updateMarked());
     this.updateMarked();
   }
   async updateMarked() {
     let text = this.text;
-    if(!this.$id.md) return;
+    if (!this.$id.md) return;
 
     if (this.src) {
       text = await this.$loader.getFile(this.src).getResult();
     }
- 
-    if(text){
+
+    if (text) {
       let html = marked.parse(text.replace(/\r\n/g, "\n")) || "";
-        this.$id.md.innerHTML = html;
-        this.$id.content.scrollTo(0,0);
-  
-    }else{
+      this.$id.md.innerHTML = html;
+      this.$id.content.scrollTo(0, 0);
+
+    } else {
       this.$id.md.innerHTML = "";
-      this.$id.content.scrollTo(0,0);
+      this.$id.content.scrollTo(0, 0);
     }
-    setTimeout(()=>{
-      this.$emit("update",{md:this.$id.md});
-      if(this.toc)
-      this.$emit("update",{md:this.$id.md},this.$id.toc);      
-    })  
+    setTimeout(() => {
+      this.$emit("update", { md: this.$id.md });
+      if (this.toc)
+        this.$emit("update", { md: this.$id.md }, this.$id.toc);
+    }, 100);
 
   }
 
-  onScroll(){
-    this.$emit('sync-scroll',this.$id.toc)
+  onScroll() {
+    this.$emit('sync-scroll', this.$id.toc);
   }
 }

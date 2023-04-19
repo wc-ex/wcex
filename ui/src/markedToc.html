@@ -50,6 +50,7 @@
 
       // 生成 TOC Json 树
       updateToc($ev) {
+        this.$log('update toc');
         let parentEl = $ev.detail.md;
         this.tocs = [];
         if (parentEl) {

@@ -1,15 +1,18 @@
 <!-- 
-    创建一个菜单列表，支持选中、高亮、多选等操作
+    创建一个列表，支持选中、高亮、多选等操作
+    slot
+
     type: [radio | checkbox]
  -->
 
-<template type="radio" $items="3" $color="$color.pri" value.obj="{}" flag-icon="check_circle_outline" $flag-color="$color.ok">
+<template type="radio" $color="$color.pri" value.obj="{}" flag-icon="check_circle_outline" $flag-color="$color.ok">
   <style>
     :host {
       display: flex;
       flex-direction: column;
     }
-    .item {
+
+    ::slotted(*){
       display: flex;
       align-items: center;
       border-left-width: 0;
@@ -17,51 +20,24 @@
       border-left-style: dotted;
       border-left-color: "$flagColor";
     }
-    .item:hover{
+    ::slotted(:hover){
       background-color: "$$color.sec.a8_";
     }
-    .item[checked] {
+    ::slotted([checked]){
       color: "$color.l5";
       border-left-color: "$flagColor";
       background-color: "$$color.bg.a5_";
       border-left-width: 0.5em;
       border-left-style: solid;
     }
-    .flag {
-      transition: all 1s;
-    }
 
   </style>
-  <div $if="type=='radio'">
-    <div $for="items" class="item trans" $:.click="$root.value">
-      <!-- 绑定数据为单选-->
-      <slot $name="index"></slot>
-      <div style="flex: 1">
-        <wcex-ui.icon
-          :style="margin-left: ${checked?'calc(100% - 1.5em)':0}"
-          class="flag"
-          $color="flagColor"
-          $icon="flagIcon"
-          $if="!!flagIcon"
-          $size="checked?1:0"
-        ></wcex-ui.icon>
-      </div>
-    </div>
-  </div>
-  <div $if="type=='checkbox'">
-    <div $for="items" class="item trans" $::.click="$root.value">
-      <!-- 绑定数据为数组，设为数组 -->
-      <slot $name="index"></slot>
-      <div>
-        <wcex-ui.icon
-          :style="margin-left: ${checked?'calc(100% - 1.5em)':0}"
-          class="flag"
-          $color="flagColor"
-          $icon="flagIcon"
-          $if="flagIcon"
-          $size="checked?1:0"
-        ></wcex-ui.icon>
-      </div>
-    </div>
-  </div>
+
+<!-- 默认插槽，对插槽内具有checked的元素有特效-->
+  <slot >
+
+  </slot>
+
+  <!-- 指示器, 右侧，动态移动到当前项 -->
+
 </template>

@@ -44,7 +44,10 @@
     $fn="throttle((pkg)=>{console.log('update font demo');demo.name=pkg},500,{leading:false,trailing:true})"
     @demo="fn($ev.detail)"
   >
-    <div slot="panel" $as="$slot.value " ></div>
+  <div  slot="panel" $cmpt="$slot.value">
+    <div $as="cmpt"></div>
+  </div>
+  <!-- <div slot="panel" $abc="$slot.value" :>HELLO: ${$slot.value}</div> -->
   </wcex-ui.tab>
 
   <script scope="throttle" src="lodash.throttle" nocall nowatch></script>

@@ -14,7 +14,8 @@
   @prop size **类型:number** **默认:1.5** 图标大小, 单位: em
   @prop url **类型:string** **默认:""** 图标文件指定URL, 指定此项内容将取代 pkg,type,icon 的设置
   @prop active  **类型:bool** **默认:false** 是否为活动图标，如为活动状态，则允许类似按钮行为，并发送点击事件
-  @prop color  **类型: $对象** **默认:$color.pri** 图标颜色，支持$color配色对象，也支持 rgb,#aabbcd等直接颜色，不支持 "red,green"等名称色
+  @prop color  **类型: $对象** **默认:$color.pri** 图标颜色，支持$color配色对象，也支持 rgb,#aabbcd等直接颜色，不支持 "red,green"等名称色.
+
 
   @slot default 缺省插槽
 -->
@@ -28,7 +29,6 @@
   $color="$color.pri"
   $tabindex="active?0:-1"
   class="grow trans"
-  flaged.bool="0"
 >
   <meta name="scope" />
 

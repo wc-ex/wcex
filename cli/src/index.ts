@@ -39,25 +39,16 @@ program
 
 program
   .command('test')
-  .description('run all test case ')
-  .option('--dir <string>', 'test cases dir', path.resolve('.','test'))
+  .description('run ui test cases')
+  .option('-d, --dir <string>', 'test cases dir', '.')
+  .option('-w,--wcex <string>', 'wcex url or version', '')
+  .option('-c,--concurrent <int>', 'concurrent run cases nums', '1')
+  .option('-n,--npm <string>', 'npm url', '')
+  .option('-p,--port <int>', 'test server listen port', '11111')
+  .option('-b,--browser <string>', 'browser: firefox,chrome,edge,...', 'chrome')
+  .option('-s,--show', 'show browser ui', false)
+
   .action(test);
 
 program.parse();
 
-// 启动工作区
-// (async () => {
-//   const opts = program.opts();
-//   //   const workspace = new WorkSpace(opts);
-//   try {
-//     // await workspace.init();
-//   } catch (e: any) {
-//     if (process.env["DEBUG"]) {
-//       console.error("error:", e);
-//       debugger;
-//     } else {
-//       console.error("error:", e.message);
-//       program.help();
-//     }
-//   }
-// })();

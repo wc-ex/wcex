@@ -23,7 +23,6 @@
       changeRouter() {
         try {
           var r = this.$router.route[this.name];
-          var rEl = this.$id.route;
           var rsc = this.$id.route.$scope;
           this.$log("----> change router", r.tag, JSON.stringify(r.attrs));
           if (!r) return;
@@ -42,7 +41,7 @@
           if (tag.indexOf("-") < 0) {
             throw Error("invalid tag");
           }
-          if (rEl) {
+          if (this.$id.route) {
             // 首先设置属性
             for (var k of Object.keys(r.attrs)) {
               let v = r.attrs[k];
