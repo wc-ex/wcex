@@ -42,7 +42,7 @@ program
   .description('run ui test cases')
   .option('-d, --dir <string>', 'test cases dir', '.')
   .option('-w,--wcex <string>', 'wcex url or version', '')
-  .option('-c,--concurrent <int>', 'concurrent run cases nums', '1')
+  .option('-c,--concurrent <int>', 'concurrent run cases nums', '3')
   .option('-n,--npm <string>', 'npm url', '')
   .option('-p,--port <int>', 'test server listen port', '11111')
   .option('-b,--browser <string>', 'browser: firefox,chrome,edge,...', 'chrome')

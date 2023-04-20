@@ -115,13 +115,13 @@ async function runCase(browser: Browser, options: { id: number, baseDir: string,
         res.setHeader('content-type', 'text/html');
         res.status(200).end(html);
     });
-    console.log(`Run: ${options.id}:`, homeDir);
+    console.log(`${options.id}: RUN `, homeDir);
     // let homeUrl = `${options.localServer}/${options.testDir}/${options.testDir}`;
     // 重用 blank page 或者新建page
     let blankPages = (await browser.pages()).filter(v => v.url().startsWith('about:'));
 
 
-    let page = blankPages.length > 0 ? blankPages[0] : await browser.newPage();
+    let page =  await browser.newPage();
     const prefix = `${options.id}-[${homeDir}] `;
     await page.setViewport({ width: 0, height: 0 });
 
@@ -153,13 +153,15 @@ async function runCase(browser: Browser, options: { id: number, baseDir: string,
                         res({ id: options.id, dir: homeDir, time: tm });
                         if (ERROR_FLAG) {
                             console.log(colors.red(prefix + `End failed, time: ${tm}s`));
-                            if(!options.isShow) page.close();
+                            if(!options.isShow) {
+                                setTimeout(()=>page.close(),500);
+                            }
                         } else {
-                            console.log(colors.gray(prefix + `ok, time: ${tm}s`));
-                            page.close();
+                            console.log(colors.green(prefix + `ok, time: ${tm}s`));
+                            setTimeout(()=>page.close(),500);
                         }
                     } else {
-                        console.log(ev.type(), colors.gray(prefix + text));
+                        console.log(colors.gray(prefix + ev.type() + text));
                     }
                     break;
             }
@@ -201,8 +203,7 @@ export async function test(opts: IOpts) {
     try {
         let httpServer = new Server((req, res) => {
             if (req.url) req.url = decodeURI(req.url);
-            console.log(colors.gray(`HTTP ${req.method} ${req.url}`));
-
+            // console.log(colors.gray(`HTTP ${req.method} ${req.url}`));
             app(req, res);
         });
 
@@ -241,11 +242,10 @@ export async function test(opts: IOpts) {
                     isShow: opts.show
                 });
         }
-        ), 2);
+        ), opts.concurrent);
         if (!ERROR_FLAG) console.log(colors.green("=== all completed ===\n"), ret);
         // 输出测试报告
         if (!opts.show) {
-            console.log("== EXIT ==");
             process.exit(0);
         }
     } catch (e: any) {
