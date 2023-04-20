@@ -1,15 +1,15 @@
 <!--DESC: {icon:{name:"explore",pkg:"mdi",type:"filled"},id:1} -->
 
 # 아이콘 라이브러리
-아이콘 라이브러리는 \<wcex-ui.icon\> 구성 요소를 사용하여 로드하거나 \<svg\> 태그를 직접 사용할 수 있습니다.
-- 아이콘을 클릭하면 아이콘 라벨이 클립 보드에 직접 복사됩니다.
-- 아이콘 라이브러리가 처음로드 될 때 약간 느려집니다.
+아이콘 라이브러리는 \<wcex-ui.icon\> 구성 요소를 사용하여 로드되거나 \<svg\> 태그를 직접 사용할 수 있습니다.
+- 아이콘을 클릭하여 아이콘 레이블을 클립보드에 직접 복사합니다.
+- 아이콘 라이브러리가 처음 로드될 때 약간 느려지므로 기다려 주십시오.
 
 
 
-<div 스타일 = "위치 : 고정;상단 : 0;"><wcex-doc.com-icon_search >< / wcex-doc.com-icon_search></div>
+<div 스타일 = "위치 : 고정, 상단 : 0;"><wcex-doc.com-icon_search >< / wcex-doc.com-icon_search></div>
 
-### 재질 디자인 아이콘
+### 머티리얼 디자인 아이콘
 <div><wcex-doc.com-icons pkg="@material-design-icons/svg" ></wcex-doc.com-icons></div>
 
 ### @fontawesome 프리
@@ -22,14 +22,14 @@
 <div><wcex-doc.com-icons pkg="@tabler/icons/categories" ></wcex-doc.com-icons></div>
 
 
-### @iconscout/아이콘 없음
+### @iconscout/유니콘
 <div><wcex-doc.com-icons pkg="@iconscout/unicons/svg" ></wcex-doc.com-icons></div>
 
 ### 플래그 아이콘
-<div><wcex-doc.com-icons pkg="flag-icons/flags" ></wcex-doc.com-icons></div>
+<div><wcex-doc.com-icons pkg="플래그 아이콘/플래그" ></wcex-doc.com-icons></div>
 
-### 국가 국기 아이콘
-<div><wcex-doc.com-icons pkg="country-flag-flags/flags" ></wcex-doc.com-icons></div>
+### 국기 아이콘
+<div><wcex-doc.com-icons pkg="country-flag-icons/flags" ></wcex-doc.com-icons></div>
 
 ### 그로밋 아이콘
 <div><wcex-doc.com-icons pkg="grommet-icons" ></wcex-doc.com-icons></div>
@@ -43,7 +43,7 @@
 ### 깃털 아이콘
 <div><wcex-doc.com-icons pkg="feather-icons/dist" ></wcex-doc.com-icons></div>
 
-### @lrnwebcomponents/헥스 아이콘 세트
+### @lrnwebcomponents/hax-iconset
 <div><wcex-doc.com-icons pkg="@lrnwebcomponents/hax-iconset/lib/svgs" ></wcex-doc.com-icons></div>
 
 ### @primer/옥티콘
@@ -74,33 +74,33 @@
 <div><wcex-doc.com-icons pkg="picon" ></wcex-doc.com-icons></div>
 
 ### @vaadin/아이콘
-<div><wcex-doc.com-icons pkg="@vaadin/icons/assets" ></WCEX-doc.com-icons></div>
+<div><wcex-doc.com-icons pkg="@vaadin/icons/assets" ></wcex-doc.com-icons></div>
 
 ### dls 아이콘
-<div><wcex-doc.com-icons pkg="dls-icons" ></WCEX-doc.com-icons></div>
+<div><wcex-doc.com-icons pkg="dls-icons" ></wcex-doc.com-icons></div>
 
-### @zendeskgarden/SVG 아이콘
+### @zendeskgarden/svg 아이콘
 <div><wcex-doc.com-icons pkg="@zendeskgarden/svg-icons/src" ></wcex-doc.com-icons></div>
 
-### 스물셋 아이콘
+### 스물 셋 아이콘
 <div><wcex-doc.com-icons pkg="twentythree-icons" ></wcex-doc.com-icons></div>
 
 ### @phosphor 아이콘/코어
 <div><wcex-doc.com-icons pkg="@phosphor-icons/core/assets" ></wcex-doc.com-icons></div>
 
 ### ccy 아이콘
-<div><WCEX-doc.com-icons pkg="ccy-icons" ></WCEX-doc.com-icons></div>
+<div><wcex-doc.com-icons pkg="ccy-icons" ></wcex-doc.com-icons></div>
 
-### @icon/아이코폰트
+### @icon/icofont
 <div><wcex-doc.com-icons pkg="@icon/icofont" ></wcex-doc.com-icons></div>
 
-### @navikt/악셀 아이콘
+### @navikt/aksel-icons
 <div><wcex-doc.com-icons pkg="@navikt/aksel-icons/dist" ></wcex-doc.com-icons></div>
 
 ### @weave 디자인/아이콘
 <div><wcex-doc.com-icons pkg="@weave-design/icons/build/svg" ></wcex-doc.com-icons></div>
 
-### q날씨 아이콘
+### qweather 아이콘
 <div><wcex-doc.com-icons pkg="qweather-icons" ></wcex-doc.com-icons></div>
 
 ### 이코노그래프
@@ -112,7 +112,7 @@
 ### @rogdevil/암호화 아이콘
 <div><wcex-doc.com-icons pkg="@rogdevil/crypto-icons/lib" ></wcex-doc.com-icons></div>
 
-### @momentum-ui/아이콘-리브랜딩
+### @momentum-ui/icons-리브랜딩
 <div><wcex-doc.com-icons pkg="@momentum-ui/icons-rebrand" ></wcex-doc.com-icons></div>
 
 ### 니니안 아이콘
@@ -127,17 +127,17 @@
 ### @ad_platform/아이콘
 <div><wcex-doc.com-icons pkg="@ad_platform/icons/dist" ></wcex-doc.com-icons></div>
 
-### @instructure/UI 아이콘
+### @instructure/ui-icons
 <div><wcex-doc.com-icons pkg="@instructure/ui-icons/svg" ></wcex-doc.com-icons></div>
 
 ### @brightlayer-ui/icons-svg
 <div><wcex-doc.com-icons pkg="@brightlayer-ui/icons-svg/." ></wcex-doc.com-icons></div>
 
-### @hashicorp/비행 아이콘
+### @hashicorp/flight-icons
 <div><wcex-doc.com-icons pkg="@hashicorp/flight-icons" ></wcex-doc.com-icons></div>
 
 
-### @hashicorp/비행 아이콘
+### @hashicorp/flight-icons
 <div><wcex-doc.com-icons pkg="@hashicorp/flight-icons" ></wcex-doc.com-icons></div>
 
 
@@ -152,5 +152,5 @@
 ### @n8d/htwoo-icons/fluent-ui-regular/
 <div><wcex-doc.com-icons pkg="@n8d/htwoo-icons/fluent-ui-regular" ></wcex-doc.com-icons></div>
 
-### 다른 아이콘 라이브러리, 추가 예정
+### 추가 예정인 기타 아이콘 라이브러리
 

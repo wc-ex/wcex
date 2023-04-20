@@ -173,6 +173,8 @@
             const links = doc.querySelectorAll(`a[href$="${endStr}"]`);
             const fileNames = Array.from(links).map((link) => link.textContent.trim().replace(/\/$/, ""));
             return fileNames;
+          }).catch((e)=>{
+            this.$log.warn(e.message);
           });
       }
 

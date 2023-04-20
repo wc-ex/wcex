@@ -2,17 +2,17 @@
 
 # Библиотека иконок
 Библиотека значков загружается с помощью компонента \<wcex-ui.icon\> или можно напрямую использовать тег \<svg\>.
-- Нажмите на иконку, чтобы скопировать метку иконки непосредственно в буфер обмена
-- Первый раз, когда библиотека иконок загружается немного медленнее, пожалуйста, будьте терпеливы
+- Нажмите на значок, чтобы скопировать метку значка прямо в буфер обмена.
+- В первый раз библиотека значков загружается немного медленнее, наберитесь терпения
 
 
 
 <div style="position: sticky;top: 0;"><wcex-doc.com-icon_search ></wcex-doc.com-icon_search></div>
 
-### материал-дизайн-иконки
+### Материалы-Дизайн-Иконки
 <div><wcex-doc.com-icons pkg="@material-design-icons/svg" ></wcex-doc.com-icons></div>
 
-### без @fontawesome
+### @fontawesome бесплатно
 <div><wcex-doc.com-icons pkg="@fortawesome/fontawesome-free/svgs" ></wcex-doc.com-icons></div>
 
 ### @svg-иконки
@@ -22,16 +22,16 @@
 <div><wcex-doc.com-icons pkg="@tabler/icons/categories" ></wcex-doc.com-icons></div>
 
 
-### @iconscout/юниконы
+### @iconscout/unicons
 <div><wcex-doc.com-icons pkg="@iconscout/unicons/svg" ></wcex-doc.com-icons></div>
 
-### флаг-иконки
+### флаги-иконки
 <div><wcex-doc.com-icons pkg="flag-icons/flags" ></wcex-doc.com-icons></div>
 
-### страны-флаг-иконки
+### иконки флагов стран
 <div><wcex-doc.com-icons pkg="country-flag-icons/flags" ></wcex-doc.com-icons></div>
 
-### люверс-иконки
+### втулки-иконки
 <div><wcex-doc.com-icons pkg="grommet-icons" ></wcex-doc.com-icons></div>
 
 ### @alaskaairux/иконки/иконки
@@ -52,13 +52,13 @@
 ### @carbon/иконки
 <div><wcex-doc.com-icons pkg="@carbon/icons/svg" ></wcex-doc.com-icons></div>
 
-### @carbon/иконки/32
+### @carbon/icons/32
 <div><wcex-doc.com-icons pkg="@carbon/icons/svg/32" ></wcex-doc.com-icons></div>
 
-### унис-иконки
+### unis-иконки
 <div><wcex-doc.com-icons pkg="unis-icons/lib" ></wcex-doc.com-icons></div>
 
-### унис-иконки/бренды
+### Unis-иконки/бренды
 <div><wcex-doc.com-icons pkg="unis-icons/lib/brands" ></wcex-doc.com-icons></div>
 
 ### unis-иконки/функционал 
@@ -76,25 +76,25 @@
 ### @vaadin/иконки
 <div><wcex-doc.com-icons pkg="@vaadin/icons/assets" ></wcex-doc.com-icons></div>
 
-### dls-иконки
+### DLS-иконки
 <div><wcex-doc.com-icons pkg="dls-icons" ></wcex-doc.com-icons></div>
 
 ### @zendeskgarden/svg-иконки
 <div><wcex-doc.com-icons pkg="@zendeskgarden/svg-icons/src" ></wcex-doc.com-icons></div>
 
-### двадцать три иконки
+### Двадцать три значка
 <div><wcex-doc.com-icons pkg="twentythree-icons" ></wcex-doc.com-icons></div>
 
 ### @phosphor-иконки/ядро
 <div><wcex-doc.com-icons pkg="@phosphor-icons/core/assets" ></wcex-doc.com-icons></div>
 
-### ccy-иконки
+### CCY-иконки
 <div><wcex-doc.com-icons pkg="ccy-icons" ></wcex-doc.com-icons></div>
 
-### @icon/икофонт
+### @icon/icofont
 <div><wcex-doc.com-icons pkg="@icon/icofont" ></wcex-doc.com-icons></div>
 
-### @navikt/аксель-иконки
+### @navikt/aksel-icons
 <div><wcex-doc.com-icons pkg="@navikt/aksel-icons/dist" ></wcex-doc.com-icons></div>
 
 ### @weave-дизайн/иконки
@@ -103,10 +103,10 @@
 ### qweather-иконки
 <div><wcex-doc.com-icons pkg="qweather-icons" ></wcex-doc.com-icons></div>
 
-### иконограф
+### иконография
 <div><wcex-doc.com-icons pkg="ikonograph/dist" ></wcex-doc.com-icons></div>
 
-### @itwin/itwinui-иконки
+### @itwin/itwinui-icons
 <div><wcex-doc.com-icons pkg="@itwin/itwinui-icons" ></wcex-doc.com-icons></div>
 
 ### @rogdevil/крипто-иконки
@@ -115,13 +115,13 @@
 ### @momentum-ui/icons-rebrand
 <div><wcex-doc.com-icons pkg="@momentum-ui/icons-rebrand" ></wcex-doc.com-icons></div>
 
-### ниниан-иконки
+### Ниниан-иконки
 <div><wcex-doc.com-icons pkg="ninian-icons/src" ></wcex-doc.com-icons></div>
 
-### иконописный
+### иконописец
 <div><wcex-doc.com-icons pkg="iconoir" ></wcex-doc.com-icons></div>
 
-### @navikt/ds-иконки
+### @navikt/ds-icons
 <div><wcex-doc.com-icons pkg="@navikt/ds-icons" ></wcex-doc.com-icons></div>
 
 ### @ad_platform/иконки
@@ -133,11 +133,11 @@
 ### @brightlayer-ui/icons-svg
 <div><wcex-doc.com-icons pkg="@brightlayer-ui/icons-svg/." ></wcex-doc.com-icons></div>
 
-### @hashicorp/полет-иконки
+### @hashicorp/flight-иконки
 <div><wcex-doc.com-icons pkg="@hashicorp/flight-icons" ></wcex-doc.com-icons></div>
 
 
-### @hashicorp/полет-иконки
+### @hashicorp/flight-иконки
 <div><wcex-doc.com-icons pkg="@hashicorp/flight-icons" ></wcex-doc.com-icons></div>
 
 
