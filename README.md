@@ -4,6 +4,7 @@
   <a href="https://www.npmjs.com/package/wcex"><img src="https://img.shields.io/npm/v/wcex.svg?sanitize=true" alt="Version"></a>
   <a href="https://www.npmjs.com/package/wcex"><img src="https://img.shields.io/npm/l/wcex.svg?sanitize=true" alt="License"></a>
   <a href="https://www.npmjs.com/package/wcex"><img src="https://img.shields.io/bundlephobia/minzip/wcex.svg?sanitize=true" alt="minsize"></a>
+  <a href="https://www.npmjs.com/package/@wcex/cli"><img src="https://img.shields.io/npm/v/@wcex/cli?label=%40wcex%2Fcli" alt="Version"></a>
 </p>
 <p align="center">  
   <a href="https://wc-ex.com" >文档</a>
