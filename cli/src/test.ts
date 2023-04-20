@@ -4,6 +4,8 @@ import process from 'process';
 import colors from 'colors';
 import express from 'express';
 import { async } from 'walkdir';
+import { Server } from 'node:http';
+
 import { locateBrowser } from "locate-app";
 import puppeteer, { Browser } from "puppeteer-core";
 
@@ -18,6 +20,7 @@ import puppeteer, { Browser } from "puppeteer-core";
 const TEST_APP = "testEntry.html";
 // 测试主入口
 const app = express();
+// app.use()
 const testRouter = express.Router();
 
 function deepTesterDir(dir: string, outDirs: string[]) {
@@ -91,13 +94,16 @@ async function runCase(browser: Browser, options: { id: number, baseDir: string,
     function errorOut(msg: string) {
         ERROR_FLAG = true;
         console.error(colors.red(prefix + msg));
-        if (!options.isShow) process.exit(1);
+        if (!options.isShow){
+            console.log("== Error Exit ==");
+            process.exit(1);
+        } 
     }
-
 
     // 挂载测试目录
     let homeDir = `${options.testDir.replace(/\\/g, '/')}/index.html`;
-    testRouter.use('/' + encodeURI(homeDir), (req, res) => {
+    // testRouter.use('/' + encodeURI(homeDir), (req, res) => {
+    testRouter.use('/' + homeDir, (req, res) => {
         const custumHtml = path.join(options.baseDir, options.testDir, 'index.html');
         let html = fs.existsSync(custumHtml) ? fs.readFileSync(custumHtml, 'utf8') : TEST_HTML_DEFAULT;
         // 替换wcex和npm路径
@@ -105,18 +111,17 @@ async function runCase(browser: Browser, options: { id: number, baseDir: string,
         <meta name="npm" content="${options.npmUrl}">
         <script src="${options.wcexUrl}"></script>                
         </head>
-        `
-        );
+        `);
         res.setHeader('content-type', 'text/html');
         res.status(200).end(html);
     });
     console.log(`Run: ${options.id}:`, homeDir);
     // let homeUrl = `${options.localServer}/${options.testDir}/${options.testDir}`;
     // 重用 blank page 或者新建page
-    let blankPages = (await browser.pages()).filter(v=>v.url().startsWith('about:'));
+    let blankPages = (await browser.pages()).filter(v => v.url().startsWith('about:'));
 
 
-    let page = blankPages.length>0?blankPages[0]: await browser.newPage();
+    let page = blankPages.length > 0 ? blankPages[0] : await browser.newPage();
     const prefix = `${options.id}-[${homeDir}] `;
     await page.setViewport({ width: 0, height: 0 });
 
@@ -132,10 +137,11 @@ async function runCase(browser: Browser, options: { id: number, baseDir: string,
             const loc = ev.location();
             const text = ev.text();
             switch (ev.type()) {
+                case 'assert':
                 case 'error':
                     if (!(loc.url?.match(/favicon\.ico/))) {
                         // 出现错误，停止执行
-                        errorOut(`${text}, ${loc.url}, ${loc.columnNumber || 0}/${loc.lineNumber || 0}`)
+                        errorOut(`${text}, ${loc.url}, ${loc.columnNumber || 0}/${loc.lineNumber || 0}`);
                     }
                     break;
                 case 'warning':
@@ -143,22 +149,27 @@ async function runCase(browser: Browser, options: { id: number, baseDir: string,
                     break;
                 default:
                     if (text === 'WCEX_TEST_END') {
-                        page.close();
                         let tm = Math.round((new Date().getTime() - startTm)) / 1000;
                         res({ id: options.id, dir: homeDir, time: tm });
-                        console.log(colors.green(prefix + `succeed, time: ${tm}s`));
+                        if (ERROR_FLAG) {
+                            console.log(colors.red(prefix + `End failed, time: ${tm}s`));
+                            if(!options.isShow) page.close();
+                        } else {
+                            console.log(colors.gray(prefix + `ok, time: ${tm}s`));
+                            page.close();
+                        }
                     } else {
-                        console.log(colors.gray(prefix + text));
+                        console.log(ev.type(), colors.gray(prefix + text));
                     }
                     break;
             }
         });
-        page.on('pageerror',(ev)=>{
-            errorOut(`${ev.name}, ${ev.message}, \n ${ev.stack}`)
-        })
-        page.on('error',(ev)=>{
-            errorOut(`${ev.name}, ${ev.message}, \n ${ev.stack}`)
-        })
+        page.on('pageerror', (ev) => {
+            errorOut(`pageerror: ${ev.name}, ${ev.message}, \n ${ev.stack}`);
+        });
+        page.on('error', (ev) => {
+            errorOut(`${ev.name}, ${ev.message}, \n ${ev.stack}`);
+        });
 
         page.goto(`${options.localServer}/${homeDir}`);
     });
@@ -182,28 +193,32 @@ interface IOpts { wcex: string, dir: string, concurrent: number, npm: string; po
 export async function test(opts: IOpts) {
 
     const TESTDIR = path.resolve(opts.dir);
-    // app.use((req, res, next) => {
-    //     console.log(colors.gray(`HTTP ${req.method} ${req.url}`));
-    //     next();
-    // });
     app.use('/', testRouter);
-    app.use(`/`, express.static(TESTDIR));
+    app.use("/",  express.static(TESTDIR, { index: 'index.html' }));
+
     // 搜索测试用例目录
     console.log("run UI tester in :", TESTDIR, opts);
     try {
+        let httpServer = new Server((req, res) => {
+            if (req.url) req.url = decodeURI(req.url);
+            console.log(colors.gray(`HTTP ${req.method} ${req.url}`));
+
+            app(req, res);
+        });
+
+        httpServer.listen(opts.port, () => {
+            console.log("server listen ok", opts.port);
+        });
+
+
         let testDirs = [] as string[];
         deepTesterDir(TESTDIR, testDirs);
         console.log("test dirs:", testDirs);
-
-
         // 启动浏览器
         const browser = await launchBrowser(opts.browser, opts.show);
 
         browser.on('disconnected', () => {
             process.exit(0);
-        });
-        app.listen(opts.port, () => {
-            console.log("server listen ok", opts.port);
         });
 
         const DEFAULT_NPM = 'https://npm.elemecdn.com';
@@ -229,10 +244,12 @@ export async function test(opts: IOpts) {
         ), 2);
         if (!ERROR_FLAG) console.log(colors.green("=== all completed ===\n"), ret);
         // 输出测试报告
-        if (!opts.show) process.exit(0);
+        if (!opts.show) {
+            console.log("== EXIT ==");
+            process.exit(0);
+        }
     } catch (e: any) {
-        console.error('Failed:', e);
+        console.error('Failed Exit:', e);
     }
-
 }
 

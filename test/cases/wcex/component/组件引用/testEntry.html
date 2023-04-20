@@ -1,25 +1,36 @@
 <template>
+  <meta name="module" pkg="pkg1" url="./pkg1" />
+  <meta name="module" pkg="@pkg2/ui" url="./pkg2" />
   <h1>Components Test</h1>
 
   <test1-></test1->
   <test2-></test2->
-  <test_case-></test_case->
+  <test3_example-></test3_example->
   <com-hello></com-hello>
   <com-hello_world></com-hello_world>
+  <pkg1.com01- id="com01"></pkg1.com01->
+  <pkg2-ui.com02 id="com02"></pkg2-ui.com02>
+
   <script scope=".">
     return class {
+      check(el, tag) {
+        console.log(`Component: <${tag}>`);
+        console.assert(
+          (el instanceof ShadowRoot ? el.querySelector(tag) : el).shadowRoot.querySelector("h1").textContent.trim() ==
+            tag,
+          `Failed Create <${tag}>`
+        );
+      }
       onReady() {
-        // requestAnimationFrame(() => {
-          console.log("测试组件引用: <test1->")
-          console.assert(
-            this.$rootElem.shadowRoot.querySelector("test1-").shadowRoot.querySelector("h1").textContent.trim() ==
-              "test1",
-            "Failed Create component"
-          );
-          console.debug("WCEX_TEST_END");
-        // });
-        
+        this.check(this.$rootElem.shadowRoot, "test1-");
+        this.check(this.$rootElem.shadowRoot, "test2-");
+        this.check(this.$rootElem.shadowRoot, "test3_example-");
+        this.check(this.$rootElem.shadowRoot, "com-hello");
+        this.check(this.$rootElem.shadowRoot, "com-hello_world");
+        this.check(this.$id.com01, "pkg1.com01-");
+        this.check(this.$id.com02, "pkg2-ui.com02");
 
+        console.debug("WCEX_TEST_END");
       }
     };
   </script>
