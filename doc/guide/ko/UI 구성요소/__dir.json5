@@ -5,5 +5,5 @@
     type: 'filled',
     name: 'hive',
   },
-  baseName: 'UI 구성 요소',
+  baseName: 'UI 구성요소',
 }

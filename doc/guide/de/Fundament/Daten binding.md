@@ -2,7 +2,7 @@
 
 ## Wertbindung
 
-## Bindung von Vorlagenzeichenfolgen
+## Template-String-Bindung
 
 ## Zwei-Wege-Bindung
 

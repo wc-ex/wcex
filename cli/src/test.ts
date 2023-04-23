@@ -87,17 +87,17 @@ const TEST_HTML_DEFAULT = `
 let ERROR_FLAG = false;
 
 // 运行一个测试用例
-async function runCase(browser: Browser, options: { id: number, baseDir: string, testDir: string, wcexUrl: string, npmUrl: string; localServer: string; isShow: boolean; }): Promise<any> {
+async function runCase(browser: Browser, options: { id: number, baseDir: string, testDir: string, wcexUrl: string, npmUrl: string; localServer: string; isShow: boolean; indexUrl: string; }): Promise<any> {
     if (ERROR_FLAG) return;
     let startTm = new Date().getTime();
 
     function errorOut(msg: string) {
         ERROR_FLAG = true;
         console.error(colors.red(prefix + msg));
-        if (!options.isShow){
+        if (!options.isShow) {
             console.log("== Error Exit ==");
             process.exit(1);
-        } 
+        }
     }
 
     // 挂载测试目录
@@ -115,13 +115,9 @@ async function runCase(browser: Browser, options: { id: number, baseDir: string,
         res.setHeader('content-type', 'text/html');
         res.status(200).end(html);
     });
-    console.log(`Run: ${options.id}:`, homeDir);
-    // let homeUrl = `${options.localServer}/${options.testDir}/${options.testDir}`;
-    // 重用 blank page 或者新建page
-    let blankPages = (await browser.pages()).filter(v => v.url().startsWith('about:'));
+    console.log(`${options.id}: RUN `, homeDir);
 
-
-    let page = blankPages.length > 0 ? blankPages[0] : await browser.newPage();
+    let page = await browser.newPage();
     const prefix = `${options.id}-[${homeDir}] `;
     await page.setViewport({ width: 0, height: 0 });
 
@@ -153,13 +149,15 @@ async function runCase(browser: Browser, options: { id: number, baseDir: string,
                         res({ id: options.id, dir: homeDir, time: tm });
                         if (ERROR_FLAG) {
                             console.log(colors.red(prefix + `End failed, time: ${tm}s`));
-                            if(!options.isShow) page.close();
+                            if (!options.isShow) {
+                                setTimeout(() => page.close(), 500);
+                            }
                         } else {
-                            console.log(colors.gray(prefix + `ok, time: ${tm}s`));
-                            page.close();
+                            console.log(colors.green(prefix + `ok, time: ${tm}s`));
+                            setTimeout(() => page.close(), 500);
                         }
                     } else {
-                        console.log(ev.type(), colors.gray(prefix + text));
+                        console.log(colors.gray(prefix + ev.type() +' '+ text));
                     }
                     break;
             }
@@ -171,7 +169,28 @@ async function runCase(browser: Browser, options: { id: number, baseDir: string,
             errorOut(`${ev.name}, ${ev.message}, \n ${ev.stack}`);
         });
 
-        page.goto(`${options.localServer}/${homeDir}`);
+        page.setBypassCSP(true);
+
+        if (options.indexUrl) {
+            // 加载指定目录,加载完成后注入测试组件
+            page.evaluateOnNewDocument(`
+            window.addEventListener('wcex-loaded',()=>{
+                WCEX.modules['@wcex/testentry']={name:'',baseUrl:'${options.localServer}/${options.testDir.replace(/\\/g, '/')}'}
+                var testEntry = document.createElement('wcex-testentry.test_entry')
+                document.body.appendChild(testEntry)
+            })            
+            `);
+            // var meta = document.createElement('meta');
+            // meta.setAttribute("name",'module');
+            // meta.setAttribute("pkg",'wcex-test');
+            // meta.setAttribute("url",'${options.localServer}/${options.testDir.replace(/\\/g, '/')}');
+            // document.head.appendChild(meta)
+            page.goto(options.indexUrl);
+
+        } else {
+            // 加载默认目录
+            page.goto(`${options.localServer}/${homeDir}`);
+        }
     });
 
 }
@@ -188,21 +207,26 @@ async function launchBrowser(browserName: string, isShow: boolean) {
 
     });
 }
-interface IOpts { wcex: string, dir: string, concurrent: number, npm: string; port: number, browser: string, show: boolean; }
+interface IOpts { wcex: string, dir: string, concurrent: number, npm: string; port: number, browser: string, show: boolean; indexUrl: string; }
 
 export async function test(opts: IOpts) {
 
     const TESTDIR = path.resolve(opts.dir);
+    app.use((req, res, next) => {
+        res.header('Access-Control-Allow-Origin', '*');
+        res.header('Access-Control-Allow-Headers', 'Content-Type');
+        res.header('Access-Control-Allow-Methods', '*');
+        next();
+    });
     app.use('/', testRouter);
-    app.use("/",  express.static(TESTDIR, { index: 'index.html' }));
+    app.use("/", express.static(TESTDIR, { index: 'index.html' }));
 
     // 搜索测试用例目录
     console.log("run UI tester in :", TESTDIR, opts);
     try {
         let httpServer = new Server((req, res) => {
             if (req.url) req.url = decodeURI(req.url);
-            console.log(colors.gray(`HTTP ${req.method} ${req.url}`));
-
+            // console.log(colors.gray(`HTTP ${req.method} ${req.url}`));
             app(req, res);
         });
 
@@ -238,14 +262,14 @@ export async function test(opts: IOpts) {
                     wcexUrl: wcex,
                     npmUrl: npm,
                     localServer: `http://localhost:${opts.port}`,
-                    isShow: opts.show
+                    isShow: opts.show,
+                    indexUrl: opts.indexUrl
                 });
         }
-        ), 2);
+        ), opts.concurrent);
         if (!ERROR_FLAG) console.log(colors.green("=== all completed ===\n"), ret);
         // 输出测试报告
         if (!opts.show) {
-            console.log("== EXIT ==");
             process.exit(0);
         }
     } catch (e: any) {
