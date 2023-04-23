@@ -1,0 +1,40 @@
+<template>
+    <!--  
+        
+        1.9.36 版本
+        $as 与 $if 共同使用时，且需要传参时，
+
+        当 $as 在参数前边时，切换两次时，会出现下面错误
+        当 $as 在参数后边时，没有问题
+
+        ckCall failed: Cannot convert undefined or null to object 7|$pid
+     -->
+
+
+    <button @click="test()"> 切换</button>
+    <div :>id=== ${id}</div>
+
+    <!-- 异常使用 -->
+    <div $as="id" $pid="id" $if="''!= id"> </div>
+    <!-- 正常使用 -->
+    <!-- <div $pid="id" $as="id" $if="''!= id"> </div> -->
+
+
+    <script scope=".">
+        return class {
+            id = ''
+            test() {
+                if ('' != this.id) {
+                    this.id = ''
+                } else {
+                    this.id = 'test01-'
+                }
+            }
+            async onCreate() {
+
+            }
+
+        }
+    </script>
+
+</template>
