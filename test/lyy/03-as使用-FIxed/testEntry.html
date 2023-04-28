@@ -1,0 +1,53 @@
+<!--  
+    ## 问题描述: 
+        - @version 1.9.36 版本
+        - $as 与 $if 共同使用时，且需要传参时，
+        - 当 $as 在参数前边时，切换两次时，会出现下面错误
+        - 当 $as 在参数后边时，没有问题
+    ## 解决方案:
+        FIXED: 修复于: 1.9.38
+        - 原因: 由于 $as 应用后, 元素发生变动，此时继续执行原有依赖变更异常。 
+        - 解决方法: 延时处理$as, wc.ts:_applyElemAttr() 
+-->
+
+<template>
+  <button id="btn" @click.capture="test()">切换</button>
+  <div :>testid=== ${testid}</div>
+
+  <!-- 异常使用 -->
+  <div $as="testid" $pid="testid" $if="''!= testid"></div>
+  <!-- 正常使用 -->
+  <!-- <div $pid="testid" $if="''!= testid" $as="testid" ></div> -->
+
+  <script scope=".">
+    return class {
+      testid = "";
+      test() {
+        console.log("--test click");
+        if ("" != this.testid) {
+          this.testid = "";
+        } else {
+          this.testid = "test01-";
+        }
+      }
+      async delay(num) {
+        return new Promise((res) => setTimeout(res, num));
+      }
+
+      async onCreate() {}
+
+      async onReady() {
+        // 需要界面操作复现异常, 关闭测试结束
+        await this.delay(100);
+        this.$emit("click", this.$id.btn);
+        await this.delay(100);
+        this.$emit("click", this.$id.btn);
+        await this.delay(100);
+        this.$emit("click", this.$id.btn);
+
+        await this.delay(100);
+        console.debug("WCEX_TEST_END");
+      }
+    };
+  </script>
+</template>

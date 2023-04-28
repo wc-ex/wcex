@@ -1,0 +1,28 @@
+<!-- 说明 -->
+<!--  -->
+<template showdetail.bool="true" teststr.number="99">
+  <button @click="showdetail=!showdetail;">切换</button>
+  <div :>showdetail=== ${showdetail}</div>
+  <div :>teststr=== ${teststr}</div>
+
+  <script scope=".">
+    return class {
+      
+        async delay(num){
+            return new Promise(res=>            setTimeout(res,num)            )
+        }
+      async onReady() {
+        console.log('-- start')
+        console.assert(this.showdetail === true, 'Fail: init bool "showdetail" 1: not true ');
+        console.log('-- init value OK')
+        await this.delay(100);
+        this.showdetail = false;
+        console.log('-- set value false')
+        await this.delay(200);
+        console.assert(this.showdetail === false, 'Fail: init bool "showdetail" 2: not false ');
+        console.log('-- test OK')
+        console.debug("WCEX_TEST_END");
+      }
+    };
+  </script>
+</template>

@@ -1,0 +1,41 @@
+<template>
+
+
+  <button @click="console.log('-------_selfdata', _selfdata, _selfdata['基础组件/姓名']);">点击打印</button>
+  <div $>$json(_selfdata)</div>
+  <div $>_selfdata["基础组件/性别"]</div>
+
+  <input $$="_selfdata['基础组件/性别']" type="text">
+
+  <test-cmpt.input style="margin-top:10px" class="" dictid="基础组件/性别" type="text"
+    $$="_selfdata['基础组件/性别']"></test-cmpt.input>
+
+  <script scope="_selfdata">
+    return { "基础组件/姓名": "11111", "基础组件/性别": "男", "病例概要/标签": "", "病例概要/婚姻": "" }
+  </script>
+
+  <script scope=".">
+
+    return class {
+      async onCreate() {
+        await this.test()
+        // this._selfdata = {
+        //   "基础组件/性别": "女",
+        // };
+      }
+      test() {
+        return new Promise((res, rej) => {
+          setTimeout(async () => {
+            this._selfdata = {
+              "基础组件/性别": "女",
+            };
+            res()
+          }, 4);
+        })
+      }
+      async onReady() {
+        // await this.test()
+      }
+    }
+  </script>
+</template>
