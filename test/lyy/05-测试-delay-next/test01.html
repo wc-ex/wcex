@@ -1,0 +1,41 @@
+<!-- 说明 -->
+<!--  -->
+<template>
+
+
+    <script scope=".">
+        /// refrence
+        return class {
+
+
+            async onReady() {
+                let _start = new Date().getTime()
+                console.log('-- start $delay', _start)
+                await this.$delay(200)
+                let _end = new Date().getTime()
+                console.log('-- end$delay', _end)
+
+                console.assert(_end - _start >= 200, 'this.$delay:err ');
+                console.log('-- test $delay OK')
+
+
+                let aa = 1
+                this.$next().then(() => {
+                    aa = 3
+                })
+                aa = 2
+
+                await this.$delay(100)
+
+                console.assert(aa == 3, 'this.$next:err ');
+                console.log('-- test $next OK')
+
+
+
+                console.debug("WCEX_TEST_END");
+            }
+        }
+
+
+    </script>
+</template>
