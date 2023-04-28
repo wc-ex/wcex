@@ -1,6 +1,7 @@
 <template files.array="[]" size.int="14" class="shadow" ed-size.int="20">
   <meta name="scope" cur.int="1" />
   <meta name="module" pkg="lodash.debounce" cjs />
+  <meta name="module" pkg="esbuild-wasm" content="lib/browser.min.js" cjs />
 
   <style>
     :host {
@@ -75,12 +76,20 @@
     ></wcex-ui.monaco>
   </wcex-ui.tab>
   <script scope="debounce" src="lodash.debounce" nocall></script>
+  <script scope="esbuild" src="esbuild-wasm" nocall nowatch></script>
 
   <script scope=".">
+    let _INIT_ESBUILD = undefined;
     // 注意开发时iframe配置的同源问题,需要使用localhost访问
     return class {
       readyFlag = 0;
       async onReady() {
+        if (!_INIT_ESBUILD) {
+          _INIT_ESBUILD = this.esbuild.initialize({
+            wasmURL: this.$path("@/esbuild-wasm/esbuild.wasm"),
+          });
+        }
+        await _INIT_ESBUILD;
         await this.loadDemo();
         this.readyFlag = 1;
         this.$monitSize(this.$rootElem, () => {
@@ -91,15 +100,28 @@
           }
         });
       }
-      lang(){
+      async buildTs(text) {
+        return (
+          (
+            await this.esbuild.transform(text, {
+              loader: "ts",
+              format: "iife",
+              globalName: "__export__",
+              banner: `define(['require','exports'], function(require,exports) {`,
+              footer: `console.log(exports);return __export__;});`,
+            })
+          ).code || ""
+        );
+      }
+      lang() {
         return this.$router.route.default.attrs.lang;
       }
-      baseUrl(){
+      baseUrl() {
         return this.$router.route.default.attrs.url;
       }
 
-      playgroundPath(path){
-        return location.origin +'/__playground/'+ this.baseUrl().replace(/\/.*$/, "/") +path;
+      playgroundPath(path) {
+        return decodeURI(location.origin + "/__playground/" + this.baseUrl().replace(/\/.*$/, "/") + path);
       }
 
       docPath(path) {
@@ -117,7 +139,7 @@
           //获取主index.html路径
           let p = mainFile.replace(/^(.*\/).*?$/, "$1");
           let f = file.replace(p, "");
-          // 读取住文件
+          // 读取文件
 
           // 热更新
           this.$id.demo.contentWindow.dispatchEvent(new CustomEvent("wc-hotload", { detail: { path: f } }));
@@ -126,20 +148,37 @@
           this.$id.demo.contentWindow.location.reload();
         }
       }
+
+      async updateCache(file, text) {
+        if (file.endsWith(".ts")) {
+          // 处理ts文件为js
+          let jsText = await this.buildTs(text);
+          await this.swPost("hotCacheSet", {
+            file: file.replace(/\.ts$/, ".js"),
+            text: jsText,
+          });
+        }
+        await this.swPost("hotCacheSet", {
+          file,
+          text,
+        });
+      }
+
       async onEdit(ev) {
         if (ev) {
           // 向sw发送消息,更新缓存
-          await this.swPost("hotCacheSet", {
-            file: ev.detail.file,
-            text: ev.detail.text,
-          });
+          await this.updateCache(ev.detail.file, ev.detail.text);
+          // await this.swPost("hotCacheSet", {
+          //   file: ev.detail.file,
+          //   text: ev.detail.text,
+          // });
           setTimeout(() => {
             this.updateDemo(ev.detail.file);
           }, 200);
         }
       }
-      reload(){
-        this.$id.demo.contentWindow.location.reload()
+      reload() {
+        this.$id.demo.contentWindow.location.reload();
       }
       async loadDemo() {
         if (!this.baseUrl()) return;
@@ -161,16 +200,18 @@
 
         // 更新缓存
         for (let f of loadFiles) {
-          await this.swPost("hotCacheSet", {
-            file: f.url,
-            text: f.text,
-          });
+          await this.updateCache(f.url, f.text);
+
+          // await this.swPost("hotCacheSet", {
+          //   file: f.url,
+          //   text: f.text,
+          // });
         }
         if (loadFiles.length > 0) this.$id.demo.src = loadFiles[0].url;
       }
       async resetCache() {
         await this.swPost("hotCacheClean", {});
-        
+
         await this.loadDemo();
         // 通知编辑器重新加载
         for (let i = 0; i < this.files.length; i++) {

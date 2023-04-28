@@ -76,14 +76,14 @@
     <div style="flex: 1;"></div>
     <h3 class="close" style="padding-right: 1em;" @click="$emit('close')">CLOSE</h3>
   </div>
-  <marked- $text="parsed.desc.text"></marked->
-
+  <marked- $text="parsed.desc.text" toc="0"></marked->
+  
   <!-- 显示参数等说明 -->
     <div class="params" $for="parsed.params">
       <div class="ptype" $>index.slice(1)</div>
       <div class="pinfo" $for(pv,pi)="value">
           <div class="pname" $>pi</div>
-          <marked- class="ptext" $text="pv.text"></marked->
+          <marked- class="ptext" $text="pv.text" toc="0"></marked->
       </div>
 
   </div>

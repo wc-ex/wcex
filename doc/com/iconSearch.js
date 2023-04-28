@@ -1,4 +1,4 @@
 define(()=>({
-    searchString:""
+    searchString:"",
+    curSelectIcon:"",
 }))
-

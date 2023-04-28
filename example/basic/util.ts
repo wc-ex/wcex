@@ -36,6 +36,36 @@ async function execInAnimationFrame(fn: () => Generator) {
         }
     }
 
+    // Use Promise.all() to execute promises concurrently with a specified limit
+    // This function takes an array of promises and a number representing the maximum number of promises to execute at once
+    // It returns a promise that resolves with an array of the resolved values of the input promises
+async function asyncRunPromises(promises: Promise<any>[], nums: number) {
+        const results = [];
+        const chunks = [];
+        for (let i = 0; i < promises.length; i += nums) {
+            chunks.push(promises.slice(i, i + nums));
+        }
+        for (let i = 0; i < chunks.length; i++) {
+            const chunkResults = await Promise.all(chunks[i]);
+            results.push(...chunkResults);
+        }
+        return results;
+    }
 
+    async function asyncRunPromisesWithRace(promises: Promise<any>[], nums: number) {
+        const results = [];
+        const chunks = [];
+        for (let i = 0; i < promises.length; i += nums) {
+            chunks.push(promises.slice(i, i + nums));
+        }
+        for (let i = 0; i < chunks.length; i++) {
+            const chunkResults = await Promise.race(chunks[i]);
+            results.push(chunkResults);
+        }
+        return results;
+    }
 
 }
+
+
+

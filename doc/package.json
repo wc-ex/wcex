@@ -1,6 +1,6 @@
 {
   "name": "@wcex/doc",
-  "version": "1.0.81",
+  "version": "1.0.82",
   "description": "documents for wcex",
   "main": "index.html",
   "scripts": {
@@ -12,6 +12,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "monaco-editor": "^0.36.1"
+    "dayjs": "^1.11.7",
+    "monaco-editor": "^0.36.1",
+    "wcex": "^1.9.36"
   }
 }

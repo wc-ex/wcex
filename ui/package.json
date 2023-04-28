@@ -19,11 +19,13 @@
   "license": "MIT",
   "dependencies": {
     "@highlightjs/cdn-assets": "^11.7.0",
+    "@types/lodash.debounce": "^4.0.7",
     "@types/marked": "^4.0.7",
     "@types/ws": "^8.5.4",
     "highlight.js": "^11.7.0",
+    "lodash.debounce": "^4.0.8",
     "moment": "^2.29.4",
-    "wcex": "1.9.23"
+    "wcex": "1.9.36"
   },
   "devDependencies": {
     "monaco-editor": "^0.36.1"

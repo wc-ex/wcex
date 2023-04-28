@@ -126,6 +126,8 @@ async function runCase(browser: Browser, options: { id: number, baseDir: string,
     if (fs.existsSync(pageConfigFile)) {
         await page.setViewport(JSON.parse(fs.readFileSync(pageConfigFile, 'utf8')));
     }
+    // await page.setBypassCSP(true);
+
 
     return new Promise((res) => {
 
@@ -169,7 +171,6 @@ async function runCase(browser: Browser, options: { id: number, baseDir: string,
             errorOut(`${ev.name}, ${ev.message}, \n ${ev.stack}`);
         });
 
-        page.setBypassCSP(true);
 
         if (options.indexUrl) {
             // 加载指定目录,加载完成后注入测试组件
@@ -204,6 +205,7 @@ async function launchBrowser(browserName: string, isShow: boolean) {
         headless: !isShow,
         devtools: false,
         product: browserName.match('firefox') ? 'firefox' : 'chrome',
+        waitForInitialPage: !!browserName.match('firefox')
 
     });
 }

@@ -106,7 +106,7 @@
 
           function _add() {
             const url = urlList[index];
-            console.log("--->add", url);
+            // console.log("--->add", url);
             const promise = fetch(encodeURI(url), { signal })
               .then((res) => res.text())
               .then((v) => onLoaded(url, v));
@@ -149,7 +149,7 @@
           return WCEX.npmUrl + this.pkg + "/" + this.curType + "/" + value;
         });
         this.svgFetchLoader = this.fetchAll(urlList, 6, (url, text) => {
-          console.log("onLoad...", url);
+          // console.log("onLoad...", url);
           let id = url.replace(/^.*\//, "");
           let p = new DOMParser();
           let dom = p.parseFromString(text, "image/svg+xml");
@@ -165,17 +165,24 @@
 
       async loadDirFiles(path, endStr) {
         // 读取列表
-        return fetch(path)
-          .then((response) => response.text())
+        let ret = []
+        try{
+          ret = await fetch(path,{})
+          .then((response) => {
+            if(response.status <400) return response.text();
+             else throw Error(`Error Fetch ${path}, ${response.status}`);
+            })
           .then((html) => {
             const parser = new DOMParser();
             const doc = parser.parseFromString(html, "text/html");
             const links = doc.querySelectorAll(`a[href$="${endStr}"]`);
             const fileNames = Array.from(links).map((link) => link.textContent.trim().replace(/\/$/, ""));
             return fileNames;
-          }).catch((e)=>{
-            this.$log.warn(e.message);
-          });
+          })
+        }catch(e){
+          this.$log.warn(e.message);
+        }
+        return ret;
       }
 
       lsScopePackagesFromNpm(scope) {
@@ -193,6 +200,8 @@
           ""
         )}"></wcex-ui.icon>`;
         navigator.clipboard.writeText(str);
+        this.search.curSelectIcon = str
+
         this.$log("copy", str);
       }
 
