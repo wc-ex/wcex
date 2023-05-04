@@ -1,7 +1,6 @@
 <template files.array="[]" size.int="14" class="shadow" ed-size.int="20">
   <meta name="scope" cur.int="1" />
   <meta name="module" pkg="lodash.debounce" cjs />
-  <meta name="module" pkg="esbuild-wasm" content="lib/browser.min.js" cjs />
 
   <style>
     :host {
@@ -70,26 +69,17 @@
       :id="ed${index}"
       style="width: 100%; height: 100%"
       $file="playgroundPath(value)"
-      @edit="onEdit($ev)"
+      @content="onContentUpdate($ev)"
       $for="files"
       $show="$root.cur==index"
     ></wcex-ui.monaco>
   </wcex-ui.tab>
   <script scope="debounce" src="lodash.debounce" nocall></script>
-  <script scope="esbuild" src="esbuild-wasm" nocall nowatch></script>
 
   <script scope=".">
-    let _INIT_ESBUILD = undefined;
-    // 注意开发时iframe配置的同源问题,需要使用localhost访问
     return class {
       readyFlag = 0;
       async onReady() {
-        if (!_INIT_ESBUILD) {
-          _INIT_ESBUILD = this.esbuild.initialize({
-            wasmURL: this.$path("@/esbuild-wasm/esbuild.wasm"),
-          });
-        }
-        await _INIT_ESBUILD;
         await this.loadDemo();
         this.readyFlag = 1;
         this.$monitSize(this.$rootElem, () => {
@@ -99,19 +89,6 @@
             this.$emit("layout", this.$id["ed" + i]);
           }
         });
-      }
-      async buildTs(text) {
-        return (
-          (
-            await this.esbuild.transform(text, {
-              loader: "ts",
-              format: "iife",
-              globalName: "__export__",
-              banner: `define(['require','exports'], function(require,exports) {`,
-              footer: `console.log(exports);return __export__;});`,
-            })
-          ).code || ""
-        );
       }
       lang() {
         return this.$router.route.default.attrs.lang;
@@ -133,7 +110,7 @@
           data,
         });
       }
-      async updateDemo(file) {
+      async updatePlayGround(file) {
         let mainFile = this.playgroundPath(this.files[0]);
         if (file && file != mainFile) {
           //获取主index.html路径
@@ -149,14 +126,16 @@
         }
       }
 
-      async updateCache(file, text) {
+      async updateCache(fileUrl, text, buildJs) {
+        let file = decodeURI(fileUrl);
         if (file.endsWith(".ts")) {
-          // 处理ts文件为js
-          let jsText = await this.buildTs(text);
-          await this.swPost("hotCacheSet", {
-            file: file.replace(/\.ts$/, ".js"),
-            text: jsText,
-          });
+          if (buildJs) {
+            console.log("--!!!!!!1 BUILD JS", file,buildJs)
+            await this.swPost("hotCacheSet", {
+              file: file.replace(/\.ts$/, ".js"),
+              text: buildJs,
+            });
+          }
         }
         await this.swPost("hotCacheSet", {
           file,
@@ -164,16 +143,13 @@
         });
       }
 
-      async onEdit(ev) {
+      async onContentUpdate(ev) {
         if (ev) {
+
           // 向sw发送消息,更新缓存
-          await this.updateCache(ev.detail.file, ev.detail.text);
-          // await this.swPost("hotCacheSet", {
-          //   file: ev.detail.file,
-          //   text: ev.detail.text,
-          // });
+          await this.updateCache(ev.detail.file, ev.detail.text, ev.detail.build);
           setTimeout(() => {
-            this.updateDemo(ev.detail.file);
+            this.updatePlayGround(ev.detail.file);
           }, 200);
         }
       }
@@ -201,14 +177,10 @@
         // 更新缓存
         for (let f of loadFiles) {
           await this.updateCache(f.url, f.text);
-
-          // await this.swPost("hotCacheSet", {
-          //   file: f.url,
-          //   text: f.text,
-          // });
         }
         if (loadFiles.length > 0) this.$id.demo.src = loadFiles[0].url;
       }
+
       async resetCache() {
         await this.swPost("hotCacheClean", {});
 

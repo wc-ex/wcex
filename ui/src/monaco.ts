@@ -18,7 +18,10 @@ export default class extends Scope {
   options = {};
   monaco: typeof MONACO = <any>{};
   async onReady() {
+    if (!this.file) return;
+
     this.monaco = this.$noWatch(await monacoPromise);
+    // 初始化编辑器
     // monaco.editor
     let text = this.text;
     if (!this.text) {
@@ -26,7 +29,7 @@ export default class extends Scope {
     }
     // 自动解析扩展名
     let ext = this.file.replace(/^.*\./, "");
-    let language = { js: "javascript", ts: "typescript", css: "css", html: "html", json: "json", json5: "json5" }[ext];
+    let lang = { js: "javascript", ts: "typescript", css: "css", html: "html", json: "json", json5: "json5" }[ext];
 
     this.editor = this.$noWatch(
       this.monaco.editor.create(
@@ -49,8 +52,11 @@ export default class extends Scope {
     );
 
     const { Uri, editor, languages } = this.monaco;
+    const modelUri = Uri.parse(decodeURI(this.file));
+    const model = editor.createModel(text, lang, modelUri);
+    this.editor.setModel(model);
 
-    if (language == "typescript") {
+    if (lang == "typescript") {
       let tsDefaults = languages.typescript.typescriptDefaults;
       tsDefaults.setEagerModelSync(true);
       tsDefaults.setInlayHintsOptions({
@@ -63,68 +69,8 @@ export default class extends Scope {
         includeInlayVariableTypeHints: true,
       });
 
-      // for (let f of ['ExportedType.d.ts', 'Scope.d.ts', 'TplElem.d.ts', 'Router.d.ts', 'Logger.d.ts', 'ComDesc.d.ts', 'plugins/IPlugins.d.ts']) {
-      //     let url = this.$path(`wcex/types/${f}`);
-      //     let uri = Uri.parse(url);
-      //     if (!editor.getModel(uri)) {
-      //         let text = await ((await fetch(url)).text());
-      //         editor.createModel(
-      //             text,
-      //             "typescript",
-      //             Uri.parse(`file:///node_modules/wcex/types/${f}`)
-      //         );
-
-      //         // 添加类型定义
-      //         // tsDefaults.addExtraLib(text, `file:///node_modules/wcex/types/${f}`);
-      //     }
-
-      // }
-
-      tsDefaults.setExtraLibs([
-        {
-          filePath: "/node_modules/wcex/package.json",
-          content: `{
-                "name": "wcex",
-                "types":"types/index.d.ts"
-            }`,
-        },
-
-        {
-            filePath: "/node_modules/wcex/types/index.d.ts",
-            content: `
-                export {Scope,VERSION} from "./aaa";
-                export const abc={a:1,b:2,c:3};
-              `,
-        },
-        
-        {
-            filePath: "/node_modules/wcex/types/aaa.d.ts",
-            content: `
-                export declare const VERSION: string;
-                export declare const Scope: {};
-            `,
-        },
-  
-      ]);
-    //   tsDefaults.addExtraLib(
-    //     `
-    //             export declare const VERSION: string;
-    //             export declare const Scope: {};
-    //         `,
-    //     "/node_modules/wcex/types/aaa.d.ts"
-    //   );
-
-    //   tsDefaults.addExtraLib(
-    //     `declare module 'wcex' {
-    //                 export {Scope,VERSION} from "./aaa";
-    //                 export const abc={a:1,b:2,c:3}
-
-    //           }`,
-    //     "/node_modules/wcex/types/index.d.ts"
-    //   );
-
       tsDefaults.setCompilerOptions({
-        module: languages.typescript.ModuleKind.CommonJS,
+        module: languages.typescript.ModuleKind.AMD,
 
         baseUrl: "./",
         paths: {
@@ -136,112 +82,152 @@ export default class extends Scope {
         noImplicitAny: true,
         noImplicitThis: true,
         strictNullChecks: true,
+        esModuleInterop:true,
         // noUnusedLocals: true,
         // noUnusedParameters: true,
         noImplicitDependencies: true, // 在此开启 no-implicit-dependencies 规则
       });
+
+      // 加载定义文件
+      await this._checkSemanticsAndLoadTsDefines(modelUri);
+
+      // 更新
+      await this._emitContentEvent();   
     }
 
-    // 加载定义文件
-    const modelUri = Uri.parse(this.file ? decodeURI(this.file) : "file:///undefined");
-    editor.getModel(modelUri)?.dispose();
-    const model = editor.createModel(text, language, modelUri);
-    this.editor.setModel(model);
 
-    // monaco.languages.typescript.typescriptDefaults.getDiagnosticsOptions().noSemanticValidation = false;
+    // 监听编辑器内容发生改变，延迟500毫秒，仅在最后变化时发送消息
+    this.editor.onDidChangeModelContent(
+      debounce(
+        async (ev) => {
+            await this._emitContentEvent();
+        },
+        1000,
+        { leading: false, trailing: true }
+      )
+    );
+  }
 
-    // 在 model 上绑定 TypeScript Language Service
-    if (language == "typescript" && modelUri) {
-      let worker = await (await languages.typescript.getTypeScriptWorker())(modelUri);
-      for (let err of await worker.getSemanticDiagnostics(modelUri.toString())) {
-        if (err.code == 2792) {
-          // 导入模块无效，自动导入模块
-          if (typeof err.messageText == "string") {
-            let m = err.messageText.match(/^Cannot find module '(.+?)'./);
-            if (m && m.length == 2) {
-              console.log("====>>> Cannot find module", m[1]); // 如果存在未定义模块引用，会输出相关信息
-              try {
-                // await this.loadModuleTypeScriptDefines(m[1], err.file?.fileName);
-              } catch (e: any) {
-                console.log("====>>> load ts define error", e.message); // 如果存在未定义模块引用，会输出相关信息
-              }
-            }
-          }
-        } else {
-          console.log("====>>>diagnostics", err); // 如果存在未定义模块引用，会输出相关信息
-        }
+  async _emitContentEvent(){
+    let model = this.editor.getModel()
+    if(!model) return;
+    let isOk = true;
+    let buildJs = '';
+    if(model.getLanguageId() == 'typescript'){
+      isOk = await this._checkSemanticsAndLoadTsDefines(model.uri);
+      if(isOk) {
+          var work = await (await this.monaco.languages.typescript.getTypeScriptWorker())(model.uri);
+          buildJs = (await work.getEmitOutput(model.uri.toString())).outputFiles[0].text;            
       }
     }
+    // 没有错误时才热更新组件
+    if(isOk){
+      this.$log('==> monaco hotUpdate',model.uri.toString())
+      // 为ts文件获取编译后的结果
+      this.$emit(new CustomEvent("content", { detail: { file: this.file, text: this.editor.getValue(),build:buildJs } }));
+    }
+  }
 
-    // 编辑器发生改变，延迟500毫秒，仅在最后变化时发送消息
-    this.editor.onDidChangeModelContent((ev) => {
-      this.$log("===========>>model::", ev);
-    });
-    // this.editor.onDidChangeModelContent(
-    //     debounce(
-    //         (ev) => {
-    //             const model = ev && ev.model;
-    //             this.$log('===========>>model::',ev)
+  async _checkSemanticsAndLoadTsDefines(monacoUri: MONACO.Uri) {
+    let isOk = true;
+    // 在 model 上绑定 TypeScript Language Service
+    let worker = await (await this.monaco.languages.typescript.getTypeScriptWorker())(monacoUri);
+    for (let err of await worker.getSemanticDiagnostics(monacoUri.toString())) {
+        isOk = false;
+      if (err.code == 2307) {
+        // 导入模块无效，自动导入模块
+        if (typeof err.messageText == "string") {
+          let m = err.messageText.match(/^Cannot find module '(.+?)'./);
+          if (m && m.length == 2) {
+            console.log("find module typescript defines", m[1]); // 如果存在未定义模块引用，会输出相关信息
+            await this.loadModuleTypeScriptDefines(m[1]);
+          }
+        }
+      } else {
+        console.warn("====>>>diagnostics", err); // 如果存在未定义模块引用，会输出相关信息
+      }
+    }
+    return isOk;
+  }
 
-    //             this.$emit(new CustomEvent("edit", { detail: { file: this.file, text: this.editor.getValue() } }));
-    //         },
-    //         1000,
-    //         { leading: false, trailing: true }
-    //     )
-    // );
+  async _lsNpmFiles(pkg: string, version?: string) {
+    let urlBase = "https://data.jsdelivr.com/v1/package/npm";
+    if (!version) {
+      let info = await (await fetch(`${urlBase}/${pkg}`)).json();
+      version = info.tags.latest;
+    }
+    let fileTree = await (await fetch(`${urlBase}/${pkg}@${version}`)).json();
+
+    // 处理所有文件目录为平板结构
+    type LIST_T = { type: "file" | "directory"; name: string; files: LIST_T }[];
+    function _mkList(parent: string, list: LIST_T) {
+      let files = [] as string[];
+      for (let f of list) {
+        if (f.type == "file") files.push(`${parent}${f.name}`);
+        else if (f.type == "directory" && f.files && f.files.length > 0) {
+          files.push(..._mkList(`${parent}${f.name}/`, f.files));
+        }
+      }
+      return files;
+    }
+    return _mkList("/", fileTree.files);
   }
 
   // 从npm仓库加载指定包的定义依赖文件
-  async loadModuleTypeScriptDefines(pkgName: string, fromFile: string | undefined) {
-    if (pkgName.startsWith(".")) {
-      // 相对引用
-      this.$log("===========>>load ts file define::", fromFile, pkgName);
-    } else {
-      this.$log("===========>>load ts pkg define::", fromFile, pkgName);
-      // 引用包定义
-      // 获取package.json
-      let pkg = await (await fetch(this.$path(`${pkgName}/package.json`))).json();
-      this.$log("===========>>pkg defile::", pkg.types);
-      const { editor, Uri } = this.monaco;
-      let url = this.$path(`${pkgName}/${pkg.types}`);
-      let uri = Uri.parse(url);
-      if (!editor.getModel(uri)) {
-        editor.createModel(await (await fetch(url)).text(), "typescript", uri);
-      }
+  // 1. 读取指定软件包的package.json文件,获取 types 字段, 如不存在则尝试获取 @types/ 软件包
+  // 2. 读取 types 指向目录下所有 .d.ts 文件
+
+  async loadModuleTypeScriptDefines(pkgName: string) {
+    let npmUrl = "https://fastly.jsdelivr.net/npm";
+    let typescriptDefaults = this.monaco.languages.typescript.typescriptDefaults;
+
+    let pkgTypes: string | undefined;
+    let fetchPkgName = pkgName;
+    try {
+      this.$log("fetch npm pkg types", pkgName);
+      let pkgJson: { types?: string ,typings?:string};
+      pkgJson = await (await fetch(`${npmUrl}/${pkgName}/package.json`)).json();
+      pkgTypes = pkgJson.types || pkgJson.typings;
+      if (!pkgTypes) throw Error(`${pkgName} not have "types", try @types/${pkgName}`);
+    } catch (e: any) {
+        this.$log.warn("try load tsd err:", pkgName, e.message);
+        // 尝试加载@types/xxx
+        fetchPkgName = `@types/${pkgName}`;
+        let pkgJson: { types: string };
+        pkgJson = await (await fetch(`${npmUrl}/${fetchPkgName}/package.json`)).json();
+        pkgTypes = pkgJson.types;
+        if(!pkgTypes) {
+            this.$log.warn("load tsd err:", fetchPkgName, e.message);
+            return;
+        }
     }
-  }
-  /**
-   * 调用 typescript 功能转换ts为js，使用 'amd' 打包格式
-   */
-  async buildTs() {
-    // 获取monaco editor的model
-    var model = this.editor.getModel();
-    var lang = model?.getLanguageId();
-    if (lang !== "typescript") return "";
-    if (!model?.uri) return "";
-    // 创建monaco typescript服务
-    // var tss = this.monaco.languages.typescript;
-    // var service = tss.createLanguageService({
-    //     getTextDocumentContent: function (uri) {
-    //         return model.getValue();
-    //     },
-    //     // 这里可以设置其他选项，如:target、module、jsx等
-    //     compilerOptions: {
-    //         target: tss.ScriptTarget.ES5,
-    //         module: tss.ModuleKind.CommonJS,
-    //         jsx: tss.JsxEmit.React
-    //     }
-    // });
-    // 使用monaco typescript服务将ts文件转换为js文件
-    var work = await (await this.monaco.languages.typescript.getTypeScriptWorker())(model.uri);
-    var js = (await work.getEmitOutput(model.uri.toString())).outputFiles[0].text;
-    // 输出转换后的js文件
-    console.log(js);
+    this.$log(`${pkgName} types: ${pkgTypes}`);
+
+    // 列出所有文件，加载全部的'.d.ts';
+    let files = (await this._lsNpmFiles(fetchPkgName)).filter((v) => v.endsWith(".d.ts"));
+    this.$log("===========>>load ts defines: files=", files);
+
+    typescriptDefaults.addExtraLib(
+      JSON.stringify({
+        name: pkgName,
+        types: pkgTypes,
+      }),
+      `/node_modules/${pkgName}/package.json`
+    );
+
+    // 加载package.json
+    // 注意, 在退出时取消所有加载的lib，避免冲突。
+    for (let f of files) {
+      let tsdFile = `/node_modules/${pkgName}${f}`;
+      typescriptDefaults.addExtraLib(await (await fetch(`${npmUrl}/${fetchPkgName}${f}`)).text(), tsdFile);
+      this.$log("add tsd", tsdFile);
+    }
   }
 
   onLayout() {
     requestAnimationFrame(() => {
-      this.editor.layout();
+      // console.error("!!!____",this.editor,this.editor?.layout)
+      this.editor?.layout?.();
     });
   }
 
