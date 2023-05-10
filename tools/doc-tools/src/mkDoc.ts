@@ -219,7 +219,7 @@ async function transDoc(toLang: LANG_NAMES_T[]) {
 
     let mdFiles = allFiles.filter((v) => v.name.endsWith(".md")).map((v) => v.name);
     // 翻译md文件名
-    let transMdFiles = await transText(mdFiles, toLang, "plain");
+    let transMdFiles = await transText(mdFiles.map(v=>v.slice(0,-3)), toLang, "plain");
 
 
     for (let mdId in mdFiles) {
@@ -264,7 +264,7 @@ async function transDoc(toLang: LANG_NAMES_T[]) {
         tDir = tDir.replace(/\s*-\s*/, "-");
         let transMdDir = path.join(DOC_ROOT, toLang[langId], tDir);
         await fsp.mkdir(transMdDir, { recursive: true });
-        let tMd = transMdFiles[mdId].translations[langId].text;
+        let tMd = transMdFiles[mdId].translations[langId].text + ".md";
         tMd = tMd.replace(/\s*-\s*/, "-");
 
         let trandMdFile = path.join(transMdDir, tMd);
