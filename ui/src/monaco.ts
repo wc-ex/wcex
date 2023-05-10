@@ -1,58 +1,136 @@
-import { Scope } from "wcex";
-import * as MONACO from "monaco-editor";
+import { Scope, Logger } from "wcex";
+import type * as MONACO from "monaco-editor";
 import debounce from "lodash.debounce";
+let log = Logger("monacoEx");
 
-var monacoPromise = new Promise<typeof MONACO>((res) => {
-  WCEX.amdloader["@wcex/monaco-fixed@0.36.2"]?.then((loader) => {
-    (<any>loader.require).config({ paths: { vs: WCEX.npmUrl + "@wcex/monaco-fixed@0.36.2/min/vs" } });
-    (<any>loader.require)(["vs/editor/editor.main"], function () {
-      res((<any>window).monaco);
+type IMonacoLoader = {
+  require: (modules: string[], callback: (resule: any) => void) => void;
+};
+const MONACO_PKG = "monaco-editor";
+
+const monacoInstance = new (class {
+  monaco: typeof MONACO = <any>undefined;
+  monacoLoader: IMonacoLoader = <any>undefined;
+
+  tokenCache = new Map<string, {
+    versionId:number,
+    tokens:MONACO.Token[][]
+  }>();
+
+  constructor() {}
+  async init() {
+    if (monacoInstance.monaco) return;
+    this.monacoLoader = await this.initLoader();
+    monacoInstance.monaco = await this.loadMonacoModule("vs/editor/editor.main");
+
+    // await this.initEmbeddedCssInHtml();
+  }
+
+  initLoader() {
+    return new Promise<IMonacoLoader>((res) => {
+      // 输出版本信息
+      fetch(`${WCEX.npmUrl}${MONACO_PKG}/package.json`)
+        .then((res) => res.json())
+        .then((json) => {
+          log.debug("monaco version", json.version);
+          WCEX.amdloader["monaco-editor"]?.then((loader) => {
+            (<any>loader.require).config({ paths: { vs: `${WCEX.npmUrl}${MONACO_PKG}/min/vs` } });
+            res(<any>loader);
+          });
+        });
     });
-  });
-});
+  }
+
+  loadMonacoModule(modName: string): Promise<any> {
+    return new Promise((res) => {
+      this.monacoLoader.require([modName], (result) => {
+        log.debug("monaco load", modName, result);
+        res(result);
+      });
+    });
+  }
+
+  async initEmbeddedCssInHtml() {
+    let css = await this.loadMonacoModule("vs/language/css/cssMode");
+    let cssClient = new css.WorkerManager(monacoInstance.monaco.languages.css.cssDefaults);
+
+    let cssWorker = await cssClient.getLanguageServiceWorker([]);
+    console.log("--- CSS Client", cssClient);
+    console.log("--- CSS cssWorker", cssWorker);
+
+    const self = this;
+
+    this.monaco.languages.registerCompletionItemProvider(
+      "html",
+      new (class implements MONACO.languages.CompletionItemProvider {
+        provideCompletionItems(
+          model: MONACO.editor.ITextModel,
+          position: MONACO.Position,
+          context: MONACO.languages.CompletionContext,
+          token: MONACO.CancellationToken
+        ): MONACO.languages.ProviderResult<MONACO.languages.CompletionList> {
+
+          // 获取tockens
+          if(self.tokenCache.get(model.uri.toString())?.versionId != model.getVersionId()){
+            self.tokenCache.set(model.uri.toString(),{
+              versionId:model.getVersionId(),
+              tokens: self.monaco.editor.tokenize(model.getValue(), "html")
+            })
+            let toks = self.tokenCache.get(model.uri.toString())?.tokens;
+            console.log("---!!! toks", model.uri.toString(),model.getVersionId(), toks);
+          }
+          let toks = self.tokenCache.get(model.uri.toString())?.tokens;
+          return (async function () {
+            let info = await cssWorker.doComplete(model.uri, position);
+            console.log("---!!! toks info", info,model.getVersionId());
+            
+            return undefined;  
+          })(); 
+        }
+      })()
+    );
+  }
+})();
 
 export default class extends Scope {
   editor: MONACO.editor.IStandaloneCodeEditor = <any>{};
   text = "";
   file = "";
   options = {};
-  monaco: typeof MONACO = <any>{};
   async onReady() {
+    await monacoInstance.init();
     if (!this.file) return;
 
-    this.monaco = this.$noWatch(await monacoPromise);
+    const { Uri, editor, languages } = monacoInstance.monaco;
+    const modelUri = Uri.parse(decodeURI(this.file));
+
     // 初始化编辑器
-    // monaco.editor
     let text = this.text;
     if (!this.text) {
-      text = await (await fetch(decodeURI(this.file))).text();
+      text = (await (await fetch(decodeURI(this.file))).text()).replace(/\r\n/g, "\n");
     }
     // 自动解析扩展名
     let ext = this.file.replace(/^.*\./, "");
     let lang = { js: "javascript", ts: "typescript", css: "css", html: "html", json: "json", json5: "json5" }[ext];
 
     this.editor = this.$noWatch(
-      this.monaco.editor.create(
-        this.$id.editor,
-        Object.assign(
-          {
-            minimap: { enabled: false },
-            theme: this.$Colors.mode ? "vs" : "vs-dark",
-            mouseWheelZoom: true,
-            lineHeight: 20,
-            scrollBeyondLastLine: true,
-            tabSize: 4,
-            insertSpaces: true,
-            detectIndentation: false,
-            inlayHints: { enabled: "on" },
-          } as any,
-          this.options
-        )
-      )
+      monacoInstance.monaco.editor.create(this.$id.editor, {
+        acceptSuggestionOnCommitCharacter: true,
+        acceptSuggestionOnEnter: "on",
+        suggestOnTriggerCharacters: true,
+        minimap: { enabled: false },
+        theme: this.$Colors.mode ? "vs" : "vs-dark",
+        mouseWheelZoom: true,
+        lineHeight: 20,
+        scrollBeyondLastLine: true,
+        tabSize: 2,
+        insertSpaces: true,
+        detectIndentation: false,
+        inlayHints: { enabled: "on" },
+        ...this.options,
+      })
     );
 
-    const { Uri, editor, languages } = this.monaco;
-    const modelUri = Uri.parse(decodeURI(this.file));
     const model = editor.createModel(text, lang, modelUri);
     this.editor.setModel(model);
 
@@ -82,7 +160,7 @@ export default class extends Scope {
         noImplicitAny: true,
         noImplicitThis: true,
         strictNullChecks: true,
-        esModuleInterop:true,
+        esModuleInterop: true,
         // noUnusedLocals: true,
         // noUnusedParameters: true,
         noImplicitDependencies: true, // 在此开启 no-implicit-dependencies 规则
@@ -92,15 +170,16 @@ export default class extends Scope {
       await this._checkSemanticsAndLoadTsDefines(modelUri);
 
       // 更新
-      await this._emitContentEvent();   
+      await this._emitContentEvent();
     }
-
 
     // 监听编辑器内容发生改变，延迟500毫秒，仅在最后变化时发送消息
     this.editor.onDidChangeModelContent(
       debounce(
         async (ev) => {
-            await this._emitContentEvent();
+          await this._emitContentEvent();
+          this.$log("model version", this.editor.getModel()?.getVersionId());
+          // monacoEx.htmlParseEmbeddedModel(this.editor);
         },
         1000,
         { leading: false, trailing: true }
@@ -108,32 +187,55 @@ export default class extends Scope {
     );
   }
 
-  async _emitContentEvent(){
-    let model = this.editor.getModel()
-    if(!model) return;
+  async sortArrayById(arr: { id: number }[]) {
+    arr.sort((a, b) => a.id - b.id);
+  }
+
+  async onSort() {
+    let model = this.editor.getModel();
+    if (!model) return;
     let isOk = true;
-    let buildJs = '';
-    if(model.getLanguageId() == 'typescript'){
+    let buildJs = "";
+    if (model.getLanguageId() == "typescript") {
       isOk = await this._checkSemanticsAndLoadTsDefines(model.uri);
-      if(isOk) {
-          var work = await (await this.monaco.languages.typescript.getTypeScriptWorker())(model.uri);
-          buildJs = (await work.getEmitOutput(model.uri.toString())).outputFiles[0].text;            
+      if (isOk) {
+        var work = await (await monacoInstance.monaco.languages.typescript.getTypeScriptWorker())(model.uri);
+        buildJs = (await work.getEmitOutput(model.uri.toString())).outputFiles[0].text;
       }
     }
     // 没有错误时才热更新组件
-    if(isOk){
-      this.$log('==> monaco hotUpdate',model.uri.toString())
+    if (isOk) {
+      this.$log("==> monaco hotUpdate", model.uri.toString());
       // 为ts文件获取编译后的结果
-      this.$emit(new CustomEvent("content", { detail: { file: this.file, text: this.editor.getValue(),build:buildJs } }));
+      this.$emit(new CustomEvent("content", { detail: { file: this.file, text: this.editor.getValue(), build: buildJs } }));
+    }
+  }
+  async _emitContentEvent() {
+    let model = this.editor.getModel();
+    if (!model) return;
+    let isOk = true;
+    let buildJs = "";
+    if (model.getLanguageId() == "typescript") {
+      isOk = await this._checkSemanticsAndLoadTsDefines(model.uri);
+      if (isOk) {
+        var work = await (await monacoInstance.monaco.languages.typescript.getTypeScriptWorker())(model.uri);
+        buildJs = (await work.getEmitOutput(model.uri.toString())).outputFiles[0].text;
+      }
+    }
+    // 没有错误时才热更新组件
+    if (isOk) {
+      this.$log("==> monaco hotUpdate", model.uri.toString());
+      // 为ts文件获取编译后的结果
+      this.$emit(new CustomEvent("content", { detail: { file: this.file, text: this.editor.getValue(), build: buildJs } }));
     }
   }
 
   async _checkSemanticsAndLoadTsDefines(monacoUri: MONACO.Uri) {
     let isOk = true;
     // 在 model 上绑定 TypeScript Language Service
-    let worker = await (await this.monaco.languages.typescript.getTypeScriptWorker())(monacoUri);
+    let worker = await (await monacoInstance.monaco.languages.typescript.getTypeScriptWorker())(monacoUri);
     for (let err of await worker.getSemanticDiagnostics(monacoUri.toString())) {
-        isOk = false;
+      isOk = false;
       if (err.code == 2307) {
         // 导入模块无效，自动导入模块
         if (typeof err.messageText == "string") {
@@ -179,27 +281,27 @@ export default class extends Scope {
 
   async loadModuleTypeScriptDefines(pkgName: string) {
     let npmUrl = "https://fastly.jsdelivr.net/npm";
-    let typescriptDefaults = this.monaco.languages.typescript.typescriptDefaults;
+    let typescriptDefaults = monacoInstance.monaco.languages.typescript.typescriptDefaults;
 
     let pkgTypes: string | undefined;
     let fetchPkgName = pkgName;
     try {
       this.$log("fetch npm pkg types", pkgName);
-      let pkgJson: { types?: string ,typings?:string};
+      let pkgJson: { types?: string; typings?: string };
       pkgJson = await (await fetch(`${npmUrl}/${pkgName}/package.json`)).json();
       pkgTypes = pkgJson.types || pkgJson.typings;
       if (!pkgTypes) throw Error(`${pkgName} not have "types", try @types/${pkgName}`);
     } catch (e: any) {
-        this.$log.warn("try load tsd err:", pkgName, e.message);
-        // 尝试加载@types/xxx
-        fetchPkgName = `@types/${pkgName}`;
-        let pkgJson: { types: string };
-        pkgJson = await (await fetch(`${npmUrl}/${fetchPkgName}/package.json`)).json();
-        pkgTypes = pkgJson.types;
-        if(!pkgTypes) {
-            this.$log.warn("load tsd err:", fetchPkgName, e.message);
-            return;
-        }
+      this.$log.warn("try load tsd err:", pkgName, e.message);
+      // 尝试加载@types/xxx
+      fetchPkgName = `@types/${pkgName}`;
+      let pkgJson: { types: string };
+      pkgJson = await (await fetch(`${npmUrl}/${fetchPkgName}/package.json`)).json();
+      pkgTypes = pkgJson.types;
+      if (!pkgTypes) {
+        this.$log.warn("load tsd err:", fetchPkgName, e.message);
+        return;
+      }
     }
     this.$log(`${pkgName} types: ${pkgTypes}`);
 

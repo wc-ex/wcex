@@ -1,7 +1,11 @@
 import {Scope,VERSION} from 'wcex'
 
 export default class extends Scope {
-  onReady(): void {
-    console.log("VER:",VERSION)
+  hh:0
+  mm:0
+  ss:0
+  onTime(){
+    let d = new Date()
+    d.getm
   }
 }

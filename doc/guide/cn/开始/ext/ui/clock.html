@@ -1,4 +1,24 @@
-<template>
-  <div>CLOCK</div>
-  <script scope="." src="."></script>
+<template @timer="onTime()">
+  <link rel="stylesheet" href="./clock.css" >
+  <div class="clock">
+    <div class="center"></div>
+    <div class="point point-hour"></div>
+    <div class="point point-minute"></div>
+    <div class="point point-second"></div>
+    <div class="time" :>${hh}:${mm}:${ss}</div>
+  </div>
+  <!-- <script scope="." src="."></script> -->
+  <script scope=".">
+    return class {
+      hh = 0;
+      mm = 0;
+      ss = 0;
+      onTime() {
+        let d = new Date();
+        this.hh = d.getHours();
+        this.mm = d.getMinutes();
+        this.ss = d.getSeconds();
+      }
+    }
+  </script>
 </template>

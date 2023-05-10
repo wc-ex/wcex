@@ -84,6 +84,7 @@
           // 监控热键，调试弹窗
           window.addEventListener("keydown", (ev) => {
             if ((ev.ctrlKey || ev.altKey) && (ev.code.toLowerCase() == "backquote" || ev.key == "`")) {
+              console.log('Dev Panel Opened');
               this.$side("wcex-ui.dev-config", { pos: "t", size: "16em", color: this.$color.pri.l5 });
             }
           });
@@ -128,6 +129,8 @@
             }
           }
         });
+        console.log('Dev Mode Opened');
+
       }
     };
   </script>

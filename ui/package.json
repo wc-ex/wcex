@@ -1,6 +1,6 @@
 {
   "name": "@wcex/ui",
-  "version": "1.0.58",
+  "version": "1.0.62",
   "description": "wcex ui library",
   "scripts": {
     "dev": "wcex -p 8102",
@@ -28,6 +28,6 @@
     "wcex": "1.9.36"
   },
   "devDependencies": {
-    "monaco-editor": "^0.36.1"
+    "monaco-editor": "^0.38.0"
   }
 }

@@ -10,7 +10,7 @@
       transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
     .title {
-      background-color: "$$color.pri";
+      background-color: "$$color.sec.h8";
       user-select: none;
     }
   </style>
@@ -27,7 +27,7 @@
       $icon="vnav.dirInfo.icon.name"
     ></wcex-ui.icon>
 
-    <span slot="title" :style="color:${open?$color.textr:$color.textr.l2} ;" $>vnav.name.replace(/^\d+-/,'') </span>
+    <span  slot="title" :style="color:${open?$color.textr:$color.textr.l2} ;" $>vnav.name.replace(/^\d+-/,'') </span>
   
 
     <!-- $sort="{id:1}" -->

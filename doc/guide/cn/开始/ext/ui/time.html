@@ -1,3 +1,14 @@
-<template>
-  <div>TIME</div>
+<template @timer="onTimer()">
+  <meta name="module" pkg="dayjs" content="dayjs.min.js" />
+  <div :> Time: ${tmStr}</div>
+
+  <script scope="day" src="dayjs" nowatch nocall ></script>
+  <script scope=".">
+    return class {
+      tmStr=""
+      onTimer(){
+        this.tmStr=this.day().format("YYYY-MM-DD HH:mm:ss.SSS");
+      }
+    }
+  </script>
 </template>

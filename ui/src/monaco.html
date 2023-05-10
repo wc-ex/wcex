@@ -7,12 +7,14 @@
   <!-- <meta name="module" pkg="esbuild-wasm" content="lib/browser.min.js" cjs /> -->
   <meta name="no-import-global-css" />
   <meta name="module" pkg="lodash.debounce" cjs />
+  <meta name="module" pkg="monaco-editor" content=";"  />
 
   <!-- 全局加载，因为需要加载字体 -->
-  <link rel="stylesheet" href="@/@wcex/monaco-fixed@0.36.2/min/vs/editor/editor.main.css" />
+  <link rel="stylesheet" href="@/monaco-editor/min/vs/editor/editor.main.css" />
   <style>
     :host {
       display: block;
+      
     }
     #editor {
       width: 100%;
@@ -21,8 +23,7 @@
     }
   </style>
   <div id="editor"></div>
-  <!-- <script scope="debounce" src="lodash.debounce" nocall></script> -->
-  <script src="@/@wcex/monaco-fixed@0.36.2/min/vs/loader.js" amdloader="@wcex/monaco-fixed@0.36.2"></script>
+  <script src="@/monaco-editor/min/vs/loader.js" amdloader="monaco-editor"></script>
   <script scope="." src="."></script>
   
 </template>
