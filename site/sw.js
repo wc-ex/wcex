@@ -30,10 +30,12 @@ function contentType(url) {
 this.addEventListener("fetch", function (event) {
   // fetch(event.request,{  cache: 'no-cache' }).then(res => {
 
-  let url = decodeURI(event.request.url);
-  // 处理热缓存数据,去除参数和hash后匹配。
-  if (hotCache[url.replace(/[#\?].*$/,'')]) {
-    console.log("---> SW FETCH Cache");
+  let url = decodeURI(event.request.url).replace(/[#\?].*$/, "");
+  // 处理热缓存数据,去除参数和hash后匹配
+  // .replace(/[#\?].*$/,'')
+
+  if (hotCache[url]) {
+    console.log("---> SW FETCH Cache", url);
     // 返回缓存数据
     event.respondWith(
       new Response(hotCache[url], {
@@ -44,26 +46,27 @@ this.addEventListener("fetch", function (event) {
     );
   } else {
     event.respondWith(
-      caches.match(event.request).then(function (response) {
+      caches.match(url).then(function (response) {
         if (response) {
           return response;
         }
-        return fetch(event.request).then(function (response) {
+        return fetch(url).then(function (response) {
           if (!response || response.status !== 200) {
             return response;
           }
+          // 本地数据不缓存
           if (
-            event.request.url.startsWith("http://localhost") ||
-            event.request.url.startsWith("http://127.0.0.1") ||
-            event.request.url.startsWith("https://wc-ex.com") ||
-            event.request.url.startsWith("https://www.wc-ex.com")
+            url.startsWith("http://localhost") ||
+            url.startsWith("http://127.0.0.1") ||
+            url.startsWith("https://wc-ex.com") ||
+            url.startsWith("https://www.wc-ex.com")
           ) {
-            return fetch(event.request);
+            return fetch(url);
           }
 
           const responseToCache = response.clone();
           caches.open(CACHE).then(function (cache) {
-            cache.put(event.request, responseToCache);
+            cache.put(url, responseToCache);
           });
           return response;
         });
@@ -80,8 +83,17 @@ this.addEventListener("message", function (ev) {
       hotCache[data.file] = data.text;
       break;
     case "hotCacheClean":
-      console.log("sw hotCacheClean", data);
-      hotCache = {};
+      // console.log("sw hotCacheClean", data);
+      // console.log("sw hotCacheClean Cache", Object.keys(hotCache));
+      if ((data.files && data.files.length)) {
+        data.files.forEach((f) => {
+          delete hotCache[f];
+          console.log("sw hotCacheClean", f);
+        });
+      } else {
+        hotCache = {};
+        console.log("sw hotCacheClean all");
+      }
       break;
   }
 });

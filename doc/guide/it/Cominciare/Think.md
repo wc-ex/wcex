@@ -1,15 +1,12 @@
-<!--DESC: {"icon":"assistant",id:4} -->
+<!--DESC: {icon:{name:"lightbulb_circle",pkg:"mdi",type:"filled"},id:4} -->
 <p align=center><svg width=8em src="@/@wcex/doc/assets/jobs.svg" ></svg></p>
 
 #### Omaggio e nostalgia al più grande uomo del nostro tempo ---- **Steve Jobs**
 
 #### Semplice è meglio
 
-Sembra sempre che alcuni sistemi e strutture tecniche spesso rendano le cose più complicate e inventino sempre molti concetti e termini.
-
-Al fine di risolvere problemi complessi, vengono elaborate cose più complesse da affrontare @\_ @
-
-_Jobs_ Può rendere computer complessi adatti a tutte le età, dovremmo provarlo anche noi? Quindi _WCEX_.
+Sembra sempre che lo sviluppo stia diventando sempre più complicato e ci sono sempre molti nuovi concetti e cose noiose. Per risolvere problemi complessi, vengono elaborate cose più complesse da affrontare @\_@.
+_Jobs_ Può rendere computer complessi adatti a tutte le età, dovremmo provarlo anche noi?
 
 #### Origine e processo
 

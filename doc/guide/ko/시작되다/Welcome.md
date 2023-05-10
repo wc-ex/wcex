@@ -31,7 +31,7 @@ WCEX의 네이티브 웹 컴포넌트의 완벽한 구현 덕분에, 우리 시�
 - _/doc/doc.html_
 - 마크다운 문서 미리보기 구현
 ```html
-<template url="">
+증권 시세 표시기 @@
   <style>
     :host {
       display: flex;

@@ -314,9 +314,13 @@ async function transDoc(toLang: LANG_NAMES_T[]) {
 }
 
 (async () => {
+    console.log(process.argv);
+
   // 生成索引
   await buildDoc(path.join(DOC_ROOT, "cn"));
-  console.log(process.argv);
+  fs.copyFileSync(path.join(__dirname, "../../../doc/sw.js"), path.join(__dirname, "../../../site/sw.js"));
+
+
   if (process.argv[2] == 'lang') {
     let LANGS1: LANG_NAMES_T[] = ["en", "ja", "zh-Hant", "lzh", "yue"];
     let LANGS2: LANG_NAMES_T[] = ["ko", "fr", "it", "de", "ru"];

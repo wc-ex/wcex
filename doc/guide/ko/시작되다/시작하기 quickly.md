@@ -42,7 +42,7 @@
 
 1. 프로젝트에 **npm** \<meta\> 태그 정의를 추가하여 WCEX가 필요한 타사 패키지를 찾을 수 있는 위치를 알려줍니다. 여기서는 jsdelivr가 사용되며, 원하는 CDN을 사용하거나 로컬 경로에 NPM을 설치할 수 있습니다.
 
-증권 시세 표시기 @@
+```html
 <meta name="npm" content="https://cdn.jsdelivr.net/npm/" />
 ```
 

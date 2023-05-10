@@ -1,4 +1,19 @@
-<!--DESC: {"icon":"assistant",id:99} -->
+<!--DESC: {icon:{name:"update",pkg:"mdi",type:"filled"},id:99} -->
+
+### @wcex/CLI 1.9.41
+- 구성 요소가 초기화되는 즉시 @timer 한 번 실행되도록 합니다.
+- $sort bool 및 number 유형 지원
+
+### @wcex/CLI 1.9.39
+- 명령 매개변수 테스트 추가, UI 자동화 테스트 지원
+- Scope 메서드 $next 추가, $delay
+- 몇 가지 사소한 버그 수정
+
+### WCEX 1.9.36
+- 최적화된 $for 성능
+- $path 호환성 개선
+- './' 상대 경로에 대한 메타 모듈 url 매개변수 지원 추가
+
 
 ### WCEX 1.9.26
 - $sort$if 의해 throw된 예외 수정

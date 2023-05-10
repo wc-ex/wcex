@@ -1,15 +1,12 @@
-<!--DESC: {"icon":"assistant",id:4} -->
+<!--DESC: {icon:{name:"lightbulb_circle",pkg:"mdi",type:"filled"},id:4} -->
 <p align=center><svg width=8em src="@/@wcex/doc/assets/jobs.svg" ></svg></p>
 
 #### Tribute and nostalgia to the greatest man of our time ---- **Steve Jobs**
 
 #### Simple is best
 
-It always feels that some technical systems and frameworks often make things more complicated, and always invent many concepts and terms.
-
-In order to solve complex problems, more complex things are worked out to deal with @\_ @
-
-_Jobs_ Can make complex computers suitable for all ages, should we also try it? Hence _WCEX_.
+It always feels like development is becoming more and more complicated, and there are always many new concepts and tedious things. In order to solve complex problems, more complex things are worked out to deal with @\_@.
+_Jobs_ Can make complex computers suitable for all ages, should we also try it?
 
 #### Origin and process
 

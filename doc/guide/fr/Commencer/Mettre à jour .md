@@ -1,4 +1,19 @@
-<!--DESC: {"icon":"assistant",id:99} -->
+<!--DESC: {icon:{name:"update",pkg:"mdi",type:"filled"},id:99} -->
+
+### @wcex/cli 1.9.41
+- Provoque l’exécution de @timer une fois immédiatement lorsque le composant est initialisé
+- $sort Prend en charge les types bool et nombre
+
+### @wcex/cli 1.9.39
+- Ajout du test des paramètres de commande, prise en charge des tests automatisés de l’interface utilisateur
+- Ajout de la méthode Scope $next, $delay
+- CORRECTION DE PLUSIEURS BUGS MINEURS
+
+### WCEX 1.9.36
+- Performances $for optimisées
+- Amélioration de la compatibilité $path
+- Ajout du support des paramètres url du méta-module pour les chemins relatifs './'
+
 
 ### WCEX 1.9.26
 - Correction de l’exception $if levée par $sort

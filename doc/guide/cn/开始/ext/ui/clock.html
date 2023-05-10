@@ -1,13 +1,13 @@
 <template @timer="onTime()">
   <link rel="stylesheet" href="./clock.css" >
   <div class="clock">
-    <div class="center"></div>
     <div class="point point-hour"></div>
-    <div class="point point-minute"></div>
+    <div id="abc" class="point point-minute"></div>
     <div class="point point-second"></div>
+    <div class="center"></div>
+
     <div class="time" :>${hh}:${mm}:${ss}</div>
   </div>
-  <!-- <script scope="." src="."></script> -->
   <script scope=".">
     return class {
       hh = 0;

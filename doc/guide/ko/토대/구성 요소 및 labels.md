@@ -1,9 +1,0 @@
-<!--DESC: {icon:{name:"explore"},id:2} -->
-
-## WCEX 구성 요소
-
-WCEX 구성 요소는 표준 .html에서 표준 WebComponents로 구현되지만 루트 요소로 <template\>이 필요합니다.
-
-구성 요소는 프로젝트 디렉터리에 저장됩니다
-
-### 명명 규칙 및 주소 지정
