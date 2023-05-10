@@ -1,0 +1,43 @@
+<template attr1="ATTR1" attr2.bool="0" attr3.int="999">
+  <meta name="scope" meta1.num="111" meta2="META2" />
+  <meta name="module" pkg="lodash.pickby" cjs />
+  <style>
+    :host {
+      display: block;
+      padding: 1em;
+    }
+    .scope{
+        background-color: white;
+        padding: 0.2em 1em;
+    }
+    .scope>.title{
+        text-align: center;
+        font-weight: 600;
+        border-bottom: 1px solid;
+    }
+
+  </style>
+  <h3 $>str</h3>
+  <div class="scope">
+    <div class="title">RootScope</div>
+    <div $>root()</div>
+  </div>
+  <div class="scope">
+    <div class="title">localScope</div>
+    <span $>connter</span>
+    <input $$="">
+  </div>
+  <script scope="lPickBy" src="lodash.pickby" nocall></script>
+  <script scope="data" src="./data.js"></script>
+  <script scope=".">
+    return class {
+      str = "";
+      onReady() {
+        this.str = "I am Ready";
+      }
+      root() {
+        return this.lPickBy(this.$root, (v,k) => k.match && k.match(/^[a-z]/));
+      }
+    };
+  </script>
+</template>

@@ -1,0 +1,30 @@
+<template class="shadow">
+  <meta name="scope" cur.num="clock" />
+  <meta name="module" pkg="lodash.pickby" cjs />
+  <style>
+    :host {
+      display: flex;
+      align-items: center;
+      background-color: darkcyan;
+      color: white;
+    }
+    h3{
+      margin: 0.3em 1em;
+    }
+    h4 {
+      margin: 0 1em;
+      user-select: none;
+
+    }
+    h4:hover {
+      cursor: pointer;
+      color: yellow;
+      user-select: none;
+    }
+  </style>
+
+  <h3 style="margin-right: 2em;">Welcome</h3>
+  <h4 @click="$router.go('ext-app.page1-')">PAGE1 </h4>
+  <h4 @click="$router.go('ext-app.page2-')">PAGE2 </h4>
+
+</template>

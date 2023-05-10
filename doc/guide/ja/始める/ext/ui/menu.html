@@ -1,0 +1,20 @@
+<template value="" items.array="[]">
+    <style>
+        :host{
+            display: flex;
+            align-items: center;
+        }
+        a{
+            padding: 0 0.5em;
+        }
+    </style>
+    <a $for(v,k)="items" $href="v.href" $>v.text</a>
+
+    <script>
+        return class{
+            abc=999
+        }
+    </script>
+
+</template>
+

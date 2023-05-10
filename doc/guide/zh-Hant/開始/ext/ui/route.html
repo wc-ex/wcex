@@ -1,0 +1,30 @@
+<template home="">
+    <style>
+        :host{
+            display: block;
+            margin: 1px;
+            padding: 1em;
+            border: 1px solid gray;
+            border-radius: 5px;
+            background-color: whitesmoke;
+        }
+    </style>
+  <div $as="hash.slice(1)" style="width: 100%;height: 100%;"></div>
+
+  <script scope=".">
+    return class {
+      hash=location.hash;
+      hashChange = function(){
+        this.hash=location.hash;
+      }.bind(this);
+
+      onReady() {
+        window.addEventListener("hashchange", this.hashChange);
+        location.hash = '#'+this.home;
+      }
+      onDestroy(){
+        window.removeEventListener("hashchange", this.hashChange);
+      }
+    };
+  </script>
+</template>

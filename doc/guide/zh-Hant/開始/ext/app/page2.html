@@ -1,0 +1,66 @@
+<template>
+  <meta name="scope" text="" so.obj="{}" />
+  <meta name="module" pkg="lodash" content="lodash.min.js" />
+  <style>
+    :host {
+      display: flex;
+    }
+
+    .item {
+      display: flex;
+      width: 100%;
+      outline: 1px solid gray;
+    }
+
+    .item > div {
+      width: 33.3%;
+      padding: 0.2em 0.5em;
+    }
+
+    .list {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      overflow: auto;
+      margin: 1em;
+    }
+
+    .item:nth-child(odd) {
+      background-color: rgb(185, 222, 254);
+    }
+
+    .item:nth-child(even) {
+      background-color: white;
+    }
+
+    .sort > span {
+      padding: 0.2em 0.5em;
+      font-weight: 600;
+    }
+
+    .sort > span:hover {
+      background-color: yellow;
+      user-select: none;
+    }
+  </style>
+  <div>
+    <h3>PAGE 2</h3>
+    <h5 :>Lodash kebabCase(): ${lo.kebabCase(text)}</h5>
+    <input $$="text" />
+  </div>
+
+  <div style="flex: 1" class="list">
+    <div class="sort">
+      <span @click="so=(so.id==undefined)?{id:0}:{id:!so.id}">SortBy: id</span>
+      <span @click="so=(so.name==undefined)?{name:0}:{name:!so.name}">SortBy: name</span>
+    </div>
+    <div class="item" $for="data" $sort="so">
+      <div $>index</div>
+      <div $>value.id</div>
+      <div $>value.name</div>
+    </div>
+  </div>
+
+  <script scope="lo" src="lodash" nowatch nocall></script>
+  <script scope="data" src="./data.json"></script>
+</template>

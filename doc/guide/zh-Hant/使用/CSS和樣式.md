@@ -1,0 +1,9 @@
+<!--DESC: {icon:{name:"explore"},id:1} -->
+
+! [img] (@/@wcex/doc/assets/logo.svg{width:16em; height:6em})
+
+# 元件和 WebComponents
+
+元件是 WCEX 實現的主要功能，每個元件都是一個標準的 html 檔，但需要使用唯一的 **\<template\>** 標籤作為根標籤。
+
+> 完善中
