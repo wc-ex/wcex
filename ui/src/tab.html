@@ -4,13 +4,13 @@
   $color="$color.pri"
   $bgcolor="$color.none"
   $value="(tabs instanceof Array)?0:(typeof tabs == 'object')?Object.keys(tabs)[0]:0"
+  overflow="auto"
 >
   <meta name="scope" />
   <style>
     :host {
       display: flex;
       flex-direction: column;
-      /* overflow: hidden; */
     }
     #tabs {
       position: relative;
@@ -45,7 +45,7 @@
       left: ":${linepos.left}px";
       width: ":${linepos.width}px";
       height: 4px;
-      background-color: "$color.h5";
+      background-color: "$color.h5.ss(100).l3_";
       border-radius: 10px;
       z-index: 11;
     }
@@ -55,7 +55,7 @@
       position: relative;
       z-index: 12;
       --grow: 2 !important;
-      /* overflow: auto; */
+      overflow: "$overflow";
       display: block;
     }
 

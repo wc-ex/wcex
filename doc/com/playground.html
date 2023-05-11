@@ -55,7 +55,7 @@
 
   <iframe id="demo"></iframe>
   <!-- 编辑器 -->
-  <wcex-ui.tab $tabs="files" style="flex: 1" $$="cur" @change.1="$emit('layout',$id['ed'+value]);">
+  <wcex-ui.tab $tabs="files" style="flex: 1" $$="cur" @change.1="$emit('layout',$id['ed'+value]);" overflow="auto">
     <wcex-ui.monaco slot="panel" :id="ed${index}" style="width: 100%; height: 100%" $file="playgroundPath(value)"
       @content="onContentUpdate($ev)" $for="files" $show="$root.cur==index"></wcex-ui.monaco>
   </wcex-ui.tab>

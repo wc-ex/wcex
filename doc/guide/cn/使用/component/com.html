@@ -1,0 +1,19 @@
+<template value.int="2023" $obj="{}">
+  <style>
+    :host {
+      display: flex;
+      border: 2px solid lightseagreen;
+      align-items: center;
+    }
+  </style>
+  <wcex-ui.icon
+    pkg="@material-design-icons/svg"
+    type="filled"
+    icon="face_retouching_natural"
+    size="2"
+    active
+    @click.stop="clickIcon()"
+  ></wcex-ui.icon>
+  <div @click.stop="value++" :>Click Me ${value}, ${$json(obj)}</div>
+  <script scope="." src="."></script>
+</template>

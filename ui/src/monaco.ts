@@ -131,6 +131,10 @@ export default class extends Scope {
       })
     );
 
+    let existedModel = editor.getModel(modelUri);
+    if(existedModel){
+      existedModel.dispose();
+    }
     const model = editor.createModel(text, lang, modelUri);
     this.editor.setModel(model);
 
@@ -307,7 +311,7 @@ export default class extends Scope {
 
     // 列出所有文件，加载全部的'.d.ts';
     let files = (await this._lsNpmFiles(fetchPkgName)).filter((v) => v.endsWith(".d.ts"));
-    this.$log("===========>>load ts defines: files=", files);
+    // this.$log("===========>>load ts defines: files=", files);
 
     typescriptDefaults.addExtraLib(
       JSON.stringify({
