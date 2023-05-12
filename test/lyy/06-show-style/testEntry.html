@@ -1,0 +1,44 @@
+<template>
+
+
+    <div id="showid" :style="color:${color}" $show="$root.show">
+        测试show 与动态style
+    </div>
+
+    <button @click="show=!show">切换显示</button>
+    <button @click="'blue'== color? color='red' :color='blue'">切换颜色</button>
+
+    <script scope=".">
+        return class {
+            show = true;
+            color = 'red';
+
+
+
+            async onReady() {
+                console.log('-- start')
+
+                await this.$delay(2000)
+                this.show = false;
+
+                console.log('-- set show false')
+
+                await this.$delay(100)
+                console.assert(this.$id.showid.style.display == 'none', 'set show false :Fail: $show invalid ');
+
+                await this.$delay(2000)
+                this.color = 'blue';
+
+
+
+                await this.$delay(100)
+                console.assert(this.$id.showid.style.display == 'none', 'set color: Fail: $show invalid ');
+                console.log('-- test OK')
+                console.debug("WCEX_TEST_END");
+            }
+        }
+
+    </script>
+
+
+</template>
