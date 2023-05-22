@@ -2,7 +2,7 @@
 # Étendre et affiner
 > Dans le chapitre précédent, nous avons appris l’utilisation et les règles de base des composants, puis nous allons essayer d’étendre plus de fonctionnalités, telles que la référence de données, la modularité, les packages tiers, etc.
 
-## Entrée principale
+## Projet d’entrée principale
 Ensuite, implémentez une application simple qui comprendra une barre de menus ainsi qu’une vue d’itinéraire. Il comprend également deux pages compatibles avec le routage, des références croisées entre plusieurs modules et bibliothèques, et comment charger des bibliothèques tierces.
 - Cette entrée principale utilise certains des composants exportés de la bibliothèque de composants, tels que l’itinéraire, l’horloge
 - Le routage d’URL standard a été utilisé pour la commutation de composants
@@ -12,9 +12,10 @@ Ensuite, implémentez une application simple qui comprendra une barre de menus a
 <div><wcex-doc.com-playground files="['ext/app/index.html','ext/app/app.html','ext/app/app.css','ext/app/title.html','ext/app/footer.html','ext/app/data.json','ext/app/ page1.html','ext/app/page2.html']"></wcex-doc.com-playground></div>
 
 
-## Bibliothèque de composants
+## Projet de bibliothèque de composants
 - Ici, nous avons créé une bibliothèque de composants qui exporte deux composants ainsi que des composants de routage simples et des implémentations.
 - L’index .html » de ce projet peut être utilisé comme page de test et de développement pour la bibliothèque de composants actuelle.
+- Modifiez le code du composant ici, cliquez sur actualiser dans le **playground** ci-dessus pour voir l’effet
 
 <div><wcex-doc.com-playground files="['ext/ui/index.html','ext/ui/menu.html,'ext/ui/clock.html','ext/ui/clock.css','ext/ui/time.html','ext/ui/route.html']"></wcex-doc.com-playground></div>
 

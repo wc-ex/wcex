@@ -1,0 +1,52 @@
+<template prop1="hello world" prop2.int="0">
+  <meta name="scope" var1.num="222" var2.int="1000" />
+  <style>
+    :host {
+      display: block;
+      padding: 1em;
+      background-color: white;
+    }
+    .var {
+      display: flex;
+    }
+    .var > * {
+      padding: 0.3em 0.5em;
+    }
+  </style>
+  <div class="var">
+    <div :>prop1: ${prop1}</div>
+    <input $$="prop1" />
+  </div>
+  <div class="var">
+    <div :>prop2: ${prop2}</div>
+    <input $$="prop2" />
+  </div>
+  <div class="var">
+    <div :>var1: ${var1}</div>
+    <input $$="var1" />
+  </div>
+  <div class="var">
+    <div :>var2: ${var2}</div>
+    <input $$="var2" /> 
+  </div>
+
+  <div :>== another components: ${var2} ==</div>
+  <div $testval="{a:1,b:2,c:3}">
+    <div class="var">
+      <div :>com obj: </div>
+      <input $$="testval.a" /> 
+    </div>  
+    <com- $$="var2" $obj="testval"></com->
+  </div>
+
+  <div :>from script: ${str} </div>
+
+  <script scope=".">
+    return class {
+      str = "";
+      onReady() {
+        this.str = "I am Ready";
+      }
+    };
+  </script>
+</template>

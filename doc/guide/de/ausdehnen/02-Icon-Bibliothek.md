@@ -3,19 +3,19 @@
 # Icon-Bibliothek
 Die Symbolbibliothek wird mit der Komponente \<wcex-ui.icon\> geladen, oder Sie können direkt das \<svg\>-Tag verwenden.
 - Klicken Sie auf das Symbol, um die Symbolbeschriftung direkt in die Zwischenablage zu kopieren
-- Das erste Mal, wenn die Icon-Bibliothek geladen wird, ist etwas langsamer, bitte haben Sie etwas Geduld
+- Das erste Laden der Icon-Bibliothek ist etwas langsamer, bitte haben Sie etwas Geduld
 
 
 
 <div style="position: sticky;top: 0;"><wcex-doc.com-icon_search ></wcex-doc.com-icon_search></div>
 
-### Material-Design-Icons
+### material-design-icons
 <div><wcex-doc.com-icons pkg="@material-design-icons/svg" ></wcex-doc.com-icons></div>
 
 ### @fontawesome-frei
 <div><wcex-doc.com-icons pkg="@fortawesome/fontawesome-free/svgs" ></wcex-doc.com-icons></div>
 
-### @svg-Icons
+### @svg-Symbole
 <div><wcex-doc.com-icons pkg="@svg-icons" npm-scope="1" ></wcex-doc.com-icons></div>
 
 ### @tabler/Icons
@@ -28,11 +28,11 @@ Die Symbolbibliothek wird mit der Komponente \<wcex-ui.icon\> geladen, oder Sie 
 ### Flaggen-Symbole
 <div><wcex-doc.com-icons pkg="flag-icons/flags" ></wcex-doc.com-icons></div>
 
-### Länder-Flaggen-Symbole
+### Länderflaggen-Icons
 <div><wcex-doc.com-icons pkg="country-flag-icons/flags" ></wcex-doc.com-icons></div>
 
-### Tüllen-Symbole
-<div><wcex-doc.com-icons pkg="grommet-icons" ></wcex-doc.com-icons></div>
+### Ösen-Symbole
+<div><wcex-doc.com-icons pkg="tüllensymbole" ></wcex-doc.com-icons></div>
 
 ### @alaskaairux/icons/icons
 <div><wcex-doc.com-icons pkg="@alaskaairux/icons/dist/icons" ></wcex-doc.com-icons></div>
@@ -40,16 +40,16 @@ Die Symbolbibliothek wird mit der Komponente \<wcex-ui.icon\> geladen, oder Sie 
 ### @siemens/ix-icons
 <div><wcex-doc.com-icons pkg="@siemens/ix-icons/dist" ></wcex-doc.com-icons></div>
 
-### Feder-Ikonen
+### Feder-Symbole
 <div><wcex-doc.com-icons pkg="feather-icons/dist" ></wcex-doc.com-icons></div>
 
 ### @lrnwebcomponents/hax-iconset
 <div><wcex-doc.com-icons pkg="@lrnwebcomponents/hax-iconset/lib/svgs" ></wcex-doc.com-icons></div>
 
-### @primer/Okticons
+### @primer/octicons
 <div><wcex-doc.com-icons pkg="@primer/octicons/build" ></wcex-doc.com-icons></div>
 
-### @carbon/Symbole
+### @carbon/Icons
 <div><wcex-doc.com-icons pkg="@carbon/icons/svg" ></wcex-doc.com-icons></div>
 
 ### @carbon/icons/32
@@ -64,28 +64,28 @@ Die Symbolbibliothek wird mit der Komponente \<wcex-ui.icon\> geladen, oder Sie 
 ### unis-icons/funktional 
 <div><wcex-doc.com-icons pkg="unis-icons/lib/functional" ></wcex-doc.com-icons></div>
 
-### @elastic/maki
+### @elastic/Maki
 <div><wcex-doc.com-icons pkg="@elastic/maki" ></wcex-doc.com-icons></div>
 
 ### @pluralsight/Icons
 <div><wcex-doc.com-icons pkg="@pluralsight/icons/npm/svg" ></wcex-doc.com-icons></div>
 
-### picon
+### Picon
 <div><wcex-doc.com-icons pkg="picon" ></wcex-doc.com-icons></div>
 
-### @vaadin/Icons
+### @vaadin/icons
 <div><wcex-doc.com-icons pkg="@vaadin/icons/assets" ></wcex-doc.com-icons></div>
 
-### DLS-Icons
+### dls-icons
 <div><wcex-doc.com-icons pkg="dls-icons" ></wcex-doc.com-icons></div>
 
 ### @zendeskgarden/svg-icons
 <div><wcex-doc.com-icons pkg="@zendeskgarden/svg-icons/src" ></wcex-doc.com-icons></div>
 
 ### dreiundzwanzig Symbole
-<div><wcex-doc.com-icons pkg="twentythree-icons" ></wcex-doc.com-icons></div>
+<div><wcex-doc.com-icons pkg="dreiundzwanzig-icons" ></wcex-doc.com-icons></div>
 
-### @phosphor-Icons/Kern
+### @phosphor-icons/core
 <div><wcex-doc.com-icons pkg="@phosphor-icons/core/assets" ></wcex-doc.com-icons></div>
 
 ### ccy-icons
@@ -97,13 +97,13 @@ Die Symbolbibliothek wird mit der Komponente \<wcex-ui.icon\> geladen, oder Sie 
 ### @navikt/aksel-icons
 <div><wcex-doc.com-icons pkg="@navikt/aksel-icons/dist" ></wcex-doc.com-icons></div>
 
-### @weave-Design/Icons
+### @weave-design/icons
 <div><wcex-doc.com-icons pkg="@weave-design/icons/build/svg" ></wcex-doc.com-icons></div>
 
 ### qweather-icons
 <div><wcex-doc.com-icons pkg="qweather-icons" ></wcex-doc.com-icons></div>
 
-### Ikonograph
+### ikonograph
 <div><wcex-doc.com-icons pkg="ikonograph/dist" ></wcex-doc.com-icons></div>
 
 ### @itwin/itwinui-icons
@@ -113,12 +113,12 @@ Die Symbolbibliothek wird mit der Komponente \<wcex-ui.icon\> geladen, oder Sie 
 <div><wcex-doc.com-icons pkg="@rogdevil/crypto-icons/lib" ></wcex-doc.com-icons></div>
 
 ### @momentum-ui/icons-rebranding
-<div><wcex-doc.com-icons pkg="@momentum-ui/icons-rebrand" ></wcex-doc.com-icons></div>
+<div><wcex-doc.com-icons pkg="@momentum-ui/icons-rebranding" ></wcex-doc.com-icons></div>
 
-### Ninian-Ikonen
+### Ninian-Icons
 <div><wcex-doc.com-icons pkg="ninian-icons/src" ></wcex-doc.com-icons></div>
 
-### iconoir
+### Ikonoir
 <div><wcex-doc.com-icons pkg="iconoir" ></wcex-doc.com-icons></div>
 
 ### @navikt/ds-icons
@@ -127,7 +127,7 @@ Die Symbolbibliothek wird mit der Komponente \<wcex-ui.icon\> geladen, oder Sie 
 ### @ad_platform/Icons
 <div><wcex-doc.com-icons pkg="@ad_platform/icons/dist" ></wcex-doc.com-icons></div>
 
-### @instructure/UI-Icons
+### @instructure/ui-icons
 <div><wcex-doc.com-icons pkg="@instructure/ui-icons/svg" ></wcex-doc.com-icons></div>
 
 ### @brightlayer-ui/icons-svg

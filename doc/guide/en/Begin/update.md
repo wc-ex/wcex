@@ -1,6 +1,6 @@
 <!--DESC: {icon:{name:"update",pkg:"mdi",type:"filled"},id:99} -->
 
-### @wcex/cli 1.9.41
+### WCEX 1.9.41
 - Causes @timer to be executed once immediately when the component is initialized
 - $sort Supports bool and number types
 
