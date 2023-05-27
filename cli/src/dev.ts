@@ -5,8 +5,9 @@
  *      npm -> node_modules (库文件)
  *      build -> / (编译后的 js 文件)
  *      src -> / 源文件
- * 启动ws，发送变化通知
- * 启动 tsc, 编译 ts
+ * - 启动ws，发送变化通知
+ * - 启动 tsc, 编译 ts
+ * - 支持--proxy 属性，转发请求到指定服务
  * @param port
  * @param host
  */
@@ -18,6 +19,8 @@ import express from 'express';
 import { WebSocketServer } from 'ws';
 import Watchpack from 'watchpack';
 import { spawn, ChildProcess } from 'child_process';
+
+import httpProxy from 'http-proxy';
 
 function initHotload(server: HttpServer, projectName: string, projectDir: string) {
   const wss = new WebSocketServer({
@@ -104,6 +107,32 @@ export async function dev(opts: any) {
       res.header('Access-Control-Allow-Methods', '*');
       next();
     });
+
+    // 代理配置
+    if (opts.proxy) {
+      const [reqUrl,toUrl]=opts.proxy.split('=');
+      const proxy = httpProxy.createProxyServer({});
+      console.log('proxy',reqUrl,toUrl);
+      // 转发请求到后端服务器
+      app.use(reqUrl, (req, res) => {
+        try{
+          proxy.web(req, res, {
+            target: toUrl,
+            changeOrigin: true,
+            autoRewrite: true,
+            protocolRewrite: 'http',
+            cookieDomainRewrite: '',
+            cookiePathRewrite: '',
+            headers: {
+              host: new URL(toUrl).host,
+            },
+          });  
+        }catch(e:any){
+          console.log("Error to Proxy from:",reqUrl,toUrl,e.message)
+          res.status(500).end(e.message);
+        }
+      })
+    }
 
     app.use('/_dist', express.static(path.join(projectDir, 'dist'),{}));
     app.use(`/node_modules/${pkg.name}`, express.static(path.join(projectDir, 'build/src')));

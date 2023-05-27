@@ -20,6 +20,7 @@ program
   .description('DEFAULT command, start project in develop mode')
   .option('-p, --port <number>', 'listen port', (v) => parseInt(v), 8101)
   .option('--host <string>', 'listen host', '127.0.0.1')
+  .option('--proxy <string>', 'proxy request to servcies, format:"[reqUrl]=[toUrl]"', '')
   .option('--dir <string>', 'develop project dir', '.')
 
   .action(dev);
