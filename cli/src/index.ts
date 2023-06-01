@@ -5,6 +5,7 @@ import { dev } from './dev';
 import { init } from './init';
 import { build } from './build';
 import { test } from './test';
+import {buildModule} from './buildModule'
 
 
 const pkg = JSON.parse(fs.readFileSync(path.join(__dirname, '../package.json'), 'utf8'));
@@ -51,6 +52,14 @@ program
   .option('-s,--show', 'show browser ui', false)
 
   .action(test);
+
+
+program
+  .command('module')
+  .description('build module project')  
+  .option('--dir <string>', 'module project dir', '.')
+  .action(buildModule);
+
 
 program.parse();
 
