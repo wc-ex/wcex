@@ -91,7 +91,7 @@ export async function buildModule(opts: { dir: string }) {
 
     // 保存 module.json
     fs.writeFileSync(moduleJsonFile, JSON.stringify(moduleJson, null, 2), "utf8");
-    fs.renameSync( path.join(DIST_DIR, "package.json"), path.join(DIST_DIR, "package.html.json"));
+    // fs.renameSync( path.join(DIST_DIR, "package.json"), path.join(DIST_DIR, "package.html.json"));
 
     fs.copyFileSync(moduleJsonFile, path.join(DIST_DIR, "package.json"));
     console.log("succeed build module:", moduleJson.name, moduleJson.version);

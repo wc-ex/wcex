@@ -32,7 +32,7 @@ function deepDir(dir: string): string[] {
     .flat();
 }
 
-async function distHtml(src: string) {
+async function distHtml(src: string,dependenciesSet:Set<string>) {
   let srcFile = path.join(PROJECT_DIR, 'src', src);
   let distFile = path.join(DIST_DIR, src);
 
@@ -40,6 +40,9 @@ async function distHtml(src: string) {
   let html = fs.readFileSync(srcFile, 'utf8');
   // 删除调试 meta
   html = html.replace(/<meta\s+name="hot".*?>/g, '').replace(/<meta\s+name="debug".*?>/g, '');
+
+  // 收集所有的依赖module
+
 
   // 解析HTML
   let outHtml = await htmlMin.minify(html, {
@@ -116,6 +119,9 @@ async function buildProject() {
   // 处理src文件,获取相对路径(src下)
   const srcFiles = deepDir(path.join(PROJECT_DIR, 'src')).map((v) => path.relative(path.join(PROJECT_DIR, 'src'), v));
   console.log('srcFiles:', srcFiles);
+
+  const dependenciesSet = new Set<string>();
+
   // 发布文件
   for (let f of srcFiles) {
     let srcExt = path.parse(f).ext;
@@ -123,7 +129,7 @@ async function buildProject() {
 
     switch (srcExt) {
       case '.html':
-        await distHtml(f);
+        await distHtml(f,dependenciesSet);
         break;
       case '.js':
         await distJs(f);
@@ -140,6 +146,8 @@ async function buildProject() {
       }
     }
   }
+
+  // 添加html文件的模块到依赖
 
   // 升级版本号
   let pkgFile = path.join(PROJECT_DIR, 'package.json');
