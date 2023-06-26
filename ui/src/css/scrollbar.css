@@ -1,9 +1,4 @@
 /* 滚动条样式 */
-@supports (overflow: overlay) {
-  .scroll {
-    overflow: overlay !important;
-  }
-}
 
 .scroll {
   overflow: auto;
@@ -19,7 +14,7 @@
 
 ::-webkit-scrollbar-thumb {
   width: 8px;
-  height: 8;
+  height: 8px;
   border-radius: 4px;
   background-color: "$$color.seca.a4_";
   transition: all 0.3s;

@@ -72,6 +72,7 @@ export async function buildModule(opts: { dir: string }) {
 
       let htmlPkg = JSON.parse(fs.readFileSync(path.join(htmlDir, "dist/package.json"), "utf8"));
       moduleJson.msc.html = htmlPkg;
+      moduleJson.dependencies = htmlPkg.dependencies;
 
       // 复制 html/dist 目录下所有文件到 DIST_DIR/下
       deepCopyDir( path.join(htmlDir, "dist"), DIST_DIR);

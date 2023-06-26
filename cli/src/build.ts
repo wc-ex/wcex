@@ -5,6 +5,7 @@ import fs from 'fs';
 import path from 'path';
 import { execSync } from 'child_process';
 import htmlMin from 'html-minifier-terser';
+import {buildModule} from './buildModule'
 import jsMin from 'terser';
 let PROJECT_DIR = '';
 let DIST_DIR = '';
@@ -163,6 +164,14 @@ export function build(opts: { dir: string }) {
     PROJECT_DIR = path.resolve(opts.dir);
     DIST_DIR = path.join(PROJECT_DIR, 'dist');
     console.log('build project to:', DIST_DIR);
+
+    // 检测是否是模块
+    if(fs.existsSync(path.join(PROJECT_DIR, 'module.json'))){
+      buildModule(opts)
+      return;
+    }
+
+    // 构建标准前端项目
     buildProject()
       .then(() => {
         console.log('build project to:', DIST_DIR);

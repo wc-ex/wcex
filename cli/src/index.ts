@@ -54,12 +54,5 @@ program
   .action(test);
 
 
-program
-  .command('module')
-  .description('build module project')  
-  .option('--dir <string>', 'module project dir', '.')
-  .action(buildModule);
-
-
 program.parse();
 
