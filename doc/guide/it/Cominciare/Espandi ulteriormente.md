@@ -17,9 +17,7 @@ Successivamente, implementa una semplice applicazione che includerà una barra d
 - L'"indice.html" di questo progetto può essere utilizzato come pagina di test e sviluppo per la libreria di componenti corrente.
 - Modifica il codice del componente qui, fai clic su aggiorna nel ** parco giochi ** sopra per vedere l'effetto
 
-<div><wcex-doc.com-playground files="['ext/ui/index.html','ext/ui/menu.html','ext/ui/clock.html','ext/ui/clock.css','ext/ui/time.html','ext/ui/route.html']"></wcex-doc.com-playground></div>
+<div><wcex-doc.com-playground files="['ext/ui/index.html','ext/ui/menu.html','ext/ui/clock.html','ext/ui/clock.ts','ext/ui/clock.css','ext/ui/time.html','ext/ui/route.html']"></wcex-doc.com-playground></div>
 
 > - Puoi provare a correggere alcuni bug, aggiungere nuove funzionalità e renderlo più bello.
 > - Le librerie di componenti di riferimento devono essere definite nella voce e nell'indice del componente o principale.html e caricate <meta> tramite tag di script, e supportano anche il metodo di importazione standard per l'importazione in TS.
-
-

@@ -17,9 +17,7 @@ Ensuite, implémentez une application simple qui comprendra une barre de menus a
 - L’index .html » de ce projet peut être utilisé comme page de test et de développement pour la bibliothèque de composants actuelle.
 - Modifiez le code du composant ici, cliquez sur actualiser dans le **playground** ci-dessus pour voir l’effet
 
-<div><wcex-doc.com-playground files="['ext/ui/index.html','ext/ui/menu.html,'ext/ui/clock.html','ext/ui/clock.css','ext/ui/time.html','ext/ui/route.html']"></wcex-doc.com-playground></div>
+<div><wcex-doc.com-playground files="['ext/ui/index.html','ext/ui/menu.html','ext/ui/clock.html','ext/ui/clock.ts','ext/ui/clock.css','ext/ui/time.html','ext/ui/route.html']"></wcex-doc.com-playground></div>
 
 > - Vous pouvez essayer de corriger certains bugs, d’ajouter de nouvelles fonctionnalités et de le rendre plus beau.
 > - Les bibliothèques de composants de référence doivent être définies dans le composant ou l’entrée principale et l’index.html et chargées <meta> via des balises de script, et prennent également en charge la méthode d’importation standard pour l’importation dans TS.
-
-

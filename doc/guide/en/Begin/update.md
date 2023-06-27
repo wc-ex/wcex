@@ -1,5 +1,16 @@
 <!--DESC: {icon:{name:"update",pkg:"mdi",type:"filled"},id:99} -->
 
+### WCEX 1.9.47
+- Added $next method
+- Added $step method
+- Added $delay method
+- Added $json method
+- Added $slot variable
+
+
+### WCEX 1.9.45
+- Fixed hot update bug
+
 ### WCEX 1.9.41
 - Causes @timer to be executed once immediately when the component is initialized
 - $sort Supports bool and number types

@@ -17,9 +17,7 @@ Implementieren Sie als Nächstes eine einfache Anwendung, die sowohl eine Menül
 - Der "index.html" dieses Projekts kann als Test- und Entwicklungsseite für die aktuelle Komponentenbibliothek verwendet werden.
 - Ändern Sie hier den Komponentencode, klicken Sie oben im **Playground** auf Aktualisieren, um den Effekt zu sehen
 
-<div><wcex-doc.com-playground files="['ext/ui/index.html','ext/ui/menu.html','ext/ui/clock.html','ext/ui/clock.css','ext/ui/time.html','ext/ui/route.html']"></wcex-doc.com-playground></div>
+<div><wcex-doc.com-playground files="['ext/ui/index.html','ext/ui/menu.html','ext/ui/clock.html','ext/ui/clock.ts','ext/ui/clock.css','ext/ui/time.html','ext/ui/route.html']"></wcex-doc.com-playground></div>
 
 > - Sie können versuchen, einige Fehler zu beheben, neue Funktionen hinzuzufügen und es schöner zu machen.
 > - Referenzkomponentenbibliotheken müssen im Komponenten- oder Haupteintrag und .html Index definiert und <meta> über Skript-Tags geladen werden und unterstützen auch die Standard-Importmethode für den Import in TS.
-
-

@@ -1,5 +1,16 @@
 <!--DESC: {icon:{name:"update",pkg:"mdi",type:"filled"},id:99} -->
 
+### WCEX 1.9.47
+- Ajout $next méthode
+- Ajout $step méthode
+- Ajout de la méthode $delay
+- Ajout $json méthode
+- Ajout $slot variable
+
+
+### WCEX 1.9.45
+- Correction d’un bug de mise à jour à chaud
+
 ### WCEX 1.9.41
 - Provoque l’exécution de @timer une fois immédiatement lorsque le composant est initialisé
 - $sort Prend en charge les types bool et nombre

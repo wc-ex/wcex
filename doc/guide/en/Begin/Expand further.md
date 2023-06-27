@@ -17,9 +17,7 @@ Next, implement a simple application that will include a menu bar as well as a r
 - The "index.html" of this project can be used as a test and development page for the current component library.
 - Modify the component code here, click refresh in the **playground** above to see the effect
 
-<div><wcex-doc.com-playground files="['ext/ui/index.html','ext/ui/menu.html','ext/ui/clock.html','ext/ui/clock.css','ext/ui/time.html','ext/ui/route.html']"></wcex-doc.com-playground></div>
+<div><wcex-doc.com-playground files="['ext/ui/index.html','ext/ui/menu.html','ext/ui/clock.html','ext/ui/clock.ts','ext/ui/clock.css','ext/ui/time.html','ext/ui/route.html']"></wcex-doc.com-playground></div>
 
 > - You can try to fix some bugs, add new features and make it more beautiful.
 > - Reference component libraries need to be defined in the component or main entry and index.html and loaded <meta> via script tags, and also support the standard import method for import in TS.
-
-

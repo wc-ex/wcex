@@ -35,6 +35,7 @@
   <style id="hostStyle">
     :host {
       display: block;
+      --icon-color: "$$color.pri";
       /* height: ":${size}em";
       width: ":${size}em"; */
       text-orientation: unset;
@@ -49,6 +50,7 @@
       --grow: 0 !important;
     }
     :host(:active) {
+      
       --grow: 3 !important;
     }
 
@@ -58,16 +60,18 @@
 
     .icon:active {
       fill: '$active?color.l1:"inherit"';
+      transform: scale(1.1);
     }
 
     .icon {
-      /* width: ":${size}em";
-      height: ":${size}em"; */
-      fill: "$color";
+      width: ":${size}em";
+      height: ":${size}em";
+      fill: var(--icon-color);
+      /* fill: "$color"; */
       transition: all 0.3s;
     }
   </style>
-  <svg class="icon" :width="${size}em" :height="${size}em" $src="srcPath()"></svg>
+  <svg class="icon" $src="srcPath()"></svg>
   <script scope=".">
     return class {
       srcPath() {
