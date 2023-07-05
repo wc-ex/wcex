@@ -1,16 +1,14 @@
-<template tags="" cur="">
-  <link rel="stylesheet" href="../css/shadow.css" />
-  <link rel="stylesheet" href="../css/scrollbar.css" />
-  <link rel="stylesheet" href="../ui.css" />
+<template $tags="{}">
+  <meta name="module" pkg="marked" content="marked.min.js" />
 
   <style>
     :host {
       display: flex;
       flex-direction: column;
+      background-color: "$$color.pria.a3_";
     }
-    .title{
-        border-bottom: 1px solid "$$color.textr";
-
+    .title {
+      border-bottom: 1px solid "$$color.textr";
     }
     .list {
       padding: 0.5em;
@@ -27,87 +25,94 @@
       padding: 0.2em 1em;
     }
     .tag[checked] {
-      background-color: "$$color.sec";
+      background-color: "$$color.textr.a5_";
     }
-    .close{
-        user-select: none;
+    .close {
+      user-select: none;
     }
-    .close:hover{
-        color: red;
-    }
-
-    .params:nth-child(odd){
-      background-color: "$$color.bgr.a6_";
-    }
-    .params:nth-child(even){
-      background-color: "$$color.bgr.a3_";
-    }
-    .params{
-      border-bottom: 3px double rgba(255,255,255,.3);
+    .close:hover {
+      color: red;
     }
 
-    .ptype{
-      text-align: center;
+    .params {
+      border-bottom: 3px double rgba(255, 255, 255, 0.8);
+      background-color: "$$color.textr.a6_";
+    }
+
+    .ptype {
+      /* text-align: center; */
+      /* 大写字母 */
+      text-transform: uppercase;
       padding: 0.3em 1em;
       font-weight: 600;
       border-bottom: 1px solid "$$color.bg.a6_";
     }
-    .pinfo{
+    .pinfo {
       display: flex;
-      border-bottom: 1px solid rgba(255,255,255,.3);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.3);
       align-items: center;
-
     }
-    .pname{
+    .pinfo:nth-child(odd) {
+      background-color: "$$color.textr.a4_";
+    }
+    .pinfo:nth-child(even) {
+      background-color: "$$color.textr.a8_";
+    }
+
+    .pname {
       min-width: 4em;
       white-space: pre-wrap;
-      padding: 0.5em 0.5em;      
+      padding: 0.5em 0.5em;
       text-align: center;
     }
-    .ptext{
-      border-left: 1px solid rgba(255,255,255,.3);
-      font-size: 11px ;
+    .ptext {
+      border-left: 1px solid rgba(255, 255, 255, 0.3);
+      font-size: 11px;
+      white-space: break-spaces !important;
     }
   </style>
+  <!-- <div $>$json(parsed)</div> -->
+
   <div class="row center title">
     <div class="list">
-      <div2 class="tag" $for="taglist" $:.click="cur" $>value</div2>
+      <div class="tag" $for="tags||{}" $checked="cur==index" @click="cur=index;parseHelp()" $>index</div>
     </div>
-    <div style="flex: 1;"></div>
-    <h3 class="close" style="padding-right: 1em;" @click="$emit('close')">CLOSE</h3>
+    <div style="flex: 1"></div>
   </div>
-  <marked- $text="parsed.desc.text" toc="0"></marked->
-  
+  <h3 $>cur</h3>
+
+  <div id="desc"></div>
+
   <!-- 显示参数等说明 -->
-    <div class="params" $for="parsed.params">
-      <div class="ptype" $>index.slice(1)</div>
-      <div class="pinfo" $for(pv,pi)="value">
-          <div class="pname" $>pi</div>
-          <marked- class="ptext" $text="pv.text" toc="0"></marked->
-      </div>
-
+  <div class="params" $for="parsed.params">
+    <div class="ptype" $>index.slice(1)</div>
+    <div class="pinfo" $for(pv,pi)="value">
+      <div class="pname" $>pi</div>
+      <pre class="ptext" $>pv.text</pre>
+    </div>
   </div>
 
-
+  <script scope="marked" src="marked" nocall nowatch></script>
   <script scope=".">
     return class {
       comment = "";
       parsed = { desc: {} };
-      taglist = [];
+      cur = "";
       onReady() {
-        this.$watch(
-          () => this.tags,
-          () => (this.taglist = this.tags.split(" "))
-        );
-        this.taglist = this.tags.split(" ");
-        this.parseHelp();
-        this.$watch(
-          () => this.cur,
-          (v) => {
-            this.parseHelp();
+        this.marked.use({mangle:false,headerIds:false})
+        for (let k of Object.keys(this.tags)) {
+          if (this.tags[k]) {
+            this.cur = k;
+            break;
           }
-        );
+        }
+        this.parseHelp();
       }
+
+      parseMarked(text) {
+        return this.marked.parse(text.replace(/\r\n/g, "\n")) || "";
+      }
+
       parseHelp() {
         let cls = customElements.get(this.cur);
         if (!cls) return;
@@ -117,6 +122,7 @@
         if (s.startsWith("!!")) s = s.slice(2);
         // 解析注释
         this.parseComment(s);
+        this.$id.desc.innerHTML = this.parseMarked(this.parsed.desc.text);
       }
       parseComment(comment) {
         // 检测和删除首行的!!标识
@@ -142,10 +148,7 @@
             if (!params[type][name]) params[type][name] = { text };
 
             curItem = params[type][name];
-          }
-
-          // 添加文本描述信息
-          curItem.text = curItem.text + (curItem.text ? "\n" : "") + s;
+          } else curItem.text += "\n" +  s;
         }
         this.parsed = { desc, params };
       }

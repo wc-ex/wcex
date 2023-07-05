@@ -1,28 +1,12 @@
 <!-- 用于全局注入样式 -->
-<template id="ui" :class="" @blur-bg.stop="$root.class=$ev.detail?'blur-bg':''; $log('-->',$ev.detail)" >
+<template id="ui" :class="" @blur-bg.stop="$root.class=$ev.detail?'blur-bg':'';" >
   <meta name="scope" />
   <!-- <link rel="stylesheet" href="./css/shadow-global.css" global /> -->
   <link rel="stylesheet" href="./css/shadow.css" global="import" />
   <link rel="stylesheet" href="./css/scrollbar.css" global="import" />
-  <link rel="stylesheet" href="@/cn-fontsource-lxgw-wen-kai-screen/font.css" global="link" />
-  <link rel="stylesheet" href="@/cn-fontsource-ding-talk-jin-bu-ti-regular/font.css" global="link" />
 
   <link rel="stylesheet" href="./ui.css" global="import" />
   
-  <style global="import" >
-    html{
-        --font-bold: "DingTalk JinBuTi";
-        --font-regular: "LXGW WenKai Screen";
-    }
-    html,div,pre,code,span,p,ul,li,ol,dl,dt,dd,table,td,form,fieldset,legend,input,textarea,button,select,option,hr,h1,h2,h3,h4,h5,h6,blockquote{
-      font-family: var(--font-regular), sans-serif;
-    }
-    h1,h2,h3,h4,h5,h6,th,strong{
-        font-family:var(--font-bold), sans-serif;
-    }
-    
-  </style>
-
   <pop- ></pop->
   <side-></side->
 

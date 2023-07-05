@@ -12,7 +12,7 @@ Scope作用域中包含在绑定模板脚本和事件中可以直接使用的数
 #### $rootElem
 指向当前 **WebComponent** 根元素, 类型为 HTMLElement 对象。
 
-#### rootParentElem
+#### $rootParentElem
 指向当前 **WebComponent** 根元素的父元素，需注意的是，如果当前组件根元素无父元素（如位于另一个组件的中的一级标签，则在HTML中使用parentElement，获取为结果null，但实际其parentNode指向为shadowRoot）, 此时使用rootParentElem将返回实际的当前组件的父组件，类型为 HTMLElement 对象。使用此对象将能够便捷的获取到父组件的数据和方法。
 
 
