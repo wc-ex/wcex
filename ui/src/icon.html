@@ -37,12 +37,10 @@
       text-orientation: unset;
       writing-mode: unset;
       user-select: none;
-      border-radius: 25%;
-      box-sizing: border-box;
       pointer-events: "$active?'unset':'none'";
+      width: ":${size}em";
+      height: ":${size}em";
 
-      padding-top: 0.1em;
-      padding-left: 0.1em;
       --grow: 0 !important;
     }
     :host(:active) {      

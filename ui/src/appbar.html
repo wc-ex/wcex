@@ -1,13 +1,17 @@
 <!-- 
     应用程序bar
-    @slot handle 是否隐藏左侧菜单面板
-    @slot logo 网站标志区
-    @slot title 标题
+    @prop handle [bool] 默认:true 是否显示左侧手柄
+    @prop value [bool] 默认:true 左侧手柄状态
+    @prop color [object] 默认:$color.pri.l7_
+
+    @slot * 默认插槽，标题文字
+    @slot handle 左侧手柄插槽，可自定义显示图标等内容
+    @slot logo 标志区
     @slot subtitle 子标题
-    @slot action 动作区
-    @slot nav 导航区
+    @slot action 动作区,位于标题栏右侧，用于放置常用操作按钮，如登录等
+    @slot nav 导航区，用于放置
 -->
-<template handle.bool="1" value.bool="1" class="shadow" $color="$color.pri.l7_">
+<template handle.bool="1" value.bool="1" class="shadow" $color="$color.pri.l5_">
   <style>
     :host {
       display: flex;
@@ -21,21 +25,24 @@
       transform: rotate(":${value?'0':'90'}deg");
     }
   </style>
-  <wcex-ui.icon
-    active
-    @click="value=!value"
-    class="handle"
-    pkg="@material-design-icons/svg"
-    type="filled"
-    $icon="value?'menu':'clear_all'"
-  ></wcex-ui.icon>
+  <slot name="handle">
+    <wcex-ui.icon
+      active
+      @click="value=!value"
+      class="handle"
+      pkg="@material-design-icons/svg"
+      type="filled"
+      $icon="value?'menu':'clear_all'"
+    ></wcex-ui.icon>
+  </slot>
+
   <slot name="logo"></slot>
-  <div style="display: flex; flex-direction: column;margin-top: 0.3em;flex-shrink: 0;">
-    <slot name="title" ></slot>
+  <div style="display: flex; flex-direction: column; margin-top: 0.3em; flex-shrink: 0">
+    <slot></slot>
     <slot name="subtitle"></slot>
   </div>
   <div style="align-self: flex-end">
-    <slot name="nav" > </slot>
+    <slot name="nav"> </slot>
   </div>
   <div style="flex: 1"></div>
   <div style="display: flex; gap: 0.2em">
