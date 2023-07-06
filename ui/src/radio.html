@@ -1,0 +1,78 @@
+<!-- 单选按钮  -->
+<template size="1" checked.bool="0" tabindex="0" disabled.bool="0">
+  <style>
+    :host {
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+      pointer-events: "$disabled?'none':'all'";
+      filter: "$disabled?'grayscale()':'none'"  ;
+    }
+    .bar {
+      position: relative;
+      border-radius: 0.5em;
+      width: ":${size*2}em";
+      height: ":${size/2}em";
+      background-color: "$checked?$color.ok.l5:$color.pri.a5_";
+      transition: background-color 0.3s;
+    }
+    .circle {
+      position: absolute;
+      top: ":${-size/4}em";
+      left: ":${checked?size:0}em";
+      width: ":${size}em";
+      height: ":${size}em";
+      /* border-radius: 50%; */
+      /* background-color: "$checked?$color.ok:$color.bgr"; */
+      --shadow: 1 !important;
+      transition: all 0.3s;
+    }
+    .bar:hover > .circle {
+      top: calc(":${-size/4}em" - 2px);
+      left: ":${checked?size:0}em";
+      --shadow: 2 !important;
+    }
+    .circle1 {
+      position: absolute;
+      pointer-events: none;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background-color: "$checked?$color.ok:$color.bgr";
+      transition: all 0.3s;
+    }
+    .circle2 {
+      position: absolute;
+      pointer-events: none;
+      top: 0%;
+      left: 0%;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background-color: "$checked?$color.ok.a5_:$color.bgr.a5_";
+      transition: all 0.3s;
+      transform-origin: center;
+      transform: scale(1);
+    }
+
+    .circle:hover > .circle2 {
+      transform: scale(1.8);
+    }
+    .circle:active > .circle2 {
+      transform: scale(1.5);
+    }
+
+  </style>
+  <div>
+    <slot name="text"></slot>
+  </div>
+  <div class="bar" @click.stop="checked=!checked">
+    <!-- <div class="circle1"></div> -->
+    <div class="circle">
+      <div class="circle1 shadow"></div>
+      <div class="circle2"></div>
+    </div>
+  </div>
+</template>

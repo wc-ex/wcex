@@ -1,0 +1,29 @@
+<!-- 封装 echarts -->
+<template $option="{}">
+    <meta name="module" pkg="echarts" content="dist/echarts.min.js">
+
+    <style>
+        :host{
+            display: block;
+        }
+        #echarts{
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+    <!-- <div2 $>$json(option)</div2> -->
+    <div id="echarts"></div>
+
+    <script scope="echarts" src="echarts" nowatch nocall></script>
+    <script scope=".">
+        return class{
+            instance={}
+            onReady(){
+                this.instance = this.$noWatch( this.echarts.init(this.$id.echarts));
+                // this.instance.setOption(this.option);
+                this.$watch(()=>this.option,()=>this.instance.setOption(this.option));
+            }
+        }
+    </script>
+
+</template>

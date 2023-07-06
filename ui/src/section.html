@@ -1,0 +1,66 @@
+<!-- 
+    段落, 显示页面内区块，包含标题、子标题、和图标
+
+
+ -->
+<template class="shadow">
+    <style>
+        :host {
+            display: flex;
+            flex-direction: column;
+            background-color: "$$color.bg.a9_";
+            border-radius: 0.5em;
+            transition:  background-color 0.3s;
+            --shadow:0 !important;
+            margin: 1em 0;
+        }
+        .header{
+            display: flex;
+            align-items: center;
+            gap: 0.5em;
+            padding: 0.2em 1em;
+            border-bottom: 1px solid "$$color.pri.l3_";
+        }
+        :host(:hover){
+            background-color: "$$color.bg.l2_";
+            --shadow:1 !important;
+        }
+        .title{
+            display: flex;align-items: baseline;
+        }
+        .header>::slotted([slot="icon"]){
+            --icon-color: "$$color.text.l5_";
+        }
+
+        .title>::slotted([slot="title"]){
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .title>::slotted([slot="subtitle"]){
+            padding-left: 1em;
+            white-space: break-spaces;
+            flex-shrink: 1;
+        }
+        .content{
+            display: flex;
+            flex-direction: column;
+            padding: 0.5em 1em;
+        }
+
+        </style>
+
+    <div class="header">
+        <slot name="icon"></slot>
+        <div class="title">
+            <slot name="title"></slot>
+            <slot name="subtitle"></slot>    
+        </div>
+        <div style="flex: 1;"></div>
+        <slot name="action"></slot>
+    </div>
+    <div class="content">
+        <slot name="content"></slot>
+    </div>
+
+
+</template>
