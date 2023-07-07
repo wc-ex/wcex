@@ -17,6 +17,8 @@
   @prop active [bool] 默认:false 是否为活动图标，如为活动状态，则允许类似按钮行为，并发送点击事件
   @prop color  [object] 默认:$color.pri
             图标颜色，支持$color配色对象，也支持 rgb,#aabbcd等直接颜色，不支持 "red,green"等名称色.
+
+  @css --icon-color CSS 变量, 用于通过CSS控制图标颜色
 -->
 <template
   size.float="1.5"
@@ -26,7 +28,7 @@
   url=""
   active.bool="0"
   $color="$color.pri"
-  $tabindex="active?0:-1"
+  $tabindex="active?0:''"
 >
   <meta name="scope" />
 

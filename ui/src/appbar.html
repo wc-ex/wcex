@@ -2,7 +2,7 @@
     应用程序bar
     @prop handle [bool] 默认:true 是否显示左侧手柄
     @prop value [bool] 默认:true 左侧手柄状态
-    @prop color [object] 默认:$color.pri.l7_
+    @prop color [object] 默认:$color.pri
 
     @slot * 默认插槽，标题文字
     @slot handle 左侧手柄插槽，可自定义显示图标等内容
@@ -11,7 +11,7 @@
     @slot action 动作区,位于标题栏右侧，用于放置常用操作按钮，如登录等
     @slot nav 导航区，用于放置
 -->
-<template handle.bool="1" value.bool="1" class="shadow" $color="$color.pri.l5_">
+<template handle.bool="1" vert.bool="0" value.bool="1" class="shadow" $color="$color.pri">
   <style>
     :host {
       display: flex;
@@ -19,16 +19,34 @@
       padding: 0.2em 0.5em;
       gap: 1em;
       background-color: "$color";
+      color: "$color.l7_";
     }
     .handle {
       transition: all 0.3s;
       transform: rotate(":${value?'0':'90'}deg");
     }
+    .title {
+      display: flex;
+      flex-direction: "$vert?'column':'row'";
+      margin-top: 0.3em;
+      flex-shrink: 0;
+      align-items: "$vert?'flex-start':'center'";
+      gap: "$vert?'0':'1em'";
+    }
+    .actions{
+      display: flex;
+       gap: 0.2em;
+    }
+    .actions>*::slotted(*){
+      --icon-color: "$color.l7_";
+    }
+
   </style>
   <slot name="handle">
     <wcex-ui.icon
       active
       @click="value=!value"
+      $color="$root.color.l7_"
       class="handle"
       pkg="@material-design-icons/svg"
       type="filled"
@@ -37,7 +55,7 @@
   </slot>
 
   <slot name="logo"></slot>
-  <div style="display: flex; flex-direction: column; margin-top: 0.3em; flex-shrink: 0">
+  <div class="title">
     <slot></slot>
     <slot name="subtitle"></slot>
   </div>
@@ -45,7 +63,7 @@
     <slot name="nav"> </slot>
   </div>
   <div style="flex: 1"></div>
-  <div style="display: flex; gap: 0.2em">
+  <div class="actions">
     <slot name="action"></slot>
   </div>
 
