@@ -17,7 +17,6 @@
   @prop active [bool] 默认:false 是否为活动图标，如为活动状态，则允许类似按钮行为，并发送点击事件
   @prop color  [object] 默认:$color.pri
             图标颜色，支持$color配色对象，也支持 rgb,#aabbcd等直接颜色，不支持 "red,green"等名称色.
-
 -->
 <template
   size.float="1.5"
@@ -28,7 +27,6 @@
   active.bool="0"
   $color="$color.pri"
   $tabindex="active?0:-1"
-  class="trans"
 >
   <meta name="scope" />
 
@@ -39,16 +37,13 @@
       text-orientation: unset;
       writing-mode: unset;
       user-select: none;
-      border-radius: 25%;
-      box-sizing: border-box;
       pointer-events: "$active?'unset':'none'";
+      width: ":${size}em";
+      height: ":${size}em";
 
-      padding-top: 0.1em;
-      padding-left: 0.1em;
       --grow: 0 !important;
     }
-    :host(:active) {
-      
+    :host(:active) {      
       --grow: 3 !important;
     }
 
