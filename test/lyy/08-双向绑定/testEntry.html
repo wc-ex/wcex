@@ -1,0 +1,34 @@
+<!--  
+    ## 问题描述: 
+        - @version 1.9.57 版本
+        - value 默认值为 0 null false等非时，组件双向绑定后，父组件的 value 会被组件的默认值覆盖
+-->
+<template>
+    <div $>value</div>
+    <test- $$="$root.value"></test->
+
+    <script scope=".">
+        return class {
+            value = null
+
+            async onCreate() {
+                console.log('-- start onCreate')
+                console.log('-- init value OK', this.value)
+                await this.$delay(100);
+                console.assert(this.value === 0, 'Fail: init value :value changed ');
+                console.log('-- onCreate test OK')
+                console.debug("WCEX_TEST_END");
+            }
+
+            async onReady() {
+                console.log('-- start')
+                console.log('-- init value OK', this.value)
+                await this.$delay(100);
+                console.assert(this.value === 0, 'Fail: init value :value changed ');
+                console.log('-- onReady test OK')
+                console.debug("WCEX_TEST_END");
+            }
+        }
+    </script>
+
+</template>

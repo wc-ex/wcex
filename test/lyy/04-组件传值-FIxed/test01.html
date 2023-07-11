@@ -7,10 +7,10 @@
 
   <script scope=".">
     return class {
-      
-        async delay(num){
-            return new Promise(res=>            setTimeout(res,num)            )
-        }
+
+      async delay(num) {
+        return new Promise(res => setTimeout(res, num))
+      }
       async onReady() {
         console.log('-- start')
         console.assert(this.showdetail === true, 'Fail: init bool "showdetail" 1: not true ');
