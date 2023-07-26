@@ -51,7 +51,7 @@ export default class extends Scope {
       }
     }
 
-    console.log("--_!!!! UI - initFont 3")
+    // console.log("--_!!!! UI - initFont 3")
 
     let promises: Promise<any>[] = [];
     // // 创建全局加载

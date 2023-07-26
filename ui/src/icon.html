@@ -22,9 +22,9 @@
 -->
 <template
   size.float="1.5"
-  pkg="mdi"
-  icon="circle"
-  $type="{mdi:'filled',fa:'solid',si:'octicons'}[pkg]"
+  pkg=""
+  icon=""
+  type=""
   url=""
   active.bool="0"
   $color="$color.pri"
@@ -50,11 +50,11 @@
     }
 
     .icon:hover {
-      fill: '$active?color.l3_:"inherit"';
+      filter: brightness(1.2);
     }
 
     .icon:active {
-      fill: '$active?color.l1:"inherit"';
+      filter: brightness(0.8);
       transform: scale(1.1);
     }
 
@@ -66,19 +66,24 @@
       transition: all 0.3s;
     }
   </style>
+  <!-- <div $>pkg</div> -->
   <svg class="icon" $src="srcPath()"></svg>
   <script scope=".">
     return class {
       srcPath() {
-        return this.url||(
+
+      let src =         
+         this.url||(
           "@/" +
-          ({ fa: "@fortawesome/fontawesome-free/svgs", mdi: "@material-design-icons/svg", si: "@svg-icons/" }[this.pkg] || this.pkg) +
+          (({ fa: "@fortawesome/fontawesome-free/svgs", mdi: "@material-design-icons/svg", si: "@svg-icons/" }[this.pkg] ) ||this.pkg||'@material-design-icons/svg') +
           "/" +
-          this.type +
+          (this.type || {mdi:'filled',fa:'solid',si:'octicons'}[this.pkg]||'filled') +
           "/" +
           (this.icon || "circle") +
           ".svg"
-        );
+         )
+        ;
+        return src;
       }
     };
   </script>

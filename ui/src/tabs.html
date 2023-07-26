@@ -1,0 +1,45 @@
+<!--!! 
+    具备多个tab的面板
+    每个Tab项具有Name和Icon属性，并关联组件以及其属性,或者关联一个路由相关的URL，使用$show模式处理
+
+    @prop items [object] 描述结构数组: { icon:{}|string, title:string, panel:{tag:string,attrs:{...}}}
+-->
+<template icononly.bool="0" vert.bool="0" closeable.bool="0" $items="[]" width="4">
+  <style>
+    :host{
+      display: flex;
+    }
+    .tabs{
+      display: flex;
+      flex-direction: column;
+      background-color: "$$color.pri.l5";
+      padding: 1em 0.2em;
+      gap: 0.5em;
+      width: ":${width}em";
+      align-items: center;
+    }
+    .tab-item{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .panels{
+      background-color: aliceblue;
+    }
+    .title{
+      user-select: none;
+    }
+
+  </style>
+  <!-- 标题区 -->
+  <div class="tabs">
+    <div $for(v,k)="items" class="tab-item" :style="flex: ${v.title?0:1};">
+      <wcex-ui.icon active size="2" $icon="v.icon?.icon||v.icon" $if="v.icon"></wcex-ui.icon>
+      <div class="title" $>v.title</div>
+    </div> 
+  </div>
+
+  <!-- 内容区 -->
+  <div style="flex: 1;" class="panels"></div>
+</template>
+

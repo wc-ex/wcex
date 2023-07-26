@@ -29,7 +29,6 @@
 
           if (!r.tag) {
             // 跳转到默认路由
-            // debugger
             if (this.home) location.hash = this.home;
             else this.$log.warn("no default route:", this.name);
             return;
@@ -68,6 +67,8 @@
         window.addEventListener("wc-error", (ev) => {
           this.$log.error("tag load failed:", ev);
           this.$emit("error");
+          // 回首页
+          this.$router.go(this.home)
         });
         // 初始化默认路由
         this.changeRouter();

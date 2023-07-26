@@ -29,7 +29,7 @@
     ]
 
 -->
-<template $data="[]" nav-width.float="6">
+<template $data="[]" nav-width.float="6" $color="$color.pri" $text-color="$color.textr.l3">
     <style>
         :host{
             display: flex;
@@ -43,22 +43,22 @@
             user-select: none;
             border-bottom: 2px solid transparent;
             transition: all 0.3s;
-            color: "$$color.text";
+            color: "$textColor";
             min-width: ":${navWidth}em";
         }
         .item:focus{
-            color: "$$color.pri";
+            color: "$textColor.l5_";
             padding: 0.1em 1em 0em 1em;
-            border-bottom: 2px solid "$$color.pri.l1_";
+            border-bottom: 2px solid "$$color.pri.l3_";
             outline: none;
         }
         .item>.icon{
             margin-right: 0.2em;
-            --icon-color: "$$color.text";
+            --icon-color: "$textColor";
+            transition: all 0.3s;
         }
         .item:focus>.icon{
-            --icon-color: "$$color.pri";
-            color: "$$color.pri";
+            --icon-color: "$textColor.l5_";
             margin-right: 0.5em;
         }
         .text{
@@ -67,13 +67,13 @@
         .child{
             display: flex;
             position: absolute;
-            background-color: "$$color.pri.l5_.a2_";
-            top: 100%;
+            background-color: "$color.a2_";
+            top: calc(100% + 4px);
             width: 100%;
             left: 0;
             flex-direction: column;
-            padding: 1em 0 0.5em 0;
-            gap: 0.5em;
+            padding: 0.5em 0 0.5em 0;
+            gap: 0.2em;
             box-sizing: border-box;
             transition: all 0.3s;
             opacity: 0;
@@ -83,36 +83,35 @@
         }
         .item:focus>.child{
             visibility: visible;
-            color: "$$color.text";
+            color: "$textColor.l5_";
             opacity: 1;
         }
         .subitem{
             display: flex;
+            padding: 0.2em 0;
             position: relative;
             align-items: center;
             user-select: none;
             transition: all 0.3s;
-            color: "$$color.text";
-            border-left: 0em solid "$$color.pri";
+            border-left: 0em solid "$color";
+            color: "$textColor";
         }
         .subitem:hover{
-            color: "$$color.pri";
-            border-left: 0.5em solid "$$color.pri";
-            background-color: "$$color.pri.a8_";
-
+            color: "$textColor.l5_";
+            border-left: 0.5em solid "$color.l5_";
+            background-color: "$color";
         }
         .subitem>.icon{
             margin-left: 0.5em;
-            --icon-color: "$$color.text";
+            --icon-color: "$textColor";
         }
         .subitem:hover>.icon{
-            --icon-color: "$$color.pri";
-            color: "$$color.pri";
+            --icon-color: "$textColor.l5_";
         }
         .line{
             width: 100%;
             height: 1px;
-            background-color: "$$color.pri.a5_";
+            background-color: "$color.l5_";
         }
     </style>
     <div $for(v,k)="data" class="item" tabindex="0"  @click.stop="v.href && $router.go(v.href); " @mouseenter="$el.focus()" @mouseleave="$el.blur()">

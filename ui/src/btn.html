@@ -1,5 +1,5 @@
 <!-- 按钮 -->
-<template block.bool="0" disabled.bool="0" flat.bool="0" $color="$color.pri" vert.bool="0" checkbox.bool="0" class="shadow">
+<template block.bool="0" disabled.bool="0" flat.bool="0" $color="$color.pri" vert.bool="0" checkbox.bool="0" $class="flat?'grow':'shadow'">
   <style global>
     @property --color-pos {
       syntax: "<length>|<length-percentage>|<percentage>";
@@ -18,20 +18,28 @@
       position: relative;
 
       --shadow: 1 !important;
+      --grow:0 !important;
+      --grow-color: rgba(0,0,0,0) !important;
+
       color: "$flat?color:$color.textr";
       transition: --color-pos 0.3s, border-radius 0.3s,transform 0.3s, box-shadow 0.3s;
+      /* transition: all 0.3s; */
       cursor: pointer;
       user-select: none;
       padding: 0.3em 1em;
       --color-pos: 40%;
       /* background: "$flat?'none':'unset'" ; */
       background-image: "$flat?'none':`radial-gradient(circle  at ${vert?'50% -50%':'-50% 50%'}, ${color} var(--color-pos), ${color.l1_} var(--color-pos) )` " ;
+
     }
     :host(:hover) {
       border-radius: 5px;
       transform: translate(-1px, -1px);
       --color-pos: 92%;
       --shadow: 2 !important;
+      --grow:2 !important;
+      --grow-color: "$color.a3_" !important;
+
     }
     :host(:active) {
       --shadow: 1 !important;

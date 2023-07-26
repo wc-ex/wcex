@@ -10,6 +10,7 @@
     @slot subtitle 子标题
     @slot action 动作区,位于标题栏右侧，用于放置常用操作按钮，如登录等
     @slot nav 导航区，用于放置
+
 -->
 <template handle.bool="1" vert.bool="0" value.bool="1" class="shadow" $color="$color.pri">
   <style>
@@ -35,7 +36,8 @@
     }
     .actions{
       display: flex;
-       gap: 0.2em;
+      gap: 0.5em;
+      align-items: center;
     }
     .actions>*::slotted(*){
       --icon-color: "$color.l7_";
