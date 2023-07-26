@@ -1,0 +1,33 @@
+<template>
+    <!--  
+        
+        1.9.56 版本
+        $as  发生变化是组件不切换
+
+     -->
+
+
+    <button @click="test()"> 切换</button>
+    <div :>component=== ${component}</div>
+
+
+    <div $as="component" id="route"> </div>
+
+    <script scope=".">
+        return class {
+            component = 'test01-'
+            test() {
+                if ('test01-' == this.component) {
+                    this.component = 'test02-'
+                } else {
+                    this.component = 'test01-'
+                }
+            }
+            async onCreate() {
+
+            }
+
+        }
+    </script>
+
+</template>
