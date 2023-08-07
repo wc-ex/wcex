@@ -20,15 +20,22 @@
   "dependencies": {
     "@highlightjs/cdn-assets": "^11.8.0",
     "@material-design-icons/svg": "^0.14.9",
+    "day": "^0.0.2",
+    "dayjs": "^1.11.9",
+    "esbuild-wasm": "^0.18.18",
     "highlight.js": "^11.8.0",
+    "lodash": "^4.17.21",
     "lodash.debounce": "^4.0.8",
+    "lodash.throttle": "^4.1.1",
     "marked": "^5.1.0",
     "moment": "^2.29.4",
     "monaco-editor": "^0.39.0",
     "wcex": "1.9.52"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.196",
     "@types/lodash.debounce": "^4.0.7",
+    "@types/lodash.throttle": "^4.1.7",
     "@types/marked": "^5.0.0",
     "@types/ws": "^8.5.5"
   }

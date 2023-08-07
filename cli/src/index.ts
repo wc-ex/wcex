@@ -23,6 +23,7 @@ program
   .option('--host <string>', 'listen host', '127.0.0.1')
   .option('--proxy <string>', 'proxy request to servcies, format:"[reqUrl]=[toUrl]"', '')
   .option('--dir <string>', 'develop project dir', '.')
+  .option('--npm <string>', 'using npm package manager,default: pnpm', 'pnpm')
 
   .action(dev);
 
