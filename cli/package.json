@@ -1,6 +1,6 @@
 {
   "name": "@wcex/cli",
-  "version": "1.9.22",
+  "version": "1.9.23",
   "description": "wcex command tools, please global install package ",
   "main": "src/index.js",
   "bin": {
@@ -22,14 +22,11 @@
   "author": "zhfjyq@gmail.com",
   "license": "MIT",
   "dependencies": {
-    "@types/http-proxy": "^1.17.11",
-    "@types/lodash.kebabcase": "^4.1.7",
     "body-parser": "^1.20.2",
     "colors": "^1.4.0",
     "commander": "^10.0.1",
     "express": "^4.18.2",
     "html-minifier-terser": "7.2.0",
-    "jsdom": "^22.1.0",
     "json5": "^2.2.3",
     "locate-app": "^2.0.0",
     "lodash.kebabcase": "^4.1.1",
@@ -41,10 +38,11 @@
     "ws": "^8.13.0"
   },
   "devDependencies": {
+    "@types/http-proxy": "^1.17.11",
+    "@types/lodash.kebabcase": "^4.1.7",
     "@types/body-parser": "^1.19.2",
     "@types/express": "^4.17.17",
     "@types/html-minifier-terser": "^7.0.0",
-    "@types/jsdom": "^21.1.1",
     "@types/node": "^18.15.12",
     "@types/watchpack": "^2.4.1",
     "@types/ws": "^8.5.4",

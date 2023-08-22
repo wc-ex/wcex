@@ -38,6 +38,7 @@ program
   .command('build')
   .description('build web component project')
   .option('--dir <string>', 'init project dir', '.')
+  .option('-n,--node-modules', 'pack all dependencies', false)
   .action(build);
 
 program
@@ -53,7 +54,6 @@ program
   .option('-s,--show', 'show browser ui', false)
 
   .action(test);
-
 
 program.parse();
 
