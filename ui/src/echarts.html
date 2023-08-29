@@ -3,10 +3,11 @@
     <meta name="module" pkg="echarts" content="dist/echarts.min.js">
 
     <style>
-        :host{
+        :host {
             display: block;
         }
-        #echarts{
+
+        #echarts {
             width: 100%;
             height: 100%;
         }
@@ -16,12 +17,12 @@
 
     <script scope="echarts" src="echarts" nowatch nocall></script>
     <script scope=".">
-        return class{
-            instance={}
-            onReady(){
-                this.instance = this.$noWatch( this.echarts.init(this.$id.echarts));
-                // this.instance.setOption(this.option);
-                this.$watch(()=>this.option,()=>this.instance.setOption(this.option));
+        return class {
+            instance = {}
+            onReady() {
+                this.instance = this.$noWatch(this.echarts.init(this.$id.echarts));
+                this.instance.setOption(this.option);  // 
+                // this.$watch(() => this.option, () => this.instance.setOption(this.option));
             }
         }
     </script>

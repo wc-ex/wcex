@@ -31,11 +31,12 @@
 -->
 <template $data="[]" nav-width.float="6" $color="$color.pri" $text-color="$color.textr.l3">
     <style>
-        :host{
+        :host {
             display: flex;
             gap: 1em;
         }
-        .item{
+
+        .item {
             display: flex;
             position: relative;
             align-items: center;
@@ -46,25 +47,30 @@
             color: "$textColor";
             min-width: ":${navWidth}em";
         }
-        .item:focus{
+
+        .item:focus {
             color: "$textColor.l5_";
             padding: 0.1em 1em 0em 1em;
             border-bottom: 2px solid "$$color.pri.l3_";
             outline: none;
         }
-        .item>.icon{
+
+        .item>.icon {
             margin-right: 0.2em;
             --icon-color: "$textColor";
             transition: all 0.3s;
         }
-        .item:focus>.icon{
+
+        .item:focus>.icon {
             --icon-color: "$textColor.l5_";
             margin-right: 0.5em;
         }
-        .text{
+
+        .text {
             white-space: nowrap;
         }
-        .child{
+
+        .child {
             display: flex;
             position: absolute;
             background-color: "$color.a2_";
@@ -80,13 +86,16 @@
             visibility: hidden;
             border-radius: 0 0 0.5em 0.5em;
             overflow: hidden;
+            z-index: 99;
         }
-        .item:focus>.child{
+
+        .item:focus>.child {
             visibility: visible;
             color: "$textColor.l5_";
             opacity: 1;
         }
-        .subitem{
+
+        .subitem {
             display: flex;
             padding: 0.2em 0;
             position: relative;
@@ -96,45 +105,52 @@
             border-left: 0em solid "$color";
             color: "$textColor";
         }
-        .subitem:hover{
+
+        .subitem:hover {
             color: "$textColor.l5_";
             border-left: 0.5em solid "$color.l5_";
             background-color: "$color";
         }
-        .subitem>.icon{
+
+        .subitem>.icon {
             margin-left: 0.5em;
             --icon-color: "$textColor";
         }
-        .subitem:hover>.icon{
+
+        .subitem:hover>.icon {
             --icon-color: "$textColor.l5_";
         }
-        .line{
+
+        .line {
             width: 100%;
             height: 1px;
             background-color: "$color.l5_";
         }
     </style>
-    <div $for(v,k)="data" class="item" tabindex="0"  @click.stop="v.href && $router.go(v.href); " @mouseenter="$el.focus()" @mouseleave="$el.blur()">
+    <div $for(v,k)="data" class="item" tabindex="0" @click.stop="v.href && $router.go(v.href); "
+        @mouseenter="$el.focus()" @mouseleave="$el.blur()">
         <!-- 图标 -->
-        <wcex-ui.icon $if="v.icon" $icon="v.icon.icon||v.icon" $pkg="v.icon.pkg||'mdi'" $type="v.icon.type||'outlined'" class="icon" $color="$color.text"></wcex-ui.icon>
+        <wcex-ui.icon $if="v.icon" $icon="v.icon.icon||v.icon" $pkg="v.icon.pkg||'mdi'" $type="v.icon.type||'outlined'"
+            class="icon" $color="$color.text"></wcex-ui.icon>
         <!-- 文字 -->
-        <div  class="text" $>v.text</div>
+        <div class="text" $>v.text</div>
         <!-- 子菜单 -->
-        <div class="child shadow" $if="v.children" >
-            <div class="subitem" tabindex="0"  $for(v1,k1)="v.children"  @click.stop="v1.href && $router.go(v1.href)" >
+        <div class="child shadow" $if="v.children">
+            <div class="subitem" tabindex="0" $for(v1,k1)="v.children" @click.stop="v1.href && $router.go(v1.href)">
 
-                <wcex-ui.icon $if="v1.icon" $icon="v1.icon.icon||v1.icon" $pkg="v1.icon.pkg||'mdi'" $type="v1.icon.type||'outlined'" class="icon" $color="$color.text"></wcex-ui.icon>
+                <wcex-ui.icon $if="v1.icon" $icon="v1.icon.icon||v1.icon" $pkg="v1.icon.pkg||'mdi'"
+                    $type="v1.icon.type||'outlined'" class="icon" $color="$color.text"></wcex-ui.icon>
                 <div class="text" style="margin-left: 0.5em;" $if="v1.text.length>0" $>
                     v1.text
                 </div>
-                <div class="line"  $if="v1.text.length==0" >   </div>
+                <div class="line" $if="v1.text.length==0"> </div>
             </div>
-            
+
         </div>
     </div>
 
     <script scope=".">
         return class {
         }
-    </script>    
+    </script>
 </template>

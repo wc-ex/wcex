@@ -1,0 +1,145 @@
+<!--!!
+  @attr placeholder 默认提示内容
+  @attr select 单选默认值
+  @attr data 选择列表
+  @attr multiple 单选/false or 多选/true
+
+ -->
+<template placeholder="请选择..." $select="" data.array="[]" multiple.bool="false" $disabled.bool="false" width="100%">
+  <meta name="scope" showpops.bool="false" copydata.array="[]" selectdata.array="[]" />
+  <style>
+    :host {
+      display: inline-block;
+      cursor: default;
+      user-select: none;
+    }
+
+
+
+    .listitem {
+      display: block;
+      padding: 0.2em 2em;
+      text-decoration: none;
+      list-style: none;
+      text-align: center;
+
+    }
+
+
+    .active {
+      background: '$$color.pri';
+      color: '$$color.textr';
+    }
+
+
+    .selectBox {
+      display: inline-block;
+      position: relative;
+    }
+
+    .popsstyle {
+      width: 100%;
+      position: absolute;
+      z-index: 2;
+
+      padding: 0;
+      margin: 0;
+      display: inline-block;
+      background: '$$color.bg';
+      overflow-y: scroll;
+      max-height: 7.5em;
+      top: 32px;
+      left: 0;
+      text-align: center;
+      box-shadow: '$$color.bgr.a9_' 0px 0px 10px;
+
+    }
+
+    .listitem:hover {
+      background: '$$color.pri.l2_';
+      color: #fff;
+    }
+
+    input {
+      width: '$width';
+      height: 32px;
+      border: 1px solid #dcdee2;
+      border-radius: 5px;
+      box-sizing: border-box;
+      padding: 0 5px;
+      outline: none;
+    }
+
+    .btnSvg {
+      position: absolute;
+      right: 4px;
+      top: 2px;
+    }
+  </style>
+
+
+
+  <div class="selectBox" tabindex="-1">
+
+    <input type="text" placeholder="请选择..." $disabled="$root.disabled" @click="showpops=!showpops" $$="selectStr"
+      @blur="showpops= false"></input>
+
+    <div @mouseleave="showpops= false" $show="showpops" class="popsstyle">
+
+      <div :class="listitem ${select && select.indexOf(v.value || v) > -1? 'active':''}" $value="v.value || v"
+        $::.click="select" $if="multiple" $for(v,k)="data" $>
+        v.label || v
+      </div>
+
+      <div $:.click="select"
+        @click.1="console.log('-----', select); showpops=!showpops;$emit('changeselectsingle',{select})"
+        :class="listitem ${select && select == (v.value || v) ? 'active':''}" $value="v.value || v" $if="!multiple"
+        $for(v,k)="data" $>
+        v.label || v
+      </div>
+
+
+
+    </div>
+
+    <wcex-ui.icon class="btnSvg" @click="showpops=!showpops" pkg="@material-design-icons/svg" type="outlined"
+      icon="arrow_drop_down"></wcex-ui.icon>
+  </div>
+  <script scope=".">
+    return class {
+      selectStr = '请选择'
+
+
+      initShowVal() {
+        // 初始化下拉显示
+        const _tmpArr = []
+        for (let iterator of this.data) {
+          const _tmpVal = iterator.value || iterator;
+          const _tmpLabel = iterator.label || iterator
+
+          if (typeof this.select == 'object') {
+            if (this.select && this.select.length && this.select.indexOf(_tmpVal) > -1) {
+              _tmpArr.push(_tmpLabel)
+            }
+          } else {
+            if (_tmpVal == this.select) {
+              _tmpArr.push(_tmpLabel)
+            }
+          }
+        }
+        this.selectStr = _tmpArr.join('、') || '请选择'
+      }
+
+      onReady() {
+        this.initShowVal()
+
+        this.$watch(() =>
+          this.select
+          , () => {
+            this.initShowVal()
+          })
+      }
+
+    };
+  </script>
+</template>
