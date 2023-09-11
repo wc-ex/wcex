@@ -48,6 +48,10 @@ function incVersion(ver: string): string {
   return v.join(".");
 }
 
+/**
+ * 构建模块, 模块包含 html 和 service,需要 module.json
+ * @param opts 
+ */
 export async function buildModule(opts: { dir: string }) {
   try {
     PROJECT_DIR = path.resolve(opts.dir);

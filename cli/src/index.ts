@@ -5,7 +5,7 @@ import { dev } from './dev';
 import { init } from './init';
 import { build } from './build';
 import { test } from './test';
-import {buildModule} from './buildModule'
+import { pack } from './pack';
 
 
 const pkg = JSON.parse(fs.readFileSync(path.join(__dirname, '../package.json'), 'utf8'));
@@ -37,9 +37,16 @@ program
 program
   .command('build')
   .description('build web component project')
-  .option('--dir <string>', 'init project dir', '.')
-  .option('-n,--node-modules', 'pack all dependencies', false)
+  .option('--dir <string>', 'project dir', '.')
+  .option('--pack-dir <string>', 'pack project and all dependencies to dir', '')
   .action(build);
+
+program
+  .command('pack')
+  .description('pack project and all dependencies to dir')
+  .option('--dir <string>', 'project dir', '.')
+  .option('-p, --pack-dir <string>', 'destionation pack dir')
+  .action(pack);
 
 program
   .command('test')
