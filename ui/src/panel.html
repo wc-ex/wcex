@@ -22,12 +22,14 @@
     .panel {
       height: "$open?panelHeight+'px':0";
     }
+
     .title {
       background-color: "$open?color:color.s3_.l2";
       color: "$$color.textr";
       padding: 0.5em 0.5em;
       text-align: "$textonly?'center':'left'";
     }
+
     .title:active {
       background-color: "$closeable?color.l1_:''";
     }
@@ -40,22 +42,20 @@
       </slot>
     </div>
 
-    <h4 style="flex: 1"><slot name="title"></slot></h4>
+    <h4 style="flex: 1">
+      <slot name="title"></slot>
+    </h4>
     <!-- 打开指示条 -->
-    <wcex-ui.icon
-      active
-      slot="end"
-      $color="$root.color.l5_"
-      $icon="open?'double_arrow':'arrow_right'"
-      :style="transform: rotate(${open?90:0}deg);"
-      $if="closeable && !textonly"
-    >
+    <wcex-ui.icon active slot="end" $color="$root.color.l5_" $icon="open?'double_arrow':'arrow_right'"
+      :style="transform: rotate(${open?90:0}deg);" $if="closeable && !textonly">
       <div $>icon</div>
     </wcex-ui.icon>
   </div>
 
   <!-- 可折叠面板 -->
-  <div class="panel trans"><slot id="slot"></slot></div>
+  <div class="panel trans">
+    <slot id="slot" name="content"></slot>
+  </div>
 
   <script scope=".">
     return class {

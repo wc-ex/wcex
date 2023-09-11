@@ -1,0 +1,172 @@
+<template :datacount.number="0" :pagesize.number="10" shadow.int="0" :current.number="1">
+  <!-- 组件内部样式，可使用变量 -->
+  <!-- <link rel="stylesheet" href="./shadow.css"> -->
+  <style>
+    :host {
+      display: flex;
+      justify-content: center;
+      user-select: none;
+      margin: 10px 0;
+    }
+
+    .changepage {
+      margin: 0 auto;
+      text-align: center;
+      display: flex;
+      transition: 0.1s;
+    }
+
+    .changepage button {
+      display: inline-block;
+      border: 1px solid '$$color.bg.l2';
+      background-color: '$$color.bg';
+      width: 32px;
+      height: 32px;
+      text-align: center;
+      margin: 0 2px 0;
+      border-radius: 5px;
+      cursor: pointer;
+      color: '$$color.info.l3';
+      box-shadow: 0 2px 2px 2px "$$color.bg.l1.s1";
+
+    }
+
+    button.active {
+      border: 1px solid '$$color.pri.l3_';
+      color: '$$color.pri.l3_';
+    }
+
+    button.noselect {
+      border: 1px solid '$$color.bg';
+      color: '$$color.textr.l3.s8_';
+      cursor: no-drop;
+    }
+
+    .shengluehao {
+      box-shadow: none !important;
+      border: none !important;
+    }
+  </style>
+  <div class="changepage" $if="refreshcenterbox">
+    <div style="display: flex;justify-content: center;align-items: center;">
+      <button @click="beforePage()" :class="${current==1?'noselect':''} btn">
+        &lt
+      </button>
+      <button $for(v,k)="ar1" :class="${k+1==current?'active':''} btn" @click="changepage(k+1)" :>
+        ${v}
+      </button>
+      <button class="shengluehao btn" $if="shengluel">...</button>
+      <button $for(v,k)="ar2" :class="${v==current?'active':''} btn" @click="changepage(v)" :>
+        ${v}
+      </button>
+      <button class="btn shengluehao" $if="shenglue">...</button>
+      <button class="btn" $for(v,k)="ar3" :class="${v==current?'active':''}" @click="changepage(v)" :>
+        ${v}
+      </button>
+      <button class="btn" @click="afterPage()"
+        :class="${current==pageNum || 0 == pageNum  &&1 == current  ?'noselect':''}">
+        &gt
+      </button>
+    </div>
+  </div>
+
+  <script scope=".">
+    return class {
+      /********  内部变量  ********** */
+      pagesize = 10;
+      datacount = 0;
+      current = 1;
+      pageNum = 0;
+      shenglue = false;
+      shengluel = false;
+      refreshcenterbox = true;
+      pagebtn = "";
+      ar1 = [1];
+      ar2 = [];
+      ar3 = [];
+      /********  内部函数  ********** */
+      async beforePage() {
+        if (this.current > 1) {
+          this.current--;
+          this.$emit("changepage", this.current);
+          this.showps();
+        }
+      }
+      async afterPage() {
+        if (this.current != this.pageNum) {
+          this.current++;
+          this.$emit("changepage", this.current);
+          this.showps();
+        }
+      }
+      async changepage(index) {
+        this.current = index;
+        this.$emit("changepage", this.current);
+        this.showps();
+      }
+      async showps() {
+        // 页数小于等于6页  全部显示不做隐藏
+        if (this.pageNum <= 6) {
+          this.ar2 = [];
+          for (var i = 2; i <= this.pageNum; i++) {
+            this.ar2.push(i);
+          }
+        } else {
+          this.ar3 = [this.pageNum];
+          if (this.current <= 3) {
+            // 当前页小于等于3页  只显示后省略号
+            this.ar2 = [2, 3, 4];
+            this.shenglue = true;
+            this.shengluel = false;
+          } else if (this.pageNum - this.current < 3) {
+            // 距离最后一页三页以内
+            this.shengluel = true;
+            this.shenglue = false;
+            this.ar2 = [this.pageNum - 3, this.pageNum - 2, this.pageNum - 1];
+          } else {
+            // 大于三页并且距离最后一页至少还有三页
+            this.shengluel = true;
+            this.shenglue = true;
+            this.ar2 = [this.current - 1, this.current, this.current + 1];
+          }
+          // 刷新中间分页显示   问题？？？
+          this.refreshcenterbox = false;
+          setTimeout(() => {
+            this.refreshcenterbox = true;
+          }, 20);
+        }
+      }
+      /********  DOM挂载之后执行  ********** */
+      onReady() {
+
+        // page最低数量为0
+        this.pageNum =
+          Math.ceil(this.datacount / this.pagesize);
+        this.$watch(
+          () => this.pagesize,
+          () => {
+            this.pagesize = this.pagesize;
+            this.pageNum = Math.ceil(this.datacount / this.pagesize)
+          }
+        );
+        this.$watch(
+          () => this.datacount,
+          () => {
+            this.datacount = this.datacount;
+            this.pageNum = Math.ceil(this.datacount / this.pagesize)
+            this.showps();
+          }
+        );
+        this.$watch(
+          () => this.current,
+          () => {
+            this.current = this.current;
+            this.showps();
+          }
+        );
+        this.showps();
+      }
+      onDestory() { }
+    }
+  </script>
+</template>

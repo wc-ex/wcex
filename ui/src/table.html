@@ -1,0 +1,198 @@
+<!--!! 
+
+  @prop columns [object]表格头部 type:checkbox|index
+  @prop data [object]表格内容
+
+  @select        checkbox选中事件
+  @clickline     单击整行事件
+-->
+<template columns.array="[]" data.array="[]" checkid.string="id">
+    <!-- 组件内部样式，可使用变量 -->
+    <style>
+        :host {
+            display: block;
+            height: ':${fixedHeight?"100%":"auto"}';
+            border-radius: 4px;
+            text-align: center;
+            cursor: pointer;
+            border: 1px solid '$$color.textr.l2';
+        }
+
+        table {
+            border-spacing: 0px;
+            border-collapse: inherit;
+            text-indent: inherit;
+            border-radius: 4px;
+        }
+
+        .tableHeader {
+            background: "$$color.pri.l1_";
+            color: "$$color.textr";
+        }
+
+        .nodata {
+            width: 100%;
+            text-align: center;
+            padding: 8px;
+            font-weight: 400;
+        }
+
+        .tr {
+            width: 100%;
+            display: grid;
+            grid-template-columns: ":${tableLineWidth}";
+        }
+
+        .tr>div {
+            display: inline-block;
+            border-bottom: 1px solid '$$color.textr.l2';
+            padding: 8px;
+            box-sizing: border-box;
+            font-weight: 400;
+            border-right: 1px solid '$$color.textr.l2';
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            word-break: break-all;
+        }
+
+        .tr>div:last-child {
+            border-right: none;
+        }
+
+        .tablebody {
+            cursor: default;
+            width: 100%;
+            overflow-x: clip;
+        }
+
+        .tablebody:hover>div {
+            background-color: "$$color.pri.ss(20).a5_";
+            color: '$$color.textr';
+        }
+
+        .tablebody:last-child {
+            border-right: none;
+        }
+
+        table .tableHeader th {
+            font-weight: 500;
+            cursor: default;
+        }
+
+        .scroll::-webkit-scrollbar {
+            width: 0px;
+            opacity: 0;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .checkSpan {
+            width: 16px;
+            height: 16px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid '$$color.pri.l3_';
+            border-radius: 4px;
+            margin-right: 2px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .tablebody:hover .checkSpan {
+            border: 1px solid '$$color.pri.l5';
+        }
+
+        .checkIndexChecked {
+            background-color: '$$color.pri.l1_';
+            border: 1px solid transparent;
+        }
+    </style>
+    <div id="tablemain" style="width:100%;height:100%">
+        <div id="tableheader" class="tableHeader tr">
+            <div $for(column,index)="columns"
+                :style="width:${column.width||'auto'};white-space: nowrap;text-overflow:ellipsis;" $>
+                column.title||''
+            </div>
+        </div>
+        <div class="scroll"
+            :style="height: ${fixedHeight?bodyHeight:'auto'};overflow-x:auto;overflow-y:${fixedHeight?'scroll':''};padding: 0;">
+            <div class="nodata" $show="data.length == 0">
+                <span>暂无数据</span>
+            </div>
+            <div class="tablebody tr" $for(v,k)="data" @click="clickLine(v)"
+                :style="background:${(k%2==1)?'$color.pri':''}">
+                <div $for(column,headKey)="columns" :style="width:${column.width||'auto'}">
+                    <span $if="column.type == 'index'" $>k+1</span>
+                    <span $if="column.type == 'checkbox'">
+
+                        <span $::.click="selectLine"
+                            @click.1="$next().then(()=>{  console.log('-------',selectLine); this.$emit('select', selectLine);});"
+                            $value="v[checkid]"
+                            :class="checkSpan ${-1 != selectLine.indexOf(v[checkid]) ? 'checkIndexChecked' :''}">
+                            <svg $show="-1 != selectLine.indexOf(v[checkid])" t="1685354175209" class="icon"
+                                viewBox="0 0 1024 1024" p-id="2186" width="14" height="14">
+                                <path
+                                    d="M63.222927 512c0 0 231.767598 189.584869 254.790964 350.823134 0 0 303.906591-497.491565 641.581264-542.003338 0 0-102.837156-74.943876-69.070098-193.395662 0 0-187.255825 18.684548-540.279067 566.637388L184.79375 413.212066 63.222927 512z"
+                                    p-id="2187" :fill="${$color.textr}"></path>
+                            </svg>
+                        </span>
+
+                    </span>
+                    <span $if="!column.type">
+                        <span $if="column.slot">
+                            <slot :name="${column.slot}_${k}"></slot>
+                        </span>
+                        <span $if="!column.slot" $>v[column.key]===0?0:v[column.key]||''</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script scope=".">
+        return class {
+            fixedHeight = false;
+            /**************** type=checkbox 事件 ****************/
+            selectLine = [];
+            /**************** 点击行事件 ****************/
+            clickLine(row) {
+                this.$emit("clickline", true);
+            }
+            /**************** 计算表格高度 ****************/
+            countBodyHeight() {
+                setTimeout(() => {
+                    const tableheaderHeight = this.$id.tableheader;
+                    const tablebodyHeight = this.$id.tablemain;
+                    this.bodyHeight = `calc(${this.$rootElem.clientHeight}px - ${tableheaderHeight?.offsetHeight}px)`;
+                }, 300);
+            }
+            /**************** 初始化表格数据 ****************/
+            bodyHeight = "0";
+            onReady() {
+                if (this.fixedHeight) {
+                    this.$watch(
+                        () => this.data,
+                        () => {
+                            // 清除checkbox选中状态
+                            this.selectLine = [];
+                            // 计算表格高度
+                            this.countBodyHeight();
+                        },
+                    );
+                    // 定高之后自动滚动
+                    this.countBodyHeight();
+                }
+            }
+            tableLineWidth = "";
+            onCreate() {
+                for (const key in this.columns) {
+                    this.tableLineWidth = `${this.tableLineWidth} ${this.columns[key].width || "1fr"
+                        }`;
+                }
+                if (this.$rootElem.$scope.style.indexOf('height') != -1) {
+                    this.fixedHeight = true
+                }
+            }
+        };
+    </script>
+</template>
