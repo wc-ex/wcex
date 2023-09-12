@@ -19,8 +19,6 @@ WCEX.usePlugins({
 });
 
 
-
-
 export default class extends Scope {
   async onCreate() {
     // 初始化字体, 从<meta> 标签中获取 name="fonts" 的配置内容

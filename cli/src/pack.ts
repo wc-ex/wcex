@@ -30,20 +30,20 @@ export function pack(opts: { dir: string; packDir: string }) {
 	DIST_DIR = path.join(PROJECT_DIR, "dist");
 	PACK_DIR = path.resolve(opts.packDir);
 	// 打包, 检测是否是ts项目
-     if(fs.existsSync(path.join(PROJECT_DIR, "module.json"))) {
-        console.log("pack not support module project")
-        return 
-    }
-    if(!fs.existsSync(DIST_DIR)){
-        console.log("dist dir not found, please build first")
-        return
-    }
+	if (fs.existsSync(path.join(PROJECT_DIR, "module.json"))) {
+		console.log("pack not support module project");
+		return;
+	}
+	if (!fs.existsSync(DIST_DIR)) {
+		console.log("dist dir not found, please build first");
+		return;
+	}
 
 	if (fs.existsSync(PACK_DIR)) fs.rmSync(PACK_DIR, { recursive: true });
 	fs.mkdirSync(PACK_DIR, { recursive: true });
 	// 打包自身
 	const pkg = JSON.parse(fs.readFileSync(path.join(PROJECT_DIR, "package.json"), "utf8"));
-    console.log("== pack package ==:", pkg.name, pkg.version);
+	console.log("== pack package ==:", pkg.name, pkg.version);
 	execSync(`pnpm pack --pack-destination ${PACK_DIR}`, { stdio: "inherit", cwd: DIST_DIR });
 
 	// 收集所有依赖
@@ -51,8 +51,12 @@ export function pack(opts: { dir: string; packDir: string }) {
 
 	// 打包所有依赖
 	for (let d of dependenciesSet) {
-        let depPkg = JSON.parse(fs.readFileSync(path.join(PROJECT_DIR, "node_modules", d, "package.json"), "utf8"));
-        console.log("== pack package == :", depPkg.name, depPkg.version);
-		execSync(`pnpm pack --pack-destination ${PACK_DIR}`, { stdio: "inherit", cwd: path.join(PROJECT_DIR, "node_modules", d) });
+		let depPkg = JSON.parse(fs.readFileSync(path.join(PROJECT_DIR, "node_modules", d, "package.json"), "utf8"));
+		console.log("== pack package == :", depPkg.name, depPkg.version);
+		try{
+			execSync(`pnpm pack --pack-destination ${PACK_DIR}`, { stdio: "inherit", cwd: path.join(PROJECT_DIR, "node_modules", d) });
+		}catch(e:any){
+			console.log("pack error:", e.message);
+		}
 	}
 }
