@@ -1,0 +1,192 @@
+<!-- 
+    plain, 支持滚动回弹的平面组件。
+    支持滚动提示、回弹，自动区块粘附等功能
+    滚轮事件和滚动事件均能触发边缘下拉功能
+    @attr scroll="y" 滚动提示，y表示垂直滚动，x表示水平滚动, xy表示垂直水平都支持,空表示不支持滚动
+-->
+<template
+	scroll="y"
+	@touchstart="onTouchStart()"
+	@touchend="onTouchEnd()"
+	@touchmove.stop="onTouchMove($ev)"
+	@wheel.stop="onWheel($ev)"
+	@scroll="onScroll()"
+	@close.self="onClose()"
+
+>
+	<meta name="module" pkg="lodash.debounce" cjs />
+	<style global="import">
+		html,
+		body {
+			/* 禁用浏览器回弹效果，使用自定义回弹 */
+			overscroll-behavior: none;
+		}
+	</style>
+	<style>
+		:host {
+			display: block;
+			position: relative;
+		}
+		/* 滚动提示 */
+		:host([scroll="x"]) {
+			overflow-x: auto;
+			overflow-y: hidden;
+		}
+		:host([scroll="y"]) {
+			overflow-x: hidden;
+			overflow-y: auto;
+		}
+		:host([scroll="xy"]) {
+			overflow: auto;
+		}
+		#top {
+			width: 100%;
+			height: ":${edgeSize}px";
+			overflow: hidden;
+			z-index: 1;
+			pointer-events: none;
+			/* 加速并在结尾回弹 */
+			transition: all 0.3s;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+		.refreshing {
+			animation: rotate 1s linear infinite;
+		}
+		@keyframes rotate {
+			0% {
+				transform: rotate(0);
+			}
+
+			100% {
+				transform: rotate(360deg);
+			}
+		}
+
+	</style>
+	<div id="top">
+		<div id="wrap" $class="refreshingState?'refreshing':''">
+			<wcex-ui.icon  active pkg="@material-design-icons/svg" type="filled" icon="refresh" size="4"></wcex-ui.icon>
+		</div>
+	</div>
+	<div id="content">
+		<slot></slot>
+	</div>
+	<script scope="debounce" src="lodash.debounce" nowatch nocall></script>
+
+	<script scope=".">
+		return class {
+			edgeSize = 0;
+			dragFlag = false;
+			debounceShowEdgeFn = null;
+			lastTouchY = -1;
+			enableRefresh = false;
+			refreshingState = false;
+			onReady() {
+				this.debounceShowEdgeFn = this.debounce(
+					() => {
+						if (this.dragFlag) {
+							this.edgeSize = this.$id.wrap.clientHeight;
+							console.log("回弹固定大小");
+						}
+					},
+					200,
+					{ leading: false, trailing: true }
+				);
+				console.log("--!!! ready", this.debounce);
+			}
+			onClose() {
+				console.log("close");
+				this.stopEdgeBound();
+			}
+
+			onScroll() {
+				console.log("scroll");
+			}
+
+			onTouchStart() {
+				console.log("touch start");
+			}
+			// 拖动完成后, 检测当前高度，如果超过一半，则完全显示，否则隐藏
+			onTouchEnd() {
+				console.log("touch end");
+				if (this.dragFlag) {
+					if(this.edgeSize > this.$id.wrap.clientHeight / 2){
+						// 回弹显示边框
+						this.debounceShowEdgeFn();
+					}else{
+						// 回弹隐藏边框
+						this.stopEdgeBound();
+					}
+				}
+				this.lastTouchY = -1;
+			}
+			
+			onTouchMove(ev) {
+				// console.log("touch move",ev.touches[0].clientY);
+				if(this.lastTouchY <0){
+					this.lastTouchY = ev.touches[0].clientY;
+				}else{
+					const deltaY = this.lastTouchY - ev.touches[0].clientY;
+					this.lastTouchY = ev.touches[0].clientY;
+					this.checkEdge(false,deltaY);
+				}
+
+			}
+			checkEdge(isWheel,deltaY){
+				// 判断是否需要回弹
+				// console.log("check edge", deltaY);
+				if (!this.dragFlag && this.$rootElem.scrollTop == 0) {
+					// 进入回弹状态
+					this.dragFlag = true;
+					this.edgeSize = 0;
+					this.enableRefresh = true;
+					this.refreshingState = false;
+				}
+				if (this.dragFlag) {
+					// 检查回弹结束
+					if (this.$rootElem.scrollTop > 0) {
+						this.stopEdgeBound();
+					}
+					if (deltaY > 0) {
+						// 滚轮向下滚动, 不回弹
+						this.stopEdgeBound();
+					} else {
+						//最大回弹范围为30%
+						// 回弹
+						this.edgeSize += -deltaY;
+						const maxEdge = this.$rootElem.clientHeight * 0.3;
+						if (this.edgeSize > maxEdge) {
+							this.edgeSize = maxEdge;
+						}
+						// console.log("回弹", deltaY,"edgeSize", this.edgeSize);
+						// 下个周期设置为回弹区域大小, 使用debounce,在100ms结束时触发
+						if(isWheel)	this.debounceShowEdgeFn();
+						// 当第一次显示区域超出一半时，发送刷新事件
+						if(this.enableRefresh && this.edgeSize > this.$id.wrap.clientHeight ){
+							this.$emit("refresh");
+							console.log("发送刷新事件");
+							this.enableRefresh = false;
+							this.refreshingState = true;
+						}
+
+					}
+				}
+
+			}
+			onWheel(ev) {
+				// console.log("wheel", ev.deltaY);
+				this.checkEdge(true,ev.deltaY);
+
+			}
+			stopEdgeBound() {
+				// 停止回弹, 停止回弹后200毫秒内不允许再次回弹, 防止滚动事件和滚轮事件冲突
+				this.dragFlag = false;
+				this.enableRefresh = false;
+				this.refreshingState = false;
+				this.edgeSize = 0;
+			}
+		};
+	</script>
+</template>
