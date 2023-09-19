@@ -11,33 +11,37 @@ type HTML_MODULE = {
 	};
 };
 export function parseHtmlModules(htmlFile: string) {
-	const html = fs.readFileSync(htmlFile, "utf8");
 	const modules = {} as HTML_MODULE;
-	// 读取所有的meta标签
-	const metas = html.match(/<meta\s+.*?\/>/g);
-	metas?.forEach((meta) => {
-		//解析meta标签，获取全部属性
-		const attrs = meta.match(/\w+\s*=\s*["']([^"']+)["']/g);
-		if (attrs) {
-			// 解析属性
-			const attrMap = attrs.reduce((prev, cur) => {
-				const [key, value] = cur.split("=");
-				prev[key] =  value.replace(/["']/g,'');
-				return prev;
-			}, {} as { [k: string]: string });
-
-			if (attrMap.name == "module" && attrMap.pkg) {
-        let files = attrMap.files?.split(";")?.filter(v=>v.trim().length>0) || [];
-				modules[attrMap.pkg] = {
-					pkg: attrMap.pkg,
-					files,
-					version: attrMap.version,
-					loadMode: attrMap.cjs ? "cjs" : attrMap.esm ? "esm" : attrMap.eval ? "eval" : "amd",
-          prefix:attrMap.prefix,
-					globalVar: attrMap.global,
-				};
+	try{
+		const html = fs.readFileSync(htmlFile, "utf8");
+		// 读取所有的meta标签
+		const metas = html.match(/<meta\s+.*?\/>/g);
+		metas?.forEach((meta) => {
+			//解析meta标签，获取全部属性
+			const attrs = meta.match(/\w+\s*=\s*["']([^"']+)["']/g);
+			if (attrs) {
+				// 解析属性
+				const attrMap = attrs.reduce((prev, cur) => {
+					const [key, value] = cur.split("=");
+					prev[key] =  value.replace(/["']/g,'');
+					return prev;
+				}, {} as { [k: string]: string });
+	
+				if (attrMap.name == "module" && attrMap.pkg) {
+			let files = attrMap.files?.split(";")?.filter(v=>v.trim().length>0) || [];
+					modules[attrMap.pkg] = {
+						pkg: attrMap.pkg,
+						files,
+						version: attrMap.version,
+						loadMode: attrMap.cjs ? "cjs" : attrMap.esm ? "esm" : attrMap.eval ? "eval" : "amd",
+			  prefix:attrMap.prefix,
+						globalVar: attrMap.global,
+					};
+				}
 			}
-		}
-	});
+		});
+	}catch(e:any){
+		console.log("parse html error:",htmlFile,e.message);
+	}
 	return modules;
 }
