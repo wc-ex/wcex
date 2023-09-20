@@ -18,24 +18,35 @@
 	<script scope=".">
 		return class {
 			onReady() {}
+			/**
+			 * 检查路由是否匹配
+			 * @param {HTMLElement} el
+			 */
+			checkRouteMatch(el) {
+				let r = this.$router.route[this.routeArea];
+				let href = el.getAttribute("href");
+				if (!href || !r) return false;
+				let parsed = this.$router.parse(href);
+				let parsedRoute = parsed[this.routeArea];
+				if (!parsedRoute) return false;
+				if (parsedRoute.tag && parsedRoute.tag != r.tag) return;
+				// 比对路由参数
+				for (let key of Object.keys(parsedRoute.attrs)) {
+					if (parsedRoute.attrs[key] != r.attrs[key]) {
+						return;
+					}
+				}
+				el.setAttribute("checked", "1");
+				this.$emit("click", el);
+			}
 			onSlotChange() {
 				let r = this.$router.route[this.routeArea];
 				// 为匹配的子项设置 checked 属性
 				this.$id.slot.assignedElements().forEach((item) => {
-					let itemHash = item.getAttribute("href");
-					// 比对区域路由
-					let parsed = this.$router.parse(itemHash);
-					let parsedRoute = parsed[this.routeArea];
-					if (!parsedRoute) return;
-					if (parsedRoute.tag && parsedRoute.tag != r.tag) return;
-					// 比对路由参数
-					for (let key of Object.keys(parsedRoute.attrs)) {
-						if (parsedRoute.attrs[key] != r.attrs[key]) {
-							return;
-						}
-					}
-					item.setAttribute("checked", "1");
-					this.$emit("click", item);
+					this.checkRouteMatch(item);
+					item.querySelectorAll("[href]").forEach((item) => {
+						ithis.checkRouteMatch(item);
+					});
 				});
 			}
 
