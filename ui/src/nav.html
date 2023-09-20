@@ -42,10 +42,10 @@
 			onSlotChange() {
 				let r = this.$router.route[this.routeName];
 				// 为匹配的子项设置 checked 属性
-				this.$id.slot.assignedElements().forEach((item) => {
+				this.$id.slot?.assignedElements()?.forEach((item) => {
 					this.checkRouteMatch(item);
 					item.querySelectorAll("[href]").forEach((item) => {
-						ithis.checkRouteMatch(item);
+						this.checkRouteMatch(item);
 					});
 				});
 			}
@@ -55,7 +55,7 @@
 				const href = ev.target.getAttribute("href");
 
 				if (href) {
-					this.$router.go(href);
+					this.$router.go(this.routeName,href);
 				}
 			}
 		};

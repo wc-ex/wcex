@@ -22,14 +22,15 @@
       component = "";
       changeRouter() {
         try {
-          var r = this.$router.route[this.name];
+          var r = this.$router.route[this.name] || {};
           var rsc = this.$id.route.$scope;
-          this.$log("----> change router", r.tag, JSON.stringify(r.attrs));
           if (!r) return;
+          this.$log(`----> change router:name=${this.name},tag=${r.tag},attrs=${JSON.stringify(r.attrs)},home=${this.home}`);
+          // if(this.name=='area1') debugger
 
           if (!r.tag) {
             // 跳转到默认路由
-            if (this.home) location.hash = this.home;
+            if (this.home) this.$router.go(this.name,this.home);
             else this.$log.warn("no default route:", this.name);
             return;
           }
