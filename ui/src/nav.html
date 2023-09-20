@@ -5,7 +5,7 @@
 
 -->
 
-<template vert.bool="0" @click.stop="onClick($ev)" route-area="default">
+<template vert.bool="0" @click.stop="onClick($ev)" route-name="default">
 	<style>
 		:host {
 			display: flex;
@@ -23,11 +23,11 @@
 			 * @param {HTMLElement} el
 			 */
 			checkRouteMatch(el) {
-				let r = this.$router.route[this.routeArea];
+				let r = this.$router.route[this.routeName];
 				let href = el.getAttribute("href");
 				if (!href || !r) return false;
 				let parsed = this.$router.parse(href);
-				let parsedRoute = parsed[this.routeArea];
+				let parsedRoute = parsed[this.routeName];
 				if (!parsedRoute) return false;
 				if (parsedRoute.tag && parsedRoute.tag != r.tag) return;
 				// 比对路由参数
@@ -40,7 +40,7 @@
 				this.$emit("click", el);
 			}
 			onSlotChange() {
-				let r = this.$router.route[this.routeArea];
+				let r = this.$router.route[this.routeName];
 				// 为匹配的子项设置 checked 属性
 				this.$id.slot.assignedElements().forEach((item) => {
 					this.checkRouteMatch(item);
