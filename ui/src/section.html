@@ -17,7 +17,7 @@
             border-radius: 0.5em;
             transition: background-color 0.3s;
             --shadow: 0 !important;
-            margin: 1em 0;
+            padding-bottom: 1em;
         }
 
         .header {
@@ -26,10 +26,11 @@
             gap: 0.5em;
             padding: 0.5em 1em;
             border-bottom: 1px solid "$$color.pri.l3_";
+            margin-bottom: 1em;
         }
 
         :host(:hover) {
-            background-color: "$$color.bg.l2_";
+            background-color: "$$color.bg.l1_";
             --shadow: 1 !important;
         }
 
@@ -38,29 +39,40 @@
             align-items: baseline;
         }
 
-        .header>::slotted([slot="icon"]) {
+        ::slotted([slot="icon"]) {
             --icon-color: "$$color.text.l5_";
         }
 
-        .title>::slotted([slot="title"]) {
+        ::slotted([slot="title"]) {
             white-space: nowrap;
             flex-shrink: 0;
         }
 
-        .title>::slotted([slot="subtitle"]) {
+        ::slotted([slot="subtitle"]) {
             padding-left: 1em;
             white-space: break-spaces;
             flex-shrink: 1;
         }
 
-        .content {
-            display: flex;
-            flex-direction: column;
-            padding: 0.5em 1em;
+        :host>::slotted(*){
+            margin: 0.5em 1em;
         }
+        .header[closed]~*{
+            display: none;
+        }
+        .header[closed]>.close-icon{
+            transform: rotate(0deg);
+        }
+        .close-icon{
+            transform: rotate(90deg);
+            transition: transform 0.3s;
+        }
+
     </style>
 
-    <div class="header">
+    <div class="header" $closed="0">
+        <wcex-ui.icon class="close-icon" @click="closed=!closed"  active slot="icon" size="2" pkg="@material-design-icons/svg" type="filled" icon="chevron_right"></wcex-ui.icon>
+
         <slot name="icon"></slot>
         <div class="title">
             <slot name="title"></slot>
@@ -69,9 +81,9 @@
         <div style="flex: 1;"></div>
         <slot name="action"></slot>
     </div>
-    <div class="content">
-        <slot name="content"></slot>
-    </div>
+    <!-- <div class="content"> -->
+    <slot></slot>
+    <!-- </div> -->
 
 
 </template>

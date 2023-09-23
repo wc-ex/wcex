@@ -4,7 +4,6 @@
 	disabled.bool="0"
 	flat.bool="0"
 	$color="$color.pri"
-  $checked-color="$color.sec"
 	vert.bool="0"
 	$class="flat?'grow':'shadow'"
 >
@@ -21,31 +20,30 @@
 			--shadow: 1 !important;
 			--grow: 0 !important;
 			--grow-color: rgba(0, 0, 0, 0) !important;
-      --bg-color: "$color";
-      --bg-color-light: "$color.l1_";
-      --text-color:"$flat?color:$color.textr";
+			--bg-color: "$color";
+			--bg-color-light: "$color.l1_";
+			--text-color: "$flat?color:$color.textr";
 			--color-pos: 40%;
 
 			display: "$block?'flex':'inline-flex'";
 			flex-direction: "$vert?'column':'row'";
-			align-items: "$vert?'center':'end'";
+			/* align-items: "$vert?'center':'end'"; */
+			align-items: center;
 			justify-content: center;
 			border-radius: 2px;
 			position: relative;
 
-      
 			color: var(--text-color);
-			transition: --color-pos 0.5s,all 0.3s;
+			transition: --color-pos 0.5s, all 0.3s;
 			cursor: pointer;
 			user-select: none;
 			padding: 0.3em 1em;
 			background-image: "$flat?'none':`radial-gradient(circle  at ${vert?'50% -50%':'-50% 50%'}, var(--bg-color-light) var(--color-pos), var(--bg-color) var(--color-pos) )` ";
 		}
-    :host([checked]) {
-      --bg-color: "$checkedColor";
-      --bg-color-light: "$checkedColor.l2_";
-      --text-color:"$(flat?checkedColor:$color.textr).l3_";
-    }
+		:host([disabled]){
+			pointer-events: none;
+			filter: grayscale(100%);
+		}
 		:host(:hover) {
 			border-radius: 5px;
 			transform: translate(-1px, -1px);
@@ -59,26 +57,19 @@
 			--color-pos: 50%;
 			transform: translate(0px, 0px);
 		}
-		::slotted([slot="icon"]) {
-			margin-inline-end: "$vert?'0':'0.5em'";
+		::slotted(*) {
 			--icon-color: "$flat?color:$color.textr";
+			/* margin-inline-start: "$vert?'0':'0.5em'"; */
 		}
-    :host([checked]) ::slotted([slot="icon"]) {
-			--icon-color: "$flat?checkedColor:$color.textr";
-    }
 
 		.text {
 			text-align: center;
 			line-height: 1.5em;
 			margin-block-start: 0;
 			margin-block-end: 0;
+			white-space: nowrap;
 		}
 	</style>
 
-	<!-- 图标 -->
-	<slot name="icon"></slot>
-	<!-- 默认文本 -->
-	<div class="text">
-		<slot class="bold"></slot>
-	</div>
+	<slot class="bold"></slot>
 </template>

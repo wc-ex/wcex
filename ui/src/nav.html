@@ -26,9 +26,14 @@
 				let r = this.$router.route[this.routeName];
 				let href = el.getAttribute("href");
 				if (!href || !r) return false;
+
 				let parsed = this.$router.parse(href);
 				let parsedRoute = parsed[this.routeName];
+				if(this.routeName=='area1')
+					console.log(`check route match1111111111`, href,this.routeName,parsed,r,el);
+
 				if (!parsedRoute) return false;
+
 				if (parsedRoute.tag && parsedRoute.tag != r.tag) return;
 				// 比对路由参数
 				for (let key of Object.keys(parsedRoute.attrs)) {
@@ -36,6 +41,7 @@
 						return;
 					}
 				}
+				console.log(`check route match`, this.routeName,r,el);
 				el.setAttribute("checked", "1");
 				this.$emit("click", el);
 			}
@@ -55,7 +61,8 @@
 				const href = ev.target.getAttribute("href");
 
 				if (href) {
-					this.$router.go(this.routeName,href);
+					console.log(`!! ruote go to ${href}`);
+					this.$router.go(href);
 				}
 			}
 		};

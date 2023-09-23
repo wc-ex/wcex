@@ -67,7 +67,9 @@
 	</style>
 	<div id="top">
 		<div id="wrap" $class="refreshingState?'refreshing':''">
+			<slot name="icon">
 			<wcex-ui.icon  active pkg="@material-design-icons/svg" type="filled" icon="refresh" size="4"></wcex-ui.icon>
+			</slot>
 		</div>
 	</div>
 	<div id="content">

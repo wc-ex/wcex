@@ -4,7 +4,7 @@
     路由异常通过 error 事件
  -->
 
-<template name="default" home="" match="" overflow="auto">
+<template name="default" home="" match="" overflow="auto" $check-route-fn="">
   <meta name="scope" />
   <style>
     :host {
@@ -25,8 +25,11 @@
           var r = this.$router.route[this.name] || {};
           var rsc = this.$id.route.$scope;
           if (!r) return;
-          this.$log(`----> change router:name=${this.name},tag=${r.tag},attrs=${JSON.stringify(r.attrs)},home=${this.home}`);
-          // if(this.name=='area1') debugger
+          if(typeof this.checkRouteFn == 'function') {
+            let ret = this.checkRouteFn(r);
+            // 回调返回 false 则不跳转
+            if(!this.checkRouteFn(r)) return;
+          }
 
           if (!r.tag) {
             // 跳转到默认路由
