@@ -13,6 +13,11 @@
 			inherits: false;
 			initial-value: 0;
 		}
+		@property --bg-color {
+			syntax: "<color>";
+			inherits: false;
+			initial-value: transparent;
+		}
 	</style>
 
 	<style>
@@ -20,25 +25,24 @@
 			--shadow: 1 !important;
 			--grow: 0 !important;
 			--grow-color: rgba(0, 0, 0, 0) !important;
-			--bg-color: "$color";
-			--bg-color-light: "$color.l1_";
+			--bg-color: "$flat?'transparent':color";			
+			--bg-color-light: "$flat?color.a9_:color.l1_";
 			--text-color: "$flat?color:$color.textr";
-			--color-pos: 40%;
+			--color-pos: "$flat?'30%':'40%'";
 
 			display: "$block?'flex':'inline-flex'";
 			flex-direction: "$vert?'column':'row'";
-			/* align-items: "$vert?'center':'end'"; */
 			align-items: center;
 			justify-content: center;
 			border-radius: 2px;
 			position: relative;
 
-			color: var(--text-color);
-			transition: --color-pos 0.5s, all 0.3s;
+			color: var(--text-color) ;
+			transition: --color-pos 0.5s,--bg-color 0.5s, all 0.3s;
 			cursor: pointer;
 			user-select: none;
 			padding: 0.3em 1em;
-			background-image: "$flat?'none':`radial-gradient(circle  at ${vert?'50% -50%':'-50% 50%'}, var(--bg-color-light) var(--color-pos), var(--bg-color) var(--color-pos) )` ";
+			background-image: radial-gradient(circle  at "$vert?'50% -50%':'-50% 50%'", var(--bg-color-light) var(--color-pos), var(--bg-color) var(--color-pos) );
 		}
 		:host([disabled]){
 			pointer-events: none;

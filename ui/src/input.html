@@ -1,0 +1,143 @@
+<!--!!
+# \<input\> 输入框组件
+输入框组件实现了标准输入框
+- 支持标准文本输入
+- 支持彩色输入
+
+## 使用说明
+
+## 注意事项
+
+@attr placeholder 占位提示符 
+@attr value  输入的值,可通过 $$ 双向绑定 
+  支持有的街坊邻居
+  {{selector: {min:0,max:100}}}
+  {{dict: []}} 
+
+@attr aaa 测试的属性
+  {{range:{min:0,max:1000}}} 
+  {{slide:{step:2}}} 
+
+@lines 1 输入框行数，大于1 则使用 textarea 标签
+
+@event my-event 测试事件
+
+@slot
+
+@todo
+
+-->
+<template placeholder="" value="" label="" password.bool="0" disabled.bool="0" type="text" icon="" accept="" autofocus.bool="" $color="$color.pri" lines.int="1" resize.bool="0" $background-color="$color.bg.l5_">
+	<style>
+		:host {
+			display: inline-flex;
+			align-items: center;
+			font-size: 1em;
+			transition: all 0.3s;
+			gap: 1em;
+		}
+
+		.input {
+			box-sizing: border-box;
+			flex: 1;
+			border: none;
+			padding: 0.2em 0.5em;
+			background-color: unset;
+			min-width: none;
+			width: 100%;
+
+		}
+
+		.input:focus,
+		.input:focus-visible {
+			border: 0;
+			outline: 0;
+		}
+
+		.input-area {
+      box-sizing: border-box;
+      align-items: center;
+			position: relative;
+			display: flex;
+			flex: 1;  
+      padding: 0.3em 0.5em 0.1em 0.5em;
+      border-top: 0px solid "$color.l2_";
+			border-bottom: 1.5px solid "$color.l2_.a5_";
+			border-radius: 5px;
+			box-shadow: inset 0px 0px 5px transparent;
+      transition: all 0.3s;
+      background-color: "$backgroundColor";
+
+		}
+    .input-area:hover,
+    .input-area:focus-within {
+      box-shadow: inset 0px 0px 2px "$color.a3_";
+      border-bottom: 1.5px solid "$color.l2_";
+    }
+
+		.input:focus ~ .line,
+		.input:focus-visible ~ .line {
+			left: 0%;
+			width: calc(100% + 2px);
+		}
+		/* 提示文字 */
+		.placeholder {
+			transition: all 0.3s;
+			top: 0.3em;
+			left: 2em;
+			flex-grow: 0;
+			position: absolute;
+			pointer-events: none;
+			padding: 0.2em 0.5em;
+			background-color:  "$backgroundColor";
+      border-radius: 3px;
+			color: "$$color.text.a5_";
+			transform-origin: top left;
+			transform: translateY(0);
+      box-shadow: inset 0px 0px 2px transparent;
+		}
+    .input[value] ~ .placeholder,
+		.input[type="date"] ~ .placeholder,
+		.input[type="datetime-local"] ~ .placeholder,
+		.input[type="color"] ~ .placeholder,
+		.input[type="file"] ~ .placeholder,
+		.input[type="time"] ~ .placeholder,
+		.input[type="week"] ~ .placeholder,
+		.input[type="radio"] ~ .placeholder,
+		.input[type="range"] ~ .placeholder,
+		.input[type="checkbox"] ~ .placeholder,
+		.input:focus ~ .placeholder,
+		.input:focus-visible ~ .placeholder {
+			transform: scale(0.75) translateY(-1.4em);
+      color: "$color";
+      box-shadow: inset 0px 0px 2px "$color.a3_";
+		}
+		/* 标签 label */
+		.label {
+			flex-shrink: 0;
+			color: var('$disabled?"--color-bg--2":"--color-text"');
+		}
+    .input-area:focus-within>::slotted([slot="icon"]) {
+      --icon-color:"$color";
+    }
+    ::slotted([slot="icon"]){
+      --icon-color:"$$color.text.a5_" ;
+		}
+    textarea{
+      resize: "$resize?'vertical':'none'";
+    }
+	</style>
+	<slot name="prepend">
+		<div $>label</div>
+	</slot>
+	<div class="input-area">
+    <slot name="icon"></slot>
+		<input class="input" $type="$root.type" $$="$root.value" $disabled="$root.disabled" $accept="$root.accept" $autofocus="$root.autofocus" $if="$root.lines==1"/>
+		<textarea class="input" $rows="$root.lines" $type="$root.type" $$="$root.value" $disabled="$root.disabled" $accept="$root.accept" $autofocus="$root.autofocus" $if="$root.lines>1"></textarea>
+		<div class="placeholder" $>placeholder</div>
+	</div>
+
+
+	<!-- 清除输入按钮 -->
+	<slot name="append"></slot>
+</template>
