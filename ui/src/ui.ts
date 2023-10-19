@@ -65,11 +65,13 @@ export default class extends Scope {
     }
 
     let css = `
-    .bold,h1,h2,h3,h4,h5,h6,th,strong{
+    .bold,h1,h2,h3,h4,h5,h6,th,strong,b{
       font-family: ${fontsConfig["en-bold"]?.family || ""} ${fontsConfig.bold?.family || ""} Arial, sans-serif !important;
+      font-weight:500 !important
     }
     * {
     font-family: ${fontsConfig["en-normal"]?.family || ""} ${fontsConfig.normal?.family || ""} Arial, sans-serif ;
+    font-weight:300 !important
   }
     `;
 

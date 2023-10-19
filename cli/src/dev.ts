@@ -27,6 +27,7 @@ import { spawn, ChildProcess, execSync } from "child_process";
 
 import httpProxy from "http-proxy";
 import { parseHtmlModules } from "./utils";
+import { error } from "console";
 
 function initHotload(server: HttpServer, projectName: string, projectDir: string) {
   const wss = new WebSocketServer({
@@ -189,6 +190,7 @@ function parseAllHtmlMetaModules(projectDir: string) {
 }
 
 export async function dev(opts: any) {
+  process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
   try {
     const projectDir = path.resolve(opts.dir);
     console.log("start wc dev server for", projectDir);
@@ -230,7 +232,11 @@ export async function dev(opts: any) {
             cookiePathRewrite: "",
             headers: {
               host: new URL(toUrl).host,
-            },
+            },            
+            secure: false,
+          },(err)=>{
+            console.log("Error to Proxy from:", reqUrl, toUrl, err.message);
+            res.status(500).end(err.message);
           });
         } catch (e: any) {
           console.log("Error to Proxy from:", reqUrl, toUrl, e.message);
