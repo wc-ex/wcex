@@ -1,5 +1,5 @@
 <!-- 封装 echarts -->
-<template $option="{}" @timer.2000="abc.a++">
+<template $option="{}" >
     <meta name="module" pkg="echarts" content="dist/echarts.min.js">
 
     <style>
@@ -12,8 +12,6 @@
             height: 100%;
         }
     </style>
-    <div $>abc.a</div>
-    <!-- <div2 $>$json(option)</div2> -->
     <div id="echarts"></div>
 
     <script scope="echarts" src="echarts" nowatch nocall></script>
@@ -25,14 +23,10 @@
             onReady() {
                 this.instance = this.$noWatch(this.echarts.init(this.$id.echarts));
                 this.instance.setOption(this.option);  // 
-                this.$watch(() => this.option.series.data, () => {
+                this.$watch(() => this.option, () => {
                     console.log("!!!! ECHATS SET OPTION")
                     this.instance.setOption(this.option)
                 });
-                this.$watch(()=>this.abc,()=>{
-                    console.log("!!!! WATCH abc")
-
-                })
             }
         }
     </script>
