@@ -119,6 +119,7 @@
             if (el) {
               let { width, height, left, top } = el.getBoundingClientRect();
               this.sel = { el, width, height, left, top, tag: el.tagName.toLowerCase() };
+              this.$log(el.tagName,el);
             } else {
               this.sel = {};
             }

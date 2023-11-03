@@ -22,6 +22,6 @@ fs.writeFileSync(path.join(__dirname,'../site/index.html'),siteIndex,'utf8');
 
 execSync('pnpm oss',{cwd:path.join(__dirname,'../site/'),stdio:'inherit'})
 
-// console.log('UpdateSite :',siteIndex);
+console.log('UpdateSite :',siteIndex);
 
 

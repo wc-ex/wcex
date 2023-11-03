@@ -21,6 +21,8 @@ WCEX.usePlugins({
 
 export default class extends Scope {
   async onCreate() {
+    console.log("--_!!!! UI - initFont 1")
+
     // 初始化字体, 从<meta> 标签中获取 name="fonts" 的配置内容
     await this.initFont();
   }
@@ -49,7 +51,7 @@ export default class extends Scope {
       }
     }
 
-    // console.log("--_!!!! UI - initFont 3")
+    console.log("--_!!!! UI - initFont 3")
 
     let promises: Promise<any>[] = [];
     // // 创建全局加载
@@ -86,6 +88,8 @@ export default class extends Scope {
     }));
 
     await Promise.all(promises);
+    console.log("--_!!!! UI - initFont 4")
+    this.$emit("ready")
 
   }
 }

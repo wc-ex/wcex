@@ -1,7 +1,6 @@
 <template>
   <meta name="scope" drawer.bool="true" cur-page.object="{}" />
-  <!-- 需要手动引入 -->
-  <link rel="stylesheet" href="@/@wcex/ui@1.0.66/ui.css" />
+  <meta name="module" pkg="@wcex/ui" version="1.1.7" />
 
   <style>
     :host {
@@ -11,6 +10,10 @@
       overflow: hidden;
     }
   </style>
+
+  <wcex-ui.ui @ready="console.log('abcdef------------------')" !sync></wcex-ui.ui>
+  <wcex-ui.dev></wcex-ui.dev>
+
   <main-></main->
 
   <script scope="font" src="./font.js"></script>
@@ -19,10 +22,8 @@
     window.__initSwFlag=false;
     return class {
       // 动态设置字体
-      onCreate() {
-        this.font.loadFont(this);
-
-
+      async onCreate() {
+        await this.font.loadFont(this);
         this.initSw();
       }
       initSw() {
@@ -49,7 +50,6 @@
             // navigator.serviceWorker.register(this.$path("./sw.js", { scope: WCEX.npmUrl, updateViaCache: "all" }));
           });
       }
-      onReady() {}
     };
   </script>
 </template>
