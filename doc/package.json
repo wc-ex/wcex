@@ -1,6 +1,6 @@
 {
   "name": "@wcex/doc",
-  "version": "1.0.104",
+  "version": "1.0.105",
   "description": "documents for wcex",
   "main": "index.html",
   "scripts": {
@@ -12,15 +12,25 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@fontsource/abel": "^5.0.8",
+    "@highlightjs/cdn-assets": "^11.9.0",
+    "@material-design-icons/svg": "^0.14.13",
     "@wcex/ui": "1.1.7",
+    "cn-fontsource-lxgw-wen-kai-screen": "^1.0.6",
     "dayjs": "^1.11.7",
     "lodash.debounce": "^4.0.8",
+    "lodash.get": "^4.4.2",
+    "lodash.pickby": "^4.6.0",
     "lodash.throttle": "^4.1.1",
+    "marked": "^9.1.5",
     "monaco-editor": "^0.36.1",
+    "toolcool": "^1.0.0",
+    "toolcool-color-picker": "^1.0.15",
     "wcex": "^1.9.36"
   },
   "devDependencies": {
     "@types/lodash.debounce": "^4.0.8",
+    "@types/lodash.pickby": "^4.6.8",
     "@types/lodash.throttle": "^4.1.8"
   }
 }
