@@ -1,4 +1,8 @@
 <!--DESC: {icon:{name:"update",pkg:"mdi",type:"filled"},id:99} -->
+
+## WCEX 1.9.77
+- Es wurde ein Fehler behoben, bei dem das !sync-Attribut in untergeordneten Elementen verwendet wurde
+
 ### WCEX 1.9.74
 - Der Fehler $watch der Tiefe des Tracking-Objekts wurde behoben
 

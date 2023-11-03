@@ -1,4 +1,8 @@
-<!-- 多级目录结构,最多2级 -->
+<!--!!
+  Markdown 文件目录显示组件
+  @prop level [int] 显示的标题级别，默认为3级
+  @prop first-header [int] 第一个标题级别，默认为2级
+-->
 <template @update="updateToc($ev)" @sync-scroll="syncScroll($ev)" level.int="3" first-header.int="2">
   <style>
     :host {

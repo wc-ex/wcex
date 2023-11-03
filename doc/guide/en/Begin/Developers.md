@@ -1,17 +1,17 @@
 <!--DESC: {icon:{name:"attractions",pkg:"mdi",type:"filled"},id:4} -->
-# 开发者技巧
-> 作为开发者，我们有一些特别的方法来让您更好的使用 WCEX 来开发您的应用，观察内部结构，甚至直接操作组件。
+# Developer Tips
+> As developers, we have some special ways for you to use WCEX to develop your application, see the internals, and even manipulate the components directly.
 
-## 打开开发者模式
-> 在浏览器打开开发者面板，在控制台中输入: localStorage.__DEV ="", 然后刷新页面即启用UI中提供的开发者小工具。
+## Turn on developer mode
+> Open the Developer Panel in your browser, enter localStorage.__DEV="" in the console, and refresh the page to enable the developer widgets provided in the UI.
 
-## 使用开发者工具
-> 使用热键 [Ctrl+`] 呼出开发者面板，可以控制详细日志输出以及配置组件的本地化开发路径还有组件树
-> 当您同时按下 [Ctrl+Shift+] 时，同时移动鼠标到组件上，即可查看当前组件名称，使用鼠标右键点击，将可以查看此组件以及其上下文关联组件的详细信息。
+## Use developer tools
+> Use the hotkey [Ctrl+'] to bring up the developer panel, you can control the detailed log output and configure the localization development path of the component and the component tree
+> When you press [Ctrl+Shift+] at the same time, you can move the mouse over the component at the same time to see the current component name, and right-click to view the details of this component and its context-associated component.
 
-## 组件信息描述
-> 使用 组件说明语法可以直观的在组件中撰写组件的描述信息，这些信息将会在开发者工具中显示，方便您快速的了解组件的作用和使用方法。
-> 此说明要求在html注释中使用特定的语法，如下所示:
+## Description of the component information
+> Use the component description syntax to intuitively compose the description of the component in the component, which will be displayed in the developer tools, so that you can quickly understand the function and usage of the component.
+> This instruction requires a specific syntax to be used in HTML comments, as follows:
 ```html
 <!--!!
   通用SVG图标组件,支持NPM 标准SVG图标库，内置支持 **material-design-icons**, **fortawesome**, **svg-icons**,
@@ -40,7 +40,7 @@
 </template>
 
 ```
-> 当右键点击时，您还可以在浏览器开发工具台窗口直接看到当前选择的元素，方便调试和查看组件的详细信息。
+> When you right-click, you can also see the currently selected element directly in the browser development tool window, which is convenient for debugging and viewing the details of the component.
 
-## 即刻尝试
-> 本文档完全使用WCEX, 马上打开浏览器的开发者工具，尝试以下吧
+## Try it now
+> This document is entirely WCEX, open your browser's developer tools and try the following

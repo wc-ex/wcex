@@ -1,6 +1,10 @@
+<!--!!
+文档应用主入口
+-->
+
 <template>
   <meta name="scope" drawer.bool="true" cur-page.object="{}" />
-  <meta name="module" pkg="@wcex/ui" version="1.1.7" />
+  <meta name="module" pkg="@wcex/ui" version="1.1.15" />
 
   <style>
     :host {
@@ -11,7 +15,7 @@
     }
   </style>
 
-  <wcex-ui.ui @ready="console.log('abcdef------------------')" !sync></wcex-ui.ui>
+  <wcex-ui.ui !sync></wcex-ui.ui>
   <wcex-ui.dev></wcex-ui.dev>
 
   <main-></main->

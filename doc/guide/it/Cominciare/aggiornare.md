@@ -1,4 +1,8 @@
 <!--DESC: {icon:{name:"update",pkg:"mdi",type:"filled"},id:99} -->
+
+## WCEX 1.9.77
+- Risolto un bug per cui l'attributo !sync veniva utilizzato negli elementi figlio
+
 ### WCEX 1.9.74
 - Risolto il bug $watch profondità dell'oggetto di tracciamento
 

@@ -1,4 +1,8 @@
 <!--DESC: {icon:{name:"update",pkg:"mdi",type:"filled"},id:99} -->
+
+## WCEX 1.9.77
+- Fixed a bug where the !sync attribute was used in child elements
+
 ### WCEX 1.9.74
 - Fixed the bug $watch the depth of the tracking object
 

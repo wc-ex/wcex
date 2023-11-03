@@ -1,3 +1,10 @@
+<!--!!
+简单的Markdown显示组件
+@prop src [string] markdown文本路径
+@prop text [string] markdown文本，与src二选一
+@prop toc [boolean] 是否显示目录以及目录宽度,默认显示，宽度为12em
+@prop tocHeight [string] 目录高度,默认100%
+-->
 <template src="" toc.int="12" toc-height="100%" text="">
   <meta name="module" pkg="marked" content="marked.min.js" />
   <link rel="stylesheet" href="./marked.css" />

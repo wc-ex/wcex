@@ -119,7 +119,6 @@
             if (el) {
               let { width, height, left, top } = el.getBoundingClientRect();
               this.sel = { el, width, height, left, top, tag: el.tagName.toLowerCase() };
-              this.$log(el.tagName,el);
             } else {
               this.sel = {};
             }
@@ -129,12 +128,14 @@
           if (ev.ctrlKey && ev.shiftKey) {
             ev.preventDefault();
             if (this.sel.el) {
+              this.$log(this.sel.el.tagName,this.sel.el);
 
               // 查找关联组件
               let tags = {};
               tags[this.sel.el.tagName.toLowerCase()] = true;
               // tagSets.add(this.sel.el.tagName.toLowerCase());
-              this.$log("--!!! FIND",)
+              // this.$log("--!!! FIND",)
+
               //  递归查找父组件
               this.findParentWcDeep(this.sel.el, (el) => {
                 let tagName = el.tagName.toLowerCase();

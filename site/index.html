@@ -86,6 +86,9 @@
       .lang > a:hover {
         background-color: rgba(40, 248, 160, 0.2);
       }
+      #cn-note{
+        color: orange;
+      }
     </style>
     <script>
       if (window.location.protocol !== "https:") {
@@ -139,7 +142,10 @@
       </p>
     </div>
 
+
     <div class="cdn">
+      <h3 id="docver"></h3>
+      <h6 id="cn-note">国内用户注意,由于CDN稳定性问题, 如进入慢，请切换CDN或者耐心等待，进入后显示版本和当前最新版不符合，请进入开发者工具清空缓存（控制台->存储->清除网站数据）。</h6>
       <h5>Please choose CDN:</h5>
       <form id="cdn">
         <input type="radio" name="cdn" id="jsdelivr" checked />
@@ -170,7 +176,8 @@
   </body>
 
   <script>
-    var DOC_VER = "1.0.95";
+    var DOC_VER = "1.0.104";
+    document.getElementById('docver').innerText = `Document Version: ${DOC_VER}`;
     // if(navigator.language.indexOf('zh-CN')>=0){
     //   document.getElementById("elemecdn").checked=true;
     // }

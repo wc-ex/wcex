@@ -1,0 +1,46 @@
+<!--DESC: {icon:{name:"attractions",pkg:"mdi",type:"filled"},id:4} -->
+# Conseils pour les développeurs
+> En tant que développeurs, nous avons des moyens spéciaux pour vous d’utiliser WCEX pour développer votre application, voir les composants internes et même manipuler directement les composants.
+
+## Activer le mode développeur
+> Ouvrez le panneau de développement dans votre navigateur, entrez localStorage.__DEV=" » dans la console, puis actualisez la page pour activer les widgets de développeur fournis dans l’interface utilisateur.
+
+## Utiliser les outils de développement
+> Utilisez le raccourci clavier [Ctrl+'] pour afficher le panneau de développement, vous pouvez contrôler la sortie détaillée du journal et configurer le chemin de développement de la localisation du composant et de l’arborescence des composants
+> Lorsque vous appuyez simultanément sur [Ctrl+Maj+], vous pouvez déplacer la souris sur le composant en même temps pour voir le nom du composant actuel et cliquer avec le bouton droit de la souris pour afficher les détails de ce composant et de son composant associé au contexte.
+
+## Description des informations sur le composant
+> Utilisez la syntaxe de description du composant pour composer intuitivement la description du composant dans le composant, qui sera affichée dans les outils de développement, afin que vous puissiez rapidement comprendre la fonction et l’utilisation du composant.
+> Cette instruction nécessite l’utilisation d’une syntaxe spécifique dans les commentaires HTML, comme suit :
+```html
+<!--!!
+  通用SVG图标组件,支持NPM 标准SVG图标库，内置支持 **material-design-icons**, **fortawesome**, **svg-icons**,
+  - 使用标准图标库时, pkg属性可使用简称, 默认使用 "md",,
+  - 可自定义其他NPM svg 图标库引用，此时需设置pkg参数为npm的完整包名。
+  - 可使用url参数直接指定需引用svg图标的完整地址  
+  - [图标列表](https://wc-ex.com/pkg.html?@wcex/doc@1.0.90/app&cdn=jsdelivr&lang=cn#wcex-doc.doc%3Furl%3D%E6%89%A9%E5%B1%95%2F02-%E5%9B%BE%E6%A0%87%E5%BA%93.md%26lang%3Dcn)
+
+  @prop pkg [string] 默认:mdi
+            图标库包名称, 内置简写: 'mdi', 'fa', 'si' 等图标库，支持其他svg图标库
+  @prop type [string] 默认:filled
+            图标类型, 映射到图标库中的子目录, 如: filled, outlined, round,sharp,two-tone
+  @prop icon [string] 默认:circle
+            图标文件名称, 不包含扩展名 ".svg", 如: circle, add, delete, edit, search, home, user, ...
+  @prop size [number] 默认:1.5 图标大小, 单位: em
+  @prop url [string] 默认:""
+            图标文件指定URL, 指定此项内容将取代 pkg,type,icon 的设置
+  @prop active [bool] 默认:false 是否为活动图标，如为活动状态，则允许类似按钮行为，并发送点击事件
+  @prop color  [object] 默认:$color.pri
+            图标颜色，支持$color配色对象，也支持 rgb,#aabbcd等直接颜色，不支持 "red,green"等名称色.
+
+  @css --icon-color CSS 变量, 用于通过CSS控制图标颜色
+-->
+<template>
+    ...
+</template>
+
+```
+> Lorsque vous cliquez avec le bouton droit de la souris, vous pouvez également voir l’élément actuellement sélectionné directement dans la fenêtre de l’outil de développement du navigateur, ce qui est pratique pour le débogage et l’affichage des détails du composant.
+
+## Essayez-le maintenant
+> Ce document est entièrement WCEX, ouvrez les outils de développement de votre navigateur et essayez ce qui suit
