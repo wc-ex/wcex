@@ -1,9 +1,0 @@
-{
-  id: 4,
-  icon: {
-    pkg: 'mdi',
-    type: 'filled',
-    name: 'hive',
-  },
-  baseName: 'UI 구성요소',
-}

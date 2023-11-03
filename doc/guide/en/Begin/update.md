@@ -1,62 +1,70 @@
 <!--DESC: {icon:{name:"update",pkg:"mdi",type:"filled"},id:99} -->
+### WCEX 1.9.74
+- Fixed the bug $watch the depth of the tracking object
+
+### @wcex/cli 1.9.33
+- Updated the wcex --proxy parameter to support proxy configuration files
+
+### WCEX 1.9.54
+- Fixed minor bugs, dynamic property value transfer and update issues of dynamic components
 
 ### WCEX 1.9.47
 - Added $next method
 - Added $step method
-- Added $delay method
+- Added the $delay method
 - Added $json method
 - Added $slot variable
 
 
 ### WCEX 1.9.45
-- Fixed hot update bug
+- FIXED THE HOT UPDATE BUG
 
 ### WCEX 1.9.41
-- Causes @timer to be executed once immediately when the component is initialized
-- $sort Supports bool and number types
+- Make @timer execute once immediately when the component is initialized
+- $sort Bool and Number types are supported
 
 ### @wcex/cli 1.9.39
-- Added command parameter test, support UI automated testing
+- Added command parameter test to support UI automated testing
 - Added Scope method $next, $delay
 - FIX SEVERAL MINOR BUGS
 
 ### WCEX 1.9.36
-- Optimized $for performance
+- Optimized the $for performance
 - Improved $path compatibility
-- Added meta module url parameter support for './' relative paths
+- Added support for './' relative paths in the meta module url parameter
 
 
 ### WCEX 1.9.26
-- Fixed $if exception thrown by $sort
+- Fixed $if exceptions thrown by $sort
 
 ### WCEX 1.9.22
-- Added meta component refuses global style import
-- Added custom third-party AMD loader support
+- Added meta is the component's rejection of global style imports
+- Added support for custom third-party AMD loaders
 
 ### WCEX 1.9.15
 - Optimize the implementation of $id
-- Added TOC support for the marked UI library 
+- Added TOC support for Marked UI libraries 
 ### WCEX 1.9.14
-- Added support for multiple two-way bindings for $$
+- Add support for multiple bidirectional bindings for $$
 
 ### WCEX 1.9.5
-- Rely on the change collection reference React mechanism, and process changes within 20 milliseconds each time to avoid affecting interface drawing.
-- Added passive decoration for event binding
-- FIX SEVERAL MINOR BUGS
+- Rely on the React mechanism for change collection, and process changes within 20 milliseconds each time to avoid affecting the UI drawing.
+- Added passive modifier to event bindings
+- Fixed several minor bugs
 
 ### WCEX 1.8.104
-- Optimized path reference
+- Optimized path references
 - Optimized load time display
-- Fixed the multi-package reference path bug
+- Fixed the bug of multiple package reference paths
 
 ### 1.8.95
-- Added scope function $json
-- Optimized debug panel interface
-- Optimized $watch and change dependencies
-- FIX SOME MINOR BUGS
+- Added the scope function $json
+- Optimized the interface of the debugging panel
+- Optimize $watch and change dependencies
+- Fixed some minor bugs
 
 ### 1.8.79
-- New and improved @! Style binding syntax
+- Add and improve @! Style binding syntax
 
 ### 1.8.75 
-- Scope adds $slot variables to support direct access to slot internal data 
+- Added $slot variable to scope, which supports direct access to slot internal data 

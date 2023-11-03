@@ -1,4 +1,4 @@
 <!--DESC: {"icon":"explore"} -->
-! [img] (@/@wcex/doc/assets/logo.svg{width:16em; altezza:6em})
-# funziona
+! [img] (@/@wcex/doc/assets/logo.svg{larghezza:16em; altezza:6em})
+# Funzionante
 > Perfezionamento

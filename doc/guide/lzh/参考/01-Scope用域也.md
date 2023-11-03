@@ -12,7 +12,7 @@ Scope用域中包绑定模板脚本及事可径用数、所法。
 #### $rootElem
 指今 **WebComponent** 根元素, 类 HTMLElement 也。
 
-#### rootParentElem
+#### $rootParentElem
 指 **WebComponent** 根元素父元素,需注意者,如今组件根元素无父元素(若在别组件者一级标签,则于HTML中用parentElement,取为终null,而实parentNode指为shadowRoot)。 用rootParentElem将反实组件父组件,类也 HTMLElement 者。 用此捷者得父组件之数。
 
 
@@ -92,4 +92,4 @@ area为分区路由,默认为"default"
 
 #### $step
 分步骤动态变化属性直,常用动画效。
-> $step(... args:(any|[any,number]) []):any;
+> $step(... args:(any|[ any,number])[]):any;

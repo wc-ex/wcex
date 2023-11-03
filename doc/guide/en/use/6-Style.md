@@ -4,6 +4,6 @@
 
 # Components and WebComponents
 
-Components are the main feature of the WCEX implementation, and each component is a standard html file, but requires a unique **\<template\>** tag as the root tag.
+Components are the main feature of WCEX implementations, and each component is a standard html file, but requires a unique **\<template\> tag as the root tag.
 
 > Perfecting

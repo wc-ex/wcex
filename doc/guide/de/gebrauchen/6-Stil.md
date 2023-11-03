@@ -1,9 +1,9 @@
 <!--DESC: {icon:{name:"explore"},id:6} -->
 
-! [img] (@/@wcex/doc/assets/logo.svg{width:16em; height:6em})
+! [Bild] (@/@wcex/doc/assets/logo.svg{width:16em; Höhe:6em})
 
 # Komponenten und WebKomponenten
 
-Komponenten sind das Hauptmerkmal der WCEX-Implementierung, und jede Komponente ist eine Standard-HTML-Datei, erfordert jedoch ein eindeutiges **\<template\>**-Tag als Root-Tag.
+Komponenten sind das Hauptmerkmal von WCEX-Implementierungen, und jede Komponente ist eine Standard-HTML-Datei, erfordert jedoch ein eindeutiges **\<template\>-Tag als Stamm-Tag.
 
 > Perfektionierung

@@ -1,18 +1,18 @@
 <!--DESC: {icon:{name:"explore",pkg:"mdi",type:"filled"},id:1} -->
 
 # Bibliothèque d’icônes
-La bibliothèque d’icônes est chargée à l’aide du composant \<wcex-ui.icon\> ou vous pouvez utiliser directement la balise \<svg\>.
-- Cliquez sur l’icône pour copier l’étiquette de l’icône directement dans le presse-papiers
-- La première fois que la bibliothèque d’icônes est chargée est légèrement plus lente, s’il vous plaît soyez patient
+La bibliothèque d’icônes est chargée à l’aide du composant \<wcex-ui.icon\>, ou vous pouvez utiliser directement la balise \<svg\>.
+- Cliquez sur l’icône pour copier l’étiquette de l’icône directement dans le presse-papiers.
+- La première fois que la bibliothèque d’icônes est chargée, veuillez patienter
 
 
 
-<div style="position: sticky;top: 0;"><wcex-doc.com-icon_search ></wcex-doc.com-icon_search></div>
+<div style="position : sticky ;top : 0 ;"><wcex-doc.com-icon_search ></wcex-doc.com-icon_search></div>
 
-### material-design-icons
+### icônes-de-conception-matérielle
 <div><wcex-doc.com-icons pkg="@material-design-icons/svg » ></wcex-doc.com-icons></div>
 
-### sans @fontawesome
+### Sans @fontawesome
 <div><wcex-doc.com-icons pkg="@fortawesome/fontawesome-free/svgs » ></wcex-doc.com-icons></div>
 
 ### @svg-icônes
@@ -28,16 +28,16 @@ La bibliothèque d’icônes est chargée à l’aide du composant \<wcex-ui.ico
 ### icônes de drapeau
 <div><wcex-doc.com-icons pkg="flag-icons/flags » ></wcex-doc.com-icons></div>
 
-### icons-drapeaux-pays
+### icônes-drapeau-de-pays
 <div><wcex-doc.com-icons pkg="country-flag-icons/flags » ></wcex-doc.com-icons></div>
 
-### icônes-grommet
-<div><wcex-doc.com-icons pkg="grommet-icons » ></wcex-doc.com-icons></div>
+### Icônes à œillets
+<div><wcex-doc.com-icons pkg="oeil-oeil-acônes » ></wcex-doc.com-icons></div>
 
 ### @alaskaairux/icônes/icônes
 <div><wcex-doc.com-icons pkg="@alaskaairux/icons/dist/icons » ></wcex-doc.com-icons></div>
 
-### @siemens/ix-icons
+### icônes-@siemens/ix
 <div><wcex-doc.com-icons pkg="@siemens/ix-icons/dist » ></wcex-doc.com-icons></div>
 
 ### icônes de plumes
@@ -52,7 +52,7 @@ La bibliothèque d’icônes est chargée à l’aide du composant \<wcex-ui.ico
 ### @carbon/icônes
 <div><wcex-doc.com-icons pkg="@carbon/icons/svg » ></wcex-doc.com-icons></div>
 
-### @carbon/icons/32
+### @carbon/icônes/32
 <div><wcex-doc.com-icons pkg="@carbon/icons/svg/32 » ></wcex-doc.com-icons></div>
 
 ### unis-icons
@@ -76,19 +76,19 @@ La bibliothèque d’icônes est chargée à l’aide du composant \<wcex-ui.ico
 ### @vaadin/icônes
 <div><wcex-doc.com-icons pkg="@vaadin/icons/assets » ></wcex-doc.com-icons></div>
 
-### dls-icons
+### icônes dls
 <div><wcex-doc.com-icons pkg="dls-icons » ></wcex-doc.com-icons></div>
 
 ### @zendeskgarden/svg-icons
 <div><wcex-doc.com-icons pkg="@zendeskgarden/svg-icons/src » ></wcex-doc.com-icons></div>
 
-### vingt-trois icônes
+### vingt-trois-icônes
 <div><wcex-doc.com-icons pkg="twentythree-icons » ></wcex-doc.com-icons></div>
 
-### @phosphor-icons/noyau
+### @phosphor-icons/core
 <div><wcex-doc.com-icons pkg="@phosphor-icons/core/assets » ></wcex-doc.com-icons></div>
 
-### icônes ccy-
+### icônes ccy
 <div><wcex-doc.com-icons pkg="ccy-icons » ></wcex-doc.com-icons></div>
 
 ### @icon/icofont
@@ -100,7 +100,7 @@ La bibliothèque d’icônes est chargée à l’aide du composant \<wcex-ui.ico
 ### @weave-design/icônes
 <div><wcex-doc.com-icons pkg="@weave-design/icons/build/svg » ></wcex-doc.com-icons></div>
 
-### qweather-icons
+### icônes-qweather
 <div><wcex-doc.com-icons pkg="qweather-icons » ></wcex-doc.com-icons></div>
 
 ### ikonographe
@@ -112,16 +112,16 @@ La bibliothèque d’icônes est chargée à l’aide du composant \<wcex-ui.ico
 ### @rogdevil/crypto-icônes
 <div><wcex-doc.com-icons pkg="@rogdevil/crypto-icons/lib » ></wcex-doc.com-icons></div>
 
-### @momentum-ui/icons-rebranding
+### @momentum-ui/icons-rebrand
 <div><wcex-doc.com-icons pkg="@momentum-ui/icons-rebrand » ></wcex-doc.com-icons></div>
 
-### icônes-niniennes
+### Icônes de ninian
 <div><wcex-doc.com-icons pkg="ninian-icons/src » ></wcex-doc.com-icons></div>
 
 ### iconoir
 <div><wcex-doc.com-icons pkg="iconoir » ></wcex-doc.com-icons></div>
 
-### @navikt/ds-icons
+### icônes-@navikt/ds
 <div><wcex-doc.com-icons pkg="@navikt/ds-icons » ></wcex-doc.com-icons></div>
 
 ### @ad_platform/icônes
@@ -133,11 +133,11 @@ La bibliothèque d’icônes est chargée à l’aide du composant \<wcex-ui.ico
 ### @brightlayer-ui/icons-svg
 <div><wcex-doc.com-icons pkg="@brightlayer-ui/icons-svg/. » ></wcex-doc.com-icons></div>
 
-### @hashicorp/flight-icons
+### @hashicorp/icônes de vol
 <div><wcex-doc.com-icons pkg="@hashicorp/flight-icons » ></wcex-doc.com-icons></div>
 
 
-### @hashicorp/flight-icons
+### @hashicorp/icônes de vol
 <div><wcex-doc.com-icons pkg="@hashicorp/flight-icons » ></wcex-doc.com-icons></div>
 
 
@@ -152,5 +152,5 @@ La bibliothèque d’icônes est chargée à l’aide du composant \<wcex-ui.ico
 ### @n8d/htwoo-icons/fluent-ui-regular/
 <div><wcex-doc.com-icons pkg="@n8d/htwoo-icons/fluent-ui-regular » ></wcex-doc.com-icons></div>
 
-### Autres bibliothèques d’icônes, à ajouter
+### D’autres bibliothèques d’icônes, à ajouter
 

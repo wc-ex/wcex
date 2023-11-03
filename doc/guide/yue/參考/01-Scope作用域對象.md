@@ -12,7 +12,7 @@ Scope作用域中包含喺绑定糢闆腳本同事件中可以直接使用嘅數
 #### $rootElem
 指向當前**WebComponent**根元素，類型為 HTMLElement對象。
 
-#### rootParentElem
+#### $rootParentElem
 指向當前**WebComponent**根元素的父元素，需注意的是，如果當前組件根元素無父元素（如位於另一個組件的中的一級標籤，則在HTML中使用parentElement，獲取為結果null，但實際其parentNode指向為shadowRoot），此時使用rootParentElem將返回實際的當前組件的父組件，類型為 HTMLElement對象。 使用此對象將能夠便捷嘅獲取到父組件嘅數據同方法。
 
 
@@ -92,4 +92,4 @@ area為分區路由，默認為“default”
 
 #### $step
 分步驟動態變化屬性值，常用於動畫效果。
-> $step(... args:(any|[any,number]) []):any;
+> $step(... args:(any|[ any,number])[]):any;

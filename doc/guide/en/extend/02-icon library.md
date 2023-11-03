@@ -1,9 +1,9 @@
 <!--DESC: {icon:{name:"explore",pkg:"mdi",type:"filled"},id:1} -->
 
-# Icon library
-The icon library is loaded using the \<wcex-ui.icon\> component, or you can directly use the \<svg\> tag.
+# Icon Library
+The icon library is loaded using the \<wcex-ui.icon\> component, or you can use the \<svg\> tag directly.
 - Click on the icon to copy the icon label directly to the clipboard
-- The first time the icon library is loaded is slightly slower, please be patient
+- The first time the icon library is loaded, please be patient
 
 
 

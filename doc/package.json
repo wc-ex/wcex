@@ -1,6 +1,6 @@
 {
   "name": "@wcex/doc",
-  "version": "1.0.91",
+  "version": "1.0.93",
   "description": "documents for wcex",
   "main": "index.html",
   "scripts": {
@@ -12,8 +12,15 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@wcex/ui": "1.1.7",
     "dayjs": "^1.11.7",
+    "lodash.debounce": "^4.0.8",
+    "lodash.throttle": "^4.1.1",
     "monaco-editor": "^0.36.1",
     "wcex": "^1.9.36"
+  },
+  "devDependencies": {
+    "@types/lodash.debounce": "^4.0.8",
+    "@types/lodash.throttle": "^4.1.8"
   }
 }

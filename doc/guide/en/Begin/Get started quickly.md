@@ -2,11 +2,11 @@
 
 ## Get started quickly
 
-Let's quickly start a simple project and then refine it step by step. Okay, now create a new directory on disk.
+Let's quickly start with a simplest project and refine it step by step. Okay, now create a new directory on the disk.
 
-### Main entry: index.html
+### Main entrance: index.html
 
-First, write an entry file, which we generally call _index.html_ :
+First, write an entry file, which we usually call _index.html_:
 
 ```html
 <!DOCTYPE html>
@@ -38,21 +38,21 @@ First, write an entry file, which we generally call _index.html_ :
 </html>
 ```
 
-Compared to normal HTML, we only need three simple steps:
+Compared to normal HTML, we only need to do three simple steps:
 
-1. Add **npm** \<meta\> tag definition to the project to let WCEX know where to find the required third-party packages, here jsdelivr is used, you can use any CDN you like, or install NPM to your local path.
+1. Add the **npm** \<meta\> tag definition to the project so that WCEX knows where to find the third-party packages you need, in this case jsdelivr, you can use any CDN you like, or install NPM to your local path.
 
 ```html
 <meta name="npm" content="https://cdn.jsdelivr.net/npm/" />
 ```
 
-2. With your first component, we usually name it **app**, however, here its label name is \<app-\>, the reason for this is that due to the requirements of the Web Component standard specification, all custom components require at least one '-' character, so we need to append a '-' at the end.
+2. Use your first component, which we usually name **app**, but here it is labeled \<app-\>, because the Web Component standard specification requires all custom components to have at least one '-' character, so we need to append a '-' at the end.
 
 ```html
 <app-></app->
 ```
 
-3. Finally, we need to introduce the WCEX package, here directly through the public cdn, and import the latest version. WCEX is very small, without any third-party dependencies, loading is very fast, generally put this line in the last element of the \<head\> tag, the reason for this is that wcex initialization requires some predefined information, such as the NPM repository address described in the first article, of course, there are some other configurations, which we will see later. Another point is that you can optimize the initial initialization white screen of HTML.
+3. Finally, we need to import the WCEX package, here directly through the public cdn, and import the latest version. WCEX is very small, doesn't have any third-party dependencies, loads very quickly, and usually puts this line in the last element of the \<head\> tag, because wcex needs some predefined information when initializing, such as the address of the NPM repository described in the first article, and of course, there are some other configurations, which we will see later. Another point is that it is possible to optimize the initial initialization of the HTML white screen.
 
 ```html
 <script src="https://cdn.jsdelivr.net/npm/wcex@1.8.104/index.js"></script>
@@ -62,7 +62,7 @@ Compared to normal HTML, we only need three simple steps:
 
 In the previous section we saw that the first Web Component we defined was loaded in index.html, now let's create it, which is a classic Hello World.
 
-- Create a new file in this directory, named **app.html which reads as follows:
+- Create a new file in this directory called **app.html** with the following content:
 
 ```html
 <template>
@@ -70,46 +70,46 @@ In the previous section we saw that the first Web Component we defined was loade
 </template>
 ```
 
-As you can see, this is a normal HTML file, and its only requirement is that it must use \<template\> as the root tag.
+As you can see, this is a normal HTML file, and the only requirement is that it must have \<template\> as the root tag.
 
-> For knowledge about _template_, you can refer to: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template, This is the standard W3C specification, WCEX uses the standardized native Web Component specification to implement, and many technical points may be used in the future, all of which belong to the standard specification. So you can take a look at the specifications in advance, most of which can be found here: https://developer.mozilla.org/en-US/docs/Web/Web_Components
+> For more information about the template, you can refer to: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template, This is a standard W3C specification, WCEX uses a standardized native Web Component specification to implement, and many technical points may be used in the future, all of which belong to the standard specification. So you can take a look at the relevant specifications in advance, and most of them can be found here: https://developer.mozilla.org/en-US/docs/Web/Web_Components
 
-Okay, now that everything we need is done, let's actually get up and running.
+Okay, now that we've got everything we need done, let's get it up and running.
 
-### Open in a browser
+### Open in your browser
 
-As we covered in the previous chapter, one of the main things WCEX does is dynamic loading, which we hate for complex packaging and environment configuration. So the next thing is simple. You have many ways. You can get it running. Just put the above two files into any static WEB or even Github or NPM. These methods are described below:
+As we mentioned in the previous chapter, one of the main things WCEX does is that it is loaded dynamically, and we hate complicated packaging, environment configurations. So the rest is simple. You have many ways. You can get it up and running. Just put the above two files in any static WEB, even Github or NPM. Here's how to do it:
 
 #### Start the local HTTP service
 
-- The easiest way is to install a fast HTTP server tool with npm
+- The easiest way to do this is to install a fast HTTP server tool with npm
 
 ```shell
 npm install -g http-server
 ```
 
-- Then start in the directory just now, on the command line, go to your directory, and run the following command.
+- Then start in the directory you just wanted, and on the command line, go to your directory and run the following command.
 
 ```shell
 http-server
 ```
 
-- You can see that your HTTP server has been started on port 8080, now open a browser and type in the address bar:
+- You can see that your HTTP server is already up on port 8080, now open your browser and type in the address bar:
 
 ```
 http://localhost:8080
 ```
 
-Now you can see Hello World, of course, you can use any kind of HTTP server you like, nginx, lighttpd....
+Now you can see **Hello World**, of course, you can use any HTTP server you like, nginx, lighttpd...
 
-> Okay, next. You can open your browser's debugging window. Looking at your component in the DOM, this is the internal structure of a standardized Web component. Here you may be able to see the second main feature of WCEX: **Intuitive**. Due to the abandonment of VDOM and the template engine, the native implementation and the standardized implementation, you will find that the DOM structure you see in the debug window is basically the same as the structure in the template, which is very conducive to us to observe and debug problems, through the debug window, you can do almost everything you want, observe data changes, send events, change data, and so on. In order to achieve this goal as much as possible. WCEX implementation also did a lot of details, such as in WCEX's **if** and **for** structure, the implemented DOM is siblical, rather than adding another layer of wrapper elements, which is very conducive to our consistency and **intuitive** of CSS and data structure access elements.
+> Okay, next. You can open your browser's debugging window. Take a look at your component in the DOM, which is the internals of a standardized Web Component. Here you may be able to see the second major feature of WCEX: Intuitive. By abandoning the VDOM and the template engine, using the native implementation and following a standardized implementation, you will find that the DOM structure you see in the debug window is basically the same as the structure in the template, which is very beneficial for us to observe and debug problems, and through the debug window, you can do almost everything you want, watch the data change, send events, change the data, and so on. In order to achieve this goal as much as possible. There are also many details in the WCEX implementation, such as the implementation of the DOM in the **if** and **for** structure of WCEX, instead of adding another layer of wrapper elements, which is very conducive to the consistency and **intuitiveness** of the elements accessed by CSS and data structures.
 
-#### Direct preview via web
+#### Preview directly over the web
 
-If you submit the above files to **github** or publish the package through npm, you can access it directly through the CDN, and we have made a widget to help you preview directly, this tool uses **jsdelivr** as the CDN.
-For specific access formats and descriptions, see https://www.jsdelivr.com/
+If you submit the above files to github or publish the package via npm, you can access it directly through the CDN, and we have made a widget to help you preview it directly, this tool uses jsdelivr as the CDN.
+For more information about the access format and description, please refer to: https://www.jsdelivr.com/
 
-- NPM access, please replace your own package name.
+- For NPM access, please replace your own package name.
 
 ```
 https://wc-ex.com/go?npm/@wcex/example-basic/index.html
@@ -118,39 +118,39 @@ https://wc-ex.com/go?npm/[YOUT PACKAGE NAME][@VERSION]/index.html
 
 ```
 
-- For GitHub access, please replace your own repository name and path
+- GitHub access, please replace your repository name and path
 
 ```
 https://wc-ex.com/go?gh/wc-ex/wcex/example/basic/index.html
 https://wc-ex.com/go?gh/[YOU REPOS]@[COMMIT ID]/[YOU DIR]/index.html
 ```
 
-> Of course, in addition to the above methods, we have also made a CLI toolkit. Very small, also only tens of K in size, does not rely on webpack, rollup and other complex packaging tools. It can help us do more work, such as hot update compilation and release, etc. Another important point is to support TypeScript. You can install **@wcex/CLI** via npm, the details of which will be covered in later sections.
+> Of course, in addition to the above methods, we have also made a CLI toolkit. It's very small, and it's only a few tens of kilobytes in size, and it doesn't rely on complex packaging tools like webpack and rollups. It can help us do more work, such as hot updates, compilation, release, etc. Another important point is to support TypeScript. You can install **@wcex/cli** via npm, the details will be explained in the following chapters.
 
 ### Try it now
-- This is a practice hall that you can modify directly in the editor to see the effect in real time.
-- There are two small buttons in the upper right corner, __reload__ can refresh the display interface, and the other __reset__ can restore the content to its original state
+- This is a drill ground that you can modify directly in the editor to see the effect in real time.
+- There are two small buttons in the upper right corner, __reload__ to refresh the display, and __reset__ to restore the content to its original state
 
 <div>
 <wcex-doc.com-playground files="['first/index.html','first/app.html','first/com/time.html']"></wcex-doc.com-playground>
 </div>
 
-- In this initialization project, we have three files, the _index.html_ main entry, and two components
-- You can see the rules for component reference and naming, and how data binding is handled
-> Naming of components: With the main html as the root node and *"-"* as the directory separator, the component name can use the small hump rule, such as "helloWorld", such a component name will be "hello_world", due to the HTML specification requirements, if the final name does not contain the "-" character, then add a "-" character at the end. The current package internal referencing component can not add the package name, if you need to reference the external package, you need to use the "." character to separate the package name and the component name.  
-- Get acquainted with it first, you can try to experiment with the task.
+- In this initialization project, we have three files, the _index.html_ main portal, and two components
+- You can see the rules for component referencing and naming, as well as how data binding is handled
+> Component naming: With the main html as the root node and *"-"* as the directory splitter, the component name can use a small hump rule, such as "helloWorld", such a component name will be "hello_world", due to the HTML specification requirements, if the final name does not contain the "-" character, you need to add a "-" character at the end. If you want to reference an external package, you need to use the "." character to split the package name and component name.  
+- Let's familiarize yourself with it first, and you can try to experiment with a task.
   - Add the name attribute for _\<app\>_ in _index.html_ 
-  - Change $_ value binding to _:_ string template binding in _com/time.html_ 
-  - Adjust the interval of _@time_ to 2 seconds in _com/time.html_ 
-  - The main syntax used: _"$$"_ is a two-way binding, _"$"_ is a compute binding, _":"_ is a template string binding, _'@'_ is an event binding
-  - The syntax in CSS is slightly changed, variable binding needs to be surrounded by _"_ or _'_, and the first character _$_ or _:_ represents the binding method, which is consistent with the above rules
-- When changing _com/time.html_, you can see that the update of the component code is local and does not affect the current state in the _app.html_ component, which is the same as the implementation mechanism of our client tool _@wcex/cli_, which we call **local hot update**, which will be very useful when we debug and develop.
-- Finally, open your debugging window and observe the document structure, you will find the consistency of the DOM structure and template source files, which is another feature of _WCEX_: *Intuitive*
+  - Change the _$_ value binding to _:_ string template binding in _com/time.html 
+  - Adjust the time interval for _@time_ to every 2 seconds in the com/time.html 
+  - The main syntax used: _"$$"_ is a two-way binding, _"$"_ is a calculation binding, _":"_ is a template string binding, and _'@'_ is an event binding
+  - The syntax in CSS has changed slightly, variable bindings need to be surrounded by _"_ or _'_, and the first character _$_ or _:_ represents the binding method, which is the same as the above rules
+- When changing _com/time.html_, you can see that the update of the component code is partial and does not affect the current state in the _app.html_ component, which is the same as the implementation mechanism of our client-side tool _@wcex/cli_, which we call **local hot update**, which can be very useful when we are debugging and developing.
+- Finally, open your debug window and look at the structure of the document, and you'll see that the DOM structure is consistent with the template source file, which is another feature of WCEX: *Intuitive*
 
 
-### Next extension
+### Next Extension
 
-Quite simply, in the next chapter, we'll try to add more features to it, for example. Add custom properties to add data binding. Handle events, and add more components.
+Quite simply, in the next chapter, we'll try to add more features to it, for example. Add custom properties to add data bindings. Handle events, and add more components.
 and the processing of scripts.
-- Don't forget, in the upper right corner you can choose your favorite color.
+- Don't forget, you can choose your favorite color in the top right corner.
 

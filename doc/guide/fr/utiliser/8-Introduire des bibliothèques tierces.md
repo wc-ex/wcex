@@ -1,9 +1,9 @@
 <!--DESC: {icon:{name:"explore"},id:8} -->
 
-! [img] (@/@wcex/doc/assets/logo.svg{width:16em; hauteur:6em})
+! [img] (@/@wcex/doc/assets/logo.svg{largeur :16em ; hauteur :6em})
 
 # Composants et WebComponents
 
-Les composants sont la principale caractéristique de l’implémentation WCEX, et chaque composant est un fichier html standard, mais nécessite une balise **\<template\>** unique comme balise racine.
+Les composants sont la principale caractéristique des implémentations WCEX, et chaque composant est un fichier HTML standard, mais nécessite une balise unique **\<template\> comme balise racine.
 
 > Perfectionnement
