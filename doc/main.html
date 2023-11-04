@@ -1,8 +1,8 @@
 <!--!!
 内容主入口，实现了左侧菜单和右侧内容的布局
 -->
-<template>
-  <meta name="scope" drawer.bool="true" cur-page.object="{}" />
+<template   @timer.500="ccc++">
+  <meta name="scope" drawer.bool="true" cur-page.object="{}" ccc.int="1" />
   <style>
     :host {
       display: flex;
@@ -39,8 +39,8 @@
   <title- $$drawer="$root.drawer" style="z-index: 99" class="dev-outline"></title->
 
   <!-- 主窗口 -->
-  <div class="main">
-    <!-- 菜单 -->
+  <div class="main" $show1="0">
+  <!-- 菜单 -->
     <div class="left shadow scroll">
       <nav- $min="!drawer" $lang="$root.lang"></nav->
     </div>

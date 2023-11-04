@@ -19,6 +19,7 @@ export default class extends Scope {
         return html;
       },
     });
+    
     marked.use({
       renderer: {
         html(html) {
