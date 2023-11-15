@@ -6,216 +6,126 @@
   <a href="https://www.npmjs.com/package/wcex"><img src="https://img.shields.io/bundlephobia/minzip/wcex.svg?sanitize=true" alt="minsize"></a>
   <a href="https://www.npmjs.com/package/@wcex/cli"><img src="https://img.shields.io/npm/v/@wcex/cli?label=%40wcex%2Fcli" alt="Version"></a>
 </p>
-<p align="center">  
-  <a href="https://wc-ex.com" >文档</a>
-  <a href="https://wc-ex.com" >Document</a>
+<p align="center" id="doc">
+  Documents:
+  <a href="https://wc-ex.com?pkg=@wcex/doc&lang=cn">中文简体</a>
+  <a href="https://wc-ex.com?pkg=@wcex/doc&lang=en">English</a>
 </p>
 
-### WCEX - Web Components Extensions (原生Web组件扩展库)
+# Welcome to the World of Web Components
 
-> Dynamic Native WebComponent MVVM Library, Free and MIT license. This repos includes Usage, Doc, Ui, Not include Sources, opensource will be later.
+WCEX is an extension library that quickly implements Web Components for fast and efficient development of web front-end pages
 
-> 动态原生WEB组件数据绑定库，免费使用（MIT）。这个仓库包括：使用说明，文档，样例，UI库，但不包含源码，开源将在晚些时候。
-- 示例DEMO:
-> - (Github)
-> https://wc-ex.com/go?gh/wc-ex/wcex@5ece6a6/example/basic/index.html
-> - (NPM-国内)
-> https://wc-ex.com/go?npm/@wcex/example-basic@1.0.16/index.html
+- **Modern Framework**: WCEX also implements many of the features of modern web front-end frameworks, such as data binding, dependency updates, routing, development hot loading, and more.
+- **UNIQUE FEATURES**: WCEX also has a number of unique features, such as style dynamic binding, no packaging, automated color matching, etc
+- **TypeScript**: WCEX fully supports Typescript and is developed entirely in TypeScript
+- **Intuitive Semantics**: WCEX fully implements modern syntax including "if", "for", "$ data binding", "event binding", etc., borrows from *VUE*, and has been simplified and optimized, so you can get started quickly
+- **Real DOM**: Fast and intuitive
+- The word **WCEX** is a bit difficult to pronounce, so let's simplify it and read it as **(/wɛks/)**.
+- ... Refer to the following sections to continue to learn
 
-### Introduction(简介)
+## HTML First
+We want to make it as easy and intuitive to write and use components as a traditional HTML page, so we have designed and implemented a number of features, including component scope, component internal data, component internal styles, element local scope, etc., so you can see that WCEX components are developed and used just like writing traditional HTML. We recommend that you use an HTML implementation of the logic first when developing your own components, or inline JavaScript or external Typescript depending on the complexity, and that the above can be mixed.
+## Simple
 
-> The primary goal of WCEX is to componentized development, dynamic loading, in order to solve problems such as continuous iteration, multi-person and multi-team collaborative development, version release, and launch in the face of (OFFLINE-INTERNET) complex businesses and products.
+The design concept of WCEX is "**simple**", "**concise**", and "**simplified**", simplifying all aspects of product development, including development, debugging, testing, release, etc., as well as subsequent version upgrades and iterations.
 
-> 本项目主要目标为实现: "完全组件化的WEB开发", "动态加载和依赖加载", 尝试为持续演进开发、多人和多团队开发、版本发布以及为复杂的离线运行产品提供支持。
+The idea of providing users with an efficient and intuitive experience is also reflected in the various features and usage methods of WCEX.
 
-> Another that each component and library is released dynamically, realizes online assembly and developing, and supports online development and collaboration.
+As a result, WCEX has done a lot of work to simplify development and deployment, moving away from the tedious packaging, publishing, and splitting and chopping, to automating the entire process by handling auto-dependencies and lazy loading at runtime, making the development and deployment of a project as easy as a link to an HTML page. At the same time, the technology of "time-to-load" is widely used in all aspects of WCEX applications, including "components", "Javascript", "third-party libraries", "CSS", "icons", "SVG", etc., and greatly improves the speed of the application through internal caching and preprocessing.
 
-> 另外的目标为项目中的每个部分可以进行动态的发布、在线组装、以及动态开发的支持，并支持在线开发。
+### Fully componentized
 
+Thanks to WCEX's complete implementation of native WebComponents, every page, template, and component in our system is a standardized WebComponent, and not only that, but we have also extended the native WebComponent in the implementation, implementing many new features that can greatly help the implementation of WebComponent. Here are a few interesting features:
 
-> Different from other , our focus is quickly, includes: **No Packaging**, **Dynamic Dependencies** ,**Lazy Loading** ..., All componentization methods are implemented by standard WebComponent technology, and **Data model-driven** is implemented at the same time.
+#### Dynamic tag parsing and loading
 
-> 和其他框架不一样的是，我们聚焦在 “快速实现”, 包括 无打包、动态依赖、懒加载等, 所有组件的实现为标准的WebComponent, 并同时支持现代框架的 “数据模型驱动”。
+When using custom tags, you only need to use tags, no need to download dependencies and introduce JS in advance, WCEX will automatically recognize tags and automatically load relevant files on demand, this feature allows us to achieve "time-to-load", and the tags that are not used in the page will not be read and loaded and affect the page startup speed. Here's a simple example of a feature component in the project shown in this document, which you can easily find, with the following reference code:
+- _/doc/doc.html_
+- Implement markdown document previews
+```html
+<template url="">
+  <style>
+    :host {
+      display: flex;
+      flex-direction: column;
+    }
+    .title{
+      padding: 0.5em;
+      background-color: "$$color.bgr.a9_";
+    }
+  </style>
+  <div class="title" $>url</div>
+  <wcex-ui.marked 
+    style="padding: 1em;" 
+    $src="($root.url)?$path('guide/cn/'+$root.url):''"
+    >
+  </wcex-ui.marked>
+</template>
+```
 
-> It is very similar to "Vue", and in fact, many Vue syntax and patterns are used and borrowed in the implementation, which can be quickly started.
+> you can see that _\<wcex-ui.marked\>_ is a UI library component we are referencing, and when using the component, wcex will automatically go to the npm repository to get the component and its related dependencies, and load it on demand. You don't need to install packages to use this component, and you don't need to install third-party libraries that markdown depends on (marked and highlight are used here), and these associated libraries are automatically loaded and run from npm on demand. Of course, there is also a very simple way to get WCEX to load dependencies from a local related directory. As for the other syntax, it will be talked about in the following chapters, which is very concise, isn't it, so that a custom label WebComponent with a label named _\<doc-\>_ is implemented, which can be referenced directly on the page, or directly referenced through our routing component, and you can see it by observing the URL bar of the browser.
 
-> 使用上非常相似 "Vue", 实际上在实现中沿用和借鉴了许多Vue语法和模式，可快速上手。
-
-### Features(特性)
-The following are main features:
-以下为已实现的部分特性:
-
-- **REAL DOM** (原生真实DOM)
-  > Modern browser performance and optimizations are nearly powerful, we tested actual DOM performance, and when properly designed, it can fully meet the needs of the project, and can provide better performance and operability. Therefore, we decided to abandon VDOM and implement it entirely with native DOM, and combined with technologies such as template preloading, merge update, and dynamic change dependencies to finally implement the entire framework.
-
-  >  现代浏览器性能和优化已近很强大了，我们测试过实际的 DOM 性能，在恰当的设计后完全可以满足项目需求，并且能够提供更优秀的性能和可操作性。 因此，我们决定抛弃 VDOM，完全以原生 DOM 实现，并结合了模板预加载、合并更新、动态变更依赖等技术，来最终实现整个框架。
-
-- **Minimum size independent** (最小尺寸无三方依赖)
-  > In order to optimize the size and improve performance, this framework does not rely on any third-party components. Currently, the complete function library including dynamic loading and other functions is about 60K in size, and about 20K after gzip compression.
-
-  > 为优化大小和提升性能，本框架不依赖任何第三方组件，目前包括动态加载等完整功能库大小约为 70K，gzip 压缩后 30K 左右。
-
-- _Typescript support_ (Typescript支持)
-
-- _Dynamic loading and dependency loading_(_动态加载和依赖加载_):
-  > Full dynamic and dependency loading supported* components * ,_Third-party library_,JS,CSS; Each component can define its own dependencies. When the page uses this component, the relevant dependencies are automatically loaded, and repeated loading can be avoided.
-
-  > 全动态和依赖加载可支持 _组件_,_第三方库_,JS,CSS; 每个组件均可定义自身依赖项，当页面使用到此组件时自动加载相关依赖，并能避免重复多次加载。
-
-- _MVVM view and data dependency changes_ ( _响应式和依赖变更_):
-  > Simplified data view model, similar to VUE
-
-  > 简化的数据视图模型，类似 VUE
-
-- _Enhanced style data binding_ ( _增强的样式数据绑定_):
-  > Direct data binding to any CSS style
-
-  > 可直接数据绑定到任意 CSS style
-- _Development mode hot update_ (_开发模式热更新_)
-- _Automatic color matching management_(_自动配色管理_)
-- _template dynamic loading and caching_ (_模板动态加载和缓存_)
-- _routing_( _路由_)
-- _Animation support_(_动画的支持_)
-- ...
-
-### Links
- - [wcex library](https://www.npmjs.com/package/wcex) npm library      
- - [wcex cli](https://www.npmjs.com/package/wcex) dev tools for WCEX  [Readme](./cli/README.md)
- - [wcex ui](https://www.npmjs.com/package/wcex) ui library for WCEX [Readme](./ui/README.md)
- - [wcex document](https://www.npmjs.com/package/wcex) document for WCEX [Readme](./doc/README.md)
-
-### Usage (使用):
-
-#### **Regression and Intuitive (回归和直观)**
-  > In the past, front-end development was very intuitive, writing HTML, adjusting JS, and changing CSS...
-  > Now we have to toss a lot of packaging, environments, segmentation, frameworks..., and the energy that should be focused on aesthetics and design has been largely placed on code and environment.
-  > Therefore, we expect to return to the original, let's try it.
-
-  > 曾经的年代，前端开发很直观，写写 HTML，调调 JS，再改点 CSS...
-  > 现在却要折腾许多打包、环境、分段、框架...，本该集中在美观和设计的精力却大量放在了代码和环境。
-  > 因此，我们期望能回归原始，开始尝试吧。
-
-#### **Quickly Start (快速上手)**
-  - Create project (创建项目):
-    > Just a normal NPM project, create a directory, run _npm init_
-
-    > 就是一个普通的NPM工程，创建一个目录，运行 _npm init_
-
-  - Create main entry (创建主入口): "_index.html_"
-    > Of course, you can give it any name, which is a standard HTML
-
-    > 当然，你可以起任意名字，这就是一个标准的HTML
-    ```html
-    <!DOCTYPE html>
-    <html>
-      <head>
-        <meta name="npm" content="https://cdn.jsdelivr.net/npm/" />
-      </head>
-      <script src="https://cdn.jsdelivr.net/npm/wcex/index.js"></script>
-      <body>
-        <main-></main->
-      </body>
-    </html>
-    ```
-
-    - here*\<meta name="npm"\>* Represents the location of the npm package repository, the location of the required third-party packages and components, here we use the standard CDN.
-    - \_\<main-\>\</main-\>\_The tag indicates that this is our component, and due to the requirements of the WebComponent specification, custom components must contain**"-"** This tag represents that main.html in the current directory will be loaded as a component.
-    
-    - 这里的 _\<meta name="npm"\>_ 代表 npm 软件包仓库位置，所需要的第三方包和组件的位置，这里我们使用标准 CDN
-    - _\<main-\>\</main-\>_ 标签代表这是一个我们的组件，由于 WebComponent 规范的要求, 自定义组件必须包含 **"-"**
-      这个标签代表将要加载当前目录下的 main.html 作为组件。
-
-   - First Component(第一个组件):
-     > Create a new file in the root directory and name it "main.html"
-
-     > 在根目录下新建一个文件，命名为 "main.html" 
-        ```html
-        <template @timer.1000="counter++">
-        <meta name="scope" counter.number="0" />
-        <style>
-            :host {
-            display: block;
-            border: ":${counter%10}px solid red ";
-            }
-            button {
-            background-color: rgb("$counter*20%255", "$counter*50%255", 0);
-            }
-        </style>
-        <h3>Main Content</h3>
-        <h3 $>counter</h3>
-        <h5 :>This is a Counter: ${counter}</h5>
-        <button @click="data.a++">click data</button>
-        <h3 $>data</h3>
-        <button @click="onClick($ev)">click data</button>
-        <h3 $if="counter%2">Hello World</h3>
-        <script scope=".">
-            return class {
-                data = { a: 1, b: 2 };
-                onClick() {
-                alert("CLICK ME");
-                }
-            };
-        </script>
-        </template>
-        ```
-        > - _`<template @timer.2000="counter++" >`_
-        > Component standard entry label, all components are this entry. @timer represents the current component event, you can bind any DOM event or component standard event(timer, ready,click ...) 
-
-        > 组件标准入口标签，所有组件均为此入口。@timer 代表当前组件事件,可以绑定任意的 DOM 事件或者组件标准事件(timer,ready,click ...) - \
-
-        > - _`<meta name="scope" />`_
-
-        > 当前组件作用域,你可以理解为 Vue 的组件域，其中定义的变量可以直接通过数据绑定使用。
-
-        > - _`html <h3 $>counter</h3>`_ 
-        > _`<h5 :>This is a Counter: ${counter}</h5>`_
-        > this is data binding, where "\$" represents value binding, which means that the content is directly executed as a _js_ evaluation statement, and the result is passed to the binding element. Currently a single "\$" represents the text content bound to the element. The other is the ":" content binding, in fact, the ":" binding content is executed as an ES6 template string, which is easy to understand.
-
-        > 这个就是数据绑定了, 其中 "\$" 代表值绑定, 代表直接执行内容作为*js*求值语句,并把结果传递给绑定元素。当前单独的 "\$" 代表绑定到元素的文本内容。
-        另外就是 ":" 内容绑定，其实就是 ":" 绑定内容作为 ES6 的模板字符串执行，这个很容易理解。
-
-        > - _`<button @click="data.a++">click data</button>`_ 
-        > This line uses "@" event binding, which is basically the same as in Vue. It can bind all native events and custom events, and can directly write execution statements(JS) or use methods defined in scope.
-
-        > 这一行使用了 "@" 事件绑定, 和 vue 中基本一致，可以绑定所有原生事件和自定义事件，可以直接写执行语句(JS)或者使用 scope 中定义的方法。
-
-        > - _`<script scope=".">`_
-        > Use js to import the scope, scope='.' means to import the root scope, you can customize the scope variable. js references use the standard AMD dynamic loading format. use_ script _ Defined scope variables and usage_ meta name=scope \_ Can be mixed or used alone.
-
-        > 使用 js 导入作用域, scope='.' 代表引入根作用域，可自定作用域变量。js 引用使用标准 AMD 动态加载格式。
-        > 使用 _script_ 定义的作用域变量和使用 _meta name=scope_ 可以混用，也可单独使用。
+#### Extended WebComponent property
+In the above example, you can see that the root tag of this component is _\<template url=""\>_, and in WCEX, all web components are encapsulated in _\<template\>_, along with an external attribute named _url_, which can be used as an external parameter when used, just like a normal HTML element tag. This parameter can also be easily referenced directly within the component.
 
 
-        > - _`border: ":${conter%10}px solid red";`_
-        > You can see that data binding can be used directly in the style, and the format requires the use of " or ' Include, the first character in quotation marks indicates whether to use \$ or \: quotation, the format is the same as above.
+#### Enhanced data binding and dependency changes as well as local data
+Data can be defined and used in many ways within a component, and can be flexibly defined and set up in various parts of a component: property areas, local scopes, elements, embedded scripts, external scripts, external JSON, third-party libraries, etc., so that they can be defined and used where most appropriate according to business logic
+> data is used to control and manipulate the interface, so the data should appear in the closest place to the business logic elements, so that you can intuitively find the objects you need, and easily refer to and modify them, without having to open another file to find data and definitions, which is also very conducive to component refactoring. Component refactoring is a very common thing in the daily business development process, in the process of continuous iteration, it is inevitable that sub-components need to be split with the increase of functions, and at this time, it is easy to use local data to create new components by copying and pasting.
 
-        > 可以看到,数据绑定可直接使用在 style 中, 格式要求使用 " 或者 ' , 引号内第一个字符代表使用 \$ 还是 \:引用, 格式同上.
+### Dynamic references
+We want all reference libraries, CSS, components, and other data to be dynamic and can be referenced directly from the static CDN. In this way, you can avoid some complicated processes such as installing packages, upgrading versions, etc. The advantage of this is that WCEX components and projects can be easily placed anywhere, such as npm, github, or any static web server. As you can see now, this documentation framework is completely developed using WCEX, and I just need to submit it to Github without the need for additional packaging and release processes. to see the results in real time. Any component package only needs to be submitted to npm, and other projects can be directly referenced. Even the third-party libraries you need are referenced directly from the npm source, so you don't need to install them separately.
 
-    - Run(运行):
-     > Mount the home directory using any HTTP server, such as _http-server_ (npm install -g http-server), open the browser to see the effect.
+> We all know that. The world of JavaScript and the web front-end is complex, and we've done a lot of compatibility work to do that. WCEX now has direct references to CommonJs, Amd, Umd, Es6 modules, css, component HTML, svg, fonts, and icon libraries directly in projects without the need for localized installations. Even when using Typescript, WCEX is able to correctly handle and recognize TS imports and convert them to dynamic dependencies. These dependencies are lazy loaded. and the ability to properly handle associated multi-level dependencies. This makes it easy for us to run projects submitted to npm directly and statically through the CDN without having to do any more work. At the same time, versioning support also makes upgrading easy.
 
-     > 使用任何一个http服务器挂载主目录，如: _http-server_ (npm install -g http-server), 打开浏览器即可看到效果。
-- Online(在线)
-  - You can direct run your package from NPM or Github.
-  - 你可直接通过发布的NPM仓库包或者github运行你的软件包
-  > npm: (https://wc-ex.com/go?npm/@wcex/example-basic/index.html)
+### Time to load and dependency runs
+The dynamic nature of WCEX is reflected in many ways, not only at load time, but also at runtime. Minimized DOM merge changes make the run extremely responsive, and along with the dynamic loading feature, only the minimized necessary content is loaded at runtime, including JS, CSS, icon fonts, and other components. Of course, we can also manually configure certain components or scripts to preload them in advance.
 
-  > github: (https://wc-ex.com/go?gh/wc-ex/wcex/example/basic/index.html)
+## Dynamically loaded static components
+In the above description, you may have found some features of WCEX, which essentially implements dynamic loading of components and static deployment of components. In this way, our components can be easily developed and used just like the earliest HTML pages. And it can be easily statically managed, and can be easily used and deployed to various scenarios, such as CDN, NPM, native and even mobile devices.
 
-  - These using  https://cdn.jsdelivr.net as CDN, you can replace URL to load your project.
-  - 上述地址使用 https://cdn.jsdelivr.net 作为CDN，你可替换对应URL加载自己的项目。
+## Intuitive
+The complete implementation based on Web Components, as well as the combination of features of modern frameworks such as data binding and dependency updates, as well as the implementation based on the full real DOM, provide great convenience for development and debugging as well as the logic of the entire project. The real DOM corresponds to the edited code, and the relevant elements in the code can be found directly in the debugging console, and even directly manipulated for testing and debugging. This feature is far more than. Other frameworks require much more powerful browser plug-ins to be installed. With the debugging console, you can directly change the data sending events, observe the changes in properties, and drill down into the components internally. Even breakpoints and traces. It's all intuitive.
 
-### @wcex/cli (开发客户端)
+## Speed
+WCEX is very fast and we've done a lot of work to speed it up, in addition to minimizing dynamic dependency loading, we've also implemented preprocessing and caching of templates, CSS injection, and preprocessing of all aspects of caching, font icons, and so on.
+> It is worth mentioning that WCEX is not like other frameworks that use VDOM, it is completely based on the real DOM tree for merging changes and processing, we have abandoned the difference comparison algorithm of the DOM tree, and instead implemented a small change collector to achieve when the data changes, get the smallest change unit, merge it, and finally refresh to the DOM at one time, so that the response speed of the system is greatly improved.
+
+## Progressive development
+Unlike other frameworks, WCEX does not have a strong language preference, whether it is HTML, Javscript, Typescript, etc., it is a development choice that we support and recommend, but it is a gradual development process that evolves from simple to complex and then split and refactored. In this process, follow the concept of **good cat**, fast implementation, streamlined logic and convenient iterative upgrading.
+
+> We usually use this approach in our projects:
+> - First, pages with simple logic, usually in a pure _HTML_ way, try to avoid Javascript, because this will lead to the separation of the definition and reference of the variable name, which looks tiring;
+> - Second, as the complexity of the business increases, especially when the JS statements embedded in the elements are long, migrate the JS to the _HTML inline script tag_ and use the Javascript syntax, so that there can be basic syntax checking and better formatting;
+> - Third, as the business further increases and the number of lines of code increases, we generally control _inline JavaScript_ within 50 lines, split Js into a separate Typescript file, and complete the type. With the support of _WCEX_, this will be easy;
+> - Finally, when the component becomes larger, the component needs to be split independently
+
+
+
+## Low cost delivery
+The life cycle of a software product is complex, and WCEX considers how to simplify and optimize the entire software product lifecycle, including the development and debugging chain. Test the deployment and release, and the subsequent changes again and again. version iteration and many other links. Optimize and simplify these steps. It can greatly improve the efficiency of our development. This reduces the cost of the entire software development cycle. As a result, many of the features we design are related to these. In the following chapters. You may see some interesting applications in each section.
+> For example, based on the dynamic dependency and loading features, it is possible to achieve multi-component modules in team development, multi-person collaborative network collaborative hot updates, and these updates are based on local refreshes. Everyone's changes are reflected in your live preview in real time
+
+> With the features of WCEX static components, you can even use npm and GitHub as your personal blog, so you don't need a server or a traffic fee.
+
+> This document does just that, the framework and components of the document are written in WCEX, reference some of the third-party packages that are available on NPM, and some of the content is written in markdown. Eventually, it was published directly to NPM, through the public free CDN, which is what you can see now.
+
+## Miscellaneous
+In the upper right corner, there is a small button where you can experience the features of WCEX Semantic Real-Time Color Matching, and choose the color you like.
+
+In addition, you can see that document uses a special Chinese font, and WCEX also implements the time loading of Chinese large fonts. The usability of using a variety of Chinese fonts in the browser has been greatly improved, and the details of font loading can be seen in the debugging console, and the use of this Chinese font does not depend on other third-party API services are also completely static, and support offline, and there will be a chapter dedicated to the support and optimization of Chinese font loading Reference items: [https://github.com/wc-ex/cn-fontsource]( https://github.com/wc-ex/cn-fontsource)
+
+
+### @wcex/cli
+  - Full usage,please see **Documents**
   - Develop a client toolkit that includes hot updates, builds, releases, and more, simply and quickly
-  - 开发客户端工具包，包含热更新、构建、发布等功能, 简单和快速
   - Features:Typescript support, Local hot update support, only update the changed components each time, without affecting the overall data and current status of the current page.
-  - 特性：TypeScript支持, 局部热更新支撑，每次仅更新变更的组件，不影响当前页面整体数据和当前状态。
-  - install: ( 安装 )
+  - install:
     > pnpm install @wcex/cli 
-  - Usage: (使用)
+  - Usage:
     > in project dir, run: "wcex"  
-    > 在项目目录下执行: "wcex", 即启动开发模式
-
-### Documents
-  document: (https://wc-ex.com)
+ 
+### [Documents](#doc)
+For more information, please refer to the documentation
 ### Update

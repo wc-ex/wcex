@@ -212,6 +212,8 @@ export async function dev(opts: any) {
       res.header("Access-Control-Allow-Origin", "*");
       res.header("Access-Control-Allow-Headers", "Content-Type");
       res.header("Access-Control-Allow-Methods", "*");
+      // 本地不缓存
+      res.header("Cache-Control", "no-cache");
       next();
     });
 

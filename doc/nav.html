@@ -88,25 +88,30 @@
       navData = [];
       async onCreate() {
         this.navData = await (await fetch(this.$path(`./guide/${this.lang}/nav.json`))).json();
+        let matchedItem = this.navData[0].items[0];
+
         this.navData.sort((a, b) => a.dirInfo.id - b.dirInfo.id);
-        let r = this.$router.route && this.$router.route.default;
-        let mathedItem = this.navData[0].items[0];
+        this.navData.forEach((v) => {
+          v.items.sort((a, b) => a.id - b.id);
+        });
+        let r = this.$router.route?.default;
+        matchedItem = this.navData[0].items[0];
         if (r && r.attrs && r.attrs.url) {
           // 从当前url中解析
           for (let na of this.navData) {
             for (let it of na.items) {
               if (it.path == r.attrs.url) {
                 // 匹配URL的菜单项
-                mathedItem = it;
+                matchedItem = it;
                 break;
               }
             }
           }
         } else {
           // 默认为第一项
-          this.$router.go("wcex-doc.doc", { url: mathedItem.path, lang: this.lang });
+          this.$router.go("wcex-doc.doc", { url: matchedItem.path, lang: this.lang });
         }
-        this.value = mathedItem;
+        this.value = matchedItem;
       }
       docTime(item) {
         let hours = Math.floor((new Date().getTime() - item.updateAt) / 1000 / 3600);
@@ -116,6 +121,7 @@
           return `${days + 1}D`;
         }
       }
+
     };
   </script>
 </template>
