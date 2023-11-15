@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>WCEX</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
+    <meta name="viewport" content="initial-scale=1.0,width=device-width" />
+    
+    <style>
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        font-size: 18px;
+        overflow: auto;
+      }
+
+      .title {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 2em;
+        background-color: rgb(194, 210, 116);
+        padding-bottom: 2em;
+      }
+      .title > h1,
+      .title > h4 {
+        margin: 0;
+      }
+      .github {
+        position: absolute;
+        top: 1em;
+        left: calc(100vw - 4em);
+      }
+      .github > img {
+        width: 3em;
+        height: 3em;
+      }
+      .github > img:hover {
+        filter: brightness(2);
+      }
+      .doc {
+        padding: 2em;
+        border-radius: 5px;
+        border: 1px solid rgba(0, 180, 240, 0.5);
+        padding: 0 1em;
+        margin: 2em;
+        padding-bottom: 1em;
+      }
+      .cdn {
+        border-radius: 5px;
+        border: 1px solid rgba(0, 180, 240, 0.5);
+        padding: 0 1em;
+        margin: 2em;
+      }
+      .cdn > form {
+        margin-left: 1em;
+        margin-bottom: 1em;
+        display: flex;
+        align-items: center;
+      }
+      .cdn > form > input {
+        width: 2em;
+        height: 2em;
+      }
+      .cdn > form > label {
+        margin-left: 0.5em;
+        margin-right: 2em;
+      }
+      .lang {
+        display: flex;
+        flex-wrap: wrap;
+      }
+      .lang > a {
+        display: block;
+        margin: 0.5em;
+        padding: 0.2em 1em;
+        border: 1px solid rgba(0, 180, 240, 0.5);
+      }
+      .lang > a:hover {
+        background-color: rgba(40, 248, 160, 0.2);
+      }
+      #cn-note{
+        color: orange;
+      }
+    </style>
+    <script>
+      if (window.location.protocol !== "https:") {
+        window.location.href = "https:" + window.location.href.substring(window.location.protocol.length);
+      }
+    </script>
+  </head>
+
+  <body>
+    <a class="github" href="https://github.com/wc-ex/wcex">
+      <img src="/github-mark.svg" />
+    </a>
+    <div class="title">
+      <h1>Welcome To WCEX</h1>
+      <svg style="margin: 1em" width="8em" height="6em" viewBox="0 0 85.838112 51.24501">
+        <path
+          fill="#3366cc"
+          stroke-width="0"
+          d="m 85.987864,11.354631 q -2.77813,0.13229 -3.43958,0.13229 -0.62839,0 -0.82683,0.39688 -0.16536,0.3638 -0.52916,0.99218 -0.36381,0.62839 -0.92604,1.5875 -1.88516,3.175 -3.24115,5.42396 -1.35599,2.24896 -3.57187,5.95312 1.71979,3.40651 2.71198,5.35781 0.99218,1.9513 1.55442,3.10885 0.59531,1.12448 1.05833,2.05052 1.02526,2.0836 1.25677,2.51354 0.23152,0.39688 0.42995,0.69453 0.23151,0.29766 0.8599,0.29766 h 4.72942 l 0.33073,11.37708 h -12.23697 l -0.0992,-11.24479 h 3.14193 q 0.33072,0 0.33072,-0.19844 0,-0.23151 -0.0661,-0.39687 l -5.4901,-11.04635 q -0.8599,1.35599 -1.85209,3.00963 -0.99218,1.65365 -1.9513,3.20808 -2.18281,3.57187 -2.6789,4.29947 -0.69453,0.99219 0.26458,0.99219 h 4.3987 l 0.0661,11.37708 h -12.2039 l -0.19843,-11.37708 h 3.37343 q 0.82682,0 1.48828,-0.82682 0.0662,-0.0992 0.46302,-0.66146 0.39688,-0.59531 0.95912,-1.52135 0.59531,-0.92605 1.28984,-2.05052 1.68672,-2.61276 5.29166,-8.49974 -4.06796,-7.73906 -4.89478,-9.29348 -0.82683,-1.55443 -1.38907,-2.57969 -0.52916,-1.02526 -0.89297,-1.68672 -0.33072,-0.69453 -0.42994,-0.85989 -0.26459,-0.39688 -1.05834,-0.39688 h -2.77814 V 0.44057405 h 11.57552 V 11.486921 h -4.06797 q -0.7276,0 -0.52917,0.59531 0,0.0662 0.26459,0.59532 0.29765,0.52916 0.69453,1.35599 0.42994,0.82682 0.95911,1.88515 0.56224,1.02526 1.48828,2.84427 0.95912,1.81901 2.61276,4.99401 1.68672,-2.97656 2.61276,-4.69635 0.95911,-1.75287 1.52135,-2.77813 0.56224,-1.02526 1.02526,-1.85208 0.46302,-0.8599 0.79375,-1.42213 0.33073,-0.59532 0.46302,-0.89297 0.13229,-0.29766 -0.13229,-0.46302 -0.23151,-0.16537 -0.66146,-0.16537 h -2.97656 L 74.676934,0.44057405 h 11.31093 z"
+        />
+        <path
+          fill="#3366cc"
+          stroke-width="0"
+          d="m 4.6807381,16.361457 q -0.297656,-1.85208 -0.496094,-2.97656 -0.198437,-1.15755 -0.264583,-1.45521 -0.06615,-0.33073 -0.463021,-0.33073 H 0.74506306 L 0.54662506,0.75104905 11.65912,0.61875705 11.72526,11.665107 H 6.9627631 q -0.595312,0 -0.463021,0.66146 0.03307,0.0992 0.198438,1.15755 0.198437,1.02526 0.496093,2.71198 0.297656,1.65364 0.661458,3.77031 0.363802,2.08359 0.992187,5.75468 0.661458,3.63802 1.7859369,10.12031 l 6.416142,-26.75598 2.248958,0.0661 4.332549,25.53228 q 2.943489,-13.22916 3.737238,-16.70182 0.79375,-3.50572 1.02526,-4.53098 0.23151,-1.02526 0.264583,-1.12448 0.09922,-0.52917 -0.496093,-0.52917 H 23.565364 V 0.61875705 H 34.214837 L 34.148697,11.731247 h -2.182812 q -0.694531,0 -0.826822,0.59532 0,0.0331 -0.264583,1.19062 -0.264584,1.15755 -0.694531,3.00964 -0.396875,1.85208 -0.926042,4.23333 -0.529166,2.38125 -1.091405,4.89479 -0.529167,2.48046 -1.058333,4.89479 -0.529166,2.38124 -0.959114,4.29947 -0.859896,3.83646 -0.992187,4.33255 -0.198438,0.8599 0.429948,0.8599 h 3.671091 l 0.06615,11.24478 -10.021088,0.33073 -0.396875,-11.64166 h 2.778123 q 0.496094,0 0.429948,-0.89297 -0.03307,-0.89297 -4.034894,-21.5966 h -0.330729 q -2.811196,10.48411 -3.638019,13.69218 -0.826822,3.20807 -1.25677,4.79557 -0.396875,1.5875 -0.661458,2.57969 -0.23151,0.99218 -0.297656,1.12448 -0.132292,0.3638 0.496093,0.3638 h 3.108853 v 11.44322 L 4.1846441,51.286437 v -11.17864 h 4.067967 q 0.661458,0 0.330729,-1.35599 -0.297656,-1.48828 -1.124479,-6.28385 -0.793749,-4.79557 -1.223697,-7.20989 -0.429948,-2.44739 -0.826822,-4.7625 -0.396875,-2.3151 -0.727604,-4.13411 z"
+        />
+        <path
+          fill="#ff00ba"
+          stroke-width="0"
+          d="m 38.451452,32.414611 0.217041,-13.07069 q 0,-3.2315 2.50803,-4.79902 2.049832,-1.27813 4.581978,-1.27813 2.556261,0 3.810276,0.40996 1.278131,0.38586 2.049833,1.01286 0.771701,0.62701 1.133436,1.42283 0.385851,0.7717 0.50643,1.5434 0.144694,0.74759 0.120578,1.42283 0,0.65112 0,1.42282 0,0.7717 -0.192925,5.30545 0,0 -12.901886,0.28939 v 1.88102 q 0,3.59323 6.07715,3.59323 2.532146,0 3.834392,-0.53054 1.302246,-0.53054 1.302246,-1.37459 v -1.49518 l 1.639866,-0.19292 q -0.192925,3.56912 -0.192925,5.61895 0,2.04983 -0.699355,3.01446 -0.675239,0.94051 -1.808675,1.42283 -1.736329,0.74758 -5.35368,0.74758 -6.63181,0 -6.63181,-6.36654 z m 13.118926,-8.51283 0.02412,-1.30225 q 0,-2.33922 -5.18487,-2.33922 -6.173613,0 -6.173613,4.05144 l 11.310252,-0.19293 q 0,-0.0482 0.02411,-0.21704 z"
+        />
+        <path
+          fill="#3366cc"
+          stroke-width="0"
+          d="m 35.182786,40.420441 -0.132291,-27.71509 v -3.37344 q 0,-6.2177 5.357809,-8.169 1.752864,-0.62838795 3.770311,-0.62838795 h 3.472655 q 3.009633,0 5.02708,1.71978795 1.124479,0.99219 1.653645,2.01745 L 54.199704,0.66681405 h 2.57969 l -0.1323,19.31457695 -2.315099,0.13229 v -3.80339 q 0,-2.14973 -1.25677,-3.4065 -1.25677,-1.25677 -3.604946,-1.25677 l -6.647653,-0.0661 q -3.671092,0 -4.927862,2.94349 -0.429948,0.95911 -0.429948,2.18281 l 0.165365,18.35546 q 0,4.16718 2.910415,4.79557 0.79375,0.16536 1.554426,0.16536 H 49.9333 q 2.083592,0 3.241144,-1.02526 1.157551,-1.05833 1.157551,-2.64583 l 0.03307,-2.41432 q 0,-1.2237 -0.165364,-3.86953 l 2.381253,-0.19844 q 0,1.71979 0.0331,3.73724 l 0.0331,8.59896 q 0,6.84609 -4.00182,8.5328 -1.25677,0.52917 -2.51354,0.52917 h -1.785937 l -1.455207,0.0331 -2.05052,0.0331 h -2.215884 q -7.441403,0 -7.441403,-8.46667 z"
+        />
+      </svg>
+      <h4>Native Responsive Web Components Extensions</h4>
+      <p align="center">
+        <a href="https://npmcharts.com/compare/wcex?minimal=true"
+          ><img src="https://img.shields.io/npm/dm/wcex.svg?sanitize=true" alt="Downloads"
+        /></a>
+        <a href="https://www.npmjs.com/package/wcex"
+          ><img src="https://img.shields.io/npm/v/wcex.svg?sanitize=true" alt="Version"
+        /></a>
+        <a href="https://www.npmjs.com/package/wcex"
+          ><img src="https://img.shields.io/npm/l/wcex.svg?sanitize=true" alt="License"
+        /></a>
+        <a href="https://www.npmjs.com/package/wcex"
+          ><img src="https://img.shields.io/bundlephobia/minzip/wcex.svg?sanitize=true" alt="minsize"
+        /></a>
+      </p>
+    </div>
+
+    <div class="doc">
+      <h5>Document:</h5>
+      <div class="lang">
+        <a href="#" onclick="goDoc('cn')">中文简体</a>
+        <a href="#" onclick="goDoc('en')">English</a>
+        <a href="#" onclick="goDoc('zh-Hant')">中文繁体</a>
+        <a href="#" onclick="goDoc('yue')">中文粤语</a>
+        <a href="#" onclick="goDoc('lzh')">中文文学</a>
+        <a href="#" onclick="goDoc('ja')">日本語</a>
+        <a href="#" onclick="goDoc('ko')">한국어</a>
+        <a href="#" onclick="goDoc('fr')">Français</a>
+        <a href="#" onclick="goDoc('ru')">Русский</a>
+        <a href="#" onclick="goDoc('it')">Italiano</a>
+        <a href="#" onclick="goDoc('de')">Deutsch</a>
+      </div>
+    </div>
+  </body>
+
+  <script>
+    var DOC_VER = "1.0.110";
+    var WCEX_VER = "1.9.77";
+    // 默认加载英文文档,如果浏览器语言是中文则加载中文文档, 右上角可以切换语言
+    // 中文使用本地cdn,英文使用jsdelivr
+    var lang = navigator.language.indexOf("zh") >= 0 ? "cn" : "en";
+    var cdn = lang == "cn" ? " https://npmpub.magicmind.cn" : "https://fastly.jsdelivr.net/npm";
+    // 加载wcex脚本
+    let script = _createEl(document.body, "script", { src: `${cdn}/wcex@${WCEX_VER}/index.js`});
+    script.addEventListener("load", () => {
+      window.dispatchEvent(new Event("DOMContentLoaded"));
+    });
+    
+    document.getElementById('docver').innerText = `Document Version: ${DOC_VER}`;
+    // if(navigator.language.indexOf('zh-CN')>=0){
+    //   document.getElementById("elemecdn").checked=true;
+    // }
+    function goDoc(lang) {
+      let cdn = document.getElementById("jsdelivr").checked
+        ? "jsdelivr"
+        : document.getElementById("unpkg").checked
+        ? "unpkg"
+        : document.getElementById("elemecdn").checked
+        ? "elemecdn"
+        : document.getElementById("zhimg").checked
+        ? "zhimg"
+        : "jsdelivr";
+
+      console.log("go doc:ev---", lang, cdn);
+      location.href = `/pkg.html?@wcex/doc@${DOC_VER}/app&cdn=${cdn}&lang=${lang}`;
+    }
+  </script>
+</html>
