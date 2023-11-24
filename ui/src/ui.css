@@ -51,6 +51,9 @@ h6 {
     line-height: 1.2rem;
     letter-spacing: 0.05em;
   }
+.bold{
+  font-weight: 600;
+}
 .subtitle1 {
   font-weight: 400;
   font-size: 0.875rem;

@@ -1,4 +1,0 @@
-define(()=>({
-    searchString:"",
-    curSelectIcon:"",
-}))

@@ -122,7 +122,7 @@ In addition, you can see that document uses a special Chinese font, and WCEX als
   - Develop a client toolkit that includes hot updates, builds, releases, and more, simply and quickly
   - Features:Typescript support, Local hot update support, only update the changed components each time, without affecting the overall data and current status of the current page.
   - install:
-    > pnpm install @wcex/cli 
+    > pnpm install -g @wcex/cli 
   - Usage:
     > in project dir, run: "wcex"  
  

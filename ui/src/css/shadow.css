@@ -21,8 +21,8 @@
 }
 
 .grow {
-  --grow-color: "$$color.pri";
-  --grow-color1: rgba(255, 255, 255, 0.3);
+  --grow-color: "$$color.pri.l7_";
+  --grow-color1: "$$color.pria.l7_.a5_";
   --grow: 2;
 
   /* x y blur spread */
