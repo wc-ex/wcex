@@ -1,0 +1,59 @@
+<!--!!
+图标列表
+@prop pkg [string] 包名
+@prop npm-scope [bool] 是否是npm作用域包
+-->
+
+<template pkg="">
+	<style>
+		:host {
+			overflow: hidden;
+			display: flex;
+			flex-direction: column;
+			max-height: 40em;
+		}
+		.iconlist {
+			flex: 1;
+			display: flex;
+			flex-wrap: wrap;
+			overflow-x: hidden;
+			overflow-y: auto;
+		}
+		.icon {
+			margin: 0.3em;
+			padding: 0.2em;
+			box-sizing: border-box;
+			border-radius: 5px;
+			border: 2px solid rgb(160, 160, 160);
+		}
+		.icon:hover {
+			background-color: rgb(160, 160, 160);
+		}
+		.icon-name {
+			width: 5em;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
+		svg{
+			fill: "$$color.pri";
+		}
+	</style>
+	<wcex-ui.progress $if="loading" infinity height="0.3"></wcex-ui.progress>
+	<div $>search.searchString</div>
+	<wcex-ui.tags
+		:style="border-bottom: 1px solid ${$color.pri};"
+		$list="matchTags()"
+		$color="$color.sec"
+		@change.stop="onSelectIconType($ev)"
+	></wcex-ui.tags>
+	<div class="iconlist">
+		<div class="column" $for="matchIconList(curType)" @click.stop="onClickIcon(value)">
+			<svg $title="value" width="4em" height="4em" class="icon" $id="value"></svg>
+			<div3 class="icon-name" $>value</div3>
+		</div>
+	</div>
+
+	<script scope="search" src="./iconSearch.js"></script>
+	<script scope="." src="."></script>
+</template>

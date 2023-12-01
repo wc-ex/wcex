@@ -1,0 +1,124 @@
+const CACHE_NAME = "Doc-V1.0.110";
+
+caches.keys().then(function (names) {
+  for (let name of names) {
+    // 关闭所有无效的缓存
+    if (name !== CACHE_NAME) {
+      console.log("ServiceWorker delete invalid cache:", name);
+      caches.delete(name);
+    }
+  }
+});
+
+/* 监听安装事件，install 事件一般是被用来设置你的浏览器的离线缓存逻辑 */
+this.addEventListener("install", function (event) {
+	console.log("ServiceWorker install:", event);
+	/* 通过这个方法可以防止缓存未完成，就关闭serviceWorker */
+	event.waitUntil(
+		// 将sw立即设置为激活状态
+		event.waitUntil(caches.open(CACHE_NAME).then(() => self.skipWaiting()))
+	);
+});
+
+this.addEventListener("activate", (event) => {
+	console.log("ServiceWorker activate:", event);
+	event.waitUntil(self.clients.claim()); // 立即获取控制权
+});
+
+var hotCache = {};
+
+function contentType(url) {
+	let ext = url.replace(/^.*\./, "");
+	return (
+		{ 
+      html: "text/html",
+      css: "text/css", 
+      json: "application/json", 
+      js: "text/javascript", 
+      svg: "image/svg+xml",
+      jpeg: "image/jpeg",
+      jpg: "image/jpeg",
+      png: "image/png",
+      gif: "image/gif",
+      webp: "image/webp",
+      ico: "image/x-icon",
+      mp3: "audio/mpeg",
+      mp4: "video/mp4",
+      txt: "text/plain",      
+    }[
+			ext
+		] || "text/plain"
+	);
+}
+
+/* 注册fetch事件，拦截全站的请求 */
+this.addEventListener("fetch", function (event) {
+	// fetch(event.request,{  cache: 'no-cache' }).then(res => {
+
+	let url = decodeURI(event.request.url).replace(/[#\?].*$/, "");
+	// 处理热缓存数据,去除参数和hash后匹配
+	// .replace(/[#\?].*$/,'')
+
+	if (hotCache[url]) {
+		console.log("---> SW FETCH Cache", url);
+		// 返回缓存数据
+		event.respondWith(
+			new Response(hotCache[url], {
+				headers: new Headers({
+					"Content-Type": contentType(url),
+				}),
+			})
+		);
+	} else {
+		event.respondWith(
+			caches.match(url).then(function (response) {
+				if (response) {
+					return response;
+				}
+				return fetch(url).then(function (response) {
+					if (!response || response.status !== 200) {
+						return response;
+					}
+					// 本地数据不缓存
+					if (
+						url.startsWith("http://localhost") ||
+						url.startsWith("http://127.0.0.1") ||
+						url.startsWith("https://wc-ex.com") ||
+						url.startsWith("https://www.wc-ex.com")
+					) {
+						return fetch(url);
+					}
+
+					const responseToCache = response.clone();
+					caches.open(CACHE_NAME).then(function (cache) {
+						cache.put(url, responseToCache);
+					});
+					return response;
+				});
+			})
+		);
+	}
+});
+
+this.addEventListener("message", function (ev) {
+	const { type, data } = ev.data;
+	switch (type) {
+		case "hotCacheSet":
+			console.log("sw hotCacheSet", data);
+			hotCache[data.file] = data.text;
+			break;
+		case "hotCacheClean":
+			// console.log("sw hotCacheClean", data);
+			// console.log("sw hotCacheClean Cache", Object.keys(hotCache));
+			if (data.files && data.files.length) {
+				data.files.forEach((f) => {
+					delete hotCache[f];
+					console.log("sw hotCacheClean", f);
+				});
+			} else {
+				hotCache = {};
+				console.log("sw hotCacheClean all");
+			}
+			break;
+	}
+});

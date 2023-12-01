@@ -1,0 +1,60 @@
+<!--!!
+文档应用主入口
+-->
+
+<template>
+  <meta name="scope" drawer.bool="true" cur-page.object="{}" />
+  <meta name="module" pkg="@wcex/ui" version="1.1.16" />
+
+  <style>
+    :host {
+      display: block;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+  </style>
+
+  <wcex-ui.ui !sync></wcex-ui.ui>
+  <wcex-ui.dev></wcex-ui.dev>
+
+  <main-></main->
+
+  <script scope="font" src="./font.js"></script>
+
+  <script scope=".">
+    window.__initSwFlag=false;
+    return class {
+      // 动态设置字体
+      async onCreate() {
+        await this.font.loadFont(this);
+        // this.initSw();
+      }
+      initSw() {
+        if(window.__initSwFlag) return;
+        window.__initSwFlag=true;
+        navigator.serviceWorker
+          .register('/sw.js', { scope: location.origin+'/'})
+          .then(function (registration) {
+            registration.addEventListener("updatefound", function () {
+              console.log("New version found!");
+              var newWorker = registration.installing;
+              newWorker.addEventListener("statechange", function () {
+                if (newWorker.state === "installed" && navigator.serviceWorker.controller) {
+                  // 如果发现新版本已经安装好，且有旧版sw实例正在控制此页面
+                  console.log("New SW Installed!");
+                  setTimeout(function () {
+                    // 延迟300ms，留时间给页面更新缓存后的资源
+                    newWorker.postMessage({ action: "skipWaiting" }); // 向新版本的SW发送消息，强制其成为在没有专用客户端（例如Page or Worker）的情况下控制此源的活动服务工作者
+                  }, 300);
+                }
+              });
+            });
+
+            // navigator.serviceWorker.register(this.$path("./sw.js", { scope: WCEX.npmUrl, updateViaCache: "all" }));
+          });
+      }
+    };
+  </script>
+</template>

@@ -1,0 +1,47 @@
+<!--!!
+下拉选择框, 用于选择一项或多项
+探测屏幕边缘，自动选择下拉或者上拉，以及左对齐或者右对齐
+-->
+<template $color="$color.sec" class="grow" $items="[]" $value="">
+    <style>
+        :host{
+            --grow:0 !important;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            transition: all 0.3s;
+            border-radius: 0.3em;
+            user-select: none;
+        }
+        :host(:hover){
+            --grow:2 !important;
+        }
+        /* ::slotted(*){
+            transition: all 0.5s;
+            padding: 0.2em 0.5em;
+            overflow: hidden;
+        }
+        :host(:hover) > ::slotted(*){
+            position:inherit;
+        }
+
+        ::slotted(:not([checked])){
+            background-color: transparent;
+        }
+        ::slotted([checked]){
+            order: -1;
+            background-color: "$color" !important;
+        } */
+
+    </style>
+    <div $>value</div>
+    <div>
+        <slot name="selected" $>value</slot>
+    </div>
+    <!-- 放置所有选项 -->
+    <div >
+        <slot $for(v,k)="items" $filter="k==value" :name="item-${k}" $>k</slot>
+    </div>
+
+</template>

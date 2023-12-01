@@ -1,0 +1,78 @@
+<!--!!
+标题栏
+@prop drawer [bool] 是否显示抽屉
+-->
+
+<template drawer.bool="1">
+
+  <meta name="module" pkg="lodash.get" cjs>
+  <style>
+    :host {
+      display: block;
+      height: 4em;
+      padding-bottom: 0.4em;
+    }
+    #logo > :nth-child(1),
+    #logo > :nth-child(2),
+    #logo > :nth-child(4) {
+      fill: "$$color.pria.ss(90).ll(70)";
+    }
+    #logo > :nth-child(3) {
+      fill: "$$color.seca.ss(90).ll(70)";
+    }
+    .wcex>a{
+      margin: 0 0.2em;
+    }
+  </style>
+
+  <!-- 标题栏 -->
+  <wcex-ui.title class="shadow" style="z-index: 99;height: 100%;" $color="$color.pri.l2">
+  
+    <!-- 标题栏图标区 -->
+    <div slot="icon" class="row">
+  
+      <wcex-ui.icon
+        icon="menu"
+        size="3"
+        active
+        $color="$color.sec.l2_"
+        @click.stop="drawer=!drawer"
+        :style="transform: rotate(${drawer?0:90}deg);"
+      ></wcex-ui.icon>
+      <a href="https://wc-ex.com" style="position: relative;display: block;">
+        <svg id="logo" $src="$path('./assets/logo.svg')" width="5em" height="3em" style="margin: 0 2em" ></svg>
+      </a>
+      <!-- <img $src="$path('./assets/logo.svg')" style="width: 3em;height: 1em; margin: 0 1em" alt="" /> -->
+    </div>
+    <!-- 标题内容区 -->
+    <div class="wcex" style="display: flex; align-items: baseline;">
+      <h2 style="margin-right: 0.5em;">WCEX</h2> 
+      <a href="https://www.npmjs.com/package/wcex"><img src="https://img.shields.io/npm/v/wcex.svg?sanitize=true" alt="Version"></a>  
+      <a href="https://npmcharts.com/compare/wcex?minimal=true"><img src="https://img.shields.io/npm/dm/wcex.svg?sanitize=true" alt="Downloads"></a>
+      <a href="https://www.npmjs.com/package/wcex"><img src="https://img.shields.io/npm/l/wcex.svg?sanitize=true" alt="License"></a>
+      <a href="https://www.npmjs.com/package/wcex"><img src="https://img.shields.io/bundlephobia/minzip/wcex.svg?sanitize=true" alt="minsize"></a>
+    </div>
+    <div slot="subtitle" >Native Responsive Web Components Extensions</div>
+
+    <!-- 工具区 -->
+    <div class="column" slot="end" style="width: 8em" :>
+      <div class="column" style="justify-content: center">
+        <!-- 调色板 -->
+        <com-title_tools> </com-title_tools>
+        <div style="text-align: center; margin-top: 0.2em" :>${loadtime}ms</div>
+      </div>
+    </div>
+  </wcex-ui.title>
+
+  <script scope="lget" src="lodash.get" nocall></script>
+  <script scope=".">
+    return class {
+      loadtime = 0;
+      desc='';
+      async onCreate() {
+        this.loadtime = window.WCEX.loadTime;
+        // this.$log('lget',this.lget);
+      }
+    };
+  </script>
+</template>
