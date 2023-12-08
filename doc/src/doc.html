@@ -23,6 +23,8 @@
   <!-- 文章标题 -->
   <div class="row title shadow" style="--shadow: 1">
     <div $>url</div>
+    <wcex-ui.btn class="abcd" $color="$color.seca" @click="onRead()">朗读</wcex-ui.btn>
+    <wcex-ui.btn @click="onStop()">STOP</wcex-ui.btn>
     <div class="flex"></div>
     <wcex-ui.droplist $items="allLang" value="cn" >
       <div slot="selected" $item="$slot?.items?.[value]" class="row center">
@@ -51,28 +53,12 @@
 
   <!-- marked 内容 -->
   <wcex-ui.marked
+    id="marked"
     toc="12"
     class="doc"
     $if="url"
     $src="($root.url)?$path(`./guide/${lang}/${$root.url}`):''"
   ></wcex-ui.marked>
 
-  <script scope="." >
-    return class {
-      allLang = {
-        cn:{
-          display:"中文",
-          icon:{pkg:'flag-icons/flags',type:"4x3",icon:'cn'}
-        },
-        en:{
-          display:"English",
-          icon:{pkg:'flag-icons/flags',type:"4x3",icon:'us'}
-        },
-        jp:{
-          display:"日本語",
-          icon:{pkg:'flag-icons/flags',type:"4x3",icon:'jp'}
-        },
-      }
-    }
-  </script>
+  <script scope="." src=".">  </script>
 </template>

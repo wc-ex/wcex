@@ -16,7 +16,7 @@
     "@highlightjs/cdn-assets": "^11.9.0",
     "@material-design-icons/svg": "^0.14.13",
     "@types/json-schema": "^7.0.15",
-    "@wcex/ui": "1.1.16",
+    "@wcex/ui": "1.1.7",
     "cn-fontsource-lxgw-wen-kai-screen": "^1.0.6",
     "dayjs": "^1.11.7",
     "lodash.debounce": "^4.0.8",

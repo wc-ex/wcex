@@ -25,7 +25,7 @@ function deepGetDependencies(dependencies: string[] | undefined) {
 	}
 }
 
-export function pack(opts: { dir: string; packDir: string }) {
+export function pack(opts: { dir: string; packDir: string, deep: boolean }) {
 	PROJECT_DIR = path.resolve(opts.dir);
 	DIST_DIR = path.join(PROJECT_DIR, "dist");
 	PACK_DIR = path.resolve(opts.packDir);
@@ -47,7 +47,7 @@ export function pack(opts: { dir: string; packDir: string }) {
 	execSync(`pnpm pack --pack-destination ${PACK_DIR}`, { stdio: "inherit", cwd: DIST_DIR });
 
 	// 收集所有依赖
-	deepGetDependencies(Object.keys(pkg.dependencies));
+	if(opts.deep)	deepGetDependencies(Object.keys(pkg.dependencies));
 
 	// 打包所有依赖
 	for (let d of dependenciesSet) {

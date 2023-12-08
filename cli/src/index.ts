@@ -46,6 +46,7 @@ program
   .description('pack project and all dependencies to dir')
   .option('--dir <string>', 'project dir', '.')
   .option('-p, --pack-dir <string>', 'destionation pack dir')
+  .option('-d, --deep', 'deep pack all dependencies', false)
   .action(pack);
 
 program

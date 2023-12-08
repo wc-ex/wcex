@@ -20,7 +20,7 @@ function _loadCss(fontCss:{pkg:string,path:string}) {
   var link = document.createElement("link");
   link.rel = "stylesheet";
   link.setAttribute("font", "1");
-  link.href = WCEX.pkgUrl(fontCss.pkg,fontCss.path);
+//   link.href = WCEX.pkgUrl(fontCss.pkg,fontCss.path);
   document.head.appendChild(link);
 }
 
