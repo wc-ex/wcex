@@ -1,0 +1,87 @@
+<template tabindex="-1">
+<style>
+    :host {
+      position: fixed;
+      width: 1px;
+      height: 1px;
+      top: 0;
+      left: 0;
+      z-index: 9999;
+    }
+    #dev{
+      position: absolute;
+      padding: 0.2em 0.5em;
+      color: rgba(120, 127, 250, 0.6);
+      pointer-events: none;
+      margin:0
+    }
+    :host(:focus),:host(:focus-within){
+      outline: none;
+      /* display: block; */
+    }
+    :host>*{
+      /* display: none; */
+    }
+    #dev{
+
+      position: absolute;
+      margin: 0.2em;
+      margin-block: 0;
+      color: "$$color.ok.a7_";
+      transition: all 0.25s ;
+    }
+    dev-config{
+      visibility: hidden;
+      transform: translateY(-100%);
+      transition: all 0.25s;
+    }
+    :host(:focus)>dev-config, :host(:focus-within)>dev-config{
+      visibility: visible;
+      transform: translateY(0);
+    }
+    :host(:focus)>#dev{
+      color: "$$color.ok.a4_";
+    }
+
+    .sel {
+      display: flex;
+      justify-content: right;
+      /* 垂直不拉伸 */
+      align-items: flex-start;
+      position: absolute;
+      top: ":${sel.top}px";
+      left: ":${sel.left}px";
+      width: ":${sel.width}px";
+      height: ":${sel.height}px";
+      pointer-events: none;
+      box-sizing: border-box;
+      border: 2px solid rgba(255, 0, 0, 0.5);
+      border-radius: 2px;
+    }
+    .tag {
+      font-size: 0.8rem;
+      display: inline-block;
+      padding: 0 0.5em;
+      text-align: right;
+      white-space: nowrap;
+      color: white;
+      background-color: rgba(43, 43, 43, 0.8);
+    }
+    #help {
+      left: "$helpPos=='l'?0:'50%'";
+      width: 50%;
+      height: 100%;
+      position: fixed;
+      overflow: auto;
+    }
+  </style>
+  <!-- 左上角显示开发模式标志 -->
+  <h6 id="dev" $if="!!devConfig">DEV</h6>
+  <dev-config id="panel" $dev-config="$root.devConfig"></dev-config>
+  <!-- <div class="sel" $if="sel.el">
+    <div class="tag" :>&lt${sel.tag||''}&gt</div>
+  </div>
+  <ui-dev-help id="help" $tags="helpTags" $if="helpTags" ></ui-dev-help> -->
+
+<script scope="." src="."></script>
+</template>

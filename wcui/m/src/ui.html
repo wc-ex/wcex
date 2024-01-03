@@ -1,0 +1,14 @@
+<!-- 用于全局注入样式 -->
+<template id="ui"  :class="" @blur-bg.stop="$root.class=$ev.detail?'blur-bg':''"   >
+  <meta name="scope" aa.int="8"/>
+  <!-- <link rel="stylesheet" href="./css/shadow-global.css" global /> -->
+  <link rel="stylesheet" href="./css/shadow.css" global="import" />
+  <link rel="stylesheet" href="./css/scrollbar.css" global="import" />
+
+  <link rel="stylesheet" href="./ui.css" global="import" />
+
+  <!-- 加载toast组件 -->
+  <!-- <wcui-m.toast  $pos="$root.toastPos"></wcui-m.toast> -->
+  <!-- 加载开发者工具 -->
+  <script scope="." src=".">  </script>
+</template>

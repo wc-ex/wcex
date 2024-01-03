@@ -1,0 +1,48 @@
+<!--!!
+  列表项组件支持前后插槽，前插槽用于放置图标，后插槽用于放置操作按钮。
+  支持焦点
+-->
+<template tabindex="0">
+ 
+  <style>
+    :host {
+      display: flex;
+      position: relative;
+      gap: 0.3em;
+      align-items: center;
+      box-sizing: border-box;
+    }
+
+    #context {
+      display: flex;
+      flex: 1;
+      user-select: none;
+      gap: 0.3em;
+      align-items: center;
+    }
+
+    #action {
+      display: flex;
+      visibility: hidden;
+      opacity: 0;
+      transition: all 0.3s;
+      /* background-color: red; */
+      align-items: center;
+      gap: 0.3em;
+    }
+    :host(:hover) > #action,
+    :host(:focus-within) > #action,
+    :host(:active) > #action,
+    :host(:focus) > #action {
+      visibility: visible;
+      opacity: 1;
+    }
+  </style>
+
+  <div id="context">
+    <slot></slot>
+  </div>
+  <div id="action">
+    <slot name="action"></slot>
+  </div>
+</template>

@@ -1,0 +1,17 @@
+{
+  "name": "@wcui/dev",
+  "version": "1.0.13",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "pub": "cd dist && npm --registry \"https://registry.npmjs.org/\" publish --access public"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {},
+  "peerDependencies": {
+    "marked": "^11.1.0",
+    "wcex": "^1.9.85"
+  }
+}

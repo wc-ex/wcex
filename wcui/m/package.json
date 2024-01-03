@@ -1,0 +1,16 @@
+{
+  "name": "@wcui/m",
+  "version": "1.0.12",
+  "description": "ui for mobile",
+  "main": "index.js",
+  "scripts": {
+    "pub": "cd dist && npm --registry \"https://registry.npmjs.org/\" publish --access public"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {},
+  "peerDependencies": {
+    "wcex": "^1.9.85"
+  }
+}

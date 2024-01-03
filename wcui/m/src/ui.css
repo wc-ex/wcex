@@ -1,0 +1,165 @@
+/* 设置默认组件为block */
+
+:host{
+    display: block;
+}
+
+/* 字体设置 */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-block-start: 0em;
+  margin-block-end: 0em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+}
+h1 {
+  font-weight: 400;
+  font-size: 3rem;
+  line-height: 4rem;
+  letter-spacing: 0.05em;
+}
+h2 {
+  font-weight: 400;
+  font-size: 2rem;
+  line-height: 2.8rem;
+  letter-spacing: 0.05em;
+}
+h3 {
+  font-weight: 400;
+  font-size: 1.6rem;
+  line-height: 2rem;
+  letter-spacing: normal;
+}
+h4 {
+  font-weight: 500;
+  font-size: 1.3rem;
+  line-height: 1.7rem;
+  letter-spacing: 0.05em;
+}
+h5 {
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  letter-spacing: 0.05em;
+}
+h6 {
+    font-weight: 400;
+    font-size: 0.8em;
+    line-height: 1.2rem;
+    letter-spacing: 0.05em;
+  }
+.bold{
+  font-weight: 600;
+}
+.subtitle1 {
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  letter-spacing: 0.1em;
+}
+.subtitle2 {
+  font-weight: 400;
+  font-size: 0.7rem;
+  line-height: 1rem;
+  letter-spacing: 0.1em;
+}
+div {
+  font-weight: 300;
+  font-size: 1rem;
+  line-height: 1.1rem;
+  letter-spacing: 0.12em;
+}
+div1 {
+  font-weight: 260;
+  font-size: 0.875rem;
+  line-height: 1.2rem;
+  letter-spacing: 0.1em;
+}
+div2{
+  font-weight: 230;
+  font-size: 0.72rem;
+  line-height: 1rem;
+  letter-spacing: 0.18em;
+}
+div3{
+  font-weight: 200;
+  font-size: 0.625rem;
+  line-height: 0.85rem;
+  letter-spacing: 0.18em;
+}
+
+.text-button {
+  font-weight: 500;
+  font-size: 0.875rem;
+  line-height: 2.25rem;
+  letter-spacing: 0.893em;
+}
+caption,.text-caption {
+  font-weight: 400;
+  font-size: 0.75rem;
+  line-height: 1.25rem;
+  letter-spacing: 0.333em;
+}
+overline,.text-overline {
+  font-weight: 500;
+  font-size: 0.75rem;
+  line-height: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 1.667em;
+}
+
+.row{
+    display: flex;
+    gap: 0.5em;
+}
+.center{
+  align-items: center;
+}
+.just-center{
+  justify-content: center;
+}
+.col,
+.column{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+}
+
+.nowrap{
+  text-overflow: ellipsis;
+  word-break: keep-all;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.flex{
+  flex: 1;
+}
+
+
+.trans {
+  /* transition: all 0.3s cubic-bezier(0.075, 0.82, 0.165, 1); */
+  transition: all 0.25s ease-out;
+}
+
+.trans1 {
+  transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* 初始化隐身 */
+.cloak{
+  visibility: hidden;
+}
+
+#ui ~*{
+  transition: filter 0.5s ;
+}
+/* 背景虚化 */
+.blur-bg > :not(.noblur){
+  pointer-events: none;
+  user-select: none;
+  filter: blur(5px) brightness(0.5);
+}

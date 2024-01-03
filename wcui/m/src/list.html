@@ -1,0 +1,35 @@
+<!--!!
+移动版列表组件,支持左右滑动弹出Action按钮
+-->
+<template >
+  <meta name="scope" sel-pos.obj="{x:0,y:0,show:0}"  />
+  <style>
+    :host {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      /* align-items: stretch; */
+    }
+    /* 默认插槽样式 */
+    ::slotted(*) {
+      padding: 0.2em 0.5em;
+      user-select: none;
+      background-color: transparent;
+      transition: background-color 0.3s;
+    }
+    ::slotted([checked]) {
+      background-color: "$$color.sec.a6_";
+    }
+    ::slotted(:hover) {
+      background-color: "$$color.sec.a5_";
+    }
+    ::slotted(:focus), ::slotted(:focus-within) {
+      background-color: "$$color.sec.a3_";
+    }
+
+
+  </style>
+
+  <slot></slot>
+
+</template>

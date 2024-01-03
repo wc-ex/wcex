@@ -1,0 +1,20 @@
+<!-- 
+    与路由绑定的导航栏,支持分区路由 支持水平或者垂直布局
+    响应子项onClick事件,跳转到子项的属性href指向的路由
+    解析当前路由, 监听当前路由变化，如果匹配则设置子项 checked 属性为 true
+
+-->
+
+<template vert.bool="0" @click.stop="onClick($ev)" route-name="default" class="shadow">
+  <style>
+    :host {
+      display: flex;
+      flex-direction: "$vert?'column':'row'";
+      overflow-x: auto;
+      gap: 0.5em;
+      padding: 0.2em 1em;
+    }
+  </style>
+  <slot id="slot" @slotchange="applyRouteChanged()"> </slot>
+  <script scope="." src="."> </script>
+</template>

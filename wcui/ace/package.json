@@ -1,0 +1,18 @@
+{
+  "name": "@wcui/ace",
+  "version": "1.0.2",
+  "description": "高级文本编辑器-ACE",
+  "main": "index.js",
+  "scripts": {
+    "pub": "cd dist && npm --registry \"https://registry.npmjs.org/\" publish --access public"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ace-builds": "^1.32.3"
+  },
+  "peerDependencies": {
+    "wcex": "^1.9.85"
+  }
+}

@@ -1,0 +1,33 @@
+<!-- 显示提示框,可通过 ui 选择提示框弹出位置 -->
+
+<template  @toast.stop="addToast($ev)" class="noblur toast " @timer.1000="onTimer()">
+    <style>
+        :host{
+            position: fixed;
+            z-index: 1000001;
+            display: flex;
+            flex-direction: column;
+            pointer-events: none;
+            top:1em;
+            left: 0;
+            width: 100vw;
+            align-items: center;        
+            gap: 0.5em;  
+        }
+        .item{
+            display: flex;
+            --shadow:4;
+            background-color:var(--bg-color);
+            padding: 0.2em 0.5em;
+            border-radius: 0.2em;
+            transition: all 0.3s;
+            color: "$$color.text";
+            outline: 1px solid "$$color.text.a3_";
+            border-left: 0.4em solid "$$color.text.a5_";
+        }
+    </style>
+
+    <div $for(v,k)="toastList" class="item shadow" :style="--bg-color:${($color[v.type]||$color.pria).a2_}"   $>v.message</div>
+
+    <script scope="." src="."></script>
+</template>

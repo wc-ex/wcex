@@ -1,0 +1,96 @@
+<!-- 
+    可折叠的区块，包含标题、子标题、和图标
+    @prop closeable [bool] 默认:false 是否显示打开和关闭按钮
+
+    @slot DEFAULT 默认插槽，用于放置章节内容
+    @slot icon 标题栏左侧图标
+    @slot title 标题
+    @slot subtitle 子标题
+    @slot action 动作栏插槽
+-->
+<template class="shadow" closeable.bool="0" $color="$color.bg" outline.bool="1">
+    <style>
+        :host {
+            display: flex;
+            flex-direction: column;
+            background-color: "$color.a6_";
+            border-radius: 0.5em;
+            transition: all 0.3s;
+            --shadow: 0 !important;
+            outline: "$outline?1:0"px solid "$color.l5.a5_";
+            /* padding-bottom: 1em; */
+            transform: translate(0px,0px);
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 0.5em;
+            padding: 0.3em 0.5em;
+            border-bottom: 1px solid "$color.a5_";
+            /* margin-bottom: 1em; */
+        }
+
+        :host(:hover),
+        :host(:focus-within) {
+            background-color: "$color.l3_.a1_";
+            --shadow: 2 !important;
+            transform: translate(1px,-2px);
+        }
+        :host(:focus-within)>.header{
+            border-bottom: 1px solid "$color.l3.a5_";
+        }
+
+        .title {
+            display: flex;
+            align-items: baseline;
+        }
+
+        ::slotted([slot="icon"]) {
+            --icon-color: "$$color.text.l5_";
+        }
+
+        ::slotted([slot="title"]) {
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        ::slotted([slot="subtitle"]) {
+            padding-left: 1em;
+            white-space: break-spaces;
+            flex-shrink: 1;
+        }
+
+        /* :host>::slotted(*){
+            margin: 0.5em 1em;
+        } */
+        .header[closed]~*{
+            display: none;
+        }
+        .header[closed]>.close-icon{
+            transform: rotate(0deg);
+        }
+        .close-icon{
+            transform: rotate(90deg);
+            transition: transform 0.3s;
+        }
+
+    </style>
+
+    <div class="header" $closed="0">
+        <wcui-m.icon class="close-icon" @click="closed=!closed"  active slot="icon" size="2" pkg="@material-design-icons/svg" type="filled" icon="chevron_right"></wcui-m.icon>
+
+        <slot name="icon"></slot>
+        <div class="title">
+            <slot name="title"></slot>
+            <slot name="subtitle"></slot>
+        </div>
+        <div style="flex: 1;"></div>
+        <slot name="action"></slot>
+    </div>
+    <!-- <div class="content"> -->
+        <slot></slot>
+    <!-- </div> -->
+
+
+</template>

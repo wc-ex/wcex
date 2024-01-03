@@ -1,0 +1,84 @@
+<!-- 
+    处理路由: /#com-main?a=1&b=2;menu:com-menu?c=3&d=4
+    路由匹配使用 match 参数
+    路由异常通过 error 事件
+ -->
+
+<template name="default" home="" match="" overflow="auto" $check-route-fn="">
+  <meta name="scope" />
+  <style>
+    :host {
+      display: block;
+    }
+    #route{
+      width: 100%;
+      height: 100%;
+      box-sizing: border-box;
+    }
+  </style>
+  <div id="route" $as="component"></div>
+  <script scope=".">
+    return class {
+      component = "";
+      changeRouter() {
+        try {
+          var r = this.$router.route[this.name] || {};
+          var rsc = this.$id.route.$scope;
+          if (!r) return;
+          if(typeof this.checkRouteFn == 'function') {
+            let ret = this.checkRouteFn(r);
+            // 回调返回 false 则不跳转
+            if(!this.checkRouteFn(r)) return;
+          }
+
+          if (!r.tag) {
+            // 跳转到默认路由
+            if (this.home) this.$router.go(this.name,this.home);
+            else this.$log.warn("no default route:", this.name);
+            return;
+          }
+          var tag = r.tag;
+          if (this.match) {
+            if (!r.tag.match(new RegExp(this.match))) throw Error("route invalid " + r.tag);
+          }
+          if (tag.indexOf("-") < 0) {
+            throw Error("invalid tag");
+          }
+          if (this.$id.route) {
+            // 首先设置属性
+            for (var k of Object.keys(r.attrs)) {
+              let v = r.attrs[k];
+              this.$id.route.setAttribute(k, v);
+              if (rsc && rsc.hasOwnProperty(k)) rsc[k] = v;
+            }
+            if (this.component != tag) {
+              // 更新标签
+              this.$log("route set component", tag);
+              this.component = tag;
+            }
+          } else {
+            this.$emit("error", { tag: r.tag });
+          }
+        } catch (e) {
+          this.$log.error("router error:", e.message);
+          // this.$router.go(this.name,this.home)
+          this.$emit("error");
+        }
+      }
+      onReady() {
+        window.addEventListener("route-change", () => {
+          this.$log("route change",location.hash)
+          this.changeRouter();
+        });
+        window.addEventListener("wc-error", (ev) => {
+          this.$log.error("tag load failed:", ev);
+          this.$emit("error");
+          // 回首页
+          this.$router.go(this.home)
+        });
+        // 初始化默认路由
+        this.changeRouter();
+      }
+    };
+  </script>
+</template>

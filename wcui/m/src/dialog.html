@@ -1,0 +1,94 @@
+<!-- 
+    弹出对话框,自动设置背景模糊,可选是否模态对话框
+    使用时需在主App中引入该组件
+-->
+
+<template $color="$color.pria" class="noblur" $text-color="$color.text">
+    <style>
+        :host{
+            display: flex;
+            flex-direction: column;
+            justify-content: stretch;
+            position: fixed;
+            z-index: 1000000;
+            color: "$textColor";
+            /* 水平居中显示 */
+            left: 25vw;
+            width: 60vw;
+            top: 20vh;
+            min-height: 12em;
+            max-height: 40vh;
+        }
+        .dialog{
+            --shadow:"$initFlag?8:0";
+            transform: translate("$initFlag?0:8"px,"$initFlag?0:8"px) scale("$initFlag?1:0.85");
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            overflow: hidden;
+            background-color: "$$color.bg.a1_";
+            border-radius: 0.5em;
+            /* 动画,轻微的回弹效果 */
+            transition: all 0.3s;
+            opacity: "$initFlag?1:0";
+        }
+        .title{
+
+            display: flex;
+            align-items: center;
+            background-color: "$color";
+            gap: 0.5em;
+            padding: 0.3em 0.5em;
+            border-bottom: 1px solid "$color.a5_";
+        }
+        .content{
+            flex: 1;
+            display: flex;
+            padding: 0.5em;
+        }
+        .content>.icon{
+            align-self: center;
+        }
+        .content>.message{
+            padding: 0.5em;
+            text-indent: 2em;
+            overflow-y: auto;
+            align-self: stretch;
+            max-height: 12em;
+            line-height: 1.5em;
+            flex: 1;
+        }
+        .actions{
+            display: flex;
+           justify-content: space-around;
+           gap: 0.5em;
+           padding: 0.3em 0.5em;
+        }
+        #inputs{
+            display: flex;
+            flex-direction: column;
+            gap: 0.5em;
+            align-self: center;
+        }
+
+    </style>
+    <div class="dialog shadow ">
+        <div class="title">
+            <wcui-m.icon $color="$root.textColor"  $pkg="options.icon.pkg" $type="options.icon.type" $icon="options.icon.icon"></wcui-m.icon>
+            <h5 $>options.title</h5>
+        </div>
+        <div class="content">            
+            <wcui-m.icon  class="icon" size="4" $color="$root.color.l3" $pkg="options.icon.pkg" $type="options.icon.type" $icon="options.icon.icon"></wcui-m.icon>
+            <div class="message" $if="options.message" $>options.message</div>
+            <!-- 输入框 -->
+            <div id="inputs" $if="options.inputs">
+                <wcui-m.input class="input" $for(v,k)="options.inputs" $$="v.value" $placeholder="v.placeholder"></wcui-m.input>
+            </div>
+        </div>
+        <div class="actions">
+            <wcui-m.btn $for(v,k)="options.actions" $color="k=='ok'?$color.ok:$root.color" $textColor="$root.textColor" @click.stop="onClickAction(k)" $>v</wcui-m.btn>
+        </div>        
+    </div>
+    <script scope="." src="."></script>
+
+</template>
