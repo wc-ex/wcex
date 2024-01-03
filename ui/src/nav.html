@@ -2,69 +2,71 @@
     与路由绑定的导航栏,支持分区路由 支持水平或者垂直布局
     响应子项onClick事件,跳转到子项的属性href指向的路由
     解析当前路由, 监听当前路由变化，如果匹配则设置子项 checked 属性为 true
+	// 如果路由匹配,则设置当前value为匹配项的hash值
 
 -->
 
 <template vert.bool="0" @click.stop="onClick($ev)" route-name="default">
-	<style>
-		:host {
-			display: flex;
-			flex-direction: "$vert?'column':'row'";
-			overflow-x: auto;
-			gap: 1em;
-		}
-	</style>
-	<slot id="slot" @slotchange="onSlotChange()"> </slot>
-	<script scope=".">
-		return class {
-			onReady() {}
-			/**
-			 * 检查路由是否匹配
-			 * @param {HTMLElement} el
-			 */
-			checkRouteMatch(el) {
-				let r = this.$router.route[this.routeName];
-				let href = el.getAttribute("href");
-				if (!href || !r) return false;
+  <style>
+    :host {
+      display: flex;
+      flex-direction: "$vert?'column':'row'";
+      overflow-x: auto;
+      gap: 1em;
+    }
+  </style>
+  <slot id="slot" @slotchange="onSlotChange()"> </slot>
+  <script scope=".">
+    return class {
+      onReady() {}
+      /**
+       * 检查路由是否匹配
+       * @param {HTMLElement} el
+       */
+      checkRouteMatch(el) {
+        let r = this.$router.route[this.routeName];
+        let href = el.getAttribute("href");
+        if (!href || !r) return;
 
-				let parsed = this.$router.parse(href);
-				let parsedRoute = parsed[this.routeName];
-				if(this.routeName=='area1')
-					console.log(`check route match1111111111`, href,this.routeName,parsed,r,el);
+        try {
+          let parsed = this.$router.parse(href);
+          let parsedRoute = parsed[this.routeName];
 
-				if (!parsedRoute) return false;
+          if (!parsedRoute) throw Error("not match route");
 
-				if (parsedRoute.tag && parsedRoute.tag != r.tag) return;
-				// 比对路由参数
-				for (let key of Object.keys(parsedRoute.attrs)) {
-					if (parsedRoute.attrs[key] != r.attrs[key]) {
-						return;
-					}
-				}
-				console.log(`check route match`, this.routeName,r,el);
-				el.setAttribute("checked", "1");
-				this.$emit("click", el);
-			}
-			onSlotChange() {
-				let r = this.$router.route[this.routeName];
-				// 为匹配的子项设置 checked 属性
-				this.$id.slot?.assignedElements()?.forEach((item) => {
-					this.checkRouteMatch(item);
-					item.querySelectorAll("[href]").forEach((item) => {
-						this.checkRouteMatch(item);
-					});
-				});
-			}
+          if (parsedRoute.tag && parsedRoute.tag != r.tag) throw Error("not match tag");
+          // 比对路由参数
+          for (let key of Object.keys(parsedRoute.attrs)) {
+            if (parsedRoute.attrs[key] != r.attrs[key]) throw Error("not match attrs");
+          }
+          console.log(`check route match`, this.routeName, r, el);
+        //   el.setAttribute("checked", "1");
+          // this.$emit("click", el);
+        } catch (e) {
+          el.removeAttribute("checked");
+        //   this.$log(e.message);
+        }
+      }
+      onSlotChange() {
+        let r = this.$router.route[this.routeName];
+        // 为匹配的子项设置 checked 属性
+        this.$id.slot?.assignedElements()?.forEach((item) => {
+          this.checkRouteMatch(item);
+          item.querySelectorAll("[href]").forEach((item) => {
+            this.checkRouteMatch(item);
+          });
+        });
+      }
 
-			onClick(ev) {
-				console.log(ev.target);
-				const href = ev.target.getAttribute("href");
+      onClick(ev) {
+        console.log(ev.target);
+        const href = ev.target.getAttribute("href");
 
-				if (href) {
-					console.log(`!! ruote go to ${href}`);
-					this.$router.go(href);
-				}
-			}
-		};
-	</script>
+        if (href) {
+          console.log(`!! ruote go to ${href}`);
+          this.$router.go(href);
+        }
+      }
+    };
+  </script>
 </template>
