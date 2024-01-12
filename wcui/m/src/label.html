@@ -1,0 +1,37 @@
+<!-- 
+    显示一个标题, 左侧带有一个颜色条,显示标题信息和icon,右侧显示内容
+ -->
+<template $color="$color.pri">
+    <style>
+        :host {
+            display: flex;
+            white-space: nowrap;            
+            border-radius: 0.2em;
+            outline: 2px solid "$color.l5.a5_";
+            background-color: "$color.a5_";
+            overflow: hidden;
+            align-items: center;
+        }
+        .title {
+            display: flex;
+            gap: 0.5em;
+            padding: 0.1em 0.5em;
+            border-top-right-radius: 0em;
+            border-bottom-right-radius: 1em;
+            border-right: 1px solid "$color";
+            background-color: "$color";
+            min-width: 0.5em;
+        }
+        .content {
+            flex: 1;
+            display: flex;
+            padding: 0.2em 0.5em;
+        }
+    </style>
+    <div class="title">
+        <slot name="title"></slot>
+    </div>
+    <div class="content">
+        <slot></slot>
+    </div>
+</template>

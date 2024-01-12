@@ -1,0 +1,21 @@
+{
+  "name": "@wcui/monaco",
+  "version": "1.0.3",
+  "description": "monaco editor",
+  "main": "index.js",
+  "scripts": {
+    "pub": "cd dist && npm --registry \"https://registry.npmjs.org/\" publish --access public"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/lodash.debounce": "^4.0.9",
+    "esbuild-wasm": "^0.19.11",
+    "lodash.debounce": "^4.0.8",
+    "monaco-editor": "^0.45.0"
+  },
+  "peerDependencies": {
+    "wcex": "^1.9.85"
+  }
+}

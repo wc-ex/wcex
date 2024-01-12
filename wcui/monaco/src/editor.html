@@ -1,0 +1,32 @@
+<!-- 
+  使用自定义加载器, file 参数必选, text 参数可选
+  https://microsoft.github.io/monaco-editor/docs.html#interfaces/editor.IStandaloneEditorConstructionOptions.html
+
+  @get-content 事件，当外部发送该事件时，会将当前编辑器的文本内容发送出去,发送消息为@text,detail为文本内容
+
+-->
+
+<template file="" text="" $options="{}" @layout.stop="onLayout()" @reload="onReload()" @get-content="onEmitContent()">
+  <!-- <meta name="module" pkg="esbuild-wasm" content="lib/browser.min.js" cjs /> -->
+  <meta name="no-import-global-css" />
+  <meta name="module" pkg="lodash.debounce" cjs />
+  <meta name="module" pkg="monaco-editor" content=";"  />
+
+  <!-- 全局加载，因为需要加载字体 -->
+  <link rel="stylesheet" href="@/monaco-editor/min/vs/editor/editor.main.css" />
+  <style>
+    :host {
+      display: block;
+      
+    }
+    #editor {
+      width: 100%;
+      height: 100%;
+      z-index: 9;
+    }
+  </style>
+  <div id="editor" @keydown="onKeydown($ev)" @touchstart="onTouchStart($el,$ev)"  @touchmove.prevent.stop="onTouchMove($el,$ev)"  @touchend="onTouchEnd($ev)"></div>
+  <script src="@/monaco-editor/min/vs/loader.js" amdloader="monaco-editor"></script>
+  <script scope="." src="."></script>
+  
+</template>
