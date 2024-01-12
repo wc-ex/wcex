@@ -3,6 +3,7 @@
 	block.bool="0"
 	disabled.bool="0"
 	flat.bool="0"
+	outline.bool="0"
 	$color="$color.pri"
 	$text-color="$color.textr"
 	vert.bool="0"
@@ -26,9 +27,9 @@
 			--shadow: 1 !important;
 			--grow: 0 !important;
 			--grow-color: rgba(0, 0, 0, 0) !important;
-			--bg-color: "$flat?'transparent':color";			
+			--bg-color: "$flat?(outline?color.l3.a7_:'transparent'):color";			
 			--bg-color-light: "$flat?color.a9_:color.l1_";
-			--text-color: "$flat?color:textColor";
+			--text-color: "$flat?color.l5:textColor";
 			--color-pos: "$flat?'30%':'40%'";
 
 			display: "$block?'flex':'inline-flex'";
@@ -39,6 +40,7 @@
 			border-radius: 2px;
 			position: relative;
 			flex-shrink: 0;
+			outline: "$outline?'1.5px dashed '+color.l7.a4_:'none'";
 
 			color: var(--text-color) ;
 			transition: --color-pos 0.5s,--bg-color 0.5s, all 0.3s;

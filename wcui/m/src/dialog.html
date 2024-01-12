@@ -45,6 +45,9 @@
             flex: 1;
             display: flex;
             padding: 0.5em;
+            overflow-y: auto;
+            max-height: 12em;
+
         }
         .content>.icon{
             align-self: center;
@@ -52,9 +55,7 @@
         .content>.message{
             padding: 0.5em;
             text-indent: 2em;
-            overflow-y: auto;
             align-self: stretch;
-            max-height: 12em;
             line-height: 1.5em;
             flex: 1;
         }
@@ -77,12 +78,16 @@
             <wcui-m.icon $color="$root.textColor"  $pkg="options.icon.pkg" $type="options.icon.type" $icon="options.icon.icon"></wcui-m.icon>
             <h5 $>options.title</h5>
         </div>
+
         <div class="content">            
-            <wcui-m.icon  class="icon" size="4" $color="$root.color.l3" $pkg="options.icon.pkg" $type="options.icon.type" $icon="options.icon.icon"></wcui-m.icon>
+            <wcui-m.icon $if="!options.noIcon"  class="icon" size="4" $color="$root.color.l3" $pkg="options.icon.pkg" $type="options.icon.type" $icon="options.icon.icon"></wcui-m.icon>
             <div class="message" $if="options.message" $>options.message</div>
             <!-- 输入框 -->
             <div id="inputs" $if="options.inputs">
                 <wcui-m.input class="input" $for(v,k)="options.inputs" $$="v.value" $placeholder="v.placeholder"></wcui-m.input>
+            </div>
+            <div style="flex: 1;display: flex;" $if="options.targetEl || options.targetTag">
+                <div id="target" $if="options.targetTag" $as="options.targetTag" style="flex: 1;"></div>
             </div>
         </div>
         <div class="actions">

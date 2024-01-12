@@ -47,10 +47,11 @@ export function pack(opts: { dir: string; packDir: string, deep: boolean }) {
 	execSync(`pnpm pack --pack-destination ${PACK_DIR}`, { stdio: "inherit", cwd: DIST_DIR });
 
 	// 收集所有依赖
-	if(opts.deep)	deepGetDependencies(Object.keys(pkg.dependencies));
+	// if(opts.deep)	deepGetDependencies(Object.keys(pkg.dependencies));
 
 	// 打包所有依赖
-	for (let d of dependenciesSet) {
+	if(typeof pkg.dependencies != "object") return;
+	for (let d of Object.keys(pkg.dependencies)) {
 		let depPkg = JSON.parse(fs.readFileSync(path.join(PROJECT_DIR, "node_modules", d, "package.json"), "utf8"));
 		console.log("== pack package == :", depPkg.name, depPkg.version);
 		try{

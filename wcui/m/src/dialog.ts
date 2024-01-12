@@ -20,8 +20,10 @@ interface IInputOptions {
 export interface IDialogOptions {
   srcEl?: HTMLElement;
   targetEl?: HTMLElement;
+  targetTag?: string;
   icon: IIconOptions;
   title: string;
+  noIcon?: boolean;
   message?: string;
   color?: any;
   outsideCancle: boolean;
@@ -59,6 +61,7 @@ export default class DlgClass extends Scope {
     };
   }
   onReady(): void {
+
     // 为body添加虚化背景
     document.body.classList.add("blur-bg");
     // 添加监听事件，点击空白处关闭弹窗
@@ -78,6 +81,10 @@ export default class DlgClass extends Scope {
         pre[cur] = this.options.inputs![cur].value;
         return pre;
       }, {} as any);
+    }else if(this.options.targetTag){
+      // 取创建的元素的value
+      values = (this.$id.target as any)?.rootScope?.value
+
     }
     // 触发事件
     this.options.srcEl?.dispatchEvent(new CustomEvent(actionName,{detail: values}));
@@ -106,9 +113,9 @@ WCEX.usePlugins({
      * @param targetEl 自定义对话框内容
      * @param options 对话框配置，可选
      */
-    $dialog(targetEl: HTMLElement, options?: IDialogOptions): void {
+    $dialog( srcEl: HTMLElement,title: string,targetTag:string, options?: IDialogOptions): void {
       let dlg = document.createElement("wcui-m.dialog");
-      (dlg as any).__dlg_options = { targetEl, ...options };
+      (dlg as any).__dlg_options = {srcEl, title, targetTag, ...options };
       document.body.appendChild(dlg);
     },
 
@@ -137,16 +144,19 @@ WCEX.usePlugins({
     ): void {
       console.log("INPUTS!!!-->>", (self as any).$ev);
       let dlg = document.createElement("wcui-m.dialog");
-      if (!inputs)
-        inputs = {
+      if (!inputs) inputs = {
           value: {
             type: "text",
             placeholder: "请输入",
             value: "",
           },
         };
+      let defaultIcon = options?.icon || {    pkg: "@material-design-icons/svg",
+      type: "filled",
+      icon: "edit_note",
+  };
 
-      (dlg as any).__dlg_options = { srcEl, title, inputs, ...options };
+      (dlg as any).__dlg_options = { srcEl, title, inputs,icon:defaultIcon, ...options };
       document.body.appendChild(dlg);
     },
     $loading(options: IDialogOptions, onOk?: () => void): void {},

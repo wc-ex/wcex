@@ -74,11 +74,18 @@
             transform: rotate(90deg);
             transition: transform 0.3s;
         }
+        .content{
+            flex: 1;
+            min-height: 6em;
+            max-height: 12em;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
 
     </style>
 
     <div class="header" $closed="0">
-        <wcui-m.icon class="close-icon" @click="closed=!closed"  active slot="icon" size="2" pkg="@material-design-icons/svg" type="filled" icon="chevron_right"></wcui-m.icon>
+        <wcui-m.icon class="close-icon" @click="closed=!closed;$emit('change')"  active slot="icon" size="2" pkg="@material-design-icons/svg" type="filled" icon="chevron_right"></wcui-m.icon>
 
         <slot name="icon"></slot>
         <div class="title">
@@ -88,9 +95,9 @@
         <div style="flex: 1;"></div>
         <slot name="action"></slot>
     </div>
-    <!-- <div class="content"> -->
+    <div class="content">
         <slot></slot>
-    <!-- </div> -->
+    </div>
 
 
 </template>

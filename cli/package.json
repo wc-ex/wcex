@@ -1,6 +1,6 @@
 {
   "name": "@wcex/cli",
-  "version": "1.9.35",
+  "version": "1.9.38",
   "description": "wcex command tools, please global install package ",
   "main": "src/index.js",
   "bin": {
