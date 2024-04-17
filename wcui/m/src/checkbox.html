@@ -1,0 +1,38 @@
+<!-- 可选框 -->
+<template checked.bool="0" size="1" $color="$color.pri">
+    <style>
+        :host {
+            display: inline-flex;
+            gap: 0.2em;
+            padding-left: 0.5em;
+            padding-right: 0.5em;
+            align-items: center;
+            /* background-color: red; */
+        }
+
+        .box {
+            transition: all 0.3s;
+            --grow: "$checked?5:2";
+            --grow-color: "$color";
+            width: ":${size}em";
+            height: ":${size}em";
+            border-radius: 2px;
+            font-weight: 900 !important;
+            color: "$checked?'white':$color";
+            background-color: "$checked?color:'transparent'";
+            padding: 0.2em;
+        }
+        .label{
+            transition: all 0.3s;
+            border-bottom: 1px solid "$color.a5_";
+            border-end-start-radius: "$checked?'0.5em':'0'";
+            padding-left: 0.1em;
+            padding-right: 0.1em;
+        }
+    </style>
+    <div class="label" :style="font-weight: ${checked?700:300} !important;">
+        <slot></slot>
+    </div>
+    <div :class="box grow" @click="checked=!checked;$emit('change')" $>checked?'✓':''</div>
+
+</template>
