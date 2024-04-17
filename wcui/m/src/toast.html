@@ -21,13 +21,12 @@
             padding: 0.2em 0.5em;
             border-radius: 0.2em;
             transition: all 0.3s;
-            color: "$$color.text";
-            outline: 1px solid "$$color.text.a3_";
-            border-left: 0.4em solid "$$color.text.a5_";
+            color: "$$color.textr";
+            outline: 2px solid "$$color.textr.a2_";           
         }
     </style>
 
-    <div $for(v,k)="toastList" class="item shadow" :style="--bg-color:${($color[v.type]||$color.pria).a2_}"   $>v.message</div>
+    <div $for(v,k)="toastList" class="item shadow" :style="--bg-color:${typeColor(v.type)}; border-left: 0.5em solid ${typeColor(v.type).l5_};"   $>v.message</div>
 
     <script scope="." src="."></script>
 </template>

@@ -17,14 +17,18 @@
       background-color: transparent;
       transition: background-color 0.3s;
     }
+    ::slotted(*:nth-of-type(odd)) {
+      background-color: "$$color.bg.a7_";
+    }
+
     ::slotted([checked]) {
-      background-color: "$$color.pri.a6_";
+      background-color: "$$color.pria.a6_";
     }
     ::slotted(:hover) {
-      background-color: "$$color.pri.a5_";
+      background-color: "$$color.pria.a5_";
     }
     ::slotted(:focus), ::slotted(:focus-within) {
-      background-color: "$$color.pri.a3_";
+      background-color: "$$color.pria.a3_";
     }
 
 

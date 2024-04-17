@@ -8,7 +8,11 @@
 	$text-color="$color.textr"
 	vert.bool="0"
 	$class="flat?'grow':'shadow'"
+	$checked.bool="0"
+	$checked-color="$color.sec"
+	tabindex="-1"
 >
+	<meta name="scope">
 	<style global>
 		@property --color-pos {
 			syntax: "<length>|<length-percentage>|<percentage>";
@@ -28,9 +32,9 @@
 			--grow: 0 !important;
 			--grow-color: rgba(0, 0, 0, 0) !important;
 			--bg-color: "$flat?(outline?color.l3.a7_:'transparent'):color";			
-			--bg-color-light: "$flat?color.a9_:color.l1_";
+			--bg-color-light: "$flat?(checked?checkedColor:color).l4_:checked?checkedColor:color.l2";
 			--text-color: "$flat?color.l5:textColor";
-			--color-pos: "$flat?'30%':'40%'";
+			--color-pos: "$flat?(checked?'40%':'30%'):'40%'";
 
 			display: "$block?'flex':'inline-flex'";
 			box-sizing: border-box;
@@ -59,7 +63,7 @@
 			--color-pos: 92%;
 			--shadow: 2 !important;
 			--grow: 2 !important;
-			--grow-color: "$color.a3_" !important;
+			--grow-color: "$color.a1_" !important;
 
 		}
 		:host(:active) {

@@ -52,6 +52,9 @@ export default class extends Scope {
     // 删除超时的toast
     this.toastList = this.toastList.filter(t=>t.createAt + 2000 > new Date().getTime());
   }
+  typeColor(typ:string){
+    return ((this.$color[typ] || this.$color.pri) as any).l3.a2
+  }
 }
 
 // 初始化创建全局toast元素

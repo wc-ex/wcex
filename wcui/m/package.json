@@ -1,9 +1,10 @@
 {
   "name": "@wcui/m",
-  "version": "1.0.14",
+  "version": "1.0.19",
   "description": "ui for mobile",
   "main": "index.js",
   "scripts": {
+    "buildapk": "wcex build && cd .\\dist && del E:\\gitRepos\\softCreator\\app\\android\\app\\src\\main\\assets\\packages\\wcui-m-* && pnpm pack --pack-destination E:\\gitRepos\\softCreator\\app\\android\\app\\src\\main\\assets\\packages\\",
     "pub": "cd dist && npm --registry \"https://registry.npmjs.org/\" publish --access public"
   },
   "keywords": [],

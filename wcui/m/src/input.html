@@ -22,7 +22,7 @@
 	value=""
 	tab="0"
 	label=""
-	password.bool="0"
+	label-width.int="0"
 	disabled.bool="0"
 	type="text"
 	icon=""
@@ -40,7 +40,6 @@
 			align-items: center;
 			font-size: 1em;
 			/* transition: all 0.3s; */
-			gap: 1em;
 			color:"$textColor"
 		}
 
@@ -103,6 +102,7 @@
 			/* color: "$$color.text.a5_"; */
 			transform-origin: top left;
 			transform: translateY(0);
+			color: "$color.l3_";
 			/* 不折行 */
 			white-space: nowrap;			
 			box-shadow: inset 0px 0px 2px transparent;
@@ -137,10 +137,17 @@
 		textarea {
 			resize: "$resize?'vertical':'none'";
 		}
+		.prepend{
+			padding-right: 0.5em;
+			min-width: "$labelWidth>0?`${labelWidth}em`:'unset'";
+			text-align: right;
+		}
 	</style>
+	<div class="prepend">
 	<slot name="prepend">
 		<div $>label</div>
 	</slot>
+</div>
 	<div class="input-area">
 		<slot name="icon"></slot>
 		<input
@@ -150,7 +157,8 @@
 			$type="$root.type"
 			$$="$root.value"
 			$disabled="$root.disabled"
-			$accept="$root.accept"0
+			$accept="$root.accept"
+			$password="$root.password"
 			$if="$root.lines<=1"
 		/>
 		<!-- $autofocus="$root.autofocus" -->

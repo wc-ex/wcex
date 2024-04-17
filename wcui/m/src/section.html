@@ -8,7 +8,7 @@
     @slot subtitle 子标题
     @slot action 动作栏插槽
 -->
-<template class="shadow" closeable.bool="0" $color="$color.bg" outline.bool="1">
+<template class="shadow" closeable.bool="0" $color="$color.bg" outline.bool="1" max-height="16" closed.bool="0">
     <style>
         :host {
             display: flex;
@@ -64,10 +64,10 @@
         /* :host>::slotted(*){
             margin: 0.5em 1em;
         } */
-        .header[closed]~*{
+        .header[isclose]~*{
             display: none;
         }
-        .header[closed]>.close-icon{
+        .header[isclose]>.close-icon{
             transform: rotate(0deg);
         }
         .close-icon{
@@ -77,15 +77,19 @@
         .content{
             flex: 1;
             min-height: 6em;
-            max-height: 12em;
+            max-height: "$maxHeight>6?`${maxHeight}em`:'unset'";
             overflow-x: hidden;
             overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5em;
+            padding: 0.5em;
         }
 
     </style>
 
-    <div class="header" $closed="0">
-        <wcui-m.icon class="close-icon" @click="closed=!closed;$emit('change')"  active slot="icon" size="2" pkg="@material-design-icons/svg" type="filled" icon="chevron_right"></wcui-m.icon>
+    <div class="header" $isclose="closed">
+        <wcui-m.icon $if="closeable" class="close-icon" @click="closed=!closed;$emit('change')"  active slot="icon" size="2" pkg="@material-design-icons/svg" type="filled" icon="chevron_right"></wcui-m.icon>
 
         <slot name="icon"></slot>
         <div class="title">

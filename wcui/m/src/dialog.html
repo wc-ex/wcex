@@ -58,6 +58,7 @@
             align-self: stretch;
             line-height: 1.5em;
             flex: 1;
+            white-space: break-spaces;
         }
         .actions{
             display: flex;
@@ -81,7 +82,7 @@
 
         <div class="content">            
             <wcui-m.icon $if="!options.noIcon"  class="icon" size="4" $color="$root.color.l3" $pkg="options.icon.pkg" $type="options.icon.type" $icon="options.icon.icon"></wcui-m.icon>
-            <div class="message" $if="options.message" $>options.message</div>
+            <pre class="message" $if="options.message" $>options.message</pre>
             <!-- 输入框 -->
             <div id="inputs" $if="options.inputs">
                 <wcui-m.input class="input" $for(v,k)="options.inputs" $$="v.value" $placeholder="v.placeholder"></wcui-m.input>
