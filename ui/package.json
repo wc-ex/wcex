@@ -18,22 +18,23 @@
   "author": "zhfjyq@gmail.com",
   "license": "MIT",
   "dependencies": {
-    "@highlightjs/cdn-assets": "^11.8.0",
-    "@material-design-icons/svg": "^0.14.9",
-    "dayjs": "^1.11.9",
-    "esbuild-wasm": "^0.18.18",
-    "highlight.js": "^11.8.0",
+    "@highlightjs/cdn-assets": "^11.11.1",
+    "@material-design-icons/svg": "^0.14.15",
+    "dayjs": "^1.11.13",
+    "esbuild-wasm": "^0.25.4",
+    "highlight.js": "^11.11.1",
     "lodash.debounce": "^4.0.8",
     "lodash.throttle": "^4.1.1",
-    "marked": "^5.1.0",
-    "moment": "^2.29.4",
-    "monaco-editor": "^0.39.0",
-    "wcex": "1.9.52"
+    "marked": "^15.0.11",
+    "marked-highlight": "^2.2.1",
+    "moment": "^2.30.1",
+    "monaco-editor": "^0.52.2",
+    "wcex": "1.10.3"
   },
   "devDependencies": {
-    "@types/lodash.debounce": "^4.0.7",
-    "@types/lodash.throttle": "^4.1.7",
-    "@types/marked": "^5.0.0",
-    "@types/ws": "^8.5.5"
+    "@types/lodash.debounce": "^4.0.9",
+    "@types/lodash.throttle": "^4.1.9",
+    "@types/marked": "^6.0.0",
+    "@types/ws": "^8.18.1"
   }
 }

@@ -1,9 +1,18 @@
-import { marked } from "marked";
+import { Marked  } from "marked";
 // @ts-ignore
 import * as hljs from "@highlightjs/cdn-assets";
-
+import { markedHighlight } from "marked-highlight";
 import { Scope } from "wcex";
-
+const marked = new Marked(
+  markedHighlight({
+	emptyLangClass: 'hljs',
+    langPrefix: 'hljs language-',
+    highlight(code, lang, info) {
+      const language = hljs.getLanguage(lang) ? lang : 'plaintext';
+      return hljs.highlight(code, { language }).value;
+    }
+  })
+);
 export default class extends Scope {
   hljs: any;
   src = "";
@@ -12,42 +21,43 @@ export default class extends Scope {
   // hljs={} as any
   onReady(): void {
     let self = this;
-    marked.setOptions({
-      baseUrl: (this as any).$npm,
-      highlight: (code, lang, callback) => {
-        let html = hljs.highlight(code, { language: lang || "text" }).value;
-        return html;
-      },
-    });
+    console.log("-----markedHighlight",markedHighlight)
+    // marked.setOptions({
+    //   baseUrl: (this as any).$npm,
+    //   highlight: (code, lang, callback) => {
+    //     let html = hljs.highlight(code, { language: lang || "text" }).value;
+    //     return html;
+    //   },
+    // });
     
     marked.use({
       renderer: {
         html(html) {
           // 为svg 文件处理路径
-          let m = html.match(/(.*<svg .* src=")(.*)(" .*>[\s\S]*<\/svg>.*)/);
+          let m = html.text.match(/(.*<svg .* src=")(.*)(" .*>[\s\S]*<\/svg>.*)/);
           if (m && m.length == 4) {
             if (m[2].startsWith('@/')) {
               return m[1] + self.$path(m[2]) + m[3];
             }
           }
-          return html;
+          return html.text;
         },
 
-        image(href: string, title: string, text: string) {
-          let m = href.match(/^(.+?)\{(.*)\}$/)!;
+        image(img) {
+          let m = img.href.match(/^(.+?)\{(.*)\}$/)!;
           let url = "";
           let sty = "";
           if (m && m.length == 3) {
             url = self.$path(m[1]);
             sty = m[2];
           } else {
-            url = self.$path(href);
+            url = self.$path(img.href);
           }
 
           if (url.endsWith('.svg')) {
-            return `<p align="center"> <svg src="${url}" alt="${text}" style="${sty}"></svg> </p>`;
+            return `<p align="center"> <svg src="${url}" alt="${img.text}" style="${sty}"></svg> </p>`;
           } else {
-            return `<p align="center"> <img src="${url}" alt="${text}" style="${sty}"> </p>`;
+            return `<p align="center"> <img src="${url}" alt="${img.text}" style="${sty}"> </p>`;
           }
         },
       },
@@ -71,7 +81,7 @@ export default class extends Scope {
     }
 
     if (text) {
-      let html = marked.parse(text.replace(/\r\n/g, "\n")) || "";
+      let html = await marked.parse(text.replace(/\r\n/g, "\n")) || "";
       this.$id.md.innerHTML = html;
       this.$id.content.scrollTo(0, 0);
 

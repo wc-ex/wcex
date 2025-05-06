@@ -1,5 +1,16 @@
-<!-- 用于全局注入样式 -->
+<!-- 顶层窗口和预加载对象和插件 -->
 <template id="ui" :class="" @blur-bg.stop="$root.class=$ev.detail?'blur-bg':'';" >
+  <style>
+    :host{
+      position: fixed;
+      width: 0;
+      height: 0;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+    }
+  </style>
+
   <meta name="scope" aa.int="8"/>
   <!-- <link rel="stylesheet" href="./css/shadow-global.css" global /> -->
   <link rel="stylesheet" href="./css/shadow.css" global="import" />
@@ -7,8 +18,10 @@
 
   <link rel="stylesheet" href="./ui.css" global="import" />
   
+  <dev-></dev->
   <pop- ></pop->
   <side-></side->
+  <dialog- !sync></dialog->
 
   <!-- 加载开发者工具 -->
   <script scope="." src=".">  </script>
