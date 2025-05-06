@@ -22,7 +22,7 @@ WCEX is an extension library that quickly implements Web Components for fast and
 - **Intuitive Semantics**: WCEX fully implements modern syntax including "if", "for", "$ data binding", "event binding", etc., borrows from *VUE*, and has been simplified and optimized, so you can get started quickly
 - **Real DOM**: Fast and intuitive
 - The word **WCEX** is a bit difficult to pronounce, so let's simplify it and read it as **(/wɛks/)**.
-- ... Refer to the following sections to continue to learn
+- .... Refer to the following sections to continue to learn
 
 ## HTML First
 We want to make it as easy and intuitive to write and use components as a traditional HTML page, so we have designed and implemented a number of features, including component scope, component internal data, component internal styles, element local scope, etc., so you can see that WCEX components are developed and used just like writing traditional HTML. We recommend that you use an HTML implementation of the logic first when developing your own components, or inline JavaScript or external Typescript depending on the complexity, and that the above can be mixed.
