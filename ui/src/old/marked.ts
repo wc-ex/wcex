@@ -11,14 +11,14 @@ export default class extends Scope {
   async content(){
     return (await fetch(this.src)).text()
   }
-  updateMarked() {
+  async updateMarked() {
     this.$log('MARKED!!!!!');
     let slot = this.$id.slot as HTMLSlotElement;
     let text = slot
       .assignedNodes()
       .map((n) => n.textContent?.replace(/\\n/g, '\n'))
       .join('\n').trim();
-    let html = marked.parse(text);
+    let html = await marked.parse(text);
     this.$id.mark.innerHTML = html;
   }
 }

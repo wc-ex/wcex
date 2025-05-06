@@ -21,7 +21,7 @@ export default class extends Scope {
   // hljs={} as any
   onReady(): void {
     let self = this;
-    console.log("-----markedHighlight",markedHighlight)
+    // console.log("-----markedHighlight",markedHighlight)
     // marked.setOptions({
     //   baseUrl: (this as any).$npm,
     //   highlight: (code, lang, callback) => {

@@ -6,7 +6,8 @@ import { LANG_NAMES_T } from "./lang";
 import json5 from 'json5';
 
 // return {name,isDir}[]
-const { v4: uuidv4 } = require('uuid');
+// const { v4: uuidv4 } = require('uuid');
+import { v4 as uuidv4 } from 'uuid';
 const KEY = fs.readFileSync(path.join(os.homedir(), "wcex_trans_key.txt"), "utf8").trim();
 console.log("TRANS API KEY: ", KEY);
 let ENDPOINT = "https://api.cognitive.microsofttranslator.com/";
